@@ -17,11 +17,12 @@ import spacy
 spacy.load("packages/da_dacy_large_tft-0.0.0")
 ```
 
-## Performance
+## Performance and Training
 
 The following table show the performance on DaNE when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>
 <div align="center"><img src="img/perf.png"/></div>
 
+Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
 ## Issues and Usage Q&A
 
