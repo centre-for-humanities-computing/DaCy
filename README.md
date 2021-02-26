@@ -28,7 +28,10 @@ The following table show the performance on DaNE when compared to other models. 
 To ask questions, report issues or request features 🤔 , please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy are refered to the SpaCy github or forum.
 
 
-## References
+### Acknowledgements
+This is really an acknowledgment of great open source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and Malte Bertelsen for making it easily available. DaNLP have made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and does a great job of actually developing these datasets.
+
+### References
 
 If you use this library in your research, please kindly cite:
 
