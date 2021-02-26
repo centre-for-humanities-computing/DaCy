@@ -1,0 +1,154 @@
+title: "Train Spacy Transformer for DaNE"
+description: >
+    This project template lets you train a part-of-speech tagger, morphologizer, 
+    dependency parser and named entity recognition using the tagged dataset DaNE 
+    corpus. It takes care of downloading the corpus, converting it to spaCy's 
+    format and training and evaluating the model. The template uses the `BotXO`
+    transformer for Danish downloaded via. Huggingface.
+
+    You can run from til yaml file using
+    spacy project run WORKFLOW/COMMAND
+
+    for instance you might want to run the workflow "all" to run the entire pipeline:
+    spacy project run all
+
+
+# Variables can be referenced across the project.yml using ${vars.var_name}
+vars:
+  config: "config"
+  lang: "da"
+  dataset: "dane"
+  train_name: "dane_train"
+  dev_name: "/dane_dev"
+  test_name: "dane_test"
+  package_name_m: "dacy_medium_tft"
+  package_name_l: "dacy_large_tft"
+  package_version: "0.0.0"
+  gpu: 1
+  spacy_version: ">=3.0.0"
+
+# These are the directories that the project needs. The project CLI will make
+# sure that they always exist.
+directories: ["assets", "corpus", "training", "metrics"]
+
+assets:
+  - dest: "assets/${vars.dataset}"
+    script:
+    - "mkdir -p assets/dane"
+    - "python utils.py" 
+
+workflows:
+  all_medium:
+    - install
+    - fetch_assets
+    - convert
+    - train_dacy_large
+    - evaluate
+    - package_l
+
+  all_large:
+    - install
+    - fetch_assets
+    - convert
+    - train_dacy_medium
+    - evaluate
+    - package_m
+
+commands:
+  - name: install
+    help: "Install dependencies and log in to Weights & Biases"
+    script:
+      - "pip install -r requirements.txt"
+      - "wandb login"
+    deps:
+      - "requirements.txt"
+
+  - name: fetch_assets
+    help: "Download dataset and place it in assets"
+    script:
+      - "mkdir -p assets/dane"
+      - "python utils.py" 
+    outputs:
+      - "assets/${vars.dataset}/${vars.train_name}.conllu"
+      - "assets/${vars.dataset}/${vars.dev_name}.conllu"
+      - "assets/${vars.dataset}/${vars.test_name}.conllu"
+
+  - name: convert
+    help: "Convert the data to spaCy's format"
+    # Make sure we specify the branch in the command string, so that the
+    # caching works correctly.
+    script:
+      - "mkdir -p corpus/dane"
+      - "python -m spacy convert assets/${vars.dataset}/${vars.train_name}.conllu corpus/dane --converter conllu --merge-subtokens -n 10"
+      - "python -m spacy convert assets/${vars.dataset}/${vars.dev_name}.conllu corpus/dane --converter conllu --merge-subtokens -n 10"
+      - "python -m spacy convert assets/${vars.dataset}/${vars.test_name}.conllu corpus/dane --converter conllu --merge-subtokens -n 10"
+      - "mv corpus/${vars.dataset}/${vars.train_name}.spacy corpus/${vars.dataset}/train.spacy"
+      - "mv corpus/${vars.dataset}/${vars.dev_name}.spacy corpus/${vars.dataset}/dev.spacy"
+      - "mv corpus/${vars.dataset}/${vars.test_name}.spacy corpus/${vars.dataset}/test.spacy"
+    deps:
+      - "assets/${vars.dataset}/${vars.train_name}.conllu"
+      - "assets/${vars.dataset}/${vars.dev_name}.conllu"
+      - "assets/${vars.dataset}/${vars.test_name}.conllu"
+    outputs:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "corpus/${vars.dataset}/test.spacy"
+
+  - name: train_dacy_medium
+    help: "Train ${vars.dataset}"
+    script:
+      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+    deps:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "configs/${vars.config}.cfg"
+    outputs:
+      - "training/${vars.dataset}/model-last"
+
+  - name: train_dacy_medium
+    help: "Train ${vars.dataset}"
+    script:
+      - "python -m spacy train configs/${vars.config}_large.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+    deps:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "configs/${vars.config}.cfg"
+    outputs:
+      - "training/${vars.dataset}/model-last"
+
+  - name: evaluate
+    help: "Evaluate on the test data and save the metrics"
+    script:
+      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu}"
+    deps:
+      - "training/${vars.dataset}/model-last"
+      - "corpus/${vars.dataset}/test.spacy"
+    outputs:
+      - "metrics/${vars.dataset}.json"
+
+  - name: package_m
+    help: "Package the trained model so it can be installed"
+    script:
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_m} --version ${vars.package_version} --force"
+    deps:
+      - "training/${vars.dataset}/model-last"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.package_name_m}-${vars.package_version}/dist/en_${vars.package_name_m}-${vars.package_version}.tar.gz"
+
+  - name: package_l
+    help: "Package the trained model so it can be installed"
+    script:
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_l} --version ${vars.package_version} --force"
+    deps:
+      - "training/${vars.dataset}/model-last"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.package_name_l}-${vars.package_version}/dist/en_${vars.package_name_l}-${vars.package_version}.tar.gz"
+
+
+  - name: clean
+    help: "Remove intermediate files"
+    script:
+      - "rm -rf training/*"
+      - "rm -rf metrics/*"
+      - "rm -rf corpus/*"
+
