@@ -105,7 +105,7 @@ commands:
     outputs:
       - "training/${vars.dataset}/model-last"
 
-  - name: train_dacy_medium
+  - name: train_dacy_large
     help: "Train ${vars.dataset}"
     script:
       - "python -m spacy train configs/${vars.config}_large.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
