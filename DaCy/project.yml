@@ -38,7 +38,7 @@ assets:
     - "python utils.py" 
 
 workflows:
-  all_medium:
+  all_large:
     - install
     - fetch_assets
     - convert
@@ -46,7 +46,7 @@ workflows:
     - evaluate
     - package_l
 
-  all_large:
+  all_medium:
     - install
     - fetch_assets
     - convert
