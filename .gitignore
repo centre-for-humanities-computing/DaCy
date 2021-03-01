@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+lookup_tables/female_da.csv
+lookup_tables/male_da.csv

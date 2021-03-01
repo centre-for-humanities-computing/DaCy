@@ -3,10 +3,10 @@
 
 <h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
-DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it have achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy. To download the model use the DaNLP package (request pending), SpaCy (request pending) or downloading the project directly ([link coming](missing)).
+DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy. To download the models use the DaNLP package (request pending), SpaCy ([request pending](https://github.com/explosion/spaCy/issues/7221)) or downloading the project directly [here](https://filesender.deic.dk/simplesaml/module.php/core/as_login.php?AuthId=default-sp&ReturnTo=https%3A%2F%2Ffilesender.deic.dk%2Findex.php%3Fs%3Dtransfers%23transfer_35131).
 
 ## Reproduction
-the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also include the evaluation metrics on DaNE.
+the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE.
 
 ## Usage
 
@@ -25,11 +25,11 @@ The following table show the performance on DaNE when compared to other models. 
 
 ## Issues and Usage Q&A
 
-To ask questions, report issues or request features 🤔 , please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy are refered to the SpaCy github or forum.
+To ask questions, report issues or request features 🤔 , please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy is referred to the SpaCy GitHub or forum.
 
 
 ### Acknowledgements
-This is really an acknowledgment of great open source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and Malte Bertelsen for making it easily available. DaNLP have made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and does a great job of actually developing these datasets.
+This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and Malte Bertelsen for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and does a great job of actually developing these datasets.
 
 ### References
 
@@ -45,4 +45,4 @@ If you use this library in your research, please kindly cite:
 
 ## LICENSE
 
-DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.
+DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.ent_dict
