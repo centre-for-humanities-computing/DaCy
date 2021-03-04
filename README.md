@@ -15,7 +15,6 @@ To load in the project using the direct download simple place the downloaded "pa
 ```python
 import spacy
 nlp = spacy.load("da_dacy_large_tft-0.0.0")
-
 ```
 
 More explicitly from the unpacked folder it is:
@@ -34,6 +33,15 @@ pipe = lemmy.pipe.load('da')
 # Add the component to the spaCy pipeline.
 nlp.add_pipe(pipe, after='tagger')
 
+# Lemmas can now be accessed using the `._.lemmas` attribute on the tokens.
+nlp("akvariernes")[0]._.lemmas
+```
+
+This requires you install the package beforehand, this is done easily using:
+
+```
+pip install lemmy
+```
 
 ## Performance and Training
 
