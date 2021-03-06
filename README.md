@@ -3,6 +3,11 @@
 
 <h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
+[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.0-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![python versions](https://img.shields.io/badge/SpaCy-%3E=3.0.0-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![Code style: flake8](https://img.shields.io/badge/Code%20Style-flake8-greem)](https://pypi.org/project/flake8/)
+
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy. To download the models use the DaNLP package (request pending), SpaCy ([request pending](https://github.com/explosion/spaCy/issues/7221)) or downloading the project directly [here](https://filesender.deic.dk/?s=download&token=b993e12c-0a75-880a-86d5-53d2c70b201c).
 
 ## Reproduction
