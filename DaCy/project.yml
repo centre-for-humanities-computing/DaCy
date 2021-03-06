@@ -38,7 +38,7 @@ assets:
     - "python utils.py" 
 
 workflows:
-  all_medium:
+  all_large:
     - install
     - fetch_assets
     - convert
@@ -46,7 +46,7 @@ workflows:
     - evaluate
     - package_l
 
-  all_large:
+  all_medium:
     - install
     - fetch_assets
     - convert
@@ -105,7 +105,7 @@ commands:
     outputs:
       - "training/${vars.dataset}/model-last"
 
-  - name: train_dacy_medium
+  - name: train_dacy_large
     help: "Train ${vars.dataset}"
     script:
       - "python -m spacy train configs/${vars.config}_large.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"

@@ -19,7 +19,33 @@ To load in the project using the direct download simple place the downloaded "pa
 
 ```python
 import spacy
-spacy.load("packages/da_dacy_large_tft-0.0.0")
+nlp = spacy.load("da_dacy_large_tft-0.0.0")
+```
+
+More explicitly from the unpacked folder it is:
+```
+nlp = spacy.load("da_dacy_large_tft-0.0.0/da_dacy_large_tft/da_dacy_large_tft-0.0.0")
+```
+Thus if you get an error you might be loading from the outer folder called `da_dacy_large_tft-0.0.0` rather than the inner.
+
+To obtains SOTA performance in lemmatization as well you should add [this lemmatization](https://github.com/sorenlind/lemmy) pipeline as well:
+
+```python
+import lemmy.pipe
+
+pipe = lemmy.pipe.load('da')
+
+# Add the component to the spaCy pipeline.
+nlp.add_pipe(pipe, after='tagger')
+
+# Lemmas can now be accessed using the `._.lemmas` attribute on the tokens.
+nlp("akvariernes")[0]._.lemmas
+```
+
+This requires you install the package beforehand, this is done easily using:
+
+```
+pip install lemmy
 ```
 
 ## Performance and Training
