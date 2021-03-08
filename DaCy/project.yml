@@ -6,7 +6,7 @@ description: >
     format and training and evaluating the model. The template uses the `BotXO`
     transformer for Danish downloaded via. Huggingface.
 
-    You can run from til yaml file using
+    You can run from yaml file using
     spacy project run WORKFLOW/COMMAND
 
     for instance you might want to run the workflow "all" to run the entire pipeline:
@@ -15,7 +15,6 @@ description: >
 
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
-  config: "config"
   lang: "da"
   dataset: "dane"
   train_name: "dane_train"
@@ -101,7 +100,7 @@ commands:
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
-      - "configs/${vars.config}.cfg"
+      - "configs/${vars.config}_medium.cfg"
     outputs:
       - "training/${vars.dataset}/model-last"
 
@@ -112,7 +111,7 @@ commands:
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
-      - "configs/${vars.config}.cfg"
+      - "configs/${vars.config}_large.cfg"
     outputs:
       - "training/${vars.dataset}/model-last"
 
