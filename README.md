@@ -13,6 +13,8 @@ DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing
 ## Reproduction
 the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE.
 
+For further instructions on this look up the project file `DaCy/project.yml`.
+
 ## Usage
 
 To load in the project using the direct download simple place the downloaded "packages" folder in your directory load the model using SpaCy:
