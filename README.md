@@ -7,7 +7,7 @@
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![python versions](https://img.shields.io/badge/SpaCy-%3E=3.0.0-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Code style: flake8](https://img.shields.io/badge/Code%20Style-flake8-greem)](https://pypi.org/project/flake8/)
-[![DaCy: Download](https://img.shields.io/badge/Download%20Status-online-green)](https://sciencedata.dk/shared/0e5d0b97fbead07d1f2ba7c3cbea03eb)
+[![DaCy: Download](https://img.shields.io/badge/Download%20Status-online-greem)](https://sciencedata.dk/shared/0e5d0b97fbead07d1f2ba7c3cbea03eb)
 
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy. To download the models use the DaNLP package (request pending), SpaCy ([request pending](https://github.com/explosion/spaCy/issues/7221)) or downloading the project directly [here](https://sciencedata.dk/shared/0e5d0b97fbead07d1f2ba7c3cbea03eb).
