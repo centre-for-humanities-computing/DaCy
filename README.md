@@ -3,10 +3,11 @@
 
 <h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
-[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.0-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.0-green)](https://github.com/KennethEnevoldsen/DaCy)
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
-[![python versions](https://img.shields.io/badge/SpaCy-%3E=3.0.0-blue)](https://github.com/KennethEnevoldsen/DaCy)
-[![Code style: flake8](https://img.shields.io/badge/Code%20Style-flake8-greem)](https://pypi.org/project/flake8/)
+[![spacy versions](https://img.shields.io/badge/SpaCy-%3E=3.0.0-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy. To download the models use the DaNLP package (request pending), SpaCy ([request pending](https://github.com/explosion/spaCy/issues/7221)) or downloading the project directly [here](https://sciencedata.dk/shared/0e5d0b97fbead07d1f2ba7c3cbea03eb).
 
@@ -30,6 +31,7 @@ nlp = spacy.load("da_dacy_large_tft-0.0.0/da_dacy_large_tft/da_dacy_large_tft-0.
 ```
 Thus if you get an error you might be loading from the outer folder called `da_dacy_large_tft-0.0.0` rather than the inner.
 
+### Lemmatization
 To obtains SOTA performance in lemmatization as well you should add [this lemmatization](https://github.com/sorenlind/lemmy) pipeline as well:
 
 ```python
@@ -49,6 +51,8 @@ This requires you install the package beforehand, this is done easily using:
 ```
 pip install lemmy
 ```
+
+Note: that pipeline haven't yet been adapted to spacy v3 as of the time of writing.
 
 ## Performance and Training
 
