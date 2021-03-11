@@ -1,22 +1,43 @@
-
 import os
-import requests
-
+from pathlib import Path
 import urllib.request
 
 from tqdm import tqdm
 
-url = 'https://sciencedata.dk/themes/deic_theme_oc7/apps/files_sharing/public.php?service=files&t=0e5d0b97fbead07d1f2ba7c3cbea03eb&path=%2FDaCy&files=da_dacy_medium_tft-0.0.0.tar.gz&download&g='
+DEFAULT_CACHE_DIR = os.path.join(str(Path.home()), ".dacy")
 
 
-save_path = "/Users/au561649/Desktop/"
-target_path = 'da_dacy_medium_tft-0.0.0.tar.gz'
+dacy_medium_000 = "blank"
+dacy_large_000 = "blank"
 
-target_path = os.path.join(save_path, target_path)
 
-import spacy
-model = spacy.load("en_core_web_sm")
-model._path
+models_url = {
+    "dacy_medium_tft-0.0.0": dacy_medium_000,
+    "dacy_large_tft-0.0.0": dacy_large_000,
+}
+
+
+def dacy_models():
+    print("DaCy include the following models:")
+    for i in models_url.keys():
+        print("\t-", i)
+
+
+def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
+    """
+    model (str): either "dacy_medium_tft-0.0.0" or "dacy_large_tft-0.0.0"
+    """
+    if model not in models_url:
+        raise ValueError(
+            "The model is not available in DaCy. Please use dacy_models() to see a list of all models"
+        )
+    url = models_url[model]
+    path = os.path.join(save_path, model)
+    if os.path.exists(path):
+        return True
+    download_url(url, path)
+    return True
+
 
 class DownloadProgressBar(tqdm):
     def update_to(self, b=1, bsize=1, tsize=None):
@@ -26,9 +47,8 @@ class DownloadProgressBar(tqdm):
 
 
 def download_url(url, output_path):
-    with DownloadProgressBar(unit='B', unit_scale=True,
-                             miniters=1, desc=url.split('/')[-1]) as t:
+    Path(output_path).mkdir(parents=True, exist_ok=True)
+    with DownloadProgressBar(
+        unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
+    ) as t:
         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
-
-
-download_url(url, target_path)
