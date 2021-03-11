@@ -1,4 +1,5 @@
 import os
+import shutil
 from pathlib import Path
 import urllib.request
 
@@ -17,15 +18,20 @@ models_url = {
 }
 
 
-def dacy_models():
-    print("DaCy include the following models:")
-    for i in models_url.keys():
-        print("\t-", i)
+def models():
+    return list(models_url.keys())
 
+
+def where_is_my_dacy():
+    return DEFAULT_CACHE_DIR
+
+def extract_all(archives, extract_path):
+    for filename in archives:
+        shutil.unpack_archive(filename, extract_path)
 
 def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
     """
-    model (str): either "dacy_medium_tft-0.0.0" or "dacy_large_tft-0.0.0"
+    model (str): use models() to see all available models
     """
     if model not in models_url:
         raise ValueError(
@@ -33,9 +39,12 @@ def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
         )
     url = models_url[model]
     path = os.path.join(save_path, model)
+    dl_path = os.path.join(save_path, "tmp.tar.gz")
     if os.path.exists(path):
         return True
-    download_url(url, path)
+    download_url(url, dl_path)
+    shutil.unpack_archive(dl_path, save_path)
+    
     return True
 
 

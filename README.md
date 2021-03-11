@@ -9,28 +9,44 @@
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
 
 
-DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy. To download the models use the DaNLP package (request pending), SpaCy ([request pending](https://github.com/explosion/spaCy/issues/7221)) or downloading the project directly [here](https://sciencedata.dk/shared/0e5d0b97fbead07d1f2ba7c3cbea03eb).
+DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models.
 
-## Reproduction
-the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE.
+# 🔧 Installation
+it currently only possible to download DaCy directly from GitHub, however this can be done quite easily using:
+```bash
+pip install git+https://github.com/KennethEnevoldsen/DaCy
+```
 
-For further instructions on this look up the project file `DaCy_training/project.yml`.
-
-## Usage
-
-To load in the project using the direct download simple place the downloaded "packages" folder in your directory load the model using SpaCy:
+# 👩‍💻 Usage
+To use the model you first have to download either the `medium` or `large` model. To see a list of all available models:
 
 ```python
-import spacy
-nlp = spacy.load("da_dacy_large_tft-0.0.0")
+import dacy
+for model in dacy.models():
+    print(model)
+# dacy_medium_tft-0.0.0
+# dacy_large_tft-0.0.0
 ```
 
-More explicitly from the unpacked folder it is:
+To download and load a model simply execute:
+```python
+nlp = dacy.load_model("dacy_medium_tft-0.0.0")
 ```
-nlp = spacy.load("da_dacy_large_tft-0.0.0/da_dacy_large_tft/da_dacy_large_tft-0.0.0")
-```
-Thus if you get an error you might be loading from the outer folder called `da_dacy_large_tft-0.0.0` rather than the inner.
 
+Which will download the model to the `.dacy` directory in your home directory. To figure out where this you can always use:
+
+```python
+where_is_my_dacy()
+```
+which for __me__ will return `'/Users/kenneth/.dacy'`. 
+
+To download the model to a specific directory:
+```python
+dacy.download_model("dacy_medium_tft-0.0.0", your_save_path)
+nlp = dacy.load_model("dacy_medium_tft-0.0.0", your_save_path)
+```
+
+<!--
 ### Lemmatization
 To obtains SOTA performance in lemmatization as well you should add [this lemmatization](https://github.com/sorenlind/lemmy) pipeline as well:
 
@@ -53,21 +69,28 @@ pip install lemmy
 ```
 
 Note: that pipeline haven't yet been adapted to spacy v3 as of the time of writing.
+-->
 
-## Performance and Training
+
+# 🦾 Performance and Training
 
 The following table show the performance on DaNE when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>
 <div align="center"><img src="img/perf.png"/></div>
 
 Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
-## Issues and Usage Q&A
+## Reproduction
+the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE.
 
-To ask questions, report issues or request features 🤔 , please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy is referred to the SpaCy GitHub or forum.
+For further instructions on this look up the project file `DaCy_training/project.yml`.
 
+
+# 🤔 Issues and Usage Q&A
+
+To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.
 
 ### Acknowledgements
-This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and Malte Bertelsen for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and does a great job of actually developing these datasets.
+This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and Malte Bertelsen for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
 
 ### References
 
@@ -81,6 +104,6 @@ If you use this library in your research, please kindly cite:
 }
 ```
 
-## LICENSE
+#           ## LICENSE
 
 DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.
