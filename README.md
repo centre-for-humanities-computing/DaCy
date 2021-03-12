@@ -30,7 +30,7 @@ for model in dacy.models():
 
 To download and load a model simply execute:
 ```python
-nlp = dacy.load_model("dacy_medium_tft-0.0.0")
+nlp = dacy.load("dacy_medium_tft-0.0.0")
 ```
 
 Which will download the model to the `.dacy` directory in your home directory. To figure out where this you can always use:

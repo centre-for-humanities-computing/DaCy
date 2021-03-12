@@ -4,7 +4,7 @@ import spacy
 
 from .download import download_model, DEFAULT_CACHE_DIR
 
-def load_model(model, path=DEFAULT_CACHE_DIR):
+def load(model, path=DEFAULT_CACHE_DIR):
     """
     model (str): use models() to see all available models
     """
