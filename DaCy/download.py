@@ -8,8 +8,8 @@ from tqdm import tqdm
 DEFAULT_CACHE_DIR = os.path.join(str(Path.home()), ".dacy")
 
 
-dacy_medium_000 = "blank"
-dacy_large_000 = "blank"
+dacy_medium_000 = "https://sciencedata.dk/themes/deic_theme_oc7/apps/files/ajax/download.php?dir=%2FDaCy&files=da_dacy_medium_tft-0.0.0.zip&id=8731801"
+dacy_large_000 = "https://sciencedata.dk/themes/deic_theme_oc7/apps/files/ajax/download.php?dir=%2FDaCy&files=da_dacy_large_tft-0.0.0.zip&id=8731800"
 
 
 models_url = {
