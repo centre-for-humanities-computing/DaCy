@@ -50,7 +50,7 @@ DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebo
 
 | Tutorial                                                                                                  | Content                                                                                                              | file name                 |
 | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| [Introduction](https://github.com/KennethEnevoldsen/dacy/blob/master/tutorials/dacy-spacy-tutorial.ipynb) | a simple introduction to SpaCy and DaCy. For a more detailed instruction I recommend the course by SpaCy themselves. | dacy-spacy-tutorial.ipynb |
+| [Introduction](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb) | a simple introduction to SpaCy and DaCy. For a more detailed instruction I recommend the course by SpaCy themselves. | dacy-spacy-tutorial.ipynb |
 
 
 
@@ -97,10 +97,10 @@ For further instructions on this look up the project file `DaCy_training/project
 
 To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.
 
-### Acknowledgements
+## Acknowledgements
 This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and Malte Bertelsen for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
 
-### References
+## References
 
 If you use this library in your research, please kindly cite:
 
@@ -112,6 +112,6 @@ If you use this library in your research, please kindly cite:
 }
 ```
 
-### LICENSE
+## License
 
 DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.
