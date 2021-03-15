@@ -46,6 +46,14 @@ dacy.download_model("da_dacy_medium_tft-0.0.0", your_save_path)
 nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
 ```
 
+DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
+
+| Tutorial                                                                                                  | Content                                                                                                              | file name                 |
+| --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| [Introduction](https://github.com/KennethEnevoldsen/dacy/blob/master/tutorials/dacy-spacy-tutorial.ipynb) | a simple introduction to SpaCy and DaCy. For a more detailed instruction I recommend the course by SpaCy themselves. | dacy-spacy-tutorial.ipynb |
+
+
+
 <!--
 ### Lemmatization
 To obtains SOTA performance in lemmatization as well you should add [this lemmatization](https://github.com/sorenlind/lemmy) pipeline as well:
@@ -104,6 +112,6 @@ If you use this library in your research, please kindly cite:
 }
 ```
 
-#           ## LICENSE
+### LICENSE
 
 DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.

@@ -129,3 +129,7 @@ dmypy.json
 .pyre/
 lookup_tables/female_da.csv
 lookup_tables/male_da.csv
+
+# Removing data
+data
+.DS_store
