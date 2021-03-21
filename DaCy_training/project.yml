@@ -20,8 +20,11 @@ vars:
   train_name: "dane_train"
   dev_name: "/dane_dev"
   test_name: "dane_test"
-  package_name_m: "dacy_medium_tft"
-  package_name_l: "dacy_large_tft"
+  package_name_medium: "dacy_medium_tft"
+  package_name_large: "dacy_large_tft"
+  package_name_conv_small: "dacy_conv_small_tft"
+  package_name_ælæctra_small: "dacy_ælæctra_small_tft"
+  package_name_electra_small: "dacy_electra_small_tft"
   package_version: "0.0.0"
   gpu: 1
   spacy_version: ">=3.0.0"
@@ -43,7 +46,7 @@ workflows:
     - convert
     - train_dacy_large
     - evaluate
-    - package_l
+    - package_large
 
   all_medium:
     - install
@@ -51,7 +54,31 @@ workflows:
     - convert
     - train_dacy_medium
     - evaluate
-    - package_m
+    - package_medium
+
+  all_conv_small:
+    - install
+    - fetch_assets
+    - convert
+    - train_dacy_conv_small
+    - evaluate
+    - package_conv_small
+
+  all_ælæctra_small:
+    - install
+    - fetch_assets
+    - convert
+    - train_dacy_ælæctra_small
+    - evaluate
+    - package_ælæctra_small
+
+  all_electra_small:
+    - install
+    - fetch_assets
+    - convert
+    - train_dacy_ælæctra_small
+    - evaluate
+    - package_ælæctra_small
 
 commands:
   - name: install
@@ -115,6 +142,39 @@ commands:
     outputs:
       - "training/${vars.dataset}/model-last"
 
+  - name: train_dacy_conv_small
+    help: "Train ${vars.dataset}"
+    script:
+      - "python -m spacy train configs/${vars.config}_conv_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+    deps:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "configs/${vars.config}_conv_small.cfg"
+    outputs:
+      - "training/${vars.dataset}/model-last"
+
+  - name: train_dacy_ælæctra_small
+    help: "Train ${vars.dataset}"
+    script:
+      - "python -m spacy train configs/${vars.config}_ælæctra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+    deps:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "configs/${vars.config}_ælæctra_small.cfg"
+    outputs:
+      - "training/${vars.dataset}/model-last"
+
+  - name: train_dacy_electra_small
+    help: "Train ${vars.dataset}"
+    script:
+      - "python -m spacy train configs/${vars.config}_electra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+    deps:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "configs/${vars.config}_electra_small.cfg"
+    outputs:
+      - "training/${vars.dataset}/model-last"
+
   - name: evaluate
     help: "Evaluate on the test data and save the metrics"
     script:
@@ -125,23 +185,50 @@ commands:
     outputs:
       - "metrics/${vars.dataset}.json"
 
-  - name: package_m
+  - name: package_name_medium
     help: "Package the trained model so it can be installed"
     script:
-      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_m} --version ${vars.package_version} --force"
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_medium} --version ${vars.package_version} --force"
     deps:
       - "training/${vars.dataset}/model-last"
     outputs_no_cache:
-      - "packages/${vars.lang}_${vars.package_name_m}-${vars.package_version}/dist/en_${vars.package_name_m}-${vars.package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.package_name_medium}-${vars.package_version}/dist/en_${vars.package_name_medium}-${vars.package_version}.tar.gz"
 
-  - name: package_l
+  - name: package_name_large
     help: "Package the trained model so it can be installed"
     script:
-      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_l} --version ${vars.package_version} --force"
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_large} --version ${vars.package_version} --force"
     deps:
       - "training/${vars.dataset}/model-last"
     outputs_no_cache:
-      - "packages/${vars.lang}_${vars.package_name_l}-${vars.package_version}/dist/en_${vars.package_name_l}-${vars.package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.package_name_large}-${vars.package_version}/dist/en_${vars.package_name_large}-${vars.package_version}.tar.gz"
+
+  - name: package_name_conv_small
+    help: "Package the trained model so it can be installed"
+    script:
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_conv_small} --version ${vars.package_version} --force"
+    deps:
+      - "training/${vars.dataset}/model-last"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.package_name_conv_small}-${vars.package_version}/dist/en_${vars.package_name_conv_small}-${vars.package_version}.tar.gz"
+
+  - name: package_name_ælæctra_small
+    help: "Package the trained model so it can be installed"
+    script:
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_ælæctra_small} --version ${vars.package_version} --force"
+    deps:
+      - "training/${vars.dataset}/model-last"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.package_name_ælæctra_small}-${vars.package_version}/dist/en_${vars.package_name_ælæctra_small}-${vars.package_version}.tar.gz"
+
+  - name: package_name_electra_small
+    help: "Package the trained model so it can be installed"
+    script:
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_electra_small} --version ${vars.package_version} --force"
+    deps:
+      - "training/${vars.dataset}/model-last"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.package_name_electra_small}-${vars.package_version}/dist/en_${vars.package_name_electra_small}-${vars.package_version}.tar.gz"
 
 
   - name: clean
