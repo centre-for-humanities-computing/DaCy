@@ -9,7 +9,7 @@
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
 
-DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models.
+DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models.
 
 # 🔧 Installation
 it currently only possible to download DaCy directly from GitHub, however this can be done quite easily using:
@@ -89,10 +89,9 @@ The following table show the performance on DaNE when compared to other models. 
 
 Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
-## Reproduction
-the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE.
+## Training and reproduction
 
-For further instructions on this look up the project file `DaCy_training/project.yml`.
+the folder `DaCy_training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](DaCy/readme.md).
 
 
 # 🤔 Issues and Usage Q&A

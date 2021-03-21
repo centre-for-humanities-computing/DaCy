@@ -134,8 +134,9 @@ data
 *.spacy
 lookup_tables/female_da.csv
 lookup_tables/male_da.csv
-DaCy_training/training
+DaCy_training/training/
 DaCy_training/wandb/
+DaCy_training/packages/
 
 
 # project specific
