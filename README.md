@@ -116,3 +116,16 @@ If you use this library in your research, please kindly cite:
 ## License
 
 DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.
+
+## Contact
+To contact the author feel free to use the application form on my [website](www.kennethenevoldsen.com) or contact me on social media. Please note that for issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues).
+
+[<img align="left" alt="KCEnevoldsen | Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />][twitter]
+[<img align="left" alt="KennethEnevoldsen | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
+
+<br />
+
+</details>
+
+[twitter]: https://twitter.com/KCEnevoldsen
+[linkedin]: https://www.linkedin.com/in/kennethenevoldsen/
