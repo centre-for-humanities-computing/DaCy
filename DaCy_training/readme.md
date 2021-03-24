@@ -3,8 +3,8 @@ This folder contains the resources for training DaCy models. The `configs` folde
 
 The `requirements.txt` includes the requirements for running the projects, note that these are installed using the workflow in the `project.yml` som you are unlikely to need to install these manually (with the exception of spacy).
 
-## Perfomance
-The following table shows the performance on the DaNE dataset of models trained for DaCy. Highest scores are highlighted with **bold** and the second highest is <ins>underlined</ins>. The models which do not have a DaCy name is not included in DaCy as faster and better performing models were available. E.g. while the ConvBert model are fast their don't compare favorably to the Ælæctra Model.
+## Performance
+The following table shows the performance on the DaNE dataset of models trained for DaCy. Highest scores are highlighted with **bold** and the second highest is <ins>underlined</ins>. The models which do not have a DaCy name is not included in DaCy as faster and better performing models were available. E.g. while the ConvBert model are fast their don't compare favourably to the Ælæctra Model.
 
 <div align="center"><img src="img/perf_training.png"/></div>
 
