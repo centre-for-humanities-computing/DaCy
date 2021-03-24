@@ -1,0 +1,41 @@
+---
+title: "model Comparison"
+author: "K. Enevoldsen"
+date: "3/24/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+
+source(utility.R)
+```
+
+```{r extract metrics}
+
+files = list.files("../../DaCy_training/metrics/", full.names = T)
+metrics = files %>% map_df(metrics_from_json)
+```
+
+
+```{r}
+perf = tribble(
+  ~"Framework",           ~Accuracy, ~"Location", ~"Organization", ~"Person", ~"Avg F1" , ~UAS, ~LAS,
+  "BERT",           NA,        83.90,      72.98,       92.82,       84.04,       NA,      NA,
+  "Flair",          97.97,     84.82,      62.95,       93.15,       81.78,       NA,      NA, 
+  "SpaCy (v2)",     96.15,     75.96,      59.57,       87.87,       75.73,       81.36,   77.46,
+  "Stanza",         97.75,     NA,         NA,          NA,          NA,          86.83,   84.19,
+  "Polyglot",       NA,        64.95,      39.3,        78.74,       64.18,       NA,      NA,
+  "NERDA (mBERT)",  NA,        80.75,      65.73,       92.66,       80.66,       NA,      NA,
+  "DaCy medium (in-development)",   97.83,     87.37,      69.88,       91.84,       82.6,        87.82,   85.17
+)
+```
+
+
+```{r}
+
+```
+
+
