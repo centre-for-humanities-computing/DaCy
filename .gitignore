@@ -132,4 +132,7 @@ lookup_tables/male_da.csv
 
 # Removing data
 data
+
+# other
 .DS_store
+.vscode
