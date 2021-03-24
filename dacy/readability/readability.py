@@ -13,3 +13,5 @@ def LIX_getter(doc):
 
     LIX = O / P + L * 100 / O
     return LIX
+
+
