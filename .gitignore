@@ -145,3 +145,4 @@ DaCy_training/packages/
 # other
 .DS_store
 
+.vscode
