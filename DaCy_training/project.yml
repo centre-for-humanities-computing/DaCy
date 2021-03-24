@@ -27,10 +27,7 @@ vars:
   package_name_-l-ctra_small: "dacy_-l-ctra_small_tft"
   package_name_electra_small: "dacy_electra_small_tft"
   package_version: "0.0.0"
-  gpu_0: 0
-  gpu_1: 1
-  gpu_2: 2
-  gpu_3: 3
+  gpu: 0
   spacy_version: ">=3.0.0"
 
 # These are the directories that the project needs. The project CLI will make
@@ -49,7 +46,7 @@ workflows:
     - fetch_assets
     - convert
     - train_dacy_large
-    - evaluate_0
+    - evaluate
     - package_name_large
 
   all_medium:
@@ -57,7 +54,7 @@ workflows:
     - fetch_assets
     - convert
     - train_dacy_medium
-    - evaluate_0
+    - evaluate
     - package_name_medium
 
   all_conv_small:
@@ -65,7 +62,7 @@ workflows:
     - fetch_assets
     - convert
     - train_dacy_conv_small
-    - evaluate_1
+    - evaluate
     - package_name_conv_small
 
   all_-l-ctra_small:
@@ -73,7 +70,7 @@ workflows:
     - fetch_assets
     - convert
     - train_dacy_-l-ctra_small
-    - evaluate_2
+    - evaluate
     - package_name_-l-ctra_small
 
   all_electra_small:
@@ -81,7 +78,7 @@ workflows:
     - fetch_assets
     - convert
     - train_dacy_electra_small
-    - evaluate_3
+    - evaluate
     - package_name_electra_small
 
 commands:
@@ -127,7 +124,7 @@ commands:
   - name: train_dacy_medium
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu_0} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -138,7 +135,7 @@ commands:
   - name: train_dacy_large
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_large.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu_0} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_large.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -149,7 +146,7 @@ commands:
   - name: train_dacy_conv_small
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_conv_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu_1} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_conv_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -160,7 +157,7 @@ commands:
   - name: train_dacy_-l-ctra_small
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_-l-ctra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu_2} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_-l-ctra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -171,7 +168,7 @@ commands:
   - name: train_dacy_electra_small
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_electra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu_3} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_electra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -179,40 +176,10 @@ commands:
     outputs:
       - "training/${vars.dataset}/model-last"
 
-  - name: evaluate_0
+  - name: evaluate
     help: "Evaluate on the test data and save the metrics"
     script:
-      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu_0}"
-    deps:
-      - "training/${vars.dataset}/model-last"
-      - "corpus/${vars.dataset}/test.spacy"
-    outputs:
-      - "metrics/${vars.dataset}.json"
-
-  - name: evaluate_1
-    help: "Evaluate on the test data and save the metrics"
-    script:
-      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu_1}"
-    deps:
-      - "training/${vars.dataset}/model-last"
-      - "corpus/${vars.dataset}/test.spacy"
-    outputs:
-      - "metrics/${vars.dataset}.json"
-
-  - name: evaluate_2
-    help: "Evaluate on the test data and save the metrics"
-    script:
-      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu_2}"
-    deps:
-      - "training/${vars.dataset}/model-last"
-      - "corpus/${vars.dataset}/test.spacy"
-    outputs:
-      - "metrics/${vars.dataset}.json"
-
-  - name: evaluate_3
-    help: "Evaluate on the test data and save the metrics"
-    script:
-      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu_3}"
+      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu}"
     deps:
       - "training/${vars.dataset}/model-last"
       - "corpus/${vars.dataset}/test.spacy"
