@@ -3,7 +3,7 @@
 
 <h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
-[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.0-green)](https://github.com/KennethEnevoldsen/DaCy)
+[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.1-green)](https://github.com/KennethEnevoldsen/DaCy)
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
@@ -48,8 +48,8 @@ nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
 
 DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
 
-| Tutorial | Content | file name |            |
-| -------- | ------- | --------- | ---------- |
+| Tutorial                                                                                                | Content                                                                                                              | file name                 |                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Introduction](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb) | a simple introduction to SpaCy and DaCy. For a more detailed instruction I recommend the course by SpaCy themselves. | dacy-spacy-tutorial.ipynb | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb) |
 
 
