@@ -1,10 +1,11 @@
 def LIX_getter(doc):
     """
-    extract LIX
+    extract LIX score
 
     Example:
     Doc.set_extension("LIX", getter=LIX_getter)
-    # fetch result
+    
+    fetch result:
     doc._.LIX
     """
     O = len(doc)
