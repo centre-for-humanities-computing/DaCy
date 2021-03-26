@@ -4,7 +4,6 @@ thinc[torch]
 spacy-transformers
 
 wandb
-
 danlp
 pandas
 conllu

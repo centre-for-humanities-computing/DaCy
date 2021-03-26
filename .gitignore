@@ -127,13 +127,28 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Removing training data and temporary data
+data
+*.conllu
+*.spacy
 lookup_tables/female_da.csv
 lookup_tables/male_da.csv
+DaCy_training/training/
+DaCy_training/wandb/
+DaCy_training/packages/
+
 
 # Removing data
 data
+
+# project specific
+*.lock
+
 
 # other
 .DS_store
 .vscode
 dev/model_comparison/.Rproj*
+.Rproj.user
+
