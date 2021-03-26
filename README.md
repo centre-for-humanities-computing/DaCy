@@ -3,7 +3,7 @@
 
 <h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
-[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.0-green)](https://github.com/KennethEnevoldsen/DaCy)
+[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.1-green)](https://github.com/KennethEnevoldsen/DaCy)
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
