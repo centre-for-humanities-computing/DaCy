@@ -17,7 +17,6 @@ setuptools.setup(
     url="https://github.com/KennethEnevoldsen/dacy",
     packages=setuptools.find_packages(),
     install_requires=["spacy", "spacy-transformers", "tqdm", "danlp"],
-
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
