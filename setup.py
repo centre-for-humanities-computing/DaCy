@@ -16,8 +16,6 @@ setuptools.setup(
     author_email="kennethcenevoldsen@gmail.com",
     url="https://github.com/KennethEnevoldsen/dacy",
     packages=setuptools.find_packages(),
-    # external packages as dependencies
-    install_requires=["spacy", "spacy-transformers", "tqdm"],
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
