@@ -94,7 +94,7 @@ def add_bertemotion_laden(nlp, verbose: bool = True):
         doc_extention="bertemotion_laden_trf_data",
         model_name="bertemotion_laden",
         category="laden",
-        labels=["No emotion", "Emotional"],
+        labels=["Emotional", "No emotion"],
         verbose=verbose,
     )
 
