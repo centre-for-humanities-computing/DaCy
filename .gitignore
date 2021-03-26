@@ -136,3 +136,4 @@ data
 # other
 .DS_store
 .vscode
+dev/model_comparison/.Rproj*
