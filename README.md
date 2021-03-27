@@ -3,13 +3,14 @@
 
 <h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
-[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.0-green)](https://github.com/KennethEnevoldsen/DaCy)
+[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.1-green)](https://github.com/KennethEnevoldsen/DaCy)
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 <!-- [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]() -->
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore it also contains guides on how to use DaCy.
+
 
 # 🔧 Installation
 it currently only possible to download DaCy directly from GitHub, however this can be done quite easily using:
@@ -49,11 +50,13 @@ nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
 
 DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
 
+
 | Tutorial                                                                                                | Content                                                                                                              | file name                 |                                                                                                                                                                                             |
 | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Introduction](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb) | A simple introduction to SpaCy and DaCy. For a more detailed instruction I recommend the course by SpaCy themselves. | dacy-spacy-tutorial.ipynb | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb) |
 | [Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)         | A simple introduction to the new sentiment features in DaCy.                                                         | dacy-sentiment.ipynb      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)      |
 | [wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb)         | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions.                                                         | dacy-wrapping-a-classification-transformer.ipynb      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb)      |
+
 
 
 
@@ -91,10 +94,9 @@ The following table show the performance on DaNE when compared to other models. 
 
 Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
-## Reproduction
-the folder `DaCy` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE.
+## Training and reproduction
 
-For further instructions on this look up the project file `DaCy_training/project.yml`.
+the folder `DaCy_training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](DaCy/readme.md).
 
 
 # 🤔 Issues and Usage Q&A
@@ -119,3 +121,16 @@ If you use this library in your research, please kindly cite:
 ## License
 
 DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.
+
+## Contact
+To contact the author feel free to use the application form on my [website](www.kennethenevoldsen.com) or contact me on social media. Please note that for issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues).
+
+[<img align="left" alt="KCEnevoldsen | Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />][twitter]
+[<img align="left" alt="KennethEnevoldsen | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
+
+<br />
+
+</details>
+
+[twitter]: https://twitter.com/KCEnevoldsen
+[linkedin]: https://www.linkedin.com/in/kennethenevoldsen/

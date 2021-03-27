@@ -20,18 +20,19 @@ vars:
   train_name: "dane_train"
   dev_name: "/dane_dev"
   test_name: "dane_test"
+  config: "config"
   package_name_medium: "dacy_medium_tft"
   package_name_large: "dacy_large_tft"
   package_name_conv_small: "dacy_conv_small_tft"
-  package_name_ælæctra_small: "dacy_ælæctra_small_tft"
+  package_name_-l-ctra_small: "dacy_-l-ctra_small_tft"
   package_name_electra_small: "dacy_electra_small_tft"
   package_version: "0.0.0"
-  gpu: 1
+  gpu: 0
   spacy_version: ">=3.0.0"
 
 # These are the directories that the project needs. The project CLI will make
 # sure that they always exist.
-directories: ["assets", "corpus", "training", "metrics"]
+directories: ["assets", "corpus", "training", "metrics", "packages"]
 
 assets:
   - dest: "assets/${vars.dataset}"
@@ -46,7 +47,7 @@ workflows:
     - convert
     - train_dacy_large
     - evaluate
-    - package_large
+    - package_name_large
 
   all_medium:
     - install
@@ -54,7 +55,7 @@ workflows:
     - convert
     - train_dacy_medium
     - evaluate
-    - package_medium
+    - package_name_medium
 
   all_conv_small:
     - install
@@ -62,23 +63,23 @@ workflows:
     - convert
     - train_dacy_conv_small
     - evaluate
-    - package_conv_small
+    - package_name_conv_small
 
-  all_ælæctra_small:
+  all_-l-ctra_small:
     - install
     - fetch_assets
     - convert
-    - train_dacy_ælæctra_small
+    - train_dacy_-l-ctra_small
     - evaluate
-    - package_ælæctra_small
+    - package_name_-l-ctra_small
 
   all_electra_small:
     - install
     - fetch_assets
     - convert
-    - train_dacy_ælæctra_small
+    - train_dacy_electra_small
     - evaluate
-    - package_ælæctra_small
+    - package_name_electra_small
 
 commands:
   - name: install
@@ -153,14 +154,14 @@ commands:
     outputs:
       - "training/${vars.dataset}/model-last"
 
-  - name: train_dacy_ælæctra_small
+  - name: train_dacy_-l-ctra_small
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_ælæctra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_-l-ctra_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
-      - "configs/${vars.config}_ælæctra_small.cfg"
+      - "configs/${vars.config}_-l-ctra_small.cfg"
     outputs:
       - "training/${vars.dataset}/model-last"
 
@@ -212,14 +213,14 @@ commands:
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.package_name_conv_small}-${vars.package_version}/dist/en_${vars.package_name_conv_small}-${vars.package_version}.tar.gz"
 
-  - name: package_name_ælæctra_small
+  - name: package_name_-l-ctra_small
     help: "Package the trained model so it can be installed"
     script:
-      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_ælæctra_small} --version ${vars.package_version} --force"
+      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_-l-ctra_small} --version ${vars.package_version} --force"
     deps:
       - "training/${vars.dataset}/model-last"
     outputs_no_cache:
-      - "packages/${vars.lang}_${vars.package_name_ælæctra_small}-${vars.package_version}/dist/en_${vars.package_name_ælæctra_small}-${vars.package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.package_name_-l-ctra_small}-${vars.package_version}/dist/en_${vars.package_name_-l-ctra_small}-${vars.package_version}.tar.gz"
 
   - name: package_name_electra_small
     help: "Package the trained model so it can be installed"
