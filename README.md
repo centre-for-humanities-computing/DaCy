@@ -61,6 +61,7 @@ DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebo
 
 
 
+
 <!--
 ### Lemmatization
 To obtains SOTA performance in lemmatization as well you should add [this lemmatization](https://github.com/sorenlind/lemmy) pipeline as well:
@@ -89,14 +90,15 @@ Note: that pipeline haven't yet been adapted to spacy v3 as of the time of writi
 
 # 🦾 Performance and Training
 
-The following table show the performance on DaNE when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>
+The following table shows the performance on the DaNE dataset when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>. 
+
 <div align="center"><img src="img/perf.png"/></div>
 
 Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
 ## Training and reproduction
 
-the folder `DaCy_training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](DaCy/readme.md).
+the folder `DaCy_training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](DaCy_training/readme.md).
 
 
 # 🤔 Issues and Usage Q&A

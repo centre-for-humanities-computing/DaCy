@@ -9,15 +9,13 @@ from tqdm import tqdm
 DEFAULT_CACHE_DIR = os.path.join(str(Path.home()), ".dacy")
 
 
-dacy_medium_000 = (
-    "https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download"
-)
-dacy_large_000 = (
-    "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download"
-)
+dacy_small_000 = "https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download"
+dacy_medium_000 = "https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download"
+dacy_large_000 = "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download"
 
 
 models_url = {
+    "da_dacy_small_tft-0.0.0": dacy_small_000,
     "da_dacy_medium_tft-0.0.0": dacy_medium_000,
     "da_dacy_large_tft-0.0.0": dacy_large_000,
 }
