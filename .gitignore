@@ -139,10 +139,16 @@ DaCy_training/wandb/
 DaCy_training/packages/
 
 
+# Removing data
+data
+
 # project specific
 *.lock
+
 
 # other
 .DS_store
 .vscode
+dev/model_comparison/.Rproj*
 .Rproj.user
+

@@ -1,0 +1,4 @@
+recursive-include dacy/sentiment/*.csv
+
+include dacy/sentiment/vader_lexicon_da.csv
+include dacy/sentiment/emoji_utf8_lexicon.txt
