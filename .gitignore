@@ -151,4 +151,5 @@ data
 .vscode
 dev/model_comparison/.Rproj*
 .Rproj.user
-
+.RData
+.Rhistory
