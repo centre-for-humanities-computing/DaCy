@@ -68,7 +68,7 @@ low = c("WPS")
 high = colnames(perf)[3:length(colnames(perf))]
 high = high[!high %in% low]
 
-cap = "Highest scores are in bold and second highest. WPS indicate words pr. second."
+cap = "Highest scores are in bold and second highest is underlined. Empty cells denote that the particular model does not contain a trained component for the specific task. WPS indicate words pr. second."
 
 options(knitr.kable.NA = '')
 
