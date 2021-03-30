@@ -1,4 +1,4 @@
-<a href="https://explosion.ai"><img src="img/icon.png" width="150" height="150" align="right" /></a>
+<a href="https://explosion.ai"><img src="img/icon.png" width="175" height="175" align="right" /></a>
 # DaCy: A SpaCy NLP Pipeline for Danish
 
 
