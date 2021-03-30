@@ -146,3 +146,5 @@ DaCy_training/packages/
 .DS_store
 .vscode
 .Rproj.user
+.RData
+.Rhistory
