@@ -1,7 +1,6 @@
+<a href="https://explosion.ai"><img src="img/icon.png" width="150" height="150" align="right" /></a>
+# DaCy: A SpaCy NLP Pipeline for Danish
 
-<div align="center"><img src="img/icon.png" height="200px"/></div>
-
-<h1 align="center">DaCy: A SpaCy NLP Pipeline for Danish</h1>
 
 [![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.1-green)](https://github.com/KennethEnevoldsen/DaCy)
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
