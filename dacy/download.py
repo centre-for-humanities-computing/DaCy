@@ -43,7 +43,7 @@ def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
     """
     if model not in models_url:
         raise ValueError(
-            "The model is not available in DaCy. Please use dacy_models() to see a list of all models"
+            "The model is not available in DaCy. Please use dacy.models() to see a list of all models"
         )
     url = models_url[model]
     path = os.path.join(save_path, model)
