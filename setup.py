@@ -2,6 +2,9 @@ import setuptools
 
 with open("README.md", encoding='utf-8') as f:
     long_description = f.read()
+    
+with open("requirements.txt", encoding="utf-8") as f:
+    requirements = f.read()
 
 setuptools.setup(
     name="dacy",
@@ -18,7 +21,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     # external packages as dependencies
-    install_requires=["spacy", "spacy-transformers", "tqdm", "danlp"],
+    install_requires=requirements,
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
