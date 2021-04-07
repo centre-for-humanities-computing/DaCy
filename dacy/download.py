@@ -15,7 +15,7 @@ dacy_large_000 = "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd
 
 
 models_url = {
-    "da_dacy_small_tft-0.0.0": dacy_small_000,
+    "da_dacy_-l-ctra_small_tft-0.0.0": dacy_small_000,
     "da_dacy_medium_tft-0.0.0": dacy_medium_000,
     "da_dacy_large_tft-0.0.0": dacy_large_000,
 }
