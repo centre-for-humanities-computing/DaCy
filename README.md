@@ -24,7 +24,7 @@ To use the model you first have to download either the `medium` or `large` model
 import dacy
 for model in dacy.models():
     print(model)
-# da_dacy_small_tft-0.0.0
+# da_dacy_-l-ctra_small_tft-0.0.0
 # da_dacy_medium_tft-0.0.0
 # da_dacy_large_tft-0.0.0
 ```
@@ -103,6 +103,12 @@ the folder `DaCy_training` contains a SpaCy project which will allow for a repro
 # 🤔 Issues and Usage Q&A
 
 To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.
+
+## FAQ
+
+**Why doesn't the performance metrics match the performance metrics reported on the DaNLP GitHub?**
+The performance metrics by DaNLP gives the model the 'gold standard' tokenization of the dataset as opposed to having the pipeline tokenize the models itself. This allows for comparison of the models on an even ground, but inflated the performance in general. DaCy on the other hand reports the performance metrics using its own tokenization this makes the result closer to something you would see on a real dataset and does reflect that tokenization influence your performance.
+
 
 ## Acknowledgements
 This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
