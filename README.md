@@ -2,12 +2,13 @@
 # DaCy: A SpaCy NLP Pipeline for Danish
 
 
-[![release version versions](https://img.shields.io/badge/DaCy%20Version-0.0.1-green)](https://github.com/KennethEnevoldsen/DaCy)
-[![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![release version](https://img.shields.io/badge/DaCy%20Version-0.0.1-green)](https://github.com/KennethEnevoldsen/DaCy)
+[![python version](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
-<a href="https://github.com/KennethEnevoldsen/Dacy/actions"><img alt="Actions Status" src="https:/github.com/KennethEnevoldsen/Dacy/workflows/Test/badge.svg"></a>
-<a href="https://spacy.io"><img alt="Built with spaCy" src="https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg"></a>
+[![github actions](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+[![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
+
 
 <!-- 
 
