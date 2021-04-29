@@ -6,7 +6,18 @@
 [![python versions](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
-<!-- [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]() -->
+<a href="https://github.com/KennethEnevoldsen/Dacy/actions"><img alt="Actions Status" src="https:/github.com/KennethEnevoldsen/Dacy/workflows/Test/badge.svg"></a>
+<a href="https://spacy.io"><img alt="Built with spaCy" src="https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg"></a>
+
+<!-- 
+
+<a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
+<a href="https://doi.org/10.5281/zenodo.4707403"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4707403.svg" alt="DOI"></a>
+<img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/trunajod">
+[![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
+<a href="https://trunajod20.readthedocs.io/en/stable/?badge=stable"><img alt="Documentation Status" src="https://readthedocs.org/projects/trunajod20/badge/?version=stable"></a>
+
+-->
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore it also contains guides on how to use DaCy.
 
