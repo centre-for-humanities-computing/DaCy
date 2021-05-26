@@ -291,3 +291,40 @@ def install_classification_extensions(
         Doc.set_extension(f"{category}_prop", getter=prop_getter)
     if not Doc.has_extension(category):
         Doc.set_extension(category, getter=label_getter)
+
+
+def add_huggingface_model(
+    nlp,
+    download_name: str,
+    doc_extention: str,
+    model_name: str,
+    category: str,
+    labels: list,
+    verbose: bool = True,
+):
+    """
+    adds a Huggingface sequence classification model to the pipeline
+
+    Example:
+    add_huggingface_model(nlp, download_name="pin/senda", doc_extention="senda_trf_data", model_name="senda",
+                          category="polarity", labels=["negative", "neutral", "positive"])
+    """
+
+    config = {
+        "doc_extention_attribute": doc_extention,
+        "model": {
+            "@architectures": "dacy.ClassificationTransformerModel.v1",
+            "name": download_name,
+            "num_labels": len(labels),
+        },
+    }
+
+    install_classification_extensions(
+        category=category, labels=labels, doc_extention=doc_extention
+    )
+
+    transformer = nlp.add_pipe(
+        "classification_transformer", name=model_name, config=config
+    )
+    transformer.model.initialize()
+    return nlp
