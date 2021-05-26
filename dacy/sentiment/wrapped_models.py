@@ -123,3 +123,44 @@ def add_bertemotion_emo(nlp, verbose: bool = True):
         labels=labels,
         verbose=verbose,
     )
+
+
+def add_huggingface_model(
+    nlp,
+    download_name: str,
+    doc_extention: str,
+    model_name: str,
+    category: str,
+    labels: list,
+    verbose: bool = True,
+):
+    """
+    adds a Huggingface sequence classification model to the pipeline
+
+    Example:
+    add_huggingface_model(nlp, download_name="pin/senda", doc_extention="senda_trf_data", model_name="senda",
+                          category="polarity", labels=["negative", "neutral", "positive"])
+    """
+
+    config = {
+        "doc_extention_attribute": doc_extention,
+        "model": {
+            "@architectures": "dacy.ClassificationTransformerModel.v1",
+            "name": download_name,
+            "num_labels": len(labels),
+        },
+    }
+
+    install_classification_extensions(
+        category=category, labels=labels, doc_extention=doc_extention
+    )
+
+    transformer = nlp.add_pipe(
+        "classification_transformer", name=model_name, config=config
+    )
+    transformer.model.initialize()
+    return nlp
+
+def add_senda(nlp, verbose:bool=True):
+    return add_huggingface_model(nlp, download_name="pin/senda", doc_extention="senda_trf_data", model_name="senda",
+                          category="polarity", labels=["negative", "neutral", "positve"], verbose=verbose)
