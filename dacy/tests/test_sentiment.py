@@ -3,6 +3,7 @@ from dacy.sentiment import (
     add_berttone_polarity,
     add_bertemotion_laden,
     add_bertemotion_emo,
+    add_senda
 )
 
 import spacy
@@ -43,6 +44,13 @@ def test_add_bertemotion_laden():
 
 def test_add_bertemotion_emo():
     nlp = spacy.blank("en")
-    nlp = add_bertemotion_emo(nlp)
+    nlp = add_bertemotion_emo(nlp, open_unverified_connection=True)
     doc = nlp("Har i set at Tesla har landet en raket på månen? Det er vildt!!")
     assert doc._.emotion == "Overasket/Målløs"
+
+
+def test_add_senda():
+    nlp = spacy.blank("en")
+    nlp = add_senda(nlp)
+    doc = nlp("Sikke en dejlig dag det er i dag")
+    assert doc._.polarity == "positive"
