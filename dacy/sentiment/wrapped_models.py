@@ -9,7 +9,11 @@ from danlp.download import download_model as danlp_download
 from danlp.download import _unzip_process_func
 from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
 
-from dacy.subclasses import ClassificationTransformer, install_classification_extensions, add_huggingface_model
+from dacy.subclasses import (
+    ClassificationTransformer,
+    install_classification_extensions,
+    add_huggingface_model,
+)
 
 
 def add_danlp_model(
@@ -21,10 +25,16 @@ def add_danlp_model(
     category: str,
     labels: list,
     verbose: bool,
+    open_unverified_connection: bool = False,
 ):
     """
     adds a the DaNLP bert model to the pipeline
     """
+    if open_unverified_connection:
+        import ssl
+
+        ssl._create_default_https_context = ssl._create_unverified_context
+
     path_sub = danlp_download(
         download_name, DANLP_DIR, process_func=_unzip_process_func, verbose=verbose
     )
@@ -50,7 +60,9 @@ def add_danlp_model(
     return nlp
 
 
-def add_berttone_subjectivity(nlp, verbose: bool = True):
+def add_berttone_subjectivity(
+    nlp, verbose: bool = True, open_unverified_connection: bool = False
+):
     """
     adds a the DaNLP BertTone for polarity classification to the spacy language pipeline
     """
@@ -63,10 +75,13 @@ def add_berttone_subjectivity(nlp, verbose: bool = True):
         category="subjectivity",
         labels=["objective", "subjective"],
         verbose=verbose,
+        open_unverified_connection=open_unverified_connection,
     )
 
 
-def add_berttone_polarity(nlp, verbose: bool = True):
+def add_berttone_polarity(
+    nlp, verbose: bool = True, open_unverified_connection: bool = False
+):
     """
     adds a the DaNLP BertTone for polarity classification to the spacy language pipeline
     """
@@ -79,10 +94,13 @@ def add_berttone_polarity(nlp, verbose: bool = True):
         category="polarity",
         labels=["positive", "neutral", "negative"],
         verbose=verbose,
+        open_unverified_connection=open_unverified_connection,
     )
 
 
-def add_bertemotion_laden(nlp, verbose: bool = True):
+def add_bertemotion_laden(
+    nlp, verbose: bool = True, open_unverified_connection: bool = False
+):
     """
     adds to the spacy language pipeline a the DaNLP BertEmotion for classifying whether a text is
     emotionally laden or not
@@ -96,10 +114,13 @@ def add_bertemotion_laden(nlp, verbose: bool = True):
         category="laden",
         labels=["Emotional", "No emotion"],
         verbose=verbose,
+        open_unverified_connection=open_unverified_connection,
     )
 
 
-def add_bertemotion_emo(nlp, verbose: bool = True):
+def add_bertemotion_emo(
+    nlp, verbose: bool = True, open_unverified_connection: bool = False
+):
     """
     adds a the DaNLP BertEmotion for emotion classification to the spacy language pipeline
     """
@@ -122,9 +143,17 @@ def add_bertemotion_emo(nlp, verbose: bool = True):
         category="emotion",
         labels=labels,
         verbose=verbose,
+        open_unverified_connection=open_unverified_connection,
     )
 
 
-def add_senda(nlp, verbose:bool=True):
-    return add_huggingface_model(nlp, download_name="pin/senda", doc_extention="senda_trf_data", model_name="senda",
-                          category="polarity", labels=["negative", "neutral", "positve"], verbose=verbose)
+def add_senda(nlp, verbose: bool = True):
+    return add_huggingface_model(
+        nlp,
+        download_name="pin/senda",
+        doc_extention="senda_trf_data",
+        model_name="senda",
+        category="polarity",
+        labels=["negative", "neutral", "positive"],
+        verbose=verbose,
+    )
