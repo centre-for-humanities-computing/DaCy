@@ -39,7 +39,7 @@ def test_add_berttone_polarity():
 
 def test_add_bertemotion_laden():
     nlp = spacy.blank("en")
-    nlp = add_bertemotion_laden(nlp)
+    nlp = add_bertemotion_laden(nlp, open_unverified_connection=True)
 
 
 def test_add_bertemotion_emo():
