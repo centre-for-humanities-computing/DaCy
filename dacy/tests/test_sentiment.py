@@ -11,7 +11,7 @@ import spacy
 
 def test_add_berttone_subjectivity():
     nlp = spacy.blank("en")
-    nlp = add_berttone_subjectivity(nlp)
+    nlp = add_berttone_subjectivity(nlp, open_unverified_connection=True)
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
         "Jeg tror alligvel, det bliver godt",
@@ -24,7 +24,7 @@ def test_add_berttone_subjectivity():
 
 def test_add_berttone_polarity():
     nlp = spacy.blank("en")
-    nlp = add_berttone_polarity(nlp)
+    nlp = add_berttone_polarity(nlp, open_unverified_connection=True)
 
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
