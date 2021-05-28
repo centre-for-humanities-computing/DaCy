@@ -3,7 +3,7 @@ from dacy.sentiment import (
     add_berttone_polarity,
     add_bertemotion_laden,
     add_bertemotion_emo,
-    add_senda
+    add_senda,
 )
 
 import spacy
@@ -11,7 +11,9 @@ import spacy
 
 def test_add_berttone_subjectivity():
     nlp = spacy.blank("en")
-    nlp = add_berttone_subjectivity(nlp, open_unverified_connection=True)
+    nlp = add_berttone_subjectivity(
+        nlp, open_unverified_connection=True, force_extension=True
+    )
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
         "Jeg tror alligvel, det bliver godt",
@@ -24,7 +26,9 @@ def test_add_berttone_subjectivity():
 
 def test_add_berttone_polarity():
     nlp = spacy.blank("en")
-    nlp = add_berttone_polarity(nlp, open_unverified_connection=True)
+    nlp = add_berttone_polarity(
+        nlp, open_unverified_connection=True, force_extension=True
+    )
 
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
@@ -38,19 +42,23 @@ def test_add_berttone_polarity():
 
 
 def test_add_bertemotion_laden():
-    nlp = spacy.blank("en")
-    nlp = add_bertemotion_laden(nlp, open_unverified_connection=True)
+    nlp = spacy.blank("da")
+    nlp = add_bertemotion_laden(
+        nlp, open_unverified_connection=True, force_extension=True
+    )
 
 
 def test_add_bertemotion_emo():
-    nlp = spacy.blank("en")
-    nlp = add_bertemotion_emo(nlp, open_unverified_connection=True)
+    nlp = spacy.blank("da")
+    nlp = add_bertemotion_emo(
+        nlp, open_unverified_connection=True, force_extension=True
+    )
     doc = nlp("Har i set at Tesla har landet en raket på månen? Det er vildt!!")
     assert doc._.emotion == "Overasket/Målløs"
 
 
 def test_add_senda():
-    nlp = spacy.blank("en")
-    nlp = add_senda(nlp)
+    nlp = spacy.blank("da")
+    nlp = add_senda(nlp, force_extension=True)
     doc = nlp("Sikke en dejlig dag det er i dag")
     assert doc._.polarity == "positive"

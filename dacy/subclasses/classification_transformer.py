@@ -39,7 +39,7 @@ from ..utils import softmax
 DEFAULT_CONFIG_STR = """
 [classification_transformer]
 max_batch_items = 4096
-doc_extention_attribute = "clf_trf_data"
+doc_extension_attribute = "clf_trf_data"
 
 [classification_transformer.set_extra_annotations]
 @annotation_setters = "spacy-transformers.null_annotation_setter.v1"
@@ -69,7 +69,7 @@ def make_classification_transformer(
     model: Model[List[Doc], FullTransformerBatch],
     set_extra_annotations: Callable[[List[Doc], FullTransformerBatch], None],
     max_batch_items: int,
-    doc_extention_attribute: str,
+    doc_extension_attribute: str,
 ):
     """Construct a Transformer component, which lets you plug a model from the
     Huggingface transformers library into spaCy so you can use it in your
@@ -90,7 +90,7 @@ def make_classification_transformer(
         set_extra_annotations,
         max_batch_items=max_batch_items,
         name=name,
-        doc_extention_attribute=doc_extention_attribute,
+        doc_extension_attribute=doc_extension_attribute,
     )
 
 
@@ -138,7 +138,7 @@ class ClassificationTransformer(Transformer):
         *,
         name: str = "classification_transformer",
         max_batch_items: int = 128 * 32,  # Max size of padded batch
-        doc_extention_attribute,
+        doc_extension_attribute,
     ):
         super().__init__(
             vocab=vocab,
@@ -147,8 +147,8 @@ class ClassificationTransformer(Transformer):
             name=name,
             max_batch_items=max_batch_items,
         )
-        install_extensions(doc_extention_attribute)
-        self.doc_extention_attribute = doc_extention_attribute
+        install_extensions(doc_extension_attribute)
+        self.doc_extension_attribute = doc_extension_attribute
 
     def from_disk(
         self,
@@ -193,7 +193,7 @@ class ClassificationTransformer(Transformer):
         """
         doc_data = list(predictions.doc_data)
         for doc, data in zip(docs, doc_data):
-            setattr(doc._, self.doc_extention_attribute, data)
+            setattr(doc._, self.doc_extension_attribute, data)
         self.set_extra_annotations(docs, predictions)
 
 
@@ -259,9 +259,9 @@ def huggingface_classification_from_pretrained(
     return tokenizer, transformer
 
 
-def make_classification_getter(category, labels, doc_extention):
+def make_classification_getter(category, labels, doc_extension):
     def prop_getter(doc) -> dict:
-        trf_data = getattr(doc._, doc_extention)
+        trf_data = getattr(doc._, doc_extension)
         return {
             "prop": softmax(trf_data.tensors[0][0]).round(decimals=3),
             "labels": labels,
@@ -274,44 +274,44 @@ def make_classification_getter(category, labels, doc_extention):
     return prop_getter, label_getter
 
 
-def install_extensions(doc_extention_attribute) -> None:
-    if not Doc.has_extension(doc_extention_attribute):
-        Doc.set_extension(doc_extention_attribute, default=None)
+def install_extensions(doc_extension_attribute) -> None:
+    if not Doc.has_extension(doc_extension_attribute):
+        Doc.set_extension(doc_extension_attribute, default=None)
 
 
 def install_classification_extensions(
     category: str,
     labels: list,
-    doc_extention: str,
+    doc_extension: str,
+    force: bool,
 ):
     prop_getter, label_getter = make_classification_getter(
-        category, labels, doc_extention
+        category, labels, doc_extension
     )
-    if not Doc.has_extension(f"{category}_prop"):
-        Doc.set_extension(f"{category}_prop", getter=prop_getter)
-    if not Doc.has_extension(category):
-        Doc.set_extension(category, getter=label_getter)
+    Doc.set_extension(f"{category}_prop", getter=prop_getter, force=force)
+    Doc.set_extension(category, getter=label_getter, force=force)
 
 
 def add_huggingface_model(
     nlp,
     download_name: str,
-    doc_extention: str,
+    doc_extension: str,
     model_name: str,
     category: str,
     labels: list,
     verbose: bool = True,
+    force_extension: bool=False,
 ):
     """
     adds a Huggingface sequence classification model to the pipeline
 
     Example:
-    add_huggingface_model(nlp, download_name="pin/senda", doc_extention="senda_trf_data", model_name="senda",
+    add_huggingface_model(nlp, download_name="pin/senda", doc_extension="senda_trf_data", model_name="senda",
                           category="polarity", labels=["negative", "neutral", "positive"])
     """
 
     config = {
-        "doc_extention_attribute": doc_extention,
+        "doc_extension_attribute": doc_extension,
         "model": {
             "@architectures": "dacy.ClassificationTransformerModel.v1",
             "name": download_name,
@@ -320,7 +320,7 @@ def add_huggingface_model(
     }
 
     install_classification_extensions(
-        category=category, labels=labels, doc_extention=doc_extention
+        category=category, labels=labels, doc_extension=doc_extension, force=force_extension,
     )
 
     transformer = nlp.add_pipe(

@@ -26,7 +26,7 @@ def test_classification_transformer():
     category = "polarity"
 
     config = {
-        "doc_extention_attribute": doc_extension,
+        "doc_extension_attribute": doc_extension,
         "model": {
             "@architectures": "dacy.ClassificationTransformerModel.v1",
             "name": path_sub,
@@ -36,7 +36,7 @@ def test_classification_transformer():
 
     # add the relevant extentsion to the doc
     install_classification_extensions(
-        category=category, labels=labels, doc_extention=doc_extension
+        category=category, labels=labels, doc_extension=doc_extension, force=True
     )
 
     nlp = spacy.blank("da") # dummy nlp

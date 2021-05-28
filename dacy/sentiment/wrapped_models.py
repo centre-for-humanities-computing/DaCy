@@ -20,12 +20,13 @@ def add_danlp_model(
     nlp,
     download_name: str,
     subpath: str,
-    doc_extention: str,
+    doc_extension: str,
     model_name: str,
     category: str,
     labels: list,
     verbose: bool,
     open_unverified_connection: bool = False,
+    force_extension: bool = False,
 ):
     """
     adds a the DaNLP bert model to the pipeline
@@ -41,7 +42,7 @@ def add_danlp_model(
     path_sub = os.path.join(path_sub, subpath)
 
     config = {
-        "doc_extention_attribute": doc_extention,
+        "doc_extension_attribute": doc_extension,
         "model": {
             "@architectures": "dacy.ClassificationTransformerModel.v1",
             "name": path_sub,
@@ -50,7 +51,10 @@ def add_danlp_model(
     }
 
     install_classification_extensions(
-        category=category, labels=labels, doc_extention=doc_extention
+        category=category,
+        labels=labels,
+        doc_extension=doc_extension,
+        force=force_extension,
     )
 
     transformer = nlp.add_pipe(
@@ -61,7 +65,10 @@ def add_danlp_model(
 
 
 def add_berttone_subjectivity(
-    nlp, verbose: bool = True, open_unverified_connection: bool = False
+    nlp,
+    verbose: bool = True,
+    open_unverified_connection: bool = False,
+    force_extension: bool = False,
 ):
     """
     adds a the DaNLP BertTone for polarity classification to the spacy language pipeline
@@ -70,17 +77,21 @@ def add_berttone_subjectivity(
         nlp,
         download_name="bert.subjective",
         subpath="bert.sub.v0.0.1",
-        doc_extention="berttone_subj_trf_data",
+        doc_extension="berttone_subj_trf_data",
         model_name="berttone_subj",
         category="subjectivity",
         labels=["objective", "subjective"],
         verbose=verbose,
         open_unverified_connection=open_unverified_connection,
+        force_extension=force_extension,
     )
 
 
 def add_berttone_polarity(
-    nlp, verbose: bool = True, open_unverified_connection: bool = False
+    nlp,
+    verbose: bool = True,
+    open_unverified_connection: bool = False,
+    force_extension: bool = False,
 ):
     """
     adds a the DaNLP BertTone for polarity classification to the spacy language pipeline
@@ -89,17 +100,21 @@ def add_berttone_polarity(
         nlp,
         download_name="bert.polarity",
         subpath="bert.pol.v0.0.1",
-        doc_extention="berttone_pol_trf_data",
+        doc_extension="berttone_pol_trf_data",
         model_name="berttone_pol",
         category="polarity",
         labels=["positive", "neutral", "negative"],
         verbose=verbose,
         open_unverified_connection=open_unverified_connection,
+        force_extension=force_extension,
     )
 
 
 def add_bertemotion_laden(
-    nlp, verbose: bool = True, open_unverified_connection: bool = False
+    nlp,
+    verbose: bool = True,
+    open_unverified_connection: bool = False,
+    force_extension: bool = False,
 ):
     """
     adds to the spacy language pipeline a the DaNLP BertEmotion for classifying whether a text is
@@ -109,17 +124,21 @@ def add_bertemotion_laden(
         nlp,
         download_name="bert.noemotion",
         subpath="bert.noemotion",
-        doc_extention="bertemotion_laden_trf_data",
+        doc_extension="bertemotion_laden_trf_data",
         model_name="bertemotion_laden",
         category="laden",
         labels=["Emotional", "No emotion"],
         verbose=verbose,
         open_unverified_connection=open_unverified_connection,
+        force_extension=force_extension,
     )
 
 
 def add_bertemotion_emo(
-    nlp, verbose: bool = True, open_unverified_connection: bool = False
+    nlp,
+    verbose: bool = True,
+    open_unverified_connection: bool = False,
+    force_extension: bool = False,
 ):
     """
     adds a the DaNLP BertEmotion for emotion classification to the spacy language pipeline
@@ -138,22 +157,24 @@ def add_bertemotion_emo(
         nlp,
         download_name="bert.emotion",
         subpath="bert.emotion",
-        doc_extention="bertemotion_emo_trf_data",
+        doc_extension="bertemotion_emo_trf_data",
         model_name="bertemotion_emo",
         category="emotion",
         labels=labels,
         verbose=verbose,
         open_unverified_connection=open_unverified_connection,
+        force_extension=force_extension,
     )
 
 
-def add_senda(nlp, verbose: bool = True):
+def add_senda(nlp, verbose: bool = True, force_extension: bool = False):
     return add_huggingface_model(
         nlp,
         download_name="pin/senda",
-        doc_extention="senda_trf_data",
+        doc_extension="senda_trf_data",
         model_name="senda",
         category="polarity",
         labels=["negative", "neutral", "positive"],
         verbose=verbose,
+        force_extension=force_extension,
     )
