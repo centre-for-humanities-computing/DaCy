@@ -29,6 +29,19 @@ it currently only possible to download DaCy directly from GitHub, however this c
 pip install git+https://github.com/KennethEnevoldsen/DaCy
 ```
 
+<details>
+  <summary>Detailed instructions</summary>
+
+  ### Install from source
+  ```
+  git clone https://github.com/KennethEnevoldsen/DaCy.git
+  cd DaCy
+  pip install .
+  ```
+
+</details>
+
+
 # 👩‍💻 Usage
 To use the model you first have to download either the `medium` or `large` model. To see a list of all available models:
 
@@ -46,12 +59,8 @@ To download and load a model simply execute:
 nlp = dacy.load("da_dacy_medium_tft-0.0.0")
 ```
 
-Which will download the model to the `.dacy` directory in your home directory. To figure out where this you can always use:
+Which will download the model to the `.dacy` directory in your home directory. 
 
-```python
-where_is_my_dacy()
-```
-which for __me__ will return `'/Users/kenneth/.dacy'`. 
 
 To download the model to a specific directory:
 ```python
@@ -59,8 +68,9 @@ dacy.download_model("da_dacy_medium_tft-0.0.0", your_save_path)
 nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
 ```
 
-DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
+# 👩‍🏫 Tutorials
 
+DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
 
 | Tutorial                                                                                                                                           | Content                                                                                                                    | file name                                        | Google Colab                                                                                                                                                                                                       |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -68,35 +78,6 @@ DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebo
 | [Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                    | A simple introduction to the new sentiment features in DaCy.                                                               | dacy-sentiment.ipynb                             | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
 | [wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. | dacy-wrapping-a-classification-transformer.ipynb | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
 
-
-
-
-
-
-<!--
-### Lemmatization
-To obtains SOTA performance in lemmatization as well you should add [this lemmatization](https://github.com/sorenlind/lemmy) pipeline as well:
-
-```python
-import lemmy.pipe
-
-pipe = lemmy.pipe.load('da')
-
-# Add the component to the spaCy pipeline.
-nlp.add_pipe(pipe, after='tagger')
-
-# Lemmas can now be accessed using the `._.lemmas` attribute on the tokens.
-nlp("akvariernes")[0]._.lemmas
-```
-
-This requires you install the package beforehand, this is done easily using:
-
-```
-pip install lemmy
-```
-
-Note: that pipeline haven't yet been adapted to spacy v3 as of the time of writing.
--->
 
 
 # 🦾 Performance and Training
@@ -118,8 +99,25 @@ To ask questions, report issues or request features, please use the [GitHub Issu
 
 ## FAQ
 
-**Why doesn't the performance metrics match the performance metrics reported on the DaNLP GitHub?**
-The performance metrics by DaNLP gives the model the 'gold standard' tokenization of the dataset as opposed to having the pipeline tokenize the models itself. This allows for comparison of the models on an even ground, but inflated the performance in general. DaCy on the other hand reports the performance metrics using its own tokenization this makes the result closer to something you would see on a real dataset and does reflect that tokenization influence your performance.
+
+<details>
+  <summary>Where is my DaCy model located?</summary>
+
+  To figure out where where your DaCy model is located you can always use:
+
+  ```python
+  where_is_my_dacy()
+  ```
+
+</details>
+
+<details>
+  <summary>Why doesn't the performance metrics match the performance metrics reported on the DaNLP GitHub?</summary>
+
+The performance metrics by DaNLP gives the model the 'gold standard' tokenization of the dataset as opposed to having the pipeline tokenize the text itself. This allows for comparison of the models on an even ground regardless of their tokenizer, but inflated the performance in general. DaCy on the other hand reports the performance metrics using its own tokenization this makes the result closer to something you would see on a real dataset and doesreflect how tokenization influence your performance.
+
+
+</details>
 
 
 ## Acknowledgements
