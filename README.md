@@ -86,11 +86,15 @@ The following table shows the performance on the DaNE dataset when compared to o
 
 <div align="center"><img src="img/perf.png"/></div>
 
-Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
-## Training and reproduction
+<details>
+  <summary> Training and reproduction </summary>
 
 the folder `DaCy_training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](DaCy_training/readme.md).
+
+Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
+
+</details>
 
 
 # 🤔 Issues and Usage Q&A
