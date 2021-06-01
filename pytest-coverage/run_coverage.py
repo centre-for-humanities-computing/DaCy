@@ -18,7 +18,7 @@ try:
 except subprocess.CalledProcessError as grepexc:
     output = grepexc.output.decode("utf-8")
     test_failed = True
-    print("error code", grepexc.returncode, "\n\n --------- \n", grepOut)
+    print("error code", grepexc.returncode, "\n\n --------- \n", output)
 
 
 save_path = "pytest-coverage"
@@ -30,3 +30,7 @@ if os.path.exists(save_path):
     os.remove(save_path)
 with open(save_path, "w") as f:
     f.write(output)
+
+
+if test_failed is True:
+    raise ValueError("Tests did not pass")
