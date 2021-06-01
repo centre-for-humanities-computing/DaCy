@@ -18,7 +18,6 @@ jobs:
 
       - name: Run and write pytest
         run: |
-          pwd
           ls
           python ./pytest-coverage/run_coverage.py
 
