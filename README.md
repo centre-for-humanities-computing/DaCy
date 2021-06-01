@@ -6,7 +6,8 @@
 [![python version](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
-[![github actions](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+[![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+[![github actions code coverage](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_cov.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 
