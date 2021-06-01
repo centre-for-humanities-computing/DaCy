@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-
-    steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
@@ -22,39 +20,38 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Run and write pytest
-        run: |
-          echo "$(ls)"
-          echo "moving out"
-          cd ..; pwd
-          echo "$(ls)"
-          echo "moving out"
-          cd ..; pwd
-          echo "$(ls)"
-          echo "moving out"
-          cd ..; pwd
-          echo "$(ls)"
+    - name: Run and write pytest
+      run: |
+        echo "$(ls)"
+        echo "moving out"
+        cd ..; pwd
+        echo "$(ls)"
+        echo "moving out"
+        cd ..; pwd
+        echo "$(ls)"
+        echo "moving out"
+        cd ..; pwd
+        echo "$(ls)"
 
-          python ./pytest-coverage/run_coverage.py
+        python ./pytest-coverage/run_coverage.py
 
+    - name: Pytest coverage comment
+      id: coverage-comment
+      uses: MishaKav/pytest-coverage-comment@v1.0
+      with:
+        pytest-coverage-path: ./pytest-coverage/pytest-coverage.txt
 
-      - name: Pytest coverage comment
-        id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.0
-        with:
-          pytest-coverage-path: ./pytest-coverage/pytest-coverage.txt
-
-      - name: Check the output coverage
-        run: |
-          echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
-          echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
-      - name: Create the Badge
-        uses: schneegans/dynamic-badges-action@v1.0.0
-        with:
-          auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
-          gistID: 5e90d640f8c212ab7bbac38f72323f80
-          filename: pytest-coverage-comment__main.json
-          label: Coverage Report
-          message: ${{ steps.coverage-comment.outputs.coverage }}
-          color: ${{ steps.coverage-comment.outputs.color }}
-          namedLogo: python
+    - name: Check the output coverage
+      run: |
+        echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
+        echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
+    - name: Create the Badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
+      with:
+        auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
+        gistID: 5e90d640f8c212ab7bbac38f72323f80
+        filename: pytest-coverage-comment__main.json
+        label: Coverage Report
+        message: ${{ steps.coverage-comment.outputs.coverage }}
+        color: ${{ steps.coverage-comment.outputs.color }}
+        namedLogo: python
