@@ -19,13 +19,16 @@ jobs:
       - name: Run and write pytest
         run: |
           echo "$(ls)"
-          echo "moving into DaCy"
-          cd DaCy
-          echo "moving in"
+          echo "moving out"
           cd ..; pwd
           echo "$(ls)"
+          echo "moving out"
           cd ..; pwd
           echo "$(ls)"
+          echo "moving out"
+          cd ..; pwd
+          echo "$(ls)"
+
           python ./pytest-coverage/run_coverage.py
 
       - uses: actions/checkout@v2
