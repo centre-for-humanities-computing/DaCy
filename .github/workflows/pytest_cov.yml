@@ -38,7 +38,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      COVERAGE_SINGLE: 60
+      COVERAGE_SINGLE: 0
       COVERAGE_TOTAL: 60
 
     steps:
@@ -50,14 +50,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
+        pip install pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: pytester-cov
       id: pytester-cov
       uses: alexanderdamiani/pytester-cov@v1.0.0
       with:
         pytest-root-dir: '.'
-        cov-omit-list: 'test/*, DaCy_training/*, dev/*, readability/*'
+        cov-omit-list: 'test/*, DaCy_training/*, dev/*, readability/*, dacy/tests/*'
         cov-threshold-single: ${{ env.COVERAGE_SINGLE }}
         cov-threshold-total: ${{ env.COVERAGE_TOTAL }}
 
