@@ -168,10 +168,11 @@ python -m pytest--cov=.
 
   DaCy is intended to run on all major OS, this include Windows (latest version), MacOS (Big Sur and Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux.
 
-  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
-  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-mac_big_sur.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
-  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
-  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+  [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml)
+  [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml)
+  [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml)
+
+  Please note that if the
   
 </details>
 
@@ -192,7 +193,7 @@ If you use this library in your research, please kindly cite:
 
 ## License
 
-DaCy is released under the Apache License, Version 2.0. See the `LICENSE` file for more details.
+DaCy is released under the Apache License, Version 2.0. See the [`LICENSE`](https://github.com/KennethEnevoldsen/DaCy/blob/main/LICENSE) file for more details.
 
 ## Contact
 To contact the author feel free to use the application form on my [website](www.kennethenevoldsen.com) or contact me on social media. Please note that for issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues).
