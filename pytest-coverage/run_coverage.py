@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 
 
-output = subprocess.check_output("pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing", shell=True)
+output = subprocess.check_output("pytest --cov=dacy --cov-config=pytest-coverage/.coveragerc --cov-report term-missing", shell=True)
 
 save_path = ".github/pytest-coverage"
 Path(save_path).mkdir(parents=True, exist_ok=True)
