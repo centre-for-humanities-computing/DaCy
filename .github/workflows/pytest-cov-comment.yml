@@ -1,5 +1,5 @@
 
-name: my-pytest-coverage-comment
+name: CI Pytest
 on:
   push:
     branches: [ main ]
