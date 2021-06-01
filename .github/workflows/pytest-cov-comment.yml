@@ -18,7 +18,7 @@ jobs:
 
       - name: Run and write pytest
         run: |
-          ls
+          echo "$(ls)"
           python ./pytest-coverage/run_coverage.py
 
       - uses: actions/checkout@v2
