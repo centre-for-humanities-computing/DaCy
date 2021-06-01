@@ -62,6 +62,11 @@ jobs:
         cov-threshold-total: ${{ env.COVERAGE_TOTAL }}
 
 
+    - name: Commit pytest coverage table
+      uses: peter-evans/commit-comment@v1
+      with:
+        body: ${{ steps.pytester-cov.outputs.output-table }}
+      
     - name: Coverage single fail - exit
       if: ${{ steps.pytester-cov.outputs.cov-threshold-single-fail == 'true' }}
       run: |
@@ -74,7 +79,4 @@ jobs:
       run: |
         echo "cov single fail ${{ steps.pytester-cov.outputs.cov-threshold-total-fail }}"
         exit 1
-    - name: Commit pytest coverage table
-      uses: peter-evans/commit-comment@v1
-      with:
-        body: ${{ steps.pytester-cov.outputs.output-table }}
+
