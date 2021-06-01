@@ -57,7 +57,7 @@ jobs:
       uses: alexanderdamiani/pytester-cov@v1.0.0
       with:
         pytest-root-dir: '.'
-        cov-omit-list: 'test/*, DaCy_training/*, dev/*, readability/*, dacy/tests/*, dacy/about.py'
+        cov-omit-list: 'test/*, DaCy_training/*, dev/*, readability/*, dacy/tests/*, dacy/about.py, setup.py, dacy/sentiment/vaderSentiment_da.py'
         cov-threshold-single: ${{ env.COVERAGE_SINGLE }}
         cov-threshold-total: ${{ env.COVERAGE_TOTAL }}
 
