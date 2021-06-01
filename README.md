@@ -143,6 +143,15 @@ python -m pytest
 which will run all the test in the `dacy/tests` folder.
 
 
+**Code Coverage**
+If you want check code coverage as well you can run the following:
+```
+pip install pytest-cov
+
+python -m pytest--cov=.
+```
+
+
 </details>
 
 
