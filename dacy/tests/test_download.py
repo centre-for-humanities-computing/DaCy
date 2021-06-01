@@ -6,10 +6,6 @@ from dacy.load import load
 import dacy
 
 
-def test_fail():
-    raise ValueError("!")
-
-
 def test_urls():
     for m, url in models_url.items():
         print(m)
