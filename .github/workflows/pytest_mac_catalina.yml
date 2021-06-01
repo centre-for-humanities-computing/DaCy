@@ -24,9 +24,3 @@ jobs:
     - name: Run and write pytest
       run: |
         python ./pytest-coverage/run_coverage.py
-
-    - name: Pytest coverage comment
-      id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.0
-      with:
-        pytest-coverage-path: ./pytest-coverage/pytest-coverage.txt
