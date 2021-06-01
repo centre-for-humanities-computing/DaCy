@@ -119,6 +119,27 @@ The performance metrics by DaNLP gives the model the 'gold standard' tokenizatio
 
 </details>
 
+</details>
+
+<details>
+  <summary>How do i test the code and run the test suite?</summary>
+
+
+DaCy comes with an extensive test suite. In order to run the tests, you'll usually want to clone the repository and build DaCy from source. This will also install the required development dependencies and test utilities defined in the requirements.txt.
+
+
+```
+pip install -r requirements.txt
+pip install pytest
+
+python -m pytest
+```
+
+which will run all the test in the `dacy/tests` folder.
+
+
+</details>
+
 
 ## Acknowledgements
 This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
