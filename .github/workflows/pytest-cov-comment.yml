@@ -18,7 +18,7 @@ jobs:
 
       - name: Run and write pytest
         run: |
-          python .github/pytest-coverage/run_coverage.py
+          python pytest-coverage/run_coverage.py
 
       - uses: actions/checkout@v2
 
@@ -26,7 +26,7 @@ jobs:
         id: coverage-comment
         uses: MishaKav/pytest-coverage-comment@v1.0
         with:
-          pytest-coverage-path: ./.github/pytest-coverage/pytest-coverage.txt
+          pytest-coverage-path: ./pytest-coverage/pytest-coverage.txt
 
       - name: Check the output coverage
         run: |
