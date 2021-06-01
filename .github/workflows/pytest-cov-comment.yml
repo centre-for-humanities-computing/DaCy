@@ -19,6 +19,7 @@ jobs:
       - name: Run and write pytest
         run: |
           echo "$(ls)"
+          echo "moving in"
           cd ..; pwd
           echo "$(ls)"
           cd ..; pwd
