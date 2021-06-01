@@ -23,6 +23,19 @@
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore, it also contains guides on how to use DaCy.
 
+# 📰 News
+- 01/06/21 
+  - DaCy's tests now cover 99% of its codebase 🎉
+  - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻
+- 25/05/21 
+  - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
+- 30/03/21
+  - DaCy now includes a small model for efficient processing based on the Danish [Ælæctra](https://sprogteknologi.dk/dataset/918158b9-ac6b-4484-a44a-4e3de386dfca) 🏃
+- 24/03/21
+  - DaCy included wrapped version on major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
+  - Totorials is added to introduce the above functionality
+- 25/02/21
+  - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
 
 # 🔧 Installation
 it currently only possible to download DaCy directly from GitHub, however this can be done quite easily using:
@@ -166,13 +179,14 @@ python -m pytest--cov=.
 <details>
   <summary>Does DaCy run on X?</summary>
 
-  DaCy is intended to run on all major OS, this include Windows (latest version), MacOS (Big Sur and Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux.
+  DaCy is intended to run on all major OS, this include Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of linux) it is likely that DaCy will run there as well.
 
-  [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml)
-  [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml)
-  [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml)
+| Operating System | Status |
+| ---------------- | ------ |
+| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml) |
+| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml) | 
+| Windows (Latest) | [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml) | 
 
-  Please note that if the
   
 </details>
 
