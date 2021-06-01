@@ -38,8 +38,8 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
-        gistID: 5e90d640f8c212ab7bbac38f72323f80
-        filename: pytest-coverage-comment__main.json
+        gistID: af8637d94475ea8bcb6b6a03c4fbcd3e
+        filename: badge-dacy-pytest-coverage.json
         label: Coverage Report
         message: ${{ steps.coverage-comment.outputs.coverage }}
         color: ${{ steps.coverage-comment.outputs.color }}
