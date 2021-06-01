@@ -19,6 +19,10 @@ jobs:
       - name: Run and write pytest
         run: |
           echo "$(ls)"
+          cd ..; pwd
+          echo "$(ls)"
+          cd ..; pwd
+          echo "$(ls)"
           python ./pytest-coverage/run_coverage.py
 
       - uses: actions/checkout@v2
