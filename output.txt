@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.8.8, pytest-6.1.0, py-1.9.0, pluggy-0.13.1
+rootdir: /Users/au561649/Desktop/Github/DaCy
+plugins: typeguard-2.10.0, cov-2.12.0
+collected 14 items
+
+dacy/tests/test_classification_transformer.py .                          [  7%]
+dacy/tests/test_download.py F.....                                       [ 50%]
+dacy/tests/test_readability.py .                                         [ 57%]
+dacy/tests/test_sentiment.py ......                                      [100%]
+
+=================================== FAILURES ===================================
+__________________________________ test_fail ___________________________________
+
+    def test_fail():
+>       raise ValueError("!")
+E       ValueError: !
+
+dacy/tests/test_download.py:10: ValueError
+=============================== warnings summary ===============================
+../../../.virtualenvs/NLP/lib/python3.8/site-packages/tensorflow/python/autograph/utils/testing.py:21
+  /Users/au561649/.virtualenvs/NLP/lib/python3.8/site-packages/tensorflow/python/autograph/utils/testing.py:21: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+    import imp
+
+../../../.virtualenvs/NLP/lib/python3.8/site-packages/wandb/vendor/watchdog/utils/bricks.py:175
+  /Users/au561649/.virtualenvs/NLP/lib/python3.8/site-packages/wandb/vendor/watchdog/utils/bricks.py:175: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.9 it will stop working
+    class OrderedSet(collections.MutableSet):
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+
+---------- coverage: platform darwin, python 3.8.8-final-0 -----------
+Name                                            Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------------------
+dacy/__init__.py                                    6      0   100%
+dacy/about.py                                       3      0   100%
+dacy/download.py                                   34      0   100%
+dacy/load.py                                        7      0   100%
+dacy/readability/__init__.py                        1      0   100%
+dacy/readability/readability.py                     6      0   100%
+dacy/sentiment/__init__.py                          2      0   100%
+dacy/sentiment/getters.py                           7      0   100%
+dacy/sentiment/wrapped_models.py                   27      0   100%
+dacy/subclasses/__init__.py                         1      0   100%
+dacy/subclasses/classification_transformer.py      93      2    98%   202, 238
+dacy/utils.py                                       3      0   100%
+-----------------------------------------------------------------------------
+TOTAL                                             190      2    99%
+
+=========================== short test summary info ============================
+FAILED dacy/tests/test_download.py::test_fail - ValueError: !
+============= 1 failed, 13 passed, 2 warnings in 94.10s (0:01:34) ==============

@@ -6,10 +6,10 @@
 [![python version](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
-[![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
+[![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
 
 <!-- 
 
@@ -162,6 +162,18 @@ python -m pytest--cov=.
   
 </details>
 
+
+<details>
+  <summary>Does DaCy run on X?</summary>
+
+  DaCy is intended to run on all major OS, this include Windows (latest version), MacOS (Big Sur and Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux.
+
+  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-mac_big_sur.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+  [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
+  
+</details>
 
 ## Acknowledgements
 This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
