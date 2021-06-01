@@ -1,0 +1,23 @@
+---------- coverage: platform darwin, python 3.8.8-final-0 -----------
+Name                                            Stmts   Miss  Cover
+-------------------------------------------------------------------
+dacy/__init__.py                                    6      0   100%
+dacy/about.py                                       3      0   100%
+dacy/download.py                                   37     14    62%
+dacy/load.py                                        7      0   100%
+dacy/readability/__init__.py                        1      0   100%
+dacy/readability/readability.py                     6      0   100%
+dacy/sentiment/__init__.py                          2      0   100%
+dacy/sentiment/getters.py                           7      5    29%
+dacy/sentiment/vaderSentiment_da.py               291    239    18%
+dacy/sentiment/wrapped_models.py                   27      0   100%
+dacy/subclasses/__init__.py                         1      0   100%
+dacy/subclasses/classification_transformer.py     104     21    80%
+dacy/tests/__init__.py                              0      0   100%
+dacy/tests/test_classification_transformer.py      19      0   100%
+dacy/tests/test_download.py                        19      0   100%
+dacy/tests/test_readability.py                      8      0   100%
+dacy/tests/test_sentiment.py                       30      0   100%
+dacy/utils.py                                       3      0   100%
+-------------------------------------------------------------------
+TOTAL                                             571    279    51%
