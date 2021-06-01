@@ -29,12 +29,7 @@ def where_is_my_dacy():
     return DEFAULT_CACHE_DIR
 
 
-def extract_all(archives, extract_path):
-    for filename in archives:
-        shutil.unpack_archive(filename, extract_path)
-
-
-def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
+def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR, force=False):
     """
     model (str): use models() to see all available models
 
@@ -48,7 +43,7 @@ def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
     url = models_url[model]
     path = os.path.join(save_path, model)
     dl_path = os.path.join(save_path, "tmp.zip")
-    if os.path.exists(path):
+    if os.path.exists(path) and force is False:
         return True
 
     Path(save_path).mkdir(parents=True, exist_ok=True)

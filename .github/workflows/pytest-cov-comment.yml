@@ -9,13 +9,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+
+    - name: Install dependencies
+       run: |
+         python -m pip install --upgrade pip
+         pip install pytest pytest-cov
+         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run and write pytest
+       run: |
+         python ./.github/pytest-coverage/run_coverage.py
+
       - uses: actions/checkout@v2
 
       - name: Pytest coverage comment
         id: coverage-comment
         uses: MishaKav/pytest-coverage-comment@v1.0
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
+          pytest-coverage-path: ./.github/pytest-coverage/pytest-coverage.txt
 
       - name: Check the output coverage
         run: |

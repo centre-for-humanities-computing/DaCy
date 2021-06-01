@@ -154,7 +154,7 @@ class ClassificationTransformer(Transformer):
         self,
         path: Union[str, Path],
         *,
-        num_labels: int = 2,
+        num_labels: int = 3,
         exclude: Iterable[str] = tuple(),
     ) -> "Transformer":
         """Load the pipe from disk.
@@ -209,29 +209,9 @@ def init(model: Model, X=None, Y=None):
     model.attrs["tokenizer"] = tokenizer
     model.attrs["set_transformer"](model, transformer)
     # Call the model with a batch of inputs to infer the width
-    if X:
-        # If we're dealing with actual texts, do the work to setup the wordpieces
-        # batch properly
-        docs = X
-        get_spans = model.attrs["get_spans"]
-        nested_spans = get_spans(docs)
-        flat_spans = []
-        for doc_spans in nested_spans:
-            flat_spans.extend(doc_spans)
-        token_data = huggingface_tokenize(
-            model.attrs["tokenizer"], [span.text for span in flat_spans]
-        )
-        wordpieces = WordpieceBatch.from_batch_encoding(token_data)
-        align = get_alignment(
-            flat_spans, wordpieces.strings, model.attrs["tokenizer"].all_special_tokens
-        )
-        wordpieces, align = truncate_oversize_splits(
-            wordpieces, align, tokenizer.model_max_length
-        )
-    else:
-        texts = ["hello world", "foo bar"]
-        token_data = huggingface_tokenize(model.attrs["tokenizer"], texts)
-        wordpieces = WordpieceBatch.from_batch_encoding(token_data)
+    texts = ["hello world", "foo bar"]
+    token_data = huggingface_tokenize(model.attrs["tokenizer"], texts)
+    wordpieces = WordpieceBatch.from_batch_encoding(token_data)
     model.layers[0].initialize(X=wordpieces)
     tensors = model.layers[0].predict(wordpieces)
 
@@ -300,7 +280,7 @@ def add_huggingface_model(
     category: str,
     labels: list,
     verbose: bool = True,
-    force_extension: bool=False,
+    force_extension: bool = False,
 ):
     """
     adds a Huggingface sequence classification model to the pipeline
@@ -320,7 +300,10 @@ def add_huggingface_model(
     }
 
     install_classification_extensions(
-        category=category, labels=labels, doc_extension=doc_extension, force=force_extension,
+        category=category,
+        labels=labels,
+        doc_extension=doc_extension,
+        force=force_extension,
     )
 
     transformer = nlp.add_pipe(
