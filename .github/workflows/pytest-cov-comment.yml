@@ -22,17 +22,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run and write pytest
       run: |
-        echo "$(ls)"
-        echo "moving out"
-        cd ..; pwd
-        echo "$(ls)"
-        echo "moving out"
-        cd ..; pwd
-        echo "$(ls)"
-        echo "moving out"
-        cd ..; pwd
-        echo "$(ls)"
-
         python ./pytest-coverage/run_coverage.py
 
     - name: Pytest coverage comment
