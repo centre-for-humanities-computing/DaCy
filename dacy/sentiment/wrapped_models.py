@@ -4,6 +4,7 @@ this script include functions for reading in the wrapped version of DaNLP's Bert
 This is not meant as a replace of DaNLP, but simply as a convenient wrapper around preexisting architecture.
 """
 import os
+from spacy.language import Language
 
 from danlp.download import download_model as danlp_download
 from danlp.download import _unzip_process_func
@@ -16,20 +17,35 @@ from dacy.subclasses import (
 )
 
 
+
 def add_danlp_model(
-    nlp,
+    nlp: Language,
     download_name: str,
     subpath: str,
     doc_extension: str,
     model_name: str,
     category: str,
     labels: list,
-    verbose: bool,
+    verbose: bool = True,
     open_unverified_connection: bool = False,
     force_extension: bool = False,
-):
-    """
-    adds a the DaNLP bert model to the pipeline
+) -> Language:
+    """Adds a DaNLP transformer model to the NLP pipeline. The transfomer model should be a model for sequence classification.
+
+    Args:
+        nlp (Language): A spacy text-processing pipeline
+        download_name (str): the name of the model you wish to download
+        subpath (str): the path under which DaNLP stores the model
+        doc_extension (str): The extension to the doc which you wish the save the transformer data under. This includes output tensor, wordpieces and more.
+        model_name (str): What you want your model to be called in the nlp pipeline
+        category (str): The category of the output. This is the label which is used to extract from the model. E.g. "sentiment" would allow you to extract the sentiment from doc._.sentiment
+        labels (list): The labels of the model
+        verbose (bool): Toggles the verbosity of the download. Defaults to True.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+
+    Returns:
+        Language: your text processing pipeline with the transformer model included
     """
     if open_unverified_connection:
         import ssl
@@ -65,13 +81,21 @@ def add_danlp_model(
 
 
 def add_berttone_subjectivity(
-    nlp,
+    nlp: Language,
     verbose: bool = True,
     open_unverified_connection: bool = False,
     force_extension: bool = False,
-):
-    """
-    adds a the DaNLP BertTone for polarity classification to the spacy language pipeline
+) -> Language:  
+    """Adds the daNLP bertTone model for detecting whether a statement is subjective to the pipeline.
+
+    Args:
+        nlp (Language): A spacy text-processing pipeline
+        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+
+    Returns:
+        Language: your text processing pipeline with the transformer model included
     """
     return add_danlp_model(
         nlp,
@@ -88,13 +112,21 @@ def add_berttone_subjectivity(
 
 
 def add_berttone_polarity(
-    nlp,
+    nlp: Language,
     verbose: bool = True,
     open_unverified_connection: bool = False,
     force_extension: bool = False,
-):
-    """
-    adds a the DaNLP BertTone for polarity classification to the spacy language pipeline
+) -> Language:
+    """Adds the daNLP bertTone model for classification of polarity to the pipeline.
+
+    Args:
+        nlp (Language): A spacy text-processing pipeline
+        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+
+    Returns:
+        Language: your text processing pipeline with the transformer model included
     """
     return add_danlp_model(
         nlp,
@@ -111,14 +143,23 @@ def add_berttone_polarity(
 
 
 def add_bertemotion_laden(
-    nlp,
+    nlp: Language,
     verbose: bool = True,
     open_unverified_connection: bool = False,
     force_extension: bool = False,
-):
+) -> Language:
     """
-    adds to the spacy language pipeline a the DaNLP BertEmotion for classifying whether a text is
+    Adds the daNLP bertEmoiton model for classifying whether a text is
     emotionally laden or not
+
+    Args:
+        nlp (Language): A spacy text-processing pipeline
+        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+
+    Returns:
+        Language: your text processing pipeline with the transformer model included
     """
     return add_danlp_model(
         nlp,
@@ -135,13 +176,22 @@ def add_bertemotion_laden(
 
 
 def add_bertemotion_emo(
-    nlp,
+    nlp: Language,
     verbose: bool = True,
     open_unverified_connection: bool = False,
     force_extension: bool = False,
-):
+) -> Language:
     """
-    adds a the DaNLP BertEmotion for emotion classification to the spacy language pipeline
+    Adds the daNLP bertEmoiton model for emotion classification to the spacy language pipeline
+
+    Args:
+        nlp (Language): A spacy text-processing pipeline
+        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+
+    Returns:
+        Language: your text processing pipeline with the transformer model included
     """
     labels = [
         "Glæde/Sindsro",
@@ -167,7 +217,19 @@ def add_bertemotion_emo(
     )
 
 
-def add_senda(nlp, verbose: bool = True, force_extension: bool = False):
+def add_senda(nlp: Language, verbose: bool = True, force_extension: bool = False) -> Language:
+    """
+    Adds the senda tranformer model for classification of polarity to the spacy language pipeline
+
+    Args:
+        nlp (Language): A spacy text-processing pipeline
+        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+
+    Returns:
+        Language: your text processing pipeline with the transformer model included
+    """
     return add_huggingface_model(
         nlp,
         download_name="pin/senda",
