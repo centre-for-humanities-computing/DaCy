@@ -57,7 +57,7 @@ pip install git+https://github.com/KennethEnevoldsen/DaCy
 
 
 # 👩‍💻 Usage
-To use the model you first have to download either the `medium` or `large` model. To see a list of all available models:
+To use the model you first have to download either the small, medium, or large model. To see a list of all available models:
 
 ```python
 import dacy
@@ -189,6 +189,36 @@ python -m pytest--cov=.
 
   
 </details>
+
+
+<details>
+  <summary>How is the documentation generated?</summary>
+
+  DaCy uses [sphinx](https://www.sphinx-doc.org/en/master/index.html) to generate documentation.
+
+  To make the documentation from scratch run
+  
+  ```
+  # install sphinx and read the docs theme
+  pip install sphinx sphinx_rtd_theme sphinx-press-theme
+
+  # automatic generation of Sphinx sources
+  sphinx-apidoc -o docs .
+
+  make -C docs html
+  ```
+
+   intended to run on all major OS, this include Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of linux) it is likely that DaCy will run there as well.
+
+| Operating System | Status |
+| ---------------- | ------ |
+| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml) |
+| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml) | 
+| Windows (Latest) | [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml) | 
+
+  
+</details>
+
 
 ## Acknowledgements
 This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
