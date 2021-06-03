@@ -56,7 +56,7 @@ def download_model(
         True if the model is downloaded as intended
 
     Example:
-        download_model(model="da_dacy_medium_tft-0.0.0")
+        >>> download_model(model="da_dacy_medium_tft-0.0.0")
     """
     if model not in models_url:
         raise ValueError(

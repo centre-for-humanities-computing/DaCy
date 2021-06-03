@@ -30,9 +30,11 @@ def add_huggingface_model(
     Args:
         nlp (Language): A spacy text-processing pipeline
         download_name (str): the name of the model you wish to download
-        doc_extension (str): The extension to the doc which you wish the save the transformer data under. This includes output tensor, wordpieces and more.
+        doc_extension (str): The extension to the doc which you wish the save the transformer data under.
+            This includes output tensor, wordpieces and more.
         model_name (str): What you want your model to be called in the nlp pipeline
-        category (str): The category of the output. This is the label which is used to extract from the model. E.g. "sentiment" would allow you to extract the sentiment from doc._.sentiment
+        category (str): The category of the output. This is the label which is used to extract from the model.
+            E.g. "sentiment" would allow you to extract the sentiment from doc._.sentiment
         labels (list): The labels of the model
         verbose (bool): Toggles the verbosity of the download. Defaults to True.
         open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
@@ -42,8 +44,8 @@ def add_huggingface_model(
         Language: your text processing pipeline with the transformer model included
 
     Example:
-        add_huggingface_model(nlp, download_name="pin/senda", doc_extension="senda_trf_data", model_name="senda",
-                            category="polarity", labels=["negative", "neutral", "positive"])
+        >>> add_huggingface_model(nlp, download_name="pin/senda", doc_extension="senda_trf_data", model_name="senda", \
+category="polarity", labels=["negative", "neutral", "positive"])
     """
 
     config = {

@@ -1,6 +1,8 @@
 """
 This includes a series of functions for wrapping a sequence classification transformer in a SpaCy pipeline
+
 """
+
 from typing import List, Callable, Iterable, Iterator, Optional, Dict, Union
 from pathlib import Path
 
@@ -64,18 +66,26 @@ def make_classification_transformer(
     max_batch_items: int,
     doc_extension_attribute: str,
 ):
-    """Construct a Transformer component, which lets you plug a model from the
+    """
+    Construct a Transformer component, which lets you plug a model from the
     Huggingface transformers library into spaCy so you can use it in your
     pipeline. One or more subsequent spaCy components can use the transformer
     outputs as features in its model, with gradients backpropagated to the single
     shared weights.
-    model (Model[List[Doc], FullTransformerBatch]): A thinc Model object wrapping
-        the transformer. Usually you will want to use the TransformerModel
-        layer for this.
-    set_extra_annotations (Callable[[List[Doc], FullTransformerBatch], None]): A
-        callback to set additional information onto the batch of `Doc` objects.
-        The doc._.clf_trf_data attribute is set prior to calling the callback.
-        By default, no additional annotations are set.
+
+    Args:
+        nlp (Language): a SpaCy text processing pipeline
+        name (str): The desired name of the component
+        model (Model[List[Doc], FullTransformerBatch]):
+            A thinc Model object wrapping the transformer. Usually you will want to use the TransformerModel layer for this.
+        set_extra_annotations (Callable[[List[Doc], FullTransformerBatch], None]):
+            A callback to set additional information onto the batch of `Doc` objects.
+            The doc._.clf_trf_data attribute is set prior to calling the callback. By default, no additional annotations are set.
+        max_batch_items (int): Max batch size
+        doc_extension_attribute (str): Your desired doc extension
+
+    Returns:
+        Your ClassificationTransformer component
     """
     return ClassificationTransformer(
         nlp.vocab,
@@ -92,13 +102,14 @@ def ClassificationTransformerModel(
     name: str, get_spans: Callable, tokenizer_config: dict, num_labels: int
 ) -> Model[List[Doc], FullTransformerBatch]:
     """
-    get_spans (Callable[[List[Doc]], List[Span]]):
-        A function to extract spans from the batch of Doc objects.
-        This is used to manage long documents, by cutting them into smaller
-        sequences before running the transformer. The spans are allowed to
-        overlap, and you can also omit sections of the Doc if they are not
-        relevant.
-    tokenizer_config (dict): Settings to pass to the transformers tokenizer.
+    Args:
+        get_spans (Callable[[List[Doc]], List[Span]]):
+            A function to extract spans from the batch of Doc objects.
+            This is used to manage long documents, by cutting them into smaller
+            sequences before running the transformer. The spans are allowed to
+            overlap, and you can also omit sections of the Doc if they are not
+            relevant.
+        tokenizer_config (dict): Settings to pass to the transformers tokenizer.
     """
 
     return Model(
@@ -147,15 +158,18 @@ class ClassificationTransformer(Transformer):
         self,
         path: Union[str, Path],
         *,
-        num_labels: int = 3,
+        num_labels: int,
         exclude: Iterable[str] = tuple(),
     ) -> "Transformer":
-        """Load the pipe from disk.
-        num_labels (int): Number of labels of the model
-        path (str / Path): Path to a directory.
-        exclude (Iterable[str]): String names of serialization fields to exclude.
-        RETURNS (Transformer): The loaded object.
-        DOCS: https://spacy.io/api/transformer#from_disk
+        """Load the pipe from disk. For more see:
+        https://spacy.io/api/transformer#from_disk
+
+        Args:
+            path (str): Path to a directory.
+            exclude (Iterable[str]): String names of serialization fields to exclude.
+            num_labels (int): Number of labels of the models. Required for reading the model into memory.
+        Return:
+            (Transformer): The loaded object.
         """
 
         def load_model(p):
@@ -177,12 +191,15 @@ class ClassificationTransformer(Transformer):
     def set_annotations(
         self, docs: Iterable[Doc], predictions: FullTransformerBatch
     ) -> None:
-        """Assign the extracted features to the Doc objects. By default, the
+        """
+        Assign the extracted features to the Doc objects. By default, the
         TransformerData object is written to the doc._.trf_data attribute. Your
-        set_extra_annotations callback is then called, if provided.
-        docs (Iterable[Doc]): The documents to modify.
-        predictions: (FullTransformerBatch): A batch of activations.
-        DOCS: https://spacy.io/api/pipe#set_annotations
+        set_extra_annotations callback is then called, if provided. For more see
+        https://spacy.io/api/pipe#set_annotations
+
+        Args:
+            docs (Iterable[Doc]): The documents to modify.
+            predictions (FullTransformerBatch): A batch of activations.
         """
         doc_data = list(predictions.doc_data)
         for doc, data in zip(docs, doc_data):
@@ -212,11 +229,14 @@ def init(model: Model, X=None, Y=None):
 def huggingface_classification_from_pretrained(
     source: Union[Path, str], config: Dict, num_labels: int
 ):
-    """Create a Huggingface transformer model from pretrained weights. Will
+    """
+    Create a Huggingface transformer model from pretrained weights. Will
     download the model if it is not already downloaded.
-    source (Union[str, Path]): The name of the model or a path to it, such as
-        'bert-base-cased'.
-    config (dict): Settings to pass to the tokenizer.
+
+    Args:
+        source (Union[str, Path]): The name of the model or a path to it, such as
+            'bert-base-cased'.
+        config (dict): Settings to pass to the tokenizer.
     """
     if hasattr(source, "absolute"):
         str_path = str(source.absolute())
@@ -263,4 +283,3 @@ def install_classification_extensions(
     )
     Doc.set_extension(f"{category}_prop", getter=prop_getter, force=force)
     Doc.set_extension(category, getter=label_getter, force=force)
-

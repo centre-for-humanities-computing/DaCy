@@ -19,6 +19,10 @@ def load(model: str, path: Optional[str] = None) -> Language:
 
     Returns:
         Language: a SpaCy text-preprocessing pipeline
+
+    Example:
+        >>> import dacy
+        >>> dacy.load("da_dacy_medium_tft-0.0.0")
     """
     if path is None:
         path = DEFAULT_CACHE_DIR
@@ -33,6 +37,10 @@ def where_is_my_dacy() -> str:
 
     Returns:
         str: path to the location of DaCy models
+
+    Example:
+        >>> import dacy
+        >>> dacy.where_is_my_dacy()
     """
     return DEFAULT_CACHE_DIR
 
@@ -42,5 +50,9 @@ def models() -> list:
 
     Returns:
         list: list of valid DaCy models
+
+    Example:
+        >>> import dacy
+        >>> dacy.models()
     """
     return list(models_url.keys())
