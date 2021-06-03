@@ -2,6 +2,7 @@ import os
 import shutil
 from pathlib import Path
 import urllib.request
+from typing import Optional
 
 from tqdm import tqdm
 
@@ -37,24 +38,15 @@ def models() -> list:
     return list(models_url.keys())
 
 
-def where_is_my_dacy() -> str:
-    """Returns a path to where DaCy models are located
-
-    Returns:
-        str: path to the location of DaCy models
-    """
-    return DEFAULT_CACHE_DIR
-
-
 def download_model(
-    model: str, save_path: str = DEFAULT_CACHE_DIR, force: bool = False
+    model: str, save_path: Optional[str] = None, force: bool = False
 ) -> bool:
-    """downloads a DaCy model to the specified save_path
+    """
+    downloads a DaCy model to the specified save_path or to the default cache directory.
 
     Args:
         model (str): string indicating DaCy model, use dacy.models() to get a list of models
-        save_path (str, optional): The path you want to save your model to. Defaults to DEFAULT_CACHE_DIR
-        which can be optained using dacy.where_is_my_dacy().
+        save_path (str, optional): The path you want to save your model to. Defaults to None denoting the default cache directory. Which can be found using using dacy.where_is_my_dacy().
         force (bool, optional): Should it download the model regardless of it already being present? Defaults to False.
 
     Returns:
@@ -67,6 +59,9 @@ def download_model(
         raise ValueError(
             "The model is not available in DaCy. Please use dacy.models() to see a list of all models"
         )
+    if save_path is None:
+        save_path = DEFAULT_CACHE_DIR
+
     url = models_url[model]
     path = os.path.join(save_path, model)
     dl_path = os.path.join(save_path, "tmp.zip")
