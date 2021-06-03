@@ -147,13 +147,12 @@ def add_bertemotion_emo(
     )
 
 
-def add_senda(nlp: Language, verbose: bool = True, force_extension: bool = False) -> Language:
+def add_senda(nlp: Language, force_extension: bool = False) -> Language:
     """
     Adds the senda tranformer model for classification of polarity to the spacy language pipeline
 
     Args:
         nlp (Language): A spacy text-processing pipeline
-        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.
         open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
         force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
 
@@ -167,6 +166,5 @@ def add_senda(nlp: Language, verbose: bool = True, force_extension: bool = False
         model_name="senda",
         category="polarity",
         labels=["negative", "neutral", "positive"],
-        verbose=verbose,
         force_extension=force_extension,
     )
