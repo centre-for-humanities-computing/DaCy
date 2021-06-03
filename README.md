@@ -199,11 +199,10 @@ python -m pytest--cov=.
   To make the documentation from scratch run
   
   ```
-  # install sphinx and read the docs theme
-  pip install sphinx sphinx_rtd_theme sphinx-press-theme
+  # install sphinx, thems and extensions
+  pip install sphinx furo sphinx-copybutton sphinxext-opengraph
 
-  # automatic generation of Sphinx sources
-  sphinx-apidoc -o docs .
+  # generate html from documentations
 
   make -C docs html
   ```
