@@ -206,15 +206,6 @@ python -m pytest--cov=.
 
   make -C docs html
   ```
-
-   intended to run on all major OS, this include Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of linux) it is likely that DaCy will run there as well.
-
-| Operating System | Status |
-| ---------------- | ------ |
-| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml) |
-| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml) | 
-| Windows (Latest) | [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml) | 
-
   
 </details>
 
