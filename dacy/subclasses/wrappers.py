@@ -1,3 +1,7 @@
+"""
+This include convenient wrapper functions for wrapping DaNLP and Huggingface models in a SpaCy text processing pipeline.
+"""
+
 from .classification_transformer import install_classification_extensions
 import os
 from spacy.language import Language

@@ -1,3 +1,6 @@
+"""
+This includes a series of functions for wrapping a sequence classification transformer in a SpaCy pipeline
+"""
 from typing import List, Callable, Iterable, Iterator, Optional, Dict, Union
 from pathlib import Path
 

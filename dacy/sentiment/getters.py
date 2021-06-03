@@ -1,3 +1,7 @@
+"""
+This includes a series of getters extensions for extracting sentiment.
+"""
+
 from spacy.tokens import Doc
 from .vaderSentiment_da import SentimentIntensityAnalyzer
 

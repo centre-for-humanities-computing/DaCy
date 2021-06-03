@@ -1,3 +1,7 @@
+"""
+This includes functionality for extracting readability measures from text.
+"""
+
 from spacy.tokens import Doc
 
 

@@ -1,3 +1,6 @@
+"""
+This includes a series of functions for downloading DaCy models.
+"""
 import os
 import shutil
 from pathlib import Path

@@ -1,7 +1,6 @@
 """
-this script include functions for reading in the wrapped version of DaNLP's BertTone model
-
-This is not meant as a replace of DaNLP, but simply as a convenient wrapper around preexisting architecture.
+this include functions for reading in the wrapped version of sentiment models inclduing DaNLP's sentiment model and Extra Bladet's senda. 
+This is not meant as a replace of preexisting frameworks, but simply as a convenient wrapper around preexisting architecture.
 """
 
 from spacy.language import Language
