@@ -12,6 +12,10 @@ This website contains the documentation for DaCy as well introduction for how to
 📰 News
 ---------------------------------
 
+* 04/06/21
+
+  -DaCy now have a stunningly looking documentation site 🌟
+
 * 01/06/21
 
   - DaCy's tests now cover 99% of its codebase 🎉
