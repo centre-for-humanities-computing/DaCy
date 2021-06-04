@@ -65,14 +65,12 @@ The documentation is organized in two parts:
 
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Github
-   GitHub Repository <https://github.com/KennethEnevoldsen/DaCy>
+  GitHub Repository <https://github.com/KennethEnevoldsen/DaCy>
 
    
 
 
-Indices and tables
+Indices and search
 ==================
 
 * :ref:`genindex`
