@@ -24,17 +24,17 @@
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore, it also contains guides on how to use DaCy.
 
 # 📰 News
-- 01/06/21 
+- 01/06/21 (0.3.2)
   - DaCy's tests now cover 99% of its codebase 🎉
   - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻
-- 25/05/21 
+- 25/05/21 (0.2.2)
   - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
-- 30/03/21
+- 30/03/21 (0.2.1)
   - DaCy now includes a small model for efficient processing based on the Danish [Ælæctra](https://sprogteknologi.dk/dataset/918158b9-ac6b-4484-a44a-4e3de386dfca) 🏃
-- 24/03/21
+- 24/03/21 (0.1.1)
   - DaCy included wrapped version on major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
   - Totorials is added to introduce the above functionality
-- 25/02/21
+- 25/02/21 (0.0.1)
   - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
 
 # 🔧 Installation

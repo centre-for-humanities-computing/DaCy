@@ -1,4 +1,5 @@
 import setuptools
+from dacy.about import __version__
 
 with open("README.md", encoding='utf-8') as f:
     long_description = f.read()
@@ -8,7 +9,7 @@ with open("requirements.txt", encoding="utf-8") as f:
 
 setuptools.setup(
     name="dacy",
-    version="0.0.1",
+    version=__version__,
     description="a Danish preprocessing pipeline trained in SpaCy. \
         At the time of writing it has achieved State-of-the-Art \
             performance on all Benchmark tasks for Danish",
