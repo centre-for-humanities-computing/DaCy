@@ -14,7 +14,9 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, "..")
 
+from dacy.about import __version__
 
 # -- Project information -----------------------------------------------------
 
@@ -23,7 +25,6 @@ copyright = "2021, Kenneth Enevoldsen"
 author = "Kenneth Enevoldsen"
 
 # The full version, including alpha/beta/rc tags
-from ..dacy.about import __version__
 release = __version__
 
 
