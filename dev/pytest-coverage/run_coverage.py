@@ -11,7 +11,7 @@ import subprocess
 test_failed = False
 try:
     grepOut = subprocess.check_output(
-        "pytest --cov=dacy --cov-config=pytest-coverage/.coveragerc --cov-report term-missing",
+        "pytest --cov=dacy --cov-config=dev/pytest-coverage/.coveragerc --cov-report term-missing",
         shell=True,
     )
     output = grepOut.decode("utf-8")
@@ -21,7 +21,7 @@ except subprocess.CalledProcessError as grepexc:
     print("error code", grepexc.returncode, "\n\n --------- \n", output)
 
 
-save_path = "pytest-coverage"
+save_path = os.path.join("dev", "pytest-coverage")
 Path(save_path).mkdir(parents=True, exist_ok=True)
 
 save_path = os.path.join(save_path, "pytest-coverage.txt")

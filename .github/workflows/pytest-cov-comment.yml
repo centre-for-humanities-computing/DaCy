@@ -23,13 +23,13 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run and write pytest
       run: |
-        python ./pytest-coverage/run_coverage.py
+        python ./dev/pytest-coverage/run_coverage.py
 
     - name: Pytest coverage comment
       id: coverage-comment
       uses: MishaKav/pytest-coverage-comment@v1.0
       with:
-        pytest-coverage-path: ./pytest-coverage/pytest-coverage.txt
+        pytest-coverage-path: ./dev/pytest-coverage/pytest-coverage.txt
 
     - name: Check the output coverage
       run: |
