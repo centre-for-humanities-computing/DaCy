@@ -25,7 +25,7 @@ DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing
 
 # 📰 News
 - 0.4.1 (03/06/21)
-  - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟
+  - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
   - DaCy's tests now cover 99% of its codebase 🎉
   - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻

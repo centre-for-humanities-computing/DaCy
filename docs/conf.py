@@ -73,12 +73,17 @@ html_context = {
 }
 
 html_static_path = ["_static"]
+
 html_theme_options = {
     "light_logo": "icon.png",
     "dark_logo": "icon_dark.png",
     "light_css_variables": {
         "color-brand-primary": "#ff5454",
         "color-brand-content": "#ff7575",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#ff8f8f",
+        "color-brand-content": "#ff8f8f",
     },
     "sidebar_hide_name": True,
     "navigation_with_keys": True,
