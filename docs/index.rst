@@ -1,8 +1,8 @@
 DaCy
 ================================
 
-.. image:: https://img.shields.io/github/stars/sphinx-notes/isso.svg?style=social&label=Star&maxAge=2592000
-   :target: https://github.com/sphinx-notes/isso
+.. image:: https://img.shields.io/github/stars/KennethEnevoldsen/DaCy.svg?style=social&label=Star&maxAge=2592000
+   :target: https://github.com/KennethEnevoldsen/DaCy
 
 DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, 
 named-entity recognition (NER) and Dependency parsing for Danish. 
@@ -58,6 +58,12 @@ The documentation is organized in two parts:
    dacy.sentiment
    dacy.readability
    dacy.subclasses
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Github
+   GitHub Repository <https://github.com/KennethEnevoldsen/DaCy>
 
    
 
