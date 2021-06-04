@@ -86,3 +86,7 @@ html_theme_options = {
 
 # pygments_style = "monokai"
 pygments_dark_style = "monokai"
+
+
+def setup(app):
+    app.add_js_file("js/custom.js")
