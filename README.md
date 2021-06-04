@@ -10,7 +10,7 @@
 [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
-
+[![github actions docs](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/DaCy/)
 <!-- 
 
 <a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
@@ -24,7 +24,9 @@
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore, it also contains guides on how to use DaCy.
 
 # 📰 News
-- 01/06/21 (0.3.2)
+- 03/06/21 (0.4.1)
+  - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟
+- 01/06/21 (0.3.1)
   - DaCy's tests now cover 99% of its codebase 🎉
   - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻
 - 25/05/21 (0.2.2)
@@ -82,15 +84,18 @@ dacy.download_model("da_dacy_medium_tft-0.0.0", your_save_path)
 nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
 ```
 
-# 👩‍🏫 Tutorials
+For more on how to use DaCy please check out our [documentation)
 
-DaCy also include a Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
+# 👩‍🏫 Tutorials and documentation
 
-| Tutorial                                                                                                                                           | Content                                                                                                                    | file name                                        | Google Colab                                                                                                                                                                                                       |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Introduction](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb)                                            | A simple introduction to SpaCy and DaCy. For a more detailed instruction I recommend the course by SpaCy themselves.       | dacy-spacy-tutorial.ipynb                        | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-spacy-tutorial.ipynb)                        |
-| [Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                    | A simple introduction to the new sentiment features in DaCy.                                                               | dacy-sentiment.ipynb                             | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
-| [wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. | dacy-wrapping-a-classification-transformer.ipynb | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
+DaCy also include a detailed documentaion as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
+
+|                                                                                                                                            | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Getting Started](https://kennethenevoldsen.github.io/DaCy/usingdacy.html)                                            | An introduction on how to use DaCy       |                       |
+| [Documentation](https://kennethenevoldsen.github.io/DaCy/) | The Documentation of DaCy |  |
+| [Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                    | A simple introduction to the new sentiment features in DaCy.                                                               |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
+| [wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
 
 
 
@@ -109,6 +114,8 @@ the folder `DaCy_training` contains a SpaCy project which will allow for a repro
 Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
 </details>
+
+
 
 
 # 🤔 Issues and Usage Q&A
@@ -194,9 +201,9 @@ python -m pytest--cov=.
 <details>
   <summary>How is the documentation generated?</summary>
 
-  DaCy uses [sphinx](https://www.sphinx-doc.org/en/master/index.html) to generate documentation.
+  DaCy uses [sphinx](https://www.sphinx-doc.org/en/master/index.html) to generate documentation. It uses the [Furo](https://github.com/pradyunsg/furo) theme with a custom styling.
 
-  To make the documentation from scratch run
+  To make the documentation you can run:
   
   ```
   # install sphinx, thems and extensions
@@ -208,6 +215,8 @@ python -m pytest--cov=.
   ```
   
 </details>
+
+
 
 
 ## Acknowledgements
