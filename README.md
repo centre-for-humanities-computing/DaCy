@@ -12,16 +12,17 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 [![github actions docs](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/DaCy/)
 <!-- 
-
 <a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
-<a href="https://doi.org/10.5281/zenodo.4707403"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4707403.svg" alt="DOI"></a>
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/trunajod">
 [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
-<a href="https://trunajod20.readthedocs.io/en/stable/?badge=stable"><img alt="Documentation Status" src="https://readthedocs.org/projects/trunajod20/badge/?version=stable"></a>
 
 -->
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore, it also contains guides on how to use DaCy.
+<!--
+EASTER EGG:
+https://www.youtube.com/watch?v=E7WQ1tdxSqI
+-->
 
 # 📰 News
 - 0.4.1 (03/06/21)
