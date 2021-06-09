@@ -30,7 +30,7 @@ def dane(
 
     Args:
         save_path (str, optional): The path which contain the dane dataset If it does not contain the dataset it
-            is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy().
+            is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.
         predefined_splits (bool, optional): If True returns the predifined splits in a tuple (train, dev, test)
             otherwise return one dataset. Defaults to True.
         redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.
@@ -40,7 +40,7 @@ def dane(
         Union[Tuple[Corpus, Corpus, Corpus], Corpus]: Returns a spacy corpus or a tuple thereof if predefined splits is True.
     """
     if save_path is None:
-        save_path = DEFAULT_CACHE_DIR
+        save_path = os.path.join(DEFAULT_CACHE_DIR, "datasets")
 
     if ("dane" not in os.listdir(save_path)) or (redownload is True):
         save_path = os.path.join(save_path, "dane")
