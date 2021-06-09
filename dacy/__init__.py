@@ -5,3 +5,4 @@ from .about import __version__
 from dacy import sentiment
 from dacy import subclasses
 from dacy import readability
+from dacy import datasets

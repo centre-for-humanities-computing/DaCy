@@ -68,6 +68,8 @@ def apply_bert_model(example, i):
     ent = []
     for i, t in enumerate(zip(doc, labels)):
         token, label = t
+
+        # turn OOB labels into spans
         if label == "O":
             continue
         iob, ent_type = label.split("-")
