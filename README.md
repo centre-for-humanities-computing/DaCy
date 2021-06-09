@@ -173,6 +173,11 @@ python -m pytest
 
 which will run all the test in the `dacy/tests` folder.
 
+To run a specific test for instance if you wish to run the test on the readability functions, you can run:
+
+```
+python -m pytest dacy/tests/test_readability.py
+```
 
 **Code Coverage**
 If you want check code coverage as well you can run the following:
