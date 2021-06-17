@@ -38,13 +38,17 @@ def dane(
 
     Returns:
         Union[Tuple[Corpus, Corpus, Corpus], Corpus]: Returns a spacy corpus or a tuple thereof if predefined splits is True.
+
+    Example:
+        >>> import dacy
+        >>> train, dev, test = dacy.datasets.dane(predefined_splits=True)
     """
     if save_path is None:
         save_path = os.path.join(DEFAULT_CACHE_DIR, "datasets")
 
-    if ("dane" not in os.listdir(save_path)) or (redownload is True):
-        save_path = os.path.join(save_path, "dane")
-        Path(save_path).mkdir(parents=True, exist_ok=True)
+    if (not os.path.isdir(save_path)) or ("dane" not in os.listdir(save_path)) or (redownload is True):
+        save_path_ = os.path.join(save_path, "dane")
+        Path(save_path_).mkdir(parents=True, exist_ok=True)
 
         ddt = DDT()
         train, dev, test = ddt.load_as_conllu(predefined_splits=True)
@@ -63,14 +67,14 @@ def dane(
 
             # convert to spacy
             os.system(
-                f"python -m spacy convert {wpath} {save_path} --converter conllu --merge-subtokens -n {n_sents}"
+                f"python -m spacy convert {wpath} {save_path_} --converter conllu --merge-subtokens -n {n_sents}"
             )
             os.remove(wpath)
 
     if predefined_splits is False:
-        return Corpus("corpus/dane/dane.spacy")
+        return Corpus(os.path.join(save_path, "dane", "dane.spacy"))
     else:
-        train = Corpus("corpus/dane/dane_test.spacy")
-        dev = Corpus("corpus/dane/dane_test.spacy")
-        test = Corpus("corpus/dane/dane_test.spacy")
+        train = Corpus(os.path.join(save_path, "dane", "dane_train.spacy"))
+        dev = Corpus(os.path.join(save_path, "dane", "dane_dev.spacy"))
+        test = Corpus(os.path.join(save_path, "dane", "dane_test.spacy"))
         return train, dev, test
