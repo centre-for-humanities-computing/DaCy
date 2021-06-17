@@ -84,14 +84,19 @@ def augment_entity(
     pattern: str = "fn,ln",
     force_size: bool = False,
     keep_name: bool = False,
+    prob: float = 1,
 ) -> List[List[str]]:
     """Augment entities
 
     Args:
         entities (List[List[str]]): A list of lists of spans of entities/names to replace
+        ent_dict (dict): A dictionary of first_name and last_name to replace with
         pattern (str, optional): The pattern to replace with.
             Options: "fn", "ln", "abb", "abbpunct". Defaults to "fn,ln".
-        keep_name (bool, optional): Whether to use the current name or sample from ent_dict
+        force_size (bool, optional): Whether to force entities have the same format as pattern
+        keep_name (bool, optional): Whether to use the current name or sample from ent_dict. Defaults to False.
+        prob (float, optional): which proportion of entities to augment
+
 
     Returns:
         List[List[str]]: [description]
@@ -107,21 +112,28 @@ def augment_entity(
         new_entity = []
 
         for i, ent in enumerate(entity_span):
-            if i > len(pattern):
-                continue
-            if pattern[i] == "fn":
-                new_entity.append(sample_first_name(ent, keep_name, ent_dict))
-            if pattern[i] == "ln":
-                new_entity.append(sample_last_name(ent, keep_name, ent_dict))
-            if pattern[i] == "abb":
-                new_entity.append(sample_abbreviation(ent, keep_name, ent_dict))
-            if pattern[i] == "abbpunct":
-                new_entity.append(sample_abbreviation_punct(ent, keep_name, ent_dict))
+            if random.random > prob:
+                new_entity.append(ent)
+            else:
+                if i > len(pattern):
+                    continue
+                if pattern[i] == "fn":
+                    new_entity.append(sample_first_name(ent, keep_name, ent_dict))
+                if pattern[i] == "ln":
+                    new_entity.append(sample_last_name(ent, keep_name, ent_dict))
+                if pattern[i] == "abb":
+                    new_entity.append(sample_abbreviation(ent, keep_name, ent_dict))
+                if pattern[i] == "abbpunct":
+                    new_entity.append(
+                        sample_abbreviation_punct(ent, keep_name, ent_dict)
+                    )
         new_entity_spans.append(new_entity)
     return new_entity_spans
 
 
-def resize_entity_list(entity: List[str], pattern: List[str], ent_dict: dict):
+def resize_entity_list(
+    entity: List[str], pattern: List[str], ent_dict: dict
+) -> List[str]:
     if len(entity) > len(pattern):
         return entity[: len(pattern)]
     else:
