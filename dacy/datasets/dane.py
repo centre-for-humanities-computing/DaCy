@@ -4,19 +4,14 @@ This includes Danish datasets wrapped and read in in as a spacy corpus. This sho
 
 import os
 from pathlib import Path
+import shutil
 from typing import Optional, Union, Tuple
-from numpy.lib.npyio import save
 
-import spacy
 from danlp.datasets import DDT
-from danlp.models import load_bert_ner_model
-from spacy import displacy
-from spacy.cli.convert import conllu_to_docs
-from spacy.scorer import Scorer
-from spacy.tokens import Doc, Span
 from spacy.training import Corpus
 
-from ..download import DEFAULT_CACHE_DIR
+from ..download import DEFAULT_CACHE_DIR, download_url
+from .constants import DATASETS
 
 
 def dane(
@@ -26,7 +21,7 @@ def dane(
     n_sents: int = 1,
 ) -> Union[Tuple[Corpus, Corpus, Corpus], Corpus]:
     """
-    reads in DaNE as a spacy Corpus.
+    reads the DaNE dataset as a spacy Corpus.
 
     Args:
         save_path (str, optional): The path which contain the dane dataset If it does not contain the dataset it
@@ -44,37 +39,44 @@ def dane(
         >>> train, dev, test = dacy.datasets.dane(predefined_splits=True)
     """
     if save_path is None:
-        save_path = os.path.join(DEFAULT_CACHE_DIR, "datasets")
+        save_path = os.path.join(DEFAULT_CACHE_DIR, "datasets", "dane")
 
-    if (not os.path.isdir(save_path)) or ("dane" not in os.listdir(save_path)) or (redownload is True):
-        save_path_ = os.path.join(save_path, "dane")
-        Path(save_path_).mkdir(parents=True, exist_ok=True)
+    if (
+        (not os.path.isdir(save_path))
+        or ("dane" not in os.listdir(save_path))
+        or (redownload is True)
+    ):
+        Path(save_path).mkdir(parents=True, exist_ok=True)
 
-        ddt = DDT()
-        train, dev, test = ddt.load_as_conllu(predefined_splits=True)
-        all = ddt.load_as_conllu(predefined_splits=False)
+        dl_path = os.path.join(save_path, "dane.zip")
+        download_url(DATASETS["dane"], dl_path)
+        shutil.unpack_archive(dl_path, save_path)
+        os.remove(dl_path)
 
-        wpaths = [
-            "dane_train.conllu",
-            "dane_dev.conllu",
-            "dane_test.conllu",
-            "dane.conllu",
-        ]
+    wpaths = [
+        "dane_train.conllu",
+        "dane_dev.conllu",
+        "dane_test.conllu",
+        "dane.conllu",
+    ]
 
-        for dat, wpath in zip([train, dev, test, all], wpaths):
-            with open(wpath, "w") as f:
-                test.write(f)
-
-            # convert to spacy
-            os.system(
-                f"python -m spacy convert {wpath} {save_path_} --converter conllu --merge-subtokens -n {n_sents}"
-            )
-            os.remove(wpath)
+    for wpath in wpaths:
+        wpath = os.path.join(save_path, wpath)
+        cpath = wpath[:-7] + f"_{n_sents}"
+        if os.path.isfile(cpath + ".spacy"):
+            continue
+        cpath += ".conllu"
+        shutil.copyfile(wpath, cpath)
+        # convert to spacy
+        os.system(
+            f"python -m spacy convert {cpath} {save_path} --converter conllu --merge-subtokens -n {n_sents}"
+        )
+        os.remove(cpath)
 
     if predefined_splits is False:
-        return Corpus(os.path.join(save_path, "dane", "dane.spacy"))
+        return Corpus(os.path.join(save_path, f"dane_{n_sents}.spacy"))
     else:
-        train = Corpus(os.path.join(save_path, "dane", "dane_train.spacy"))
-        dev = Corpus(os.path.join(save_path, "dane", "dane_dev.spacy"))
-        test = Corpus(os.path.join(save_path, "dane", "dane_test.spacy"))
+        train = Corpus(os.path.join(save_path, f"dane_train_{n_sents}.spacy"))
+        dev = Corpus(os.path.join(save_path, f"dane_dev_{n_sents}.spacy"))
+        test = Corpus(os.path.join(save_path, f"dane_test_{n_sents}.spacy"))
         return train, dev, test
