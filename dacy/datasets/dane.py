@@ -5,7 +5,7 @@ This includes Danish datasets wrapped and read in in as a spacy corpus. This sho
 import os
 from pathlib import Path
 import shutil
-from typing import Optional, Union, Tuple
+from typing import List, Optional, Union, Tuple
 
 from danlp.datasets import DDT
 from spacy.training import Corpus
@@ -16,34 +16,38 @@ from .constants import DATASETS
 
 def dane(
     save_path: Optional[str] = None,
-    predefined_splits: bool = True,
+    splits: List[str] = ["train", "dev", "test"],
     redownload: bool = False,
     n_sents: int = 1,
-) -> Union[Tuple[Corpus, Corpus, Corpus], Corpus]:
+    **kwargs
+) -> Union[List[Corpus], Corpus]:
     """
     reads the DaNE dataset as a spacy Corpus.
 
     Args:
         save_path (str, optional): The path which contain the dane dataset If it does not contain the dataset it
             is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.
-        predefined_splits (bool, optional): If True returns the predifined splits in a tuple (train, dev, test)
-            otherwise return one dataset. Defaults to True.
+        splits (List[str], optional): Which splits of the dataset should be returned. Possible options include "train", "dev", "test", "all".
+            Defaults to ["train", "dev", "test"]. 
         redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.
         n_sents (int, optional): Number of sentences per document. Only applied in datasets is downloaded. Defaults to 1.
 
     Returns:
-        Union[Tuple[Corpus, Corpus, Corpus], Corpus]: Returns a spacy corpus or a tuple thereof if predefined splits is True.
+        Union[List[Corpus], Corpus]: Returns a spacy corpus or a list thereof.
 
     Example:
         >>> import dacy
         >>> train, dev, test = dacy.datasets.dane(predefined_splits=True)
     """
     if save_path is None:
-        save_path = os.path.join(DEFAULT_CACHE_DIR, "datasets", "dane")
+        save_path_ = os.path.join(DEFAULT_CACHE_DIR, "datasets")
+    else:
+        save_path_ = save_path
+    save_path = os.path.join(save_path_, "dane")
 
     if (
         (not os.path.isdir(save_path))
-        or ("dane" not in os.listdir(save_path))
+        or ("dane" not in os.listdir(save_path_))
         or (redownload is True)
     ):
         Path(save_path).mkdir(parents=True, exist_ok=True)
@@ -73,10 +77,16 @@ def dane(
         )
         os.remove(cpath)
 
-    if predefined_splits is False:
-        return Corpus(os.path.join(save_path, f"dane_{n_sents}.spacy"))
-    else:
-        train = Corpus(os.path.join(save_path, f"dane_train_{n_sents}.spacy"))
-        dev = Corpus(os.path.join(save_path, f"dane_dev_{n_sents}.spacy"))
-        test = Corpus(os.path.join(save_path, f"dane_test_{n_sents}.spacy"))
-        return train, dev, test
+    if isinstance(splits, str):
+        splits=[splits]
+    corpora = []
+    paths = {"all": f"dane_{n_sents}.spacy",
+        "test": f"dane_test_{n_sents}.spacy",
+        "dev": f"dane_dev_{n_sents}.spacy", 
+        "train": f"dane_train_{n_sents}.spacy"}
+
+    for split in splits:
+        corpora.append(Corpus(os.path.join(save_path, paths[split])))
+    if len(corpora) == 1:
+        return corpora[0]
+    return corpora
