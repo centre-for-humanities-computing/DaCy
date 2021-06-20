@@ -29,3 +29,23 @@ def test_score():
     )
     print(scores)
     scores.to_df()
+
+
+def test_n_sents_score():
+    nlp = dacy.load("da_dacy_medium_tft-0.0.0")
+
+    def apply_model(example):
+        example.predicted = nlp(example.predicted.text)
+        return example
+
+    scores = dacy.testing.n_sents_score(
+        n_sents=1,
+        apply_fn=apply_model,
+    )
+    print(scores)
+
+def test_Scores():
+    scores = dacy.testing.Scores({"acc": [0.999999, 0.988888, 0.7666]})
+    assert isinstance(scores.scores, dict)
+    assert isinstance(scores.summary("acc"), str)
+    scores.to_df()
