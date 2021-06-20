@@ -1,14 +1,16 @@
+from __future__ import annotations
+
+from functools import partial
 from typing import Callable, List, Optional, Union
+
+import numpy as np
+from pydantic import BaseModel
+from spacy.language import Language
+from spacy.scorer import Scorer
 from spacy.training import Corpus
 
-from spacy.scorer import Scorer
-from functools import partial
-from spacy.language import Language
-
-from pydantic import BaseModel
-import numpy as np
-
 from ..utils import flatten_dict
+
 
 class Scores(BaseModel):
     scores: dict
@@ -20,7 +22,7 @@ class Scores(BaseModel):
     def std(self, score: str):
         s = self.scores[score]
         return np.std(s)
-    
+
     def summary(self, score: str):
         std = self.std(score)
         mean = self.mean(score)
@@ -28,6 +30,7 @@ class Scores(BaseModel):
 
     def to_df(self):
         import pandas as pd
+
         return pd.DataFrame(self.scores)
 
     def __repr_str__(self, join_str: str) -> str:
@@ -36,26 +39,36 @@ class Scores(BaseModel):
             for a, v in [(k, self.summary(k)) for k in self.scores.keys()]
         )
 
+    def __add__(self, other: Scores):
+        for k in self.scores.keys():
+            if k in other.scores:
+                self.scores[k] += other.scores[k]
+        for k in other.scores.keys():
+            if k not in self.scores.keys():
+                self.scores[k] = other.scores[k]
+        return self
+
 
 def score(
     corpus: Corpus,
-    augmenter: Optional[Callable],
     apply_fn: Callable,
-    score_fn: List[Union[Callable, str]] = ["token", "pos", "ents"],
-    nlp: Optional[Language] = None,
+    score_fn: List[Union[Callable, str]] = ["toquitken", "pos", "ents"],
+    augmenter: Optional[Callable] = None,
     k: int = 1,
+    nlp: Optional[Language] = None,
+    **kwargs
 ) -> Scores:
     """scores a models performance on a given corpus with potentially augmentations applied to it.
 
     Args:
         corpus (Corpus): A spacy Corpus
-        augmenter (Optional[Callable]): A spacy style augmenter which should be applied to the corpus.
         apply_fn (Callable): A wrapper function for the model you wish to score. The model should take in a spacy Example and output a tagged version of it.
-        score_fn (List[Union[Callable, str]], optional): A scoring function which takes in a list of examples and return a dictionary of the form {"score_name": score}. 
+        score_fn (List[Union[Callable, str]], optional): A scoring function which takes in a list of examples and return a dictionary of the form {"score_name": score}.
             Four potiential strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring the performance of pos-tags.
             "token" for measuring the performance of tokenization. "nlp" for measuring the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents"].
-        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty Danish pipeline. Defaults to None.
+        augmenter (Optional[Callable]): A spacy style augmenter which should be applied to the corpus. Defaults to None.
         k (int, optional): Number of times it should run the augmentation and test the performance on the corpus. Defaults to 1.
+        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty Danish pipeline. Defaults to None.
 
     Returns:
         Scores: returns a Score dataclass. Which contain the scores dictionary and convenience function for printing and turning it into a dataframe.
@@ -68,10 +81,8 @@ def score(
                 return example
         >>> scores = scores(test, augmenter=create_lower_casing_augmenter(0.5), apply_model)
         >>> scores.scores # extract dictionary of scores
-        >>> scores.to_df() # creates a pandas dataframe of scores 
+        >>> scores.to_df() # creates a pandas dataframe of scores
     """
-    # scorer default to the spacy scorer.
-    # if none default the spacy
     if nlp is None:
         from spacy.lang.da import Danish
 
@@ -102,5 +113,3 @@ def score(
     for key in scores.keys():
         scores[key] = [s[key] for s in scores_ls]
     return Scores(scores=scores)
-
-
