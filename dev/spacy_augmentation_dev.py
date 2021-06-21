@@ -310,11 +310,12 @@ def handle_entities(
     running_add = 0
     for i, s in enumerate(entity_slices):
         len_ents = s[1] - s[0]
-        if len_ents == 1:
+        len_aug_ent = len(aug_ents[i])
+        if len_aug_ent == 1:
             values[slice(s[0] + running_add, s[1] + running_add)] = ["U-PER"]
         else:
             values[slice(s[0] + running_add, s[1] + running_add)] = (
-                ["B-PER"] + ["I-PER"] * (len_ents - 2) + ["L-PER"]
+                ["B-PER"] + ["I-PER"] * (len_aug_ent - 2) + ["L-PER"]
             )
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
@@ -323,6 +324,7 @@ def handle_entities(
 """
 Augment
 """
+
 
 def augment_entity(
     entities: List[List[str]],
@@ -425,12 +427,27 @@ def make_ent_dict():
 
 if __name__ == "__main__":
 
-    ent_dict = make_ent_dict()
+    from spacy.training import Corpus
+
+    def apply_model(example):
+        example.predicted = nlp(example.predicted.text)
+        return example
 
     nlp = spacy.load("da_core_news_sm")
-    doc = nlp("Mit navn er Kenneth Henrik Enevoldsen, og Lasse, Jakob og Kenneth.")
-    example = Example(doc, doc)
-    ex_dict = example.to_dict()
+    ent_dict = make_ent_dict()
+    corpus_name = Corpus("../corpus/dane/dane_test.spacy")
+
+    ex = []
+    for exa in corpus_name(nlp):
+        ex.append(exa)
+    for i, exa in enumerate(ex):
+        if exa.text.startswith("Afhørt"):
+            break
+    ex_dict = exa.to_dict()
+
+    # doc = nlp("Mit navn er Kenneth Henrik Enevoldsen, og Lasse, Jakob og Kenneth.")
+    # example = Example(doc, doc)
+    # ex_dict = example.to_dict()
 
     entity_slices = get_ent_slices(ex_dict["doc_annotation"]["entities"])
     orth = get_slice_spans(ex_dict["token_annotation"]["ORTH"], entity_slices)
@@ -444,14 +461,14 @@ if __name__ == "__main__":
 
     up_ex_dict = update_spacy_properties(ex_dict, aug_ent, entity_slices)
 
-    _orth = ex_dict["token_annotation"]["ORTH"]
+    # _orth = ex_dict["token_annotation"]["ORTH"]
 
-    running_add = 0
-    for i, s in enumerate(entity_slices):
-        _orth[slice(s[0] + running_add, s[1] + running_add)] = aug_ents[i]
-        running_add += len(aug_ents[i]) - (s[1] - s[0])
+    # running_add = 0
+    # for i, s in enumerate(entity_slices):
+    #     _orth[slice(s[0] + running_add, s[1] + running_add)] = aug_ents[i]
+    #     running_add += len(aug_ents[i]) - (s[1] - s[0])
 
-    _orth
+    # _orth
 
-    augment_entity(orth, ent_dict)
-    augment_entity(orth, ent_dict, patterns=["abbpunct,ln,fn,ln,ln", "abb,ln","abbpunct"], keep_name=False, force_size=True)
+    # augment_entity(orth, ent_dict)
+    # augment_entity(orth, ent_dict, patterns=["abbpunct,ln,fn,ln,ln", "abb,ln","abbpunct"], keep_name=False, force_size=True)
