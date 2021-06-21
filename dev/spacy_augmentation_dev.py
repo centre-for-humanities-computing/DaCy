@@ -324,7 +324,6 @@ def handle_entities(
 Augment
 """
 
-
 def augment_entity(
     entities: List[List[str]],
     ent_dict: dict,
@@ -353,30 +352,31 @@ def augment_entity(
     if isinstance(patterns, str):
         patterns = [patterns]
 
-    pattern = random.choices(patterns, weights=patterns_prob, k=1)[0]
-    pattern = pattern.split(",")
-
     new_entity_spans = []
 
-    for entity_span in entities:
+    for i in range(len(entities)):
+        pattern = random.choices(patterns, weights=patterns_prob, k=1)[0]
+        pattern = pattern.split(",")
+
+        entity_span = entities[i]
         if force_size:
             entity_span = resize_entity_list(entity_span, pattern, ent_dict)
 
         new_entity = []
 
-        for i, ent in enumerate(entity_span):
+        for j, ent in enumerate(entity_span):
             if random.random() > prob:
                 new_entity.append(ent)
             else:
-                if i >= len(pattern):
+                if j >= len(pattern):
                     continue
-                if pattern[i] == "fn":
+                if pattern[j] == "fn":
                     new_entity.append(sample_first_name(ent, keep_name, ent_dict))
-                elif pattern[i] == "ln":
+                elif pattern[j] == "ln":
                     new_entity.append(sample_last_name(ent, keep_name, ent_dict))
-                elif pattern[i] == "abb":
+                elif pattern[j] == "abb":
                     new_entity.append(sample_abbreviation(ent, keep_name, ent_dict))
-                elif pattern[i] == "abbpunct":
+                elif pattern[j] == "abbpunct":
                     new_entity.append(
                         sample_abbreviation_punct(ent, keep_name, ent_dict)
                     )
@@ -440,7 +440,7 @@ if __name__ == "__main__":
     aug_ents = augment_entity(orth, ent_dict, patterns=["abb"], force_size=True)
     ent_lens = [len(ents) for ents in aug_ents]
 
-    aug_ent = augment_entity(orth, ent_dict, force_size=True)
+    aug_ent = augment_entity(orth, ent_dict, force_size=False)
 
     up_ex_dict = update_spacy_properties(ex_dict, aug_ent, entity_slices)
 
@@ -454,4 +454,4 @@ if __name__ == "__main__":
     _orth
 
     augment_entity(orth, ent_dict)
-    augment_entity(orth, ent_dict, pattern="abbpunct,ln,fn,ln,ln", force_size=False)
+    augment_entity(orth, ent_dict, patterns=["abbpunct,ln,fn,ln,ln", "abb,ln","abbpunct"], keep_name=False, force_size=True)
