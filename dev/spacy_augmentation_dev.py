@@ -8,13 +8,13 @@ from typing import Callable, Iterator, List, Union
 import spacy
 from spacy.training import Example
 import random
-from spacy.training.augment import create_lower_casing_augmenter
 from spacy.language import Language
 
 
 ##########
 # TODO
 # Make augment_entity() choose random pattern within example
+# Run debug with Dane - something goes wrong at some point
 ##########
 
 """
@@ -38,7 +38,8 @@ def create_name_augmenter(
         patterns (List[float, optional): The patterns to replace with.
             Will choose one at random, optionally weighted by pattern_probs
             Options: "fn", "ln", "abb", "abbpunct". Defaults to ["fn,ln","abbpunct,ln"].
-        patterns_prob (List[float]). Weights for the patterns. Defaults to None (equal weights)
+        patterns_prob (List[float]). Weights for the patterns, must be None or have same lengths as pattern.
+            Defaults to None (equal weights)
         force_size (bool, optional): Whether to force entities have the same format as pattern. Defaults to False.
         keep_name (bool, optional): Whether to use the current name or sample from ent_dict. Defaults to True.
         prob (float, optional): which proportion of entities to augment. Defaults to 1.
@@ -367,15 +368,15 @@ def augment_entity(
             if random.random() > prob:
                 new_entity.append(ent)
             else:
-                if i > len(pattern):
+                if i >= len(pattern):
                     continue
                 if pattern[i] == "fn":
                     new_entity.append(sample_first_name(ent, keep_name, ent_dict))
-                if pattern[i] == "ln":
+                elif pattern[i] == "ln":
                     new_entity.append(sample_last_name(ent, keep_name, ent_dict))
-                if pattern[i] == "abb":
+                elif pattern[i] == "abb":
                     new_entity.append(sample_abbreviation(ent, keep_name, ent_dict))
-                if pattern[i] == "abbpunct":
+                elif pattern[i] == "abbpunct":
                     new_entity.append(
                         sample_abbreviation_punct(ent, keep_name, ent_dict)
                     )
@@ -422,7 +423,7 @@ def make_ent_dict():
     }
 
 
-if _name__ == "__main__":
+if __name__ == "__main__":
 
     ent_dict = make_ent_dict()
 
@@ -436,7 +437,7 @@ if _name__ == "__main__":
 
     # add possibility to sample from different patterns
 
-    aug_ents = augment_entity(orth, ent_dict, force_size=True)
+    aug_ents = augment_entity(orth, ent_dict, patterns=["abb"], force_size=True)
     ent_lens = [len(ents) for ents in aug_ents]
 
     aug_ent = augment_entity(orth, ent_dict, force_size=True)
