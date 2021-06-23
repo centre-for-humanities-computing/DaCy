@@ -13,8 +13,8 @@ def n_sents_score(
     dataset: str = "dane",
     split: str = "test",
     score_fn: List[Union[str, Callable]] = ["token", "pos", "ents"],
-    verbose: bool=True,
-    **kwargs
+    verbose: bool = True,
+    **kwargs,
 ) -> Scores:
     """scores the performance of a given model on examples of a given number of sentences.
 
@@ -48,6 +48,5 @@ def n_sents_score(
             print(f"[INFO] Calculating score using {n_sents} sentences")
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)
-        scores_.scores["n_sents"] = [n]*k
         scores = scores + scores_ if i != 0 else scores_
     return scores
