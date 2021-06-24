@@ -11,12 +11,6 @@ import random
 from spacy.language import Language
 
 
-##########
-# TODO
-# Make augment_entity() choose random pattern within example
-# Run debug with Dane - something goes wrong at some point
-##########
-
 """
 Augmenter function
 """
@@ -74,10 +68,7 @@ def name_augmenter(
     entity_slices = get_ent_slices(ex_dict["doc_annotation"]["entities"])
     # Extract tokens corresponding to names
     name_tokens = get_slice_spans(ex_dict["token_annotation"]["ORTH"], entity_slices)
-
-    # add possibility to sample from different patterns
-
-    # more args
+    # Augment names
     aug_ents = augment_entity(
         entities=name_tokens,
         ent_dict=ent_dict,
@@ -211,7 +202,6 @@ Handlers for spacy properties
 def handle_orth(
     values: List[str], aug_ents: List[List[str]], entity_slices: List[tuple]
 ) -> List[str]:
-
     running_add = 0
     for i, s in enumerate(entity_slices):
         values[slice(s[0] + running_add, s[1] + running_add)] = aug_ents[i]
@@ -257,7 +247,7 @@ def handle_pos(
     for i, s in enumerate(entity_slices):
         values[slice(s[0] + running_add, s[1] + running_add)] = [
             values[slice(s[0] + running_add, s[1] + running_add)][0]
-        ] + ["flat"] * (len(aug_ents[i]) - 1)
+        ] + ["PROPN"] * (len(aug_ents[i]) - 1)
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
 
@@ -309,7 +299,6 @@ def handle_entities(
 ) -> List[str]:
     running_add = 0
     for i, s in enumerate(entity_slices):
-        len_ents = s[1] - s[0]
         len_aug_ent = len(aug_ents[i])
         if len_aug_ent == 1:
             values[slice(s[0] + running_add, s[1] + running_add)] = ["U-PER"]
@@ -317,7 +306,7 @@ def handle_entities(
             values[slice(s[0] + running_add, s[1] + running_add)] = (
                 ["B-PER"] + ["I-PER"] * (len_aug_ent - 2) + ["L-PER"]
             )
-        running_add += len(aug_ents[i]) - (s[1] - s[0])
+        running_add += len_aug_ent - (s[1] - s[0])
     return values
 
 
@@ -418,57 +407,71 @@ Testing
 """
 
 
-def make_ent_dict():
+def make_test_ent_dict():
     return {
         "first_name": ["Johnny", "Birte", "Tony"],
         "last_name": ["Johnnysen", "Birtesen", "Tonysen"],
     }
 
 
+def make_muslim_name_dict():
+    with open("lookup_tables/muslim_male_names.txt") as f:
+        names = f.read().split("\n")
+    with open("lookup_tables/muslim_female_names.txt") as f:
+        names += f.read().split("\n")
+    with open("lookup_tables/muslim_last_names.txt") as f:
+        last_names = f.read().split("\n")
+
+    return {"first_name": names, "last_name": last_names}
+
+
+def get_danish_names():
+    with open("lookup_tables/female_da.csv", "r") as f:
+        names = f.read().split("\n")
+    with open("lookup_tables/male_da.csv", "r") as f:
+        names += f.read().split("\n")
+    return names
+
+
+def get_danish_last_names():
+    with open("lookup_tables/danish_last_names.txt", "r") as f:
+        return f.read().split("\n")
+
+
+def make_danish_name_dict():
+    return {"first_name": get_danish_names(), "last_name": get_danish_last_names()}
+
+
 if __name__ == "__main__":
 
     from spacy.training import Corpus
+    from spacy.scorer import Scorer
+
+    # Checking the small danish model
+    nlp = spacy.load("da_core_news_sm")
 
     def apply_model(example):
         example.predicted = nlp(example.predicted.text)
         return example
 
-    nlp = spacy.load("da_core_news_sm")
-    ent_dict = make_ent_dict()
-    corpus_name = Corpus("../corpus/dane/dane_test.spacy")
+    ent_dict_muslim = make_muslim_name_dict()
+    ent_dict_danish = make_danish_name_dict()
 
-    ex = []
-    for exa in corpus_name(nlp):
-        ex.append(exa)
-    for i, exa in enumerate(ex):
-        if exa.text.startswith("Afhørt"):
-            break
-    ex_dict = exa.to_dict()
+    corpus_muslim = Corpus(
+        "corpus/dane/dane_test.spacy",
+        augmenter=create_name_augmenter(ent_dict_muslim, keep_name=False),
+    )
+    corpus_danish = Corpus(
+        "corpus/dane/dane_test.spacy",
+        augmenter=create_name_augmenter(ent_dict_danish, keep_name=False),
+    )
+    corpus_raw = Corpus("corpus/dane/dane_test.spacy")
 
-    # doc = nlp("Mit navn er Kenneth Henrik Enevoldsen, og Lasse, Jakob og Kenneth.")
-    # example = Example(doc, doc)
-    # ex_dict = example.to_dict()
+    examples_muslim = [apply_model(e) for e in corpus_muslim(nlp)]
+    examples_danish = [apply_model(e) for e in corpus_danish(nlp)]
+    examples_raw = [apply_model(e) for e in corpus_raw(nlp)]
 
-    entity_slices = get_ent_slices(ex_dict["doc_annotation"]["entities"])
-    orth = get_slice_spans(ex_dict["token_annotation"]["ORTH"], entity_slices)
-
-    # add possibility to sample from different patterns
-
-    aug_ents = augment_entity(orth, ent_dict, patterns=["abb"], force_size=True)
-    ent_lens = [len(ents) for ents in aug_ents]
-
-    aug_ent = augment_entity(orth, ent_dict, force_size=False)
-
-    up_ex_dict = update_spacy_properties(ex_dict, aug_ent, entity_slices)
-
-    # _orth = ex_dict["token_annotation"]["ORTH"]
-
-    # running_add = 0
-    # for i, s in enumerate(entity_slices):
-    #     _orth[slice(s[0] + running_add, s[1] + running_add)] = aug_ents[i]
-    #     running_add += len(aug_ents[i]) - (s[1] - s[0])
-
-    # _orth
-
-    # augment_entity(orth, ent_dict)
-    # augment_entity(orth, ent_dict, patterns=["abbpunct,ln,fn,ln,ln", "abb,ln","abbpunct"], keep_name=False, force_size=True)
+    scorer = Scorer()
+    scores_muslim = scorer.score_spans(examples_muslim, "ents")
+    scores_danish = scorer.score_spans(examples_danish, "ents")
+    scores_raw = scorer.score_spans(examples_raw, "ents")
