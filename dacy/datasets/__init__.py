@@ -1,2 +1,2 @@
 from .dane import dane
-from .names import get_muslim_names, get_danish_names
+from .names import muslim_names, danish_names
