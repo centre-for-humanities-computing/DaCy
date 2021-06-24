@@ -34,9 +34,10 @@ def extract_all(archives, extract_path):
         shutil.unpack_archive(filename, extract_path)
 
 
-def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
+def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR, verbose: bool=True):
     """
     model (str): use models() to see all available models
+    verbose (bool): Toggles the verbosity of the function. Defaults to True.
 
     Examples:
     download_model(model="da_dacy_medium_tft-0.0.0")
@@ -51,6 +52,8 @@ def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR):
     if os.path.exists(path):
         return True
 
+    if verbose is True:
+        print("[INFO] Downloading '{model}'")
     Path(save_path).mkdir(parents=True, exist_ok=True)
     download_url(url, dl_path)
     shutil.unpack_archive(dl_path, save_path)
