@@ -1,5 +1,5 @@
 """
-This includes Danish datasets wrapped and read in in as a spacy corpus. This should allow for easier augmentation and model testing.
+This includes the DaNE dataset wrapped and read in as a SpaCy corpus.
 """
 
 import os
