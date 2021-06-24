@@ -1,4 +1,4 @@
-"""A bunch of utilities functions that can be reused across different augmenters"""
+"""Utility functions used for augmentation."""
 import pandas as pd
 
 

@@ -1,6 +1,6 @@
 """
-An augmentation function for Spacy. Augments PERS entities to fit a pattern (e.g. first_name, last_name; abbreviated_first_name, last_name, last_name) 
-and optionally changes the name to a sample from a specified dictionary of names. 
+An augmentation function for SpaCy. Augments person (PERS) entities to fit a pattern (e.g. first_name, last_name; abbreviated_first_name, last_name, last_name) 
+and optionally changes the name to a sample from a specified dictionary of names.
 """
 
 from functools import partial
@@ -11,15 +11,12 @@ from spacy.training import Example
 import random
 from spacy.language import Language
 
-from .common_utils import make_text_from_orth
+from .utils import make_text_from_orth
 
-"""
-Augmenter function
-"""
 
 
 @spacy.registry.augmenters("name_augmenter.v1")
-def create_name_augmenter(
+def create_perso_augmenter(
     ent_dict: Dict[str, List[str]],
     patterns: List[str] = ["fn,ln", "abbpunct,ln"],
     patterns_prob: Optional[List[float]] = None,
@@ -27,7 +24,7 @@ def create_name_augmenter(
     keep_name: bool = True,
     prob: float = 1,
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Create name augmenter
+    """Create person augmenter
 
     Args:
         ent_dict (Dict[str, List[str]]): A dictionary with keys "first_name" and "last_name". Values should be a list of names to sample from.
@@ -48,10 +45,10 @@ def create_name_augmenter(
         See augment_entity() for augmentation examples.
 
     Returns:
-        Callable[[Language, Example], Iterator[Example]]
+        Callable[[Language, Example], Iterator[Example]]: The augmenter
     """
     return partial(
-        name_augmenter,
+        person_augmenter,
         ent_dict=ent_dict,
         patterns=patterns,
         patterns_prob=patterns_prob,
@@ -61,7 +58,7 @@ def create_name_augmenter(
     )
 
 
-def name_augmenter(
+def person_augmenter(
     nlp: Language,
     example: Example,
     ent_dict: dict,
