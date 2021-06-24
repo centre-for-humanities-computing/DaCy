@@ -1,8 +1,10 @@
+import os
+import pandas as pd
 
 
-def make_muslim_name_dict():
-
-    names = pd.read_csv("lookup_tables/names.csv")
+def get_muslim_names() -> dict:
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lookup_tables", "names.csv")
+    names = pd.read_csv(path)
     first_names = names.loc[
         (names["ethnicity"] == "muslim") & (names["first_name"] == True)
     ]
@@ -15,9 +17,10 @@ def make_muslim_name_dict():
     }
 
 
-def make_danish_name_dict():
+def get_danish_names() -> dict:
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lookup_tables", "names.csv")
 
-    names = pd.read_csv("lookup_tables/names.csv")
+    names = pd.read_csv(path)
     first_names = names.loc[
         (names["ethnicity"] == "danish") & (names["first_name"] == True)
     ]
