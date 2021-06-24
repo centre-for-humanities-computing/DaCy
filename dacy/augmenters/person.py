@@ -1,20 +1,19 @@
 """
-An augmentation function for SpaCy. Augments person (PERS) entities to fit a pattern (e.g. first_name, last_name; abbreviated_first_name, last_name, last_name) 
-and optionally changes the name to a sample from a specified dictionary of names.
+This includes augmentation function for SpaCy, which augment persons (PERS) entities.
 """
 
+import random
 from functools import partial
-from typing import Callable, Iterator, List, Union, Optional, Dict
+from typing import Callable, Dict, Iterator, List, Optional
 
 import spacy
-from spacy.training import Example
-import random
 from spacy.language import Language
+from spacy.training import Example
 
 from .utils import make_text_from_orth
 
 
-@spacy.registry.augmenters("name_augmenter.v1")
+@spacy.registry.augmenters("pers_augmenter.v1")
 def create_pers_augmenter(
     ent_dict: Dict[str, List[str]],
     patterns: List[str] = ["fn,ln", "abbpunct,ln"],
