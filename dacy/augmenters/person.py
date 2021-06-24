@@ -14,9 +14,8 @@ from spacy.language import Language
 from .utils import make_text_from_orth
 
 
-
 @spacy.registry.augmenters("name_augmenter.v1")
-def create_perso_augmenter(
+def create_pers_augmenter(
     ent_dict: Dict[str, List[str]],
     patterns: List[str] = ["fn,ln", "abbpunct,ln"],
     patterns_prob: Optional[List[float]] = None,
@@ -58,7 +57,7 @@ def create_perso_augmenter(
     )
 
 
-def person_augmenter(
+def pers_augmenter(
     nlp: Language,
     example: Example,
     ent_dict: dict,
