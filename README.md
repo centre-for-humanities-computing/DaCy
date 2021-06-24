@@ -12,16 +12,17 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 [![github actions docs](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/DaCy/)
 <!-- 
-
 <a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
-<a href="https://doi.org/10.5281/zenodo.4707403"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4707403.svg" alt="DOI"></a>
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/trunajod">
 [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
-<a href="https://trunajod20.readthedocs.io/en/stable/?badge=stable"><img alt="Documentation Status" src="https://readthedocs.org/projects/trunajod20/badge/?version=stable"></a>
 
 -->
 
 DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore, it also contains guides on how to use DaCy.
+<!--
+EASTER EGG:
+https://www.youtube.com/watch?v=E7WQ1tdxSqI
+-->
 
 # 📰 News
 - 0.4.1 (03/06/21)
@@ -102,10 +103,10 @@ DaCy also include a detailed documentaion as well as a series of Jupyter noteboo
 
 |                                                                                                                                            | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Getting Started](https://kennethenevoldsen.github.io/DaCy/usingdacy.html)                                            | An introduction on how to use DaCy       |                       |
-| [Documentation](https://kennethenevoldsen.github.io/DaCy/) | The Documentation of DaCy |  |
-| [Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                    | A simple introduction to the new sentiment features in DaCy.                                                               |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
-| [wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
+| [🌟 Getting Started](https://kennethenevoldsen.github.io/DaCy/usingdacy.html)                                            | An introduction on how to use DaCy       |                       |
+| [📖 Documentation](https://kennethenevoldsen.github.io/DaCy/) | The Documentation of DaCy |  |
+| [😡😂 Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                    | A simple introduction to the new sentiment features in DaCy.                                                               |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
+| [😎 wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
 
 
 
@@ -172,6 +173,11 @@ python -m pytest
 
 which will run all the test in the `dacy/tests` folder.
 
+To run a specific test for instance if you wish to run the test on the readability functions, you can run:
+
+```
+python -m pytest dacy/tests/test_readability.py
+```
 
 **Code Coverage**
 If you want check code coverage as well you can run the following:
