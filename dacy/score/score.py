@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+from copy import copy
 from functools import partial
 from typing import Callable, List, Optional, Union
 
 import numpy as np
-from numpy.lib.function_base import copy
 from pydantic import BaseModel
 from spacy.language import Language
 from spacy.scorer import Scorer
@@ -54,7 +54,7 @@ def score(
     corpus: Corpus,
     apply_fn: Callable,
     score_fn: List[Union[Callable, str]] = ["token", "pos", "ents"],
-    augmenter: Optional[Callable] = None,
+    augmenter: Union[List[Callable], Callable] = [],
     k: int = 1,
     nlp: Optional[Language] = None,
     **kwargs,
@@ -63,16 +63,24 @@ def score(
 
     Args:
         corpus (Corpus): A spacy Corpus
-        apply_fn (Callable): A wrapper function for the model you wish to score. The model should take in a spacy Example and output a tagged version of it.
-        score_fn (List[Union[Callable, str]], optional): A scoring function which takes in a list of examples and return a dictionary of the form {"score_name": score}.
-            Four potiential strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring the performance of pos-tags.
-            "token" for measuring the performance of tokenization. "nlp" for measuring the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents"].
-        augmenter (Optional[Callable]): A spacy style augmenter which should be applied to the corpus. Defaults to None.
-        k (int, optional): Number of times it should run the augmentation and test the performance on the corpus. Defaults to 1.
-        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty Danish pipeline. Defaults to None.
+        apply_fn (Callable): A wrapper function for the model you wish to score. The model should
+            take in a spacy Example and output a tagged version of it.
+        score_fn (List[Union[Callable, str]], optional): A scoring function which takes in a list of
+            examples and return a dictionary of the form {"score_name": score}.Four potiential
+            strings are valid. "ents" for measuring the performance of entity spans."pos" for measuring
+            the performance of pos-tags. "token" for measuring the performance of tokenization. "nlp"
+            for measuring the performance of all components in the specified nlp pipeline. Defaults to
+            ["token", "pos", "ents"].
+        augmenter (Union[List[Callable], Callable], optional): A spaCy style augmenter which should be
+            applied to the corpus or a list thereof. defaults to [], indicating no augmenters.
+        k (int, optional): Number of times it should run the augmentation and test the performance on
+            the corpus. Defaults to 1.
+        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty
+            Danish pipeline. Defaults to None.
 
     Returns:
-        Scores: returns a Score dataclass. Which contain the scores dictionary and convenience function for printing and turning it into a dataframe.
+        Scores: returns a Scores dataclass, which contain the scores dictionary and convenience functions.
+            E.g. to extracting a dataframe.
 
     Example:
         >>> from spacy.training.augment import create_lower_casing_augmenter
@@ -86,8 +94,8 @@ def score(
     """
     if nlp is None:
         from spacy.lang.da import Danish
-
         nlp = Danish()
+
     scorer = Scorer(nlp)
     def_scorers = {
         "ents": partial(Scorer.score_spans, attr="ents"),
@@ -95,13 +103,13 @@ def score(
         "token": Scorer.score_tokenization,
         "nlp": scorer.score,
     }
-    c = copy(corpus)
+    corpus_ = copy(corpus)
     if augmenter is not None:
-        c.augmenter = augmenter
+        corpus_.augmenter = augmenter
 
     scores_ls = []
     for i in range(k):
-        examples = [apply_fn(e) for e in c(nlp)]
+        examples = [apply_fn(e) for e in corpus_(nlp)]
         scores = {}
         for fn in score_fn:
             if isinstance(fn, str):
