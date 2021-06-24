@@ -53,7 +53,7 @@ def download_model(model: str, save_path: str = DEFAULT_CACHE_DIR, verbose: bool
         return True
 
     if verbose is True:
-        print("[INFO] Downloading '{model}'")
+        print(f"\n[INFO] Downloading '{model}'")
     Path(save_path).mkdir(parents=True, exist_ok=True)
     download_url(url, dl_path)
     shutil.unpack_archive(dl_path, save_path)
