@@ -1,3 +1,7 @@
+"""
+This includes function for scoring models applied to a SpaCy corpus.
+"""
+
 from __future__ import annotations
 
 from copy import copy
@@ -94,6 +98,7 @@ def score(
     """
     if nlp is None:
         from spacy.lang.da import Danish
+
         nlp = Danish()
 
     scorer = Scorer(nlp)
