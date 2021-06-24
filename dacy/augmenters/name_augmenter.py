@@ -11,7 +11,7 @@ from spacy.training import Example
 import random
 from spacy.language import Language
 
-from common_utils import make_text_from_orth
+from .common_utils import make_text_from_orth
 
 """
 Augmenter function
@@ -407,40 +407,3 @@ def resize_entity_list(
             random.choice(ent_dict["last_name"])
             for _ in range(len(pattern) - len(entity))
         ]
-
-
-if __name__ == "__main__":
-
-    from spacy.training import Corpus
-    from spacy.scorer import Scorer
-
-    from common_utils import make_danish_name_dict, make_danish_name_dict
-
-    # Checking the small danish model
-    nlp = spacy.load("da_core_news_sm")
-
-    def apply_model(example):
-        example.predicted = nlp(example.predicted.text)
-        return example
-
-    ent_dict_muslim = make_muslim_name_dict()
-    ent_dict_danish = make_danish_name_dict()
-
-    corpus_muslim = Corpus(
-        "corpus/dane/dane_test.spacy",
-        augmenter=create_name_augmenter(ent_dict_muslim, keep_name=False),
-    )
-    corpus_danish = Corpus(
-        "corpus/dane/dane_test.spacy",
-        augmenter=create_name_augmenter(ent_dict_danish, keep_name=False),
-    )
-    corpus_raw = Corpus("corpus/dane/dane_test.spacy")
-
-    examples_muslim = [apply_model(e) for e in corpus_muslim(nlp)]
-    examples_danish = [apply_model(e) for e in corpus_danish(nlp)]
-    examples_raw = [apply_model(e) for e in corpus_raw(nlp)]
-
-    scorer = Scorer()
-    scores_muslim = scorer.score_spans(examples_muslim, "ents")
-    scores_danish = scorer.score_spans(examples_danish, "ents")
-    scores_raw = scorer.score_spans(examples_raw, "ents")
