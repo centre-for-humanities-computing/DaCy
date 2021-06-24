@@ -47,7 +47,7 @@ def create_pers_augmenter(
         Callable[[Language, Example], Iterator[Example]]: The augmenter
     """
     return partial(
-        person_augmenter,
+        pers_augmenter,
         ent_dict=ent_dict,
         patterns=patterns,
         patterns_prob=patterns_prob,
