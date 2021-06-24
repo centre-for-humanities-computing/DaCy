@@ -242,7 +242,7 @@ def handle_lemma(
 def handle_pos(
     values: List[str], aug_ents: List[List[str]], entity_slices: List[tuple]
 ) -> List[str]:
-    """keep first pos tag as original, add flat to rest"""
+    """keep first pos tag as original, add PROPN to rest"""
     running_add = 0
     for i, s in enumerate(entity_slices):
         values[slice(s[0] + running_add, s[1] + running_add)] = [
@@ -278,7 +278,14 @@ def handle_head(
 def handle_dep(
     values: List[str], aug_ents: List[List[str]], entity_slices: List[tuple]
 ) -> List[str]:
-    return handle_pos(values, aug_ents, entity_slices)
+    """Keep first dep tag, add flat to rest"""
+    running_add = 0
+    for i, s in enumerate(entity_slices):
+        values[slice(s[0] + running_add, s[1] + running_add)] = [
+            values[slice(s[0] + running_add, s[1] + running_add)][0]
+        ] + ["flat"] * (len(aug_ents[i]) - 1)
+        running_add += len(aug_ents[i]) - (s[1] - s[0])
+    return values
 
 
 def handle_sent_start(
@@ -415,26 +422,26 @@ def make_test_ent_dict():
 
 
 def make_muslim_name_dict():
-    with open("lookup_tables/muslim_male_names.txt") as f:
+    with open("dev/lookup_tables/muslim_male_names.txt") as f:
         names = f.read().split("\n")
-    with open("lookup_tables/muslim_female_names.txt") as f:
+    with open("dev/lookup_tables/muslim_female_names.txt") as f:
         names += f.read().split("\n")
-    with open("lookup_tables/muslim_last_names.txt") as f:
+    with open("dev/lookup_tables/muslim_last_names.txt") as f:
         last_names = f.read().split("\n")
 
     return {"first_name": names, "last_name": last_names}
 
 
 def get_danish_names():
-    with open("lookup_tables/female_da.csv", "r") as f:
+    with open("dev/lookup_tables/female_da.csv", "r") as f:
         names = f.read().split("\n")
-    with open("lookup_tables/male_da.csv", "r") as f:
+    with open("dev/lookup_tables/male_da.csv", "r") as f:
         names += f.read().split("\n")
     return names
 
 
 def get_danish_last_names():
-    with open("lookup_tables/danish_last_names.txt", "r") as f:
+    with open("dev/lookup_tables/danish_last_names.txt", "r") as f:
         return f.read().split("\n")
 
 
