@@ -6,3 +6,4 @@ from dacy import sentiment
 from dacy import subclasses
 from dacy import readability
 from dacy import datasets
+from dacy import testing
