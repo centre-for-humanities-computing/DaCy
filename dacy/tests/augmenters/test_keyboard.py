@@ -1,4 +1,5 @@
-from dacy.augmenters.keyboard import Keyboard, qwerty_da_array, make_keyboard_augmenter
+from dacy.augmenters.keyboard import Keyboard, qwerty_da_array
+from dacy.augmenters import create_keyboard_augmenter
 
 def test_Keyboard():
     kb = Keyboard(keyboard_array = qwerty_da_array)
@@ -11,4 +12,4 @@ def test_Keyboard():
     kb.create_distance_dict()
 
 def test_make_keyboard_augmenter():
-    augmenter = make_keyboard_augmenter(doc_level=1, char_level=0.5)
+    augmenter = create_keyboard_augmenter(doc_level=1, char_level=0.5)
