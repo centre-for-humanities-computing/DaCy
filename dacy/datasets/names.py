@@ -12,8 +12,8 @@ def muslim_names() -> Dict[str, str]:
     Example:
         >>> from dacy.datasets import muslim_names
         >>> names = muslim_names()
-        >>> names["first_names"]
-        >>> names["last_names"]
+        >>> names["first_name"]
+        >>> names["last_name"]
     """
     path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "lookup_tables", "names.csv"
@@ -40,8 +40,8 @@ def danish_names() -> Dict[str, str]:
     Example:
         >>> from dacy.datasets import danish_names
         >>> names = danish_names()
-        >>> names["first_names"]
-        >>> names["last_names"]
+        >>> names["first_name"]
+        >>> names["last_name"]
     """
     path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "lookup_tables", "names.csv"
