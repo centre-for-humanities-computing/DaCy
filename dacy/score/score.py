@@ -109,7 +109,7 @@ def score(
         "nlp": scorer.score,
     }
     corpus_ = copy(corpus)
-    if augmenter is not None:
+    if augmenter:
         corpus_.augmenter = augmenter
 
     scores_ls = []
