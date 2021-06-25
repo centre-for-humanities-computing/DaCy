@@ -7,6 +7,8 @@ from functools import partial
 import spacy
 
 import dacy
+from dacy.datasets import dane
+from dacy.score import score, n_sents_score, Scores
 
 from spacy.training.augment import create_lower_casing_augmenter
 
@@ -18,9 +20,10 @@ def test_score():
         example.predicted = nlp(example.predicted.text)
         return example
 
-    train, dev, test = dacy.datasets.dane(predefined_splits=True)
+    test = dane(splits=["test"])
+    test.limit = 1
 
-    scores = dacy.testing.score(
+    scores = score(
         corpus=test,
         augmenter=create_lower_casing_augmenter(0.5),
         apply_fn=apply_model,
@@ -38,14 +41,19 @@ def test_n_sents_score():
         example.predicted = nlp(example.predicted.text)
         return example
 
-    scores = dacy.testing.n_sents_score(
+    scores = n_sents_score(
         n_sents=1,
         apply_fn=apply_model,
     )
     print(scores)
 
+
 def test_Scores():
-    scores = dacy.testing.Scores({"acc": [0.999999, 0.988888, 0.7666]})
+    scores = Scores(scores={"acc": [0.999999, 0.988888, 0.7666]})
     assert isinstance(scores.scores, dict)
     assert isinstance(scores.summary("acc"), str)
+    scores.to_df()
+
+    scores_ = Scores(scores={"acc": [0.9, 0.8], "p": [1.0, 1.0]})
+    scores += scores_
     scores.to_df()
