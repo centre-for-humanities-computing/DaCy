@@ -103,7 +103,8 @@ def create_keyboard_augmenter(
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The augmentation function
     """
-    kb = Keyboard(KEYBOARDS[keyboard])
+    kb = KEYBOARDS[keyboard]
+    kb = Keyboard(keyboard_array=kb)
     replace_dict = kb.create_distance_dict(distance=distance)
     return partial(
         char_replace_augmenter,
