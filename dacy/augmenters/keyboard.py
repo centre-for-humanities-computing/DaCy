@@ -2,16 +2,10 @@
 This includes functions for character augmentation based on keyboard layout.
 """
 
-from typing import Dict, Set, Tuple, Callable, Iterator, Union
-from functools import partial
-
-import spacy
-from spacy.language import Language
-from spacy.training import Example
+from typing import Dict, Set, Tuple, List
 
 from pydantic import BaseModel
 
-from .character import char_replace_augmenter
 
 qwerty_en_array = {
     "default": [
@@ -39,9 +33,8 @@ qwerty_da_array = {
     "shifted": [
         ["!", '"', "#", "€", "%", "&", "/", "(", ")", "=", "?", "`"],
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Å", "^"],
-        ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Æ", "Ø", "*"][
-            ">", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "_"
-        ],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Æ", "Ø", "*"],
+        [">", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "_"],
     ],
 }
 KEYBOARDS = {
@@ -63,7 +56,7 @@ class Keyboard(BaseModel):
         Keyboard: a Keyboard object
     """
 
-    keyboard_array = Dict[str, str]
+    keyboard_array: Dict[str, List[List[str]]]
     shift_distance: int = 3
 
     def coordinate(self, key: str) -> Tuple[int, int]:
@@ -110,35 +103,3 @@ class Keyboard(BaseModel):
 
     def create_distance_dict(self, distance: int = 1) -> dict:
         return {k: self.get_neighboors(k, distance=distance) for k in self.all_keys()}
-
-
-@spacy.registry.augmenters("keyboard_augmenter.v1")
-def create_keyboard_augmenter(
-    doc_level: float,
-    char_level: float,
-    distance=1,
-    keyboard: Union[str, Keyboard] = "QWERTY_EN",
-) -> Callable[[Language, Example], Iterator[Example]]:
-    """Create a document level augmenter using plausible typos based on keyboard distance.
-
-    Args:
-        doc_level (float): probability to augment document.
-        char_level (float): probability to augment character, if document is augmented.
-        distance (int, optional): keyboard distance. Defaults to 1.
-        keyboard (str, Keyboard, optional): A Keyboard class or a string denoting a default keyboard.
-            Possible options for string include:
-            "QWERTY_EN": English QWERTY keyboard
-            "QWERTY_DA": Danish QWERTY keyboard
-            Defaults to "QWERTY_EN".
-
-    Returns:
-        Callable[[Language, Example], Iterator[Example]]: The augmentation function
-    """
-    kb = KEYBOARDS[keyboard]
-    replace_dict = kb.create_distance_dict(distance=distance)
-    return partial(
-        char_replace_augmenter,
-        replacement=replace_dict,
-        doc_level=doc_level,
-        char_level=char_level,
-    )
