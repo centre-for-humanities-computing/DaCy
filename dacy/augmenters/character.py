@@ -12,6 +12,8 @@ import spacy
 from spacy.language import Language
 from spacy.training import Example
 
+from .utils import make_text_from_orth
+
 from .keyboard import KEYBOARDS, Keyboard
 
 
@@ -79,6 +81,38 @@ def create_char_random_augmenter(
     )
 
 
+@spacy.registry.augmenters("keyboard_augmenter.v1")
+def create_keyboard_augmenter(
+    doc_level: float,
+    char_level: float,
+    distance=1,
+    keyboard: Union[str, Keyboard] = "QWERTY_EN",
+) -> Callable[[Language, Example], Iterator[Example]]:
+    """Create a document level augmenter using plausible typos based on keyboard distance.
+
+    Args:
+        doc_level (float): probability to augment document.
+        char_level (float): probability to augment character, if document is augmented.
+        distance (int, optional): keyboard distance. Defaults to 1.
+        keyboard (str, Keyboard, optional): A Keyboard class or a string denoting a default keyboard.
+            Possible options for string include:
+            "QWERTY_EN": English QWERTY keyboard
+            "QWERTY_DA": Danish QWERTY keyboard
+            Defaults to "QWERTY_EN".
+
+    Returns:
+        Callable[[Language, Example], Iterator[Example]]: The augmentation function
+    """
+    kb = Keyboard(KEYBOARDS[keyboard])
+    replace_dict = kb.create_distance_dict(distance=distance)
+    return partial(
+        char_replace_augmenter,
+        replacement=replace_dict,
+        doc_level=doc_level,
+        char_level=char_level,
+    )
+
+
 @spacy.registry.augmenters("char_replace_augmenter.v1")
 def create_char_replace_augmenter(
     doc_level: float, char_level: float, replacement: dict
@@ -119,12 +153,11 @@ def char_replace_augmenter(
         yield example
     else:
         example_dict = example.to_dict()
-        doc = nlp.make_doc(
-            example.text
-        )  # TODO ASK LASSE: should I regenerate this text?
         example_dict["token_annotation"]["ORTH"] = [
             __replace(c) for t in example.reference for c in t
         ]
+        text = make_text_from_orth(example_dict)
+        doc = nlp.make_doc(text)
         yield example.from_dict(doc, example_dict)
 
 
@@ -144,12 +177,11 @@ def char_swap_augmenter(
         yield example
     else:
         example_dict = example.to_dict()
-        doc = nlp.make_doc(
-            example.text
-        )  # TODO ASK LASSE: should I regenerate this text?
         example_dict["token_annotation"]["ORTH"] = [
             __replace(c) for t in example.reference for c in t
         ]
+        text = make_text_from_orth(example_dict)
+        doc = nlp.make_doc(text)
         yield example.from_dict(doc, example_dict)
 
 
@@ -168,10 +200,9 @@ def remove_spacing_augmenter(
         yield example
     else:
         example_dict = example.to_dict()
-        doc = nlp.make_doc(
-            example.text
-        )  # TODO ASK LASSE: should I regenerate this text?
         example_dict["token_annotation"]["SPACY"] = [
             __replace(s) for s in example_dict["token_annotation"]["SPACY"]
         ]
+        text = make_text_from_orth(example_dict)
+        doc = nlp.make_doc(text)
         yield example.from_dict(doc, example_dict)
