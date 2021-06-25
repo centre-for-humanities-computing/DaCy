@@ -1,8 +1,10 @@
 import urllib
 import os
 
-from dacy.download import models_url
+from dacy.download import models_url, download_model
 from dacy.load import load
+import dacy
+
 
 def test_urls():
     for m, url in models_url.items():
@@ -21,3 +23,20 @@ def test_load():
     for m in models:
         nlp = load(m)
         nlp("Dette er en test tekst")
+
+
+def test_models():
+    print(dacy.models())
+
+
+def test_where_is_my_dacy():
+    print(dacy.where_is_my_dacy())
+
+
+def test_download_model_error():
+    download_model(model="da_dacy_medium_tft-0.0.0", force=True)
+    # this just tests if it fails when needed.
+    try:
+        download_model(model="not a dacy model")
+    except ValueError:
+        pass

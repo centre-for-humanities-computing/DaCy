@@ -1,15 +1,22 @@
+"""
+This includes a series of getters extensions for extracting sentiment.
+"""
+
+from spacy.tokens import Doc
 from .vaderSentiment_da import SentimentIntensityAnalyzer
 
 
-def da_vader_getter(doc, lemmatization=True):
-    """
-    extract polarity using a Danish implementation of Vader.
+def da_vader_getter(doc: Doc, lemmatization: bool = True) -> dict:
+    """a getter function for extracting polarity using the Danish implementation of Vader
 
-    Example:
-    Doc.set_extension("vader_da", getter=da_vader_getter)
-    # fetch result
-    doc._.vader_polarity
+    Args:
+        doc (Doc): a SpaCy document
+        lemmatization (bool, optional): Should it use lemmatization of the document? Defaults to True.
+
+    Returns:
+        dict: a dictionary containing positive (pos), negative (neg), neutral (neu) polarity as well as a compound (compound)
     """
+
     analyser = SentimentIntensityAnalyzer()
     if lemmatization:
         polarity = analyser.polarity_scores(doc.text, tokenlist=[t.lemma_ for t in doc])
