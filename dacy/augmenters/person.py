@@ -66,12 +66,12 @@ def pers_augmenter(
     keep_name: bool,
     prob: float,
 ) -> Iterator[Example]:
-    ex_dict = example.to_dict()
+    example_dict = example.to_dict()
 
     # Get slices containing names
-    entity_slices = get_ent_slices(ex_dict["doc_annotation"]["entities"])
+    entity_slices = get_ent_slices(example_dict["doc_annotation"]["entities"])
     # Extract tokens corresponding to names
-    name_tokens = get_slice_spans(ex_dict["token_annotation"]["ORTH"], entity_slices)
+    name_tokens = get_slice_spans(example_dict["token_annotation"]["ORTH"], entity_slices)
     # Augment names
     aug_ents = augment_entity(
         entities=name_tokens,
@@ -83,12 +83,12 @@ def pers_augmenter(
         prob=prob,
     )
     # Update fields in example dictionary to match changes
-    up_ex_dict = update_spacy_properties(ex_dict, aug_ents, entity_slices)
+    example_dict = update_spacy_properties(example_dict, aug_ents, entity_slices)
     # Construct the text with augmented entities
-    text = make_text_from_orth(up_ex_dict)
+    text = make_text_from_orth(example_dict)
 
     doc = nlp.make_doc(text)
-    yield example.from_dict(doc, up_ex_dict)
+    yield example.from_dict(doc, example_dict)
 
 
 def augment_entity(

@@ -12,6 +12,8 @@ import spacy
 from spacy.language import Language
 from spacy.training import Example
 
+from .utils import make_text_from_orth
+
 from .keyboard import KEYBOARDS, Keyboard
 
 
@@ -119,12 +121,11 @@ def char_replace_augmenter(
         yield example
     else:
         example_dict = example.to_dict()
-        doc = nlp.make_doc(
-            example.text
-        )  # TODO ASK LASSE: should I regenerate this text?
         example_dict["token_annotation"]["ORTH"] = [
             __replace(c) for t in example.reference for c in t
         ]
+        text = make_text_from_orth(example_dict)
+        doc = nlp.make_doc(text)
         yield example.from_dict(doc, example_dict)
 
 
@@ -144,12 +145,11 @@ def char_swap_augmenter(
         yield example
     else:
         example_dict = example.to_dict()
-        doc = nlp.make_doc(
-            example.text
-        )  # TODO ASK LASSE: should I regenerate this text?
         example_dict["token_annotation"]["ORTH"] = [
             __replace(c) for t in example.reference for c in t
         ]
+        text = make_text_from_orth(example_dict)
+        doc = nlp.make_doc(text)
         yield example.from_dict(doc, example_dict)
 
 
@@ -168,10 +168,9 @@ def remove_spacing_augmenter(
         yield example
     else:
         example_dict = example.to_dict()
-        doc = nlp.make_doc(
-            example.text
-        )  # TODO ASK LASSE: should I regenerate this text?
         example_dict["token_annotation"]["SPACY"] = [
             __replace(s) for s in example_dict["token_annotation"]["SPACY"]
         ]
+        text = make_text_from_orth(example_dict)
+        doc = nlp.make_doc(text)
         yield example.from_dict(doc, example_dict)
