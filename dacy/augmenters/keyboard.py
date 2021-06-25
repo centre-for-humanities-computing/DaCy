@@ -72,7 +72,7 @@ class Keyboard(BaseModel):
             for x, row in enumerate(self.keyboard_array[arr]):
                 for y, k in enumerate(row):
                     if key == k:
-                        return x, y
+                        return (x, y)
 
         raise ValueError(f"key {key} was not found in keyboard array")
 

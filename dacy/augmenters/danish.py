@@ -22,5 +22,5 @@ def create_æøå_augmenter(doc_level: float, char_level: float) -> Callable[[La
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The desired augmenter.
     """
-    replace_dict = {"æ": "ae", "ø": "oe", "å": "aa"}
+    replace_dict = {"æ": ["ae"], "ø": ["oe"], "å": ["aa"]}
     return partial(char_replace_augmenter, replacement = replace_dict, doc_level = doc_level, char_level = char_level)

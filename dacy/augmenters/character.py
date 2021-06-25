@@ -71,8 +71,8 @@ def create_char_random_augmenter(
         Callable[[Language, Example], Iterator[Example]]: The augmenter function.
     """
 
-    kb = KEYBOARDS[keyboard]
-    replace_dict = {k: kb.all_keys() for k in kb.all_keys()}
+    kb = Keyboard(keyboard_array=KEYBOARDS[keyboard])
+    replace_dict = {k: list(kb.all_keys()) for k in kb.all_keys()}
     return partial(
         char_replace_augmenter,
         replacement=replace_dict,
@@ -103,8 +103,7 @@ def create_keyboard_augmenter(
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The augmentation function
     """
-    kb = KEYBOARDS[keyboard]
-    kb = Keyboard(keyboard_array=kb)
+    kb = Keyboard(keyboard_array=KEYBOARDS[keyboard])
     replace_dict = kb.create_distance_dict(distance=distance)
     return partial(
         char_replace_augmenter,
@@ -145,17 +144,20 @@ def char_replace_augmenter(
     doc_level: float = 0.5,
     char_level: float = 0.1,
 ) -> Iterator[Example]:
-    def __replace(c):
-        if random.random() < char_level and c in replacement:
-            return random.sample(replacement[c], k=1)
-        return c
+    def __replace(t):
+        t_ = []
+        for i, c in enumerate(t.text):
+            if random.random() < char_level and c in replacement:
+                c = random.sample(replacement[c], k=1)[0]
+            t_.append(c)
+        return "".join(t_)
 
     if random.random() >= doc_level:
         yield example
     else:
         example_dict = example.to_dict()
         example_dict["token_annotation"]["ORTH"] = [
-            __replace(c) for t in example.reference for c in t
+            __replace(t) for t in example.reference
         ]
         text = make_text_from_orth(example_dict)
         doc = nlp.make_doc(text)
@@ -169,9 +171,9 @@ def char_swap_augmenter(
     char_level: float = 0.1,
 ) -> Iterator[Example]:
     def __replace(t):
-        for i, c in enumerate(t[:-1]):
+        for i, c in enumerate(t.text[:-1]):
             if random.random() < char_level:
-                return t[:i] + t[i + 1] + c + t[i + 2 :]
+                return t.text[:i] + t.text[i + 1] + c + t.text[i + 2 :]
         return t
 
     if random.random() >= doc_level:
@@ -179,7 +181,7 @@ def char_swap_augmenter(
     else:
         example_dict = example.to_dict()
         example_dict["token_annotation"]["ORTH"] = [
-            __replace(c) for t in example.reference for c in t
+            __replace(t) for t in example.reference
         ]
         text = make_text_from_orth(example_dict)
         doc = nlp.make_doc(text)

@@ -32,7 +32,7 @@ def create_pers_augmenter(
             "fn" = first name
             "ln" = last name
             "abb" = abbreviate to first character (e.g. Lasse -> L)
-            "abbpunct" = abbreviate to first character + . (e.g. Lasse -> L.)
+            "abbpunct" = abbreviate to first character including punctuation (e.g. Lasse -> L.)
         patterns_prob (List[float]). Weights for the patterns, must be None or have same lengths as pattern.
             Defaults to None (equal weights)
         force_size (bool, optional): Whether to force entities to have the same format/length as the pattern. Defaults to False.
@@ -59,7 +59,7 @@ def create_pers_augmenter(
 def pers_augmenter(
     nlp: Language,
     example: Example,
-    ent_dict: dict,
+    ent_dict: Dict[str, List[str]],
     patterns: list,
     patterns_prob: Optional[List[float]],
     force_size: bool,
@@ -71,7 +71,9 @@ def pers_augmenter(
     # Get slices containing names
     entity_slices = get_ent_slices(example_dict["doc_annotation"]["entities"])
     # Extract tokens corresponding to names
-    name_tokens = get_slice_spans(example_dict["token_annotation"]["ORTH"], entity_slices)
+    name_tokens = get_slice_spans(
+        example_dict["token_annotation"]["ORTH"], entity_slices
+    )
     # Augment names
     aug_ents = augment_entity(
         entities=name_tokens,
@@ -128,6 +130,13 @@ def augment_entity(
 
     new_entity_spans = []
 
+    patterns_dict = {
+        "fn": sample_first_name,
+        "ln": sample_last_name,
+        "abb": sample_abbreviation,
+        "abbpunct": sample_abbreviation_punct,
+    }
+
     for i in range(len(entities)):
         pattern = random.choices(patterns, weights=patterns_prob, k=1)[0]
         pattern = pattern.split(",")
@@ -144,16 +153,8 @@ def augment_entity(
             else:
                 if j >= len(pattern):
                     new_entity.append(ent)
-                elif pattern[j] == "fn":
-                    new_entity.append(sample_first_name(ent, keep_name, ent_dict))
-                elif pattern[j] == "ln":
-                    new_entity.append(sample_last_name(ent, keep_name, ent_dict))
-                elif pattern[j] == "abb":
-                    new_entity.append(sample_abbreviation(ent, keep_name, ent_dict))
-                elif pattern[j] == "abbpunct":
-                    new_entity.append(
-                        sample_abbreviation_punct(ent, keep_name, ent_dict)
-                    )
+                else:
+                    new_entity.append(patterns_dict[pattern[j]](ent, keep_name, ent_dict))
         new_entity_spans.append(new_entity)
     return new_entity_spans
 
@@ -200,17 +201,14 @@ def get_ent_slices(entities: List[str], ent_type="PER") -> List[tuple]:
     slices = []
 
     start = None
-    end = None
     for i, ent in enumerate(entities):
-        if not ent.endswith(ent_type) and end == i - 1:
-            slices.append(tuple([start, end + 1]))
         if ent.endswith(ent_type):
             if ent.startswith("U"):
                 slices.append(tuple([i, i + 1]))
             if ent.startswith("B"):
                 start = i
             if ent.startswith("L"):
-                end = i
+                slices.append(tuple([start, i + 1]))
     return slices
 
 
@@ -287,8 +285,10 @@ def handle_spacy(
 ) -> List[str]:
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = [True] * len(
-            aug_ents[i]
+        values[s[0] + running_add : s[1] + running_add] = [True] * (
+            len(aug_ents[i]) - 1
+        ) + (  # fix last spacing
+            values[s[0] + running_add : s[1] + running_add][-1:]
         )
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
@@ -299,9 +299,7 @@ def handle_tag(
 ) -> List[str]:
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = ["PROPN"] * len(
-            aug_ents[i]
-        )
+        values[s[0] + running_add : s[1] + running_add] = ["PROPN"] * len(aug_ents[i])
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
 
@@ -318,7 +316,7 @@ def handle_pos(
     """keep first pos tag as original, add PROPN to rest"""
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = [
+        values[s[0] + running_add : s[1] + running_add] = [
             values[slice(s[0] + running_add, s[1] + running_add)][0]
         ] + ["PROPN"] * (len(aug_ents[i]) - 1)
         running_add += len(aug_ents[i]) - (s[1] - s[0])
@@ -330,7 +328,7 @@ def handle_morph(
 ) -> List[str]:
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = [""] * len(aug_ents[i])
+        values[s[0] + running_add : s[1] + running_add] = [""] * len(aug_ents[i])
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
 
@@ -341,8 +339,8 @@ def handle_head(
     """keep first head, set rest to refer to index of first name"""
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = [
-            values[slice(s[0] + running_add, s[1] + running_add)][0]
+        values[s[0] + running_add : s[1] + running_add] = [
+            values[s[0] + running_add : s[1] + running_add][0]
         ] + [s[0] + running_add] * (len(aug_ents[i]) - 1)
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
@@ -354,8 +352,8 @@ def handle_dep(
     """Keep first dep tag, add flat to rest"""
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = [
-            values[slice(s[0] + running_add, s[1] + running_add)][0]
+        values[s[0] + running_add : s[1] + running_add] = [
+            values[s[0] + running_add : s[1] + running_add][0]
         ] + ["flat"] * (len(aug_ents[i]) - 1)
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
@@ -367,8 +365,8 @@ def handle_sent_start(
     """keep first (if sent start), set rest to 0"""
     running_add = 0
     for i, s in enumerate(entity_slices):
-        values[slice(s[0] + running_add, s[1] + running_add)] = [
-            values[slice(s[0] + running_add, s[1] + running_add)][0]
+        values[s[0] + running_add : s[1] + running_add] = [
+            values[s[0] + running_add : s[1] + running_add][0]
         ] + [0] * (len(aug_ents[i]) - 1)
         running_add += len(aug_ents[i]) - (s[1] - s[0])
     return values
@@ -381,9 +379,9 @@ def handle_entities(
     for i, s in enumerate(entity_slices):
         len_aug_ent = len(aug_ents[i])
         if len_aug_ent == 1:
-            values[slice(s[0] + running_add, s[1] + running_add)] = ["U-PER"]
+            values[s[0] + running_add : s[1] + running_add] = ["U-PER"]
         else:
-            values[slice(s[0] + running_add, s[1] + running_add)] = (
+            values[s[0] + running_add : s[1] + running_add] = (
                 ["B-PER"] + ["I-PER"] * (len_aug_ent - 2) + ["L-PER"]
             )
         running_add += len_aug_ent - (s[1] - s[0])
