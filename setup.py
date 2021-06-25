@@ -16,6 +16,7 @@ setuptools.setup(
     author_email="kennethcenevoldsen@gmail.com",
     url="https://github.com/KennethEnevoldsen/dacy",
     packages=setuptools.find_packages(),
+    data_files=[("", ["dacy/datasets/lookup_tables/*.csv"])],
     include_package_data=True,
     # external packages as dependencies
     install_requires=["spacy", "spacy-transformers", "tqdm", "danlp"],
