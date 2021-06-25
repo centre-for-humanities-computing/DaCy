@@ -1,5 +1,5 @@
 """
-This includes Danish datasets wrapped and read in in as a spacy corpus. This should allow for easier augmentation and model testing.
+This includes the DaNE dataset wrapped and read in as a SpaCy corpus.
 """
 
 import os
@@ -37,7 +37,7 @@ def dane(
 
     Example:
         >>> import dacy
-        >>> train, dev, test = dacy.datasets.dane(predefined_splits=True)
+        >>> train, dev, test = dacy.datasets.dane(splits=["train", "dev", "test"])
     """
     if save_path is None:
         save_path_ = os.path.join(DEFAULT_CACHE_DIR, "datasets")

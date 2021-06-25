@@ -4,7 +4,7 @@ from spacy.training import Corpus
 from spacy.scorer import Scorer
 
 import dacy
-from dacy.augmenters.common_utils import make_danish_name_dict, make_muslim_name_dict
+from dacy.datasets.names import danish_names, muslim_names
 from dacy.augmenters import create_name_augmenter
 
 # Checking the small danish model
@@ -17,8 +17,8 @@ def apply_model(example):
     return example
 
 
-ent_dict_muslim = make_muslim_name_dict()
-ent_dict_danish = make_danish_name_dict()
+ent_dict_muslim = muslim_names()
+ent_dict_danish = danish_names()
 
 corpus_muslim = Corpus(
     "corpus/dane/dane_test.spacy",
