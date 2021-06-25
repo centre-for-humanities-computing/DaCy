@@ -59,9 +59,12 @@ The documentation is organized in two parts:
    :caption: Package References
 
    download
+   dacy.datasets
    dacy.sentiment
+   dacy.augmenters
    dacy.readability
    dacy.subclasses
+
 
 
 .. toctree::
