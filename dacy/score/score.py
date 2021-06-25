@@ -55,7 +55,7 @@ def score(
         >>> def apply_model(example):
                 example.predicted = nlp(example.predicted.text)
                 return example
-        >>> scores = scores(test, augmenter=create_lower_casing_augmenter(0.5), apply_model)
+        >>> scores = scores(test, augmenter=create_lower_casing_augmenter(0.5), apply_fn = apply_model)
     """
     def __apply_nlp(example):
         example.predicted = nlp(example.predicted.text)
