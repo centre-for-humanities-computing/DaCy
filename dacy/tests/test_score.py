@@ -1,14 +1,10 @@
-from typing import Callable, Union
-from spacy.training import Corpus
-
-from spacy.scorer import Scorer
-from functools import partial
 
 import spacy
+import pandas as pd
 
 import dacy
 from dacy.datasets import dane
-from dacy.score import score, n_sents_score, Scores
+from dacy.score import score, n_sents_score
 
 from spacy.training.augment import create_lower_casing_augmenter
 
@@ -30,12 +26,21 @@ def test_score():
         k=3,
         score_fn=["ents", "pos", "token"],
     )
-    print(scores)
-    scores.to_df()
-
+    assert isinstance(scores, pd.DataFrame)
+    
+    # test with nlp as input
+    scores_ = score(
+        corpus=test,
+        augmenter=create_lower_casing_augmenter(0.5),
+        apply_fn=nlp,
+        k=3,
+        score_fn=["ents", "pos", "token"],
+    )
+    for s in scores_:
+        assert s in scores.columns
 
 def test_n_sents_score():
-    nlp = dacy.load("da_dacy_medium_tft-0.0.0")
+    nlp = spacy.lang.da.Danish()
 
     def apply_model(example):
         example.predicted = nlp(example.predicted.text)
@@ -45,15 +50,4 @@ def test_n_sents_score():
         n_sents=1,
         apply_fn=apply_model,
     )
-    print(scores)
-
-
-def test_Scores():
-    scores = Scores(scores={"acc": [0.999999, 0.988888, 0.7666]})
-    assert isinstance(scores.scores, dict)
-    assert isinstance(scores.summary("acc"), str)
-    scores.to_df()
-
-    scores_ = Scores(scores={"acc": [0.9, 0.8], "p": [1.0, 1.0]})
-    scores += scores_
-    scores.to_df()
+    assert isinstance(scores, pd.DataFrame)

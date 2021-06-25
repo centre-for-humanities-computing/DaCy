@@ -8,51 +8,13 @@ from copy import copy
 from functools import partial
 from typing import Callable, List, Optional, Union
 
-import numpy as np
-from pydantic import BaseModel
+import pandas as pd
 from spacy.language import Language
 from spacy.scorer import Scorer
 from spacy.training import Corpus
 from spacy.training import dont_augment
 
 from ..utils import flatten_dict
-
-
-class Scores(BaseModel):
-    scores: dict
-
-    def mean(self, score: str):
-        s = self.scores[score]
-        return np.mean(s)
-
-    def std(self, score: str):
-        s = self.scores[score]
-        return np.std(s)
-
-    def summary(self, score: str):
-        std = self.std(score)
-        mean = self.mean(score)
-        return f"{round(mean, 2)} ({round(std, 2)})"
-
-    def to_df(self):
-        import pandas as pd
-
-        return pd.DataFrame(self.scores)
-
-    def __repr_str__(self, join_str: str) -> str:
-        return join_str.join(
-            repr(v) if a is None else f"{a}={v!r}"
-            for a, v in [(k, self.summary(k)) for k in self.scores.keys() if isinstance(self.scores[k][0], float)]
-        )
-
-    def __add__(self, other: Scores):
-        for k in self.scores.keys():
-            if k in other.scores:
-                self.scores[k] += other.scores[k]
-        for k in other.scores.keys():
-            if k not in self.scores.keys():
-                self.scores[k] = other.scores[k]
-        return self
 
 
 def score(
@@ -63,7 +25,7 @@ def score(
     k: int = 1,
     nlp: Optional[Language] = None,
     **kwargs,
-) -> Scores:
+) -> pd.DataFrame:
     """scores a models performance on a given corpus with potentially augmentations applied to it.
 
     Args:
@@ -85,8 +47,7 @@ def score(
             Danish pipeline. Defaults to None.
 
     Returns:
-        Scores: returns a Scores dataclass, which contain the scores dictionary and convenience functions.
-            E.g. to extracting a dataframe.
+        pandas.DataFrame: returns a pandas dataframe containing the performance metrics.
 
     Example:
         >>> from spacy.training.augment import create_lower_casing_augmenter
@@ -95,9 +56,10 @@ def score(
                 example.predicted = nlp(example.predicted.text)
                 return example
         >>> scores = scores(test, augmenter=create_lower_casing_augmenter(0.5), apply_model)
-        >>> scores.scores # extract dictionary of scores
-        >>> scores.to_df() # creates a pandas dataframe of scores
     """
+    def __apply_nlp(example):
+        example.predicted = nlp(example.predicted.text)
+        return example
 
 
     if nlp is None:
@@ -105,6 +67,14 @@ def score(
 
         nlp = Danish()
 
+    if callable(augmenters):
+        augmenters = [augmenters]
+    if len(augmenters) == 0:
+        augmenters = [dont_augment]
+
+    if isinstance(apply_fn, Language):
+        apply_fn = __apply_nlp
+        
     scorer = Scorer(nlp)
     def_scorers = {
         "ents": partial(Scorer.score_spans, attr="ents"),
@@ -112,10 +82,6 @@ def score(
         "token": Scorer.score_tokenization,
         "nlp": scorer.score,
     }
-    if callable(augmenters):
-        augmenters = [augmenters]
-    if len(augmenters) == 0:
-        augmenters = [dont_augment]
 
     def __score(augmenter):
         corpus_ = copy(corpus)
@@ -138,13 +104,10 @@ def score(
         scores["augmenter"] = [aug.__name__]*k
         scores["k"] = list(range(k))
         
-        return Scores(scores=scores)
+        return pd.DataFrame(scores)
     
     for i, aug in enumerate(augmenters):
-        score_ = __score(aug)
-        if i == 0:
-            score = score_
-        else:
-            score = score + score_
-    return score
+        scores_ = __score(aug)
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_
+    return scores
 
