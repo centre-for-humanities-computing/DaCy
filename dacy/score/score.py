@@ -57,10 +57,10 @@ def score(
                 return example
         >>> scores = scores(test, augmenter=create_lower_casing_augmenter(0.5), apply_fn = apply_model)
     """
-    def __apply_nlp(example):
-        example.predicted = nlp(example.predicted.text)
-        return example
 
+    def __apply_nlp(example):
+        example.predicted = nlp_(example.reference.text)
+        return example
 
     if nlp is None:
         from spacy.lang.da import Danish
@@ -73,8 +73,9 @@ def score(
         augmenters = [dont_augment]
 
     if isinstance(apply_fn, Language):
+        nlp_ = apply_fn
         apply_fn = __apply_nlp
-        
+
     scorer = Scorer(nlp)
     def_scorers = {
         "ents": partial(Scorer.score_spans, attr="ents"),
@@ -84,6 +85,7 @@ def score(
     }
 
     def __score(augmenter):
+
         corpus_ = copy(corpus)
         corpus_.augmenter = augmenter
         scores_ls = []
@@ -100,14 +102,12 @@ def score(
         # and collapse list to dict
         for key in scores.keys():
             scores[key] = [s[key] for s in scores_ls]
-        
-        scores["augmenter"] = [aug.__name__]*k
+
         scores["k"] = list(range(k))
-        
+
         return pd.DataFrame(scores)
-    
+
     for i, aug in enumerate(augmenters):
         scores_ = __score(aug)
         scores = pd.concat([scores, scores_]) if i != 0 else scores_
     return scores
-

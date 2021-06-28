@@ -1,4 +1,4 @@
-count,name,ethnicity,sex,first_name
+count,name,ethnicity,gender,first_name
 259943.0,Marie,danish,female,True
 114503.0,Anna,danish,female,True
 102041.0,Margrethe,danish,female,True
