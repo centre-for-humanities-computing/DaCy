@@ -1,7 +1,6 @@
 import os
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 import pandas as pd
-from collections import defaultdict
 
 
 def load_names(
@@ -40,12 +39,11 @@ def load_names(
         names = names.loc[names["ethnicity"] == ethnicity]
 
     if gender is not None:
-        names = names.groupby(["name", "sex"]).agg({"count": "sum"})
+        names = names.groupby(["name", "gender", "first_name"]).agg({"count": "sum"})
         # Change: groupby state_office and divide by sum
         names = names.groupby(level=0).apply(lambda x: x / float(x.sum()))
-        names = names.loc[
-            (names["gender"] == gender) & (names["count"] >= min_prop_gender)
-        ]
+        names = names.reset_index()
+        names = names.loc[(names["gender"] == gender) & (names["count"] >= min_prop_gender)]
 
     first_names = names.loc[names["first_name"] == True]
     last_names = names.loc[names["first_name"] == False]
