@@ -16,7 +16,7 @@ def test_add_berttone_subjectivity():
     )
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
-        "Jeg tror alligvel, det bliver godt",
+        "Jeg tror alligevel, det bliver godt",
     ]
     actual = ["objective", "subjective"]
     docs = nlp.pipe(texts)
@@ -32,7 +32,7 @@ def test_add_berttone_polarity():
 
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
-        "Jeg tror alligvel, det bliver godt",
+        "Jeg tror alligevel, det bliver godt",
     ]
     docs = nlp.pipe(texts)
 
@@ -67,13 +67,16 @@ def test_add_senda():
 def test_add_davader():
     # using small danish spacy model as DaCy does not include a lemmatizer (yet)
     try:
-        nlp = spacy.load('da_core_news_sm')
+        nlp = spacy.load("da_core_news_sm")
     except OSError:
-        print('Downloading language model for the spaCy tokenization\n'
-            "(don't worry, this will only happen once)")
+        print(
+            "Downloading language model for the spaCy tokenization\n"
+            "(don't worry, this will only happen once)"
+        )
         from spacy.cli import download
-        download('da_core_news_sm')
-    nlp = spacy.load('da_core_news_sm')
+
+        download("da_core_news_sm")
+    nlp = spacy.load("da_core_news_sm")
 
     from spacy.tokens import Doc
     from dacy.sentiment import da_vader_getter

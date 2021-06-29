@@ -12,7 +12,7 @@ from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
 
 def test_classification_transformer():
     """
-    test it if is possible to wrap a fine-tuned transformer trained for
+    test if it is possible to wrap a fine-tuned transformer trained for
     sequence labelling.
     """
     texts = [

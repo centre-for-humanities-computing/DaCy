@@ -5,9 +5,12 @@ from spacy.training import Corpus
 from spacy.lang.da import Danish
 from spacy.training import Example
 
+from dacy.datasets import dane
+test = dane(splits=["test"])
+
 def test_dane():
-    train, dev, test = dacy.datasets.dane(predefined_splits=True)
-    all_ = dacy.datasets.dane(predefined_splits=False)
+    train, dev, test = dane()
+    all_ = dacy.datasets.dane(splits=["all"])
     for d in [train, dev, test, all_]:
         assert isinstance(d, Corpus)
 

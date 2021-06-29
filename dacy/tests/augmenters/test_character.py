@@ -1,11 +1,12 @@
 from dacy.augmenters import (
     create_char_swap_augmenter,
-    create_remove_spacing_augmenter,
+    create_spacing_augmenter,
     create_char_random_augmenter,
     create_char_replace_augmenter,
 )
 from spacy.lang.da import Danish
 from spacy.training import Example
+
 
 def test_create_char_swap_augmenter():
     aug = create_char_swap_augmenter(doc_level=1, char_level=1)
@@ -17,8 +18,8 @@ def test_create_char_swap_augmenter():
     assert example_aug.x.text == "wq"
 
 
-def test_create_remove_spacing_augmenter():
-    aug = create_remove_spacing_augmenter(doc_level=1, spacing_level=1)
+def test_create_spacing_augmenter():
+    aug = create_spacing_augmenter(doc_level=1, spacing_level=1)
     nlp = Danish()
     doc = nlp("en sætning.")
     example = Example(doc, doc)
