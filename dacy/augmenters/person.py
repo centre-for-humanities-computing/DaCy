@@ -18,7 +18,7 @@ def create_pers_augmenter(
     ent_dict: Dict[str, List[str]],
     patterns: List[str] = ["fn,ln", "abbpunct,ln"],
     patterns_prob: Optional[List[float]] = None,
-    force_size: bool = False,
+    force_pattern_size: bool = False,
     keep_name: bool = True,
     prob: float = 1,
 ) -> Callable[[Language, Example], Iterator[Example]]:
@@ -35,7 +35,7 @@ def create_pers_augmenter(
             "abbpunct" = abbreviate to first character including punctuation (e.g. Lasse -> L.)
         patterns_prob (List[float]). Weights for the patterns, must be None or have same lengths as pattern.
             Defaults to None (equal weights)
-        force_size (bool, optional): Whether to force entities to have the same format/length as the pattern. Defaults to False.
+        force_pattern_size (bool, optional): Whether to force entities to have the same format/length as the pattern. Defaults to False.
         keep_name (bool, optional): Whether to use the current name or sample from ent_dict. I.e., if True, will only augment if the pattern is "abb" or "abbpunct",
             if False, will sample new names from ent_dict. Defaults to True.
         prob (float, optional): which proportion of entities to augment. Defaults to 1.
@@ -50,7 +50,7 @@ def create_pers_augmenter(
         ent_dict=ent_dict,
         patterns=patterns,
         patterns_prob=patterns_prob,
-        force_size=force_size,
+        force_pattern_size=force_pattern_size,
         keep_name=keep_name,
         prob=prob,
     )
@@ -62,7 +62,7 @@ def pers_augmenter(
     ent_dict: Dict[str, List[str]],
     patterns: list,
     patterns_prob: Optional[List[float]],
-    force_size: bool,
+    force_pattern_size: bool,
     keep_name: bool,
     prob: float,
 ) -> Iterator[Example]:
@@ -80,7 +80,7 @@ def pers_augmenter(
         ent_dict=ent_dict,
         patterns=patterns,
         patterns_prob=patterns_prob,
-        force_size=force_size,
+        force_pattern_size=force_pattern_size,
         keep_name=keep_name,
         prob=prob,
     )
@@ -98,7 +98,7 @@ def augment_entity(
     ent_dict: Dict[str, List[str]],
     patterns: List[str],
     patterns_prob: Optional[List[float]],
-    force_size: bool,
+    force_pattern_size: bool,
     keep_name: bool,
     prob: float,
 ) -> List[List[str]]:
@@ -110,16 +110,16 @@ def augment_entity(
     >>> ent_dict = {"first_name" : ["John", "Ole"], "last_name" : ["Eriksen"]}
     >>> patterns = ["fn,ln", "abbpunct,ln"]
     >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_size=False, keep_name=True, prob=1)
+                       force_pattern_size=False, keep_name=True, prob=1)
     >>> [['L.', 'Hansen'], ['K.', 'Christian', 'Enevoldsen']]
     >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_size=True, keep_name=True, prob=1)
+                       force_pattern_size=True, keep_name=True, prob=1)
     >>> [['Lasse', 'Hansen'], ['K.', 'Christian']]
     >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_size=True, keep_name=False, prob=1)
+                       force_pattern_size=True, keep_name=False, prob=1)
     >>> [['Ole', 'Eriksen'], ['J.', 'Eriksen']]
     >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_size=False, keep_name=False, prob=1)
+                       force_pattern_size=False, keep_name=False, prob=1)
     >>> [['O.', 'Eriksen'], ['John', 'Eriksen', 'Enevoldsen']]
 
     Returns:
@@ -142,7 +142,7 @@ def augment_entity(
         pattern = pattern.split(",")
 
         entity_span = entities[i]
-        if force_size:
+        if force_pattern_size:
             entity_span = resize_entity_list(entity_span, pattern, ent_dict)
 
         new_entity = []

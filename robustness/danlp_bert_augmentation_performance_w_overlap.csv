@@ -1,0 +1,2 @@
+,ents_p,ents_r,ents_f,ents_per_type_PER_p,ents_per_type_PER_r,ents_per_type_PER_f,ents_per_type_MISC_p,ents_per_type_MISC_r,ents_per_type_MISC_f,ents_per_type_LOC_p,ents_per_type_LOC_r,ents_per_type_LOC_f,ents_per_type_ORG_p,ents_per_type_ORG_r,ents_per_type_ORG_f,k,model,augmenter,i
+0,0.855072463768116,0.6344086021505376,0.728395061728395,0.9175824175824175,0.9277777777777778,0.9226519337016573,0.0,0.0,0.0,0.7889908256880734,0.8958333333333334,0.8390243902439025,0.8211382113821138,0.6273291925465838,0.7112676056338029,0,danlp_bert,No augmentation,0

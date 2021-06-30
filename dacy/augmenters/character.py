@@ -34,7 +34,7 @@ def create_char_swap_augmenter(
 
 
 @spacy.registry.augmenters("spacing_augmenter.v1")
-def create_remove_spacing_augmenter(
+def create_spacing_augmenter(
     doc_level: float, spacing_level: float
 ) -> Callable[[Language, Example], Iterator[Example]]:
     """Created an augmenter which augments by removing spacing.
@@ -46,9 +46,7 @@ def create_remove_spacing_augmenter(
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The augmenter function.
     """
-    return partial(
-        remove_spacing_augmenter, doc_level=doc_level, spacing_level=spacing_level
-    )
+    return partial(spacing_augmenter, doc_level=doc_level, spacing_level=spacing_level)
 
 
 @spacy.registry.augmenters("char_random_augmenter.v1")
@@ -188,7 +186,7 @@ def char_swap_augmenter(
         yield example.from_dict(doc, example_dict)
 
 
-def remove_spacing_augmenter(
+def spacing_augmenter(
     nlp: Language,
     example: Example,
     doc_level: float = 0.5,
