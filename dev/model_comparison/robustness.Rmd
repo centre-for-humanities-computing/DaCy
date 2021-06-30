@@ -1,0 +1,126 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+```
+
+
+```{r}
+files = list.files("../../robustness/", full.names = T)
+perf = files %>% map_df(read_csv) %>% filter(!model %in% c("nerda_bert", "dacy_small") )
+```
+
+```{r}
+
+sum_perf = perf %>% select(starts_with("ents"), model, augmenter) %>%
+  group_by(model, augmenter) %>% 
+  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE))) %>% 
+  mutate(ents_mean_f1_no_misc = (ents_per_type_LOC_f + ents_per_type_PER_f + ents_per_type_ORG_f) / 3) %>% 
+  select(model, augmenter, ents_f, ents_mean_f1_no_misc, everything()) %>% 
+  filter(!model %in% c("nerda_bert") )
+
+
+sum_perf %>% group_by(model) %>% 
+  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)))
+
+sum_perf %>% group_by(augmenter) %>% 
+  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)))
+
+perf %>% group_by(model) %>% summarise(n = n()) 
+```
+
+
+
+```{r scoring summary functions}
+
+score_t_test = function(mdl, augmenter, default, data, score){
+  if (augmenter == default){return(NA)}
+  d = data %>% filter(model == mdl)
+
+  
+  d$augmenter[5] == augmenter
+  
+  x = d[[score]][d$augmenter == augmenter]
+  mu = d[[score]][d$augmenter == default]
+  
+  if (length(x) == 1){return(NA)}
+  
+  t = t.test(x = x,
+         mu = mu, paired = FALSE, var.equal = FALSE,
+         conf.level = 0.95)
+  return (t$p.value)
+}
+
+# score_t_test(mdl = "dacy_large", augmenter = "Keyboard augmentation 5%", default = default, data = data, score=score)
+
+score_to_df = function(default, data, score){
+  dfs = NULL
+  i = 1
+  for(mdl in unique(data$model)){
+    for (aug in unique(data$augmenter)){
+      if (aug == default){
+        next
+      }
+      p = score_t_test(mdl=mdl, augmenter=aug, default=default, data=data, score=score)
+      mu = mean(data[[score]][data$augmenter == aug & data$model == mdl])
+      sigma = sd(data[[score]][data$augmenter == aug & data$model == mdl])
+      
+      dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=mu, sd=sigma, p_value=p)
+      i = i+1
+    }
+  }
+  return(bind_rows(dfs))
+}
+
+
+```
+
+
+```{r ent_perf}
+# mdl = "dacy_large"
+# augmenter = "Keyboard augmentation 5%"
+default = "No augmentation"
+data = perf
+score = "ents_f"
+
+ent_perf = score_to_df(default, data, score)
+
+is.na(NA)
+
+
+
+ent_per_tbl = ent_perf %>% arrange(sd) %>% 
+  mutate(p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         sd = if_else(<0.005)
+         string_value = if_else(is.na(sd), paste(round(mean, 2), sep=""),
+                                paste(round(mean, 2), " (", round(sd, 2), ") ", p_value_star, sep="")),
+         model = plyr::mapvalues(model, 
+            from=c("spacy_large", "spacy_medium", "dacy_large", "dacy_medium", "danlp_bert", "spacy_small"), 
+            to=  c("SpaCy Large", "SpaCy Medium", "DaCy Large", "DaCy Medium", "DaNLP BERT", "SpaCy Small"))
+         ) %>% 
+  select(-c(mean, sd, p_value, p_value_star)) %>% 
+  pivot_wider(names_from = augmenter, values_from=c(string_value))
+
+ent_per_tbl %>% kbl(booktabs=T, align=c("l", rep("c", length(columns()))) %>% 
+
+make_table = function(data, high_columns=high, low_columns=low){
+  res = data %>% 
+    kbl(., "latex", booktabs = T, 
+        align=c("l", "l", rep("c", length(columns))), 
+        digits = c(0, 0, rep(2, 7), 0)) %>%
+    add_header_above(c(" " = 2, "POS" = 1, "NER"= 4, "Dependency Parsing" = 2, "Speed" = 1)) %>%
+    highlight_highest(., data, columns = high_columns) %>% 
+    kable_styling(latex_options = c( "scale_down")) %>% 
+    footnote(number = c("Highest scores are in bold and second highest is underlined.", 
+                         "Empty cells denote that the particular model does not contain a trained component for the specific task.", 
+                         "WPS indicate words pr. second. Only reported to DaCy models."))
+  return(res)
+}
+```
+
