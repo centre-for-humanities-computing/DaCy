@@ -1,4 +1,4 @@
-### pip install polyglot morfessor==2.0.6 PyICU==2.4.2 pycld2==0.41
+### pip install polyglot morfessor==2.0.6    pycld2==0.41
 ### polyglot download pos2.da
 
 from spacy.tokens import Doc
@@ -15,13 +15,13 @@ ne_chunker = NEChunker(lang="da")
 pos_tagger = POSTagger(lang="da")
 
 
-nlp = Danish()
+nlp_da = Danish()
 
 
 def __apply_polyglot(example: Example, use_spacy: bool=False) -> Example:
     # tokenization
     if use_spacy:
-        words = WordList([t.text for t in nlp(example.reference.text)], language="da")
+        words = WordList([t.text for t in nlp_da(example.reference.text)], language="da")
     else:
         text = Text(example.reference.text, hint_language_code="da")
         words = text.words
@@ -31,7 +31,7 @@ def __apply_polyglot(example: Example, use_spacy: bool=False) -> Example:
     tags = [tag for t, tag in pos_tagger.annotate(words)]
 
     words = [t.string for t in words]
-    doc = Doc(nlp.vocab, words=words, tags=tags, pos=tags)
+    doc = Doc(nlp_da.vocab, words=words, tags=tags, pos=tags)
     doc = add_iob(doc, iob)
     return Example(doc, example.y)
 

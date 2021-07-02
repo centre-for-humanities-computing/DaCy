@@ -1,3 +1,5 @@
+#pip install flair==0.4.5
+
 from typing import Iterable, List
 from spacy.tokens import Doc
 from spacy.training import Example
@@ -8,7 +10,7 @@ from flair.data import Sentence, Token
 
 tagger_ner = load_flair_ner_model()
 tagger_pos = load_flair_pos_model()
-nlp = Danish()
+nlp_da = Danish()
 
 
 def apply_flair(examples: Iterable[Example], use_spacy=True) -> List[Example]:
@@ -18,7 +20,7 @@ def apply_flair(examples: Iterable[Example], use_spacy=True) -> List[Example]:
         # tokenization
         if use_spacy:
             sent = Sentence()
-            [sent.add_token(Token(t.text)) for t in nlp(example.reference.text)]
+            [sent.add_token(Token(t.text)) for t in nlp_da(example.reference.text)]
         else:
             sent = Sentence(example.reference.text)
 
@@ -42,7 +44,7 @@ def apply_flair(examples: Iterable[Example], use_spacy=True) -> List[Example]:
                 for tok in f_sent
             ]
         )
-        doc = Doc(nlp.vocab, words=text, spaces=ws, tags=upos, ents=iob)
+        doc = Doc(nlp_da.vocab, words=text, spaces=ws, tags=upos, ents=iob)
         examples_.append(Example(doc, doc_y))
     return examples_
 
