@@ -18,7 +18,6 @@ from spacy.tokens import Doc, Span
 from ..utils import flatten_dict
 
 
-
 def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
     """A utility getter for scoring entities without including MISC
 
@@ -36,10 +35,20 @@ def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
         yield span
 
 
+def dep_getter(token, attr):
+    dep = getattr(token, attr)
+    dep = token.vocab.strings.as_string(dep).lower()
+    return dep
+
+
 def score(
     corpus: Corpus,
     apply_fn: Union[Callable[[Iterable[Example], List[Example]]], Language],
-    score_fn: List[Union[Callable[[Iterable[Example]], dict], str]] = ["token", "pos", "ents"],
+    score_fn: List[Union[Callable[[Iterable[Example]], dict], str]] = [
+        "token",
+        "pos",
+        "ents",
+    ],
     augmenters: List[Callable[[Language, Example], Iterable[Example]]] = [],
     k: int = 1,
     nlp: Optional[Language] = None,
@@ -56,8 +65,8 @@ def score(
             examples (Iterable[Example]) and return a dictionary of performance scores. Four potiential
             strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring
             the performance of fine-grained (tag_acc), and coarse-grained (pos_acc) pos-tags. "token" for measuring
-            the performance of tokenization. "nlp" for measuring the performance of all components in the specified
-            nlp pipeline. Defaults to ["token", "pos", "ents"].
+            the performance of tokenization. "dep" for measuring the performance of dependency parsing. "nlp" for measuring
+            the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents", "dep"].
         augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A spaCy style augmenters
             which should be applied to the corpus or a list thereof. defaults to [], indicating no augmenters.
         k (int, optional): Number of times it should run the augmentation and test the performance on
@@ -79,14 +88,13 @@ def score(
     if len(augmenters) == 0:
         augmenters = [dont_augment]
 
-
     def __apply_nlp(examples):
         examples = ((e.x.text, e.y) for e in examples)
         doc_tuples = nlp_.pipe(examples, as_tuples=True)
         return [Example(x, y) for x, y in doc_tuples]
 
     if isinstance(apply_fn, Language):
-        nlp_  = apply_fn
+        nlp_ = apply_fn
         apply_fn = __apply_nlp
 
     if nlp is None:
@@ -98,8 +106,12 @@ def score(
 
     def ents_scorer(examples):
         scores = Scorer.score_spans(examples, attr="ents")
-        scores_no_misc = Scorer.score_spans(examples, attr="ents", getter=no_misc_getter)
-        scores["ents_excl_MISC"] = {k: scores_no_misc[k] for k in ["ents_p", "ents_r", "ents_f"]}
+        scores_no_misc = Scorer.score_spans(
+            examples, attr="ents", getter=no_misc_getter
+        )
+        scores["ents_excl_MISC"] = {
+            k: scores_no_misc[k] for k in ["ents_p", "ents_r", "ents_f"]
+        }
         return scores
 
     def pos_scorer(examples):
@@ -114,6 +126,12 @@ def score(
         "pos": pos_scorer,
         "token": Scorer.score_tokenization,
         "nlp": scorer.score,
+        "dep": partial(
+            Scorer.score_deps,
+            attr="dep",
+            getter=dep_getter,
+            ignore_labels=("p", "punct"),
+        ),
     }
 
     def __score(augmenter):
@@ -145,4 +163,3 @@ def score(
         scores_ = __score(aug)
         scores = pd.concat([scores, scores_]) if i != 0 else scores_
     return scores
-
