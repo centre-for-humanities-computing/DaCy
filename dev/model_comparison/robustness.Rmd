@@ -8,70 +8,135 @@ editor_options:
 ```{r}
 library(tidyverse)
 library(kableExtra)
+
+source("utility.R")
 ```
 
 
 ```{r}
 files = list.files("../../robustness/", full.names = T)
-perf = files %>% map_df(read_csv) %>% filter(!model %in% c("nerda_bert", "dacy_small") )
+valid_files = c()
+for (f in files){
+  split = str_split(f, "_", )[[1]]
+  if (!split[length(split)] %in% c("test.csv", "overlap.csv", "dep.csv")){
+    valid_files = c(valid_files, f)
+  }
+}
+
+read_csv_extended = function(name){
+  df = read_csv(name)
+  split = str_split(name, "_", )[[1]]
+  if (split[length(split)] %in% c("gpu.csv")){
+    df["gpu"] = "True"
+  } else {
+    df["gpu"] = "Non-relevant"
+  }
+  return(df)
+}
+names(perf)
+
+spacy_models =c ("dacy_large", "dacy_medium", "dacy_small", "spacy_large", "spacy_medium", "spacy_small")
+gpu_models  =c ("danlp_bert", "flair", "nerda_bert", "stanza")
+perf = valid_files %>% map_df(read_csv_extended) %>% 
+  mutate(gpu = if_else((model %in% spacy_models & gpu == "True") | model %in% gpu_models,  T, F))
+
+
+files = list.files(path = "../../robustness/", pattern = "*dep.csv", full.names = T)
+perf_w_dep = files %>% map_df(read_csv) %>% 
+  select(-starts_with("dep_las_")) %>% 
+  mutate(gpu = T)
+
+perf = perf %>% 
+  filter(!(model %in% unique(perf_w_dep$model) & augmenter == "No augmentation" & gpu == T)) %>%
+  plyr::rbind.fill(., perf_w_dep) %>% 
+  mutate(tag_acc = if_else(model == "stanza", pos_acc, tag_acc)) %>% 
+  select(-pos_acc)
+
+
+speed_perf = perf %>% 
+  group_by(model, gpu) %>% 
+  summarise(wall_time = mean(wall_time))
+
+perf = perf %>% select(-wall_time) %>% merge(., speed_perf, by=c("model", "gpu"))
+
 ```
 
 ```{r}
+sum_perf = perf %>% 
+  group_by(model, augmenter, gpu) %>% 
+  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("token"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("wall"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("tag"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("pos"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("dep"), ~ mean(.x, na.rm = TRUE))) %>%
+  select(model, augmenter, wall_time, gpu, everything()) 
+# sum_perf %>% 
+#   group_by(model, gpu) %>% 
+#   summarise(across(starts_with("wall"), ~ mean(.x, na.rm = TRUE))) %>% View
 
-sum_perf = perf %>% select(starts_with("ents"), model, augmenter) %>%
-  group_by(model, augmenter) %>% 
-  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE))) %>% 
-  mutate(ents_mean_f1_no_misc = (ents_per_type_LOC_f + ents_per_type_PER_f + ents_per_type_ORG_f) / 3) %>% 
-  select(model, augmenter, ents_f, ents_mean_f1_no_misc, everything()) %>% 
-  filter(!model %in% c("nerda_bert") )
 
+sum_perf_no_aug = sum_perf %>% ungroup() %>% 
+  filter(augmenter == "No augmentation") %>% 
+  arrange(desc(gpu)) %>% 
+  group_by(model) %>% 
+    summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("token"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("tag"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("pos"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("dep"), ~ mean(.x, na.rm = TRUE)),
+            wall_time = if_else(n() >= 2, 
+                                paste(round(wall_time, 2), collapse = " / "),
+                                paste(round(wall_time, 2), "-", sep = " / ", collapse = "!!!")))
 
-sum_perf %>% group_by(model) %>% 
-  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)))
-
-sum_perf %>% group_by(augmenter) %>% 
-  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)))
-
-perf %>% group_by(model) %>% summarise(n = n()) 
+no_ent = sum_perf_no_aug$model[sum_perf_no_aug$ents_f == 0]
+no_pos = sum_perf_no_aug$model[sum_perf_no_aug$tag_acc == 0]
+no_dep = sum_perf_no_aug$model[sum_perf_no_aug$dep_las == 0]
 ```
 
 
-
 ```{r scoring summary functions}
-
 score_t_test = function(mdl, augmenter, default, data, score){
-  if (augmenter == default){return(NA)}
   d = data %>% filter(model == mdl)
 
-  
-  d$augmenter[5] == augmenter
-  
   x = d[[score]][d$augmenter == augmenter]
-  mu = d[[score]][d$augmenter == default]
+  mu = mean(d[[score]][d$augmenter == default]) # no aug is run twice on some models (w/o gpu)
   
-  if (length(x) == 1){return(NA)}
+  
   
   t = t.test(x = x,
          mu = mu, paired = FALSE, var.equal = FALSE,
          conf.level = 0.95)
-  return (t$p.value)
+  return (t)
 }
-
-# score_t_test(mdl = "dacy_large", augmenter = "Keyboard augmentation 5%", default = default, data = data, score=score)
+score_t_test(mdl = "dacy_large", 
+             augmenter = "Keystroke errors 2%", 
+             default = "No augmentation", 
+             data = perf %>% filter(!model %in% no_dep), 
+             score="ents_f")
 
 score_to_df = function(default, data, score){
   dfs = NULL
   i = 1
   for(mdl in unique(data$model)){
     for (aug in unique(data$augmenter)){
-      if (aug == default){
-        next
-      }
-      p = score_t_test(mdl=mdl, augmenter=aug, default=default, data=data, score=score)
-      mu = mean(data[[score]][data$augmenter == aug & data$model == mdl])
-      sigma = sd(data[[score]][data$augmenter == aug & data$model == mdl])
+      v = data[[score]][data$augmenter == aug & data$model == mdl]
       
-      dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=mu, sd=sigma, p_value=p)
+      if (length(v) <= 2){
+          dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=v[1], sd=NA, 
+                    conf_int = "",
+                    p_value=NA)
+          i = i+1
+          next
+      }
+      
+      mu = mean(v)
+      sigma = sd(v)
+      print(paste(mdl, aug, length(v)))
+      t = score_t_test(mdl=mdl, augmenter=aug, default=default, data=data, score=score)
+      dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=mu, sd=sigma, 
+                        conf_int = paste("(",  round(t$conf.int[1], 2),", ",  round(t$conf.int[2], 2), ")", sep = ""),
+                        p_value=t$p.value)
       i = i+1
     }
   }
@@ -83,44 +148,146 @@ score_to_df = function(default, data, score){
 
 
 ```{r ent_perf}
-# mdl = "dacy_large"
-# augmenter = "Keyboard augmentation 5%"
-default = "No augmentation"
-data = perf
-score = "ents_f"
+names_from = c("spacy_large", "spacy_medium", "dacy_large", "dacy_medium", "danlp_bert", "spacy_small", 
+                   "flair", "stanza", "nerda_bert", "dacy_small")
+names_to = c("SpaCy Large", "SpaCy Medium", "DaCy Large", "DaCy Medium", "DaNLP BERT", "SpaCy Small", 
+                   "Flair", "Stanza", "NERDA", "DaCy Small")
 
-ent_perf = score_to_df(default, data, score)
+ent_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_ent), score="ents_f")
 
-is.na(NA)
+bootstrapped_aug = ent_perf %>% filter(!is.na(sd)) %>% select(augmenter)
+bootstrapped_aug = unique(bootstrapped_aug$augmenter)
 
-
-
-ent_per_tbl = ent_perf %>% arrange(sd) %>% 
-  mutate(p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
-         sd = if_else(<0.005)
-         string_value = if_else(is.na(sd), paste(round(mean, 2), sep=""),
-                                paste(round(mean, 2), " (", round(sd, 2), ") ", p_value_star, sep="")),
-         model = plyr::mapvalues(model, 
-            from=c("spacy_large", "spacy_medium", "dacy_large", "dacy_medium", "danlp_bert", "spacy_small"), 
-            to=  c("SpaCy Large", "SpaCy Medium", "DaCy Large", "DaCy Medium", "DaNLP BERT", "SpaCy Small"))
-         ) %>% 
-  select(-c(mean, sd, p_value, p_value_star)) %>% 
+ent_per_tbl = ent_perf %>% arrange(conf_int) %>% 
+  mutate(mean = paste(round(mean, 2)),
+         mean = if_else(nchar(mean) == 3, paste(mean, "0", sep=""), mean),
+         p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         string_value = if_else(is.na(sd), paste(mean, sep=""),
+                                paste(mean, conf_int, p_value_star, sep=" ")),
+         model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
+  select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
   pivot_wider(names_from = augmenter, values_from=c(string_value))
 
-ent_per_tbl %>% kbl(booktabs=T, align=c("l", rep("c", length(columns()))) %>% 
+high_columns = names(ent_per_tbl)[2:ncol(ent_per_tbl)]
 
-make_table = function(data, high_columns=high, low_columns=low){
-  res = data %>% 
-    kbl(., "latex", booktabs = T, 
-        align=c("l", "l", rep("c", length(columns))), 
-        digits = c(0, 0, rep(2, 7), 0)) %>%
-    add_header_above(c(" " = 2, "POS" = 1, "NER"= 4, "Dependency Parsing" = 2, "Speed" = 1)) %>%
-    highlight_highest(., data, columns = high_columns) %>% 
-    kable_styling(latex_options = c( "scale_down")) %>% 
-    footnote(number = c("Highest scores are in bold and second highest is underlined.", 
-                         "Empty cells denote that the particular model does not contain a trained component for the specific task.", 
-                         "WPS indicate words pr. second. Only reported to DaCy models."))
-  return(res)
-}
+ent_per_tbl %>% 
+  kbl(booktabs=T, align=c("l", rep("c", nrow(.)-1))) %>% 
+  add_header_above(c(" " = 1, "Augmentation" = ncol(ent_per_tbl)-1 - length(bootstrapped_aug), 
+                     "Bootstrapped Augmentations" = length(bootstrapped_aug))) %>% 
+  add_header_above(c("NER Performance of Danish NLP pipeline" = ncol(ent_per_tbl))) %>% 
+  highlight_highest(., ent_per_tbl, columns = high_columns) %>% 
+  kable_styling(full_width = F) %>% 
+  footnote(number = c("Due to NERDA input size restriction it performance on keystroke error and input size is notably poor.", 
+                     "SpaCy tok2vec models are unaffected by input length, but are notably affected by casing, keystroke errors and with a notable bias detected in name augmentation", 
+                     "Input size is detrimental for many models, except spacy inplementations and flair. NERDA does split based on sentence.",
+                     "DaCy Large outperform other models across the board with the exception of lowercasing, in which case the DaCy medium provide a strong alternative",
+                    "All models, except DaCy Small and Large reveals a performance drop when replacing names with that of males and ethnic minorities. Small is trained on a curated dataset (dagw) while DaCy large is trained multilingualy",
+                     "Flair performance notably robust on large amount of keystroke errors"))
+  
+
 ```
 
+
+```{r pos perf}
+
+pos_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_pos), score="tag_acc")
+
+pos_per_tbl = pos_perf %>% arrange(conf_int) %>% 
+  mutate(mean = paste(round(mean, 2)),
+         mean = if_else(nchar(mean) == 3, paste(mean, "0", sep=""), mean),
+         p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         string_value = if_else(is.na(sd), paste(mean, sep=""),
+                                paste(mean, conf_int, p_value_star, sep=" ")),
+         model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
+  select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
+  pivot_wider(names_from = augmenter, values_from=c(string_value))
+
+high_columns = names(pos_per_tbl)[2:ncol(pos_per_tbl)]
+
+pos_per_tbl %>% 
+  kbl(booktabs=T, align=c("l", rep("c", nrow(.)-1))) %>% 
+  add_header_above(c(" " = 1, "Augmentation" = ncol(pos_per_tbl)-1 - length(bootstrapped_aug), 
+                     "Bootstrapped Augmentations" = length(bootstrapped_aug))) %>% 
+  add_header_above(c("POS Performance of Danish NLP pipeline" = ncol(pos_per_tbl))) %>% 
+  highlight_highest(., pos_per_tbl, columns = high_columns) %>% 
+  kable_styling(full_width = F) %>% 
+  footnote(number = c("Generally there is little performance differences between models trained for POS tagging",
+                      "However, larger models adapt better to augmentations.",
+                      "Pos tagging is very stable compared to NER",
+                      "Maybe relevant to examine the paper: 'Part-of-Speech Tagging from 97% to 100%: Is It Time for Some Linguistics?'"))
+  
+
+```
+
+
+
+```{r dep perf}
+
+las_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_dep), score="dep_las")
+
+pos_per_tbl = pos_perf %>% arrange(conf_int) %>% 
+  mutate(mean = paste(round(mean, 2)),
+         mean = if_else(nchar(mean) == 3, paste(mean, "0", sep=""), mean),
+         p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         string_value = if_else(is.na(sd), paste(mean, sep=""),
+                                paste(mean, conf_int, p_value_star, sep=" ")),
+         model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
+  select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
+  pivot_wider(names_from = augmenter, values_from=c(string_value))
+
+high_columns = names(pos_per_tbl)[2:ncol(pos_per_tbl)]
+
+pos_per_tbl %>% 
+  kbl(booktabs=T, align=c("l", rep("c", nrow(.)-1))) %>% 
+  add_header_above(c(" " = 1, "Augmentation" = ncol(pos_per_tbl)-1 - length(bootstrapped_aug), 
+                     "Bootstrapped Augmentations" = length(bootstrapped_aug))) %>% 
+  add_header_above(c("POS Performance of Danish NLP pipeline" = ncol(pos_per_tbl))) %>% 
+  highlight_highest(., pos_per_tbl, columns = high_columns) %>% 
+  kable_styling(full_width = F) %>% 
+  footnote(number = c("Generally there is little performance differences between models trained for POS tagging",
+                      "However, larger models adapt better to augmentations.",
+                      "Pos tagging is very stable compared to NER",
+                      "Maybe relevant to examine the paper: 'Part-of-Speech Tagging from 97% to 100%: Is It Time for Some Linguistics?'"))
+  
+
+```
+
+
+```{r general perf}
+gen_perf = sum_perf_no_aug %>% 
+  mutate(model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
+  select(model, 
+         Accuracy = tag_acc,
+         Person = ents_per_type_PER_f, Location = ents_per_type_LOC_f, 
+         Organization = ents_per_type_ORG_f,
+         Misc = ents_per_type_MISC_f, 
+         F1 = ents_f, 
+         `F1 w/o Misc` = ents_excl_MISC_ents_f,
+         LAS = dep_las,
+         UAS = dep_uas,
+         `Wall Time (GPU/CPU)` = wall_time
+         )
+
+gen_perf[gen_perf == 0] = NA
+
+
+options(knitr.kable.NA = '')
+
+high_columns = names(gen_perf)[2:(length(names(gen_perf))-1)]
+low_columns = names(gen_perf)[length(names(gen_perf))]
+
+gen_perf %>% 
+  kbl(booktabs=T, align=c("l", rep("c", nrow(.))), digits = c(0, rep(2, nrow(.)-1))) %>% 
+  add_header_above(c(" " =1, "POS" = 1, "NER" = 6, "Dependency Parsing"=2, "Speed" = 1)) %>% 
+  add_header_above(c("General Performance of Danish NLP pipeline" = 11)) %>% 
+  highlight_highest(., gen_perf, columns = high_columns, str_col_to_numeric = F) %>% 
+  highlight_lowest(., gen_perf, columns = low_columns) %>%
+  kable_styling(full_width = F) %>% 
+  footnote(number = c("Wall Time is the average time taken by the model to go through the DaNE test set",
+    "All models were given either their own tokenizer or spacys depending on best performance",
+                      "All models were found to perform best with the spacy tokenizer (except polyglot)",
+                      "Stanza uses the spacy-stanza implementation",
+                      "The speed on the DaNLP model is taken as provided by the framework, but the model has the same size as DaCy medium so you are likely to see performance gains"))
+  
+
+```

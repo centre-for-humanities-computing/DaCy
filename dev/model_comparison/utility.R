@@ -23,15 +23,20 @@ metrics_from_json = function(file){
 }
 
 
-highlight_highest = function(kable_input, dataset, columns, underline_second=T){
+highlight_highest = function(kable_input, dataset, columns, underline_second=T, str_col_to_numeric=T){
   for (col in columns){
     idx = which(colnames(dataset) == col)
-    highest = if_else(dataset[[col]] == max(dataset[[col]], na.rm=T), T, F, missing=F)
+    column = dataset[[col]]
+    if (class(column) == "character" & str_col_to_numeric){
+      column = str_split(column, " ", simplify=T)[,1]
+      column = as.numeric(column)
+    }
+    highest = if_else(column== max(column, na.rm=T), T, F, missing=F)
     
     if (underline_second){
-      sorted = sort(dataset[[col]])
+      sorted = sort(column)
       second_highest = sorted[length(sorted)-1]
-      second = if_else(dataset[[col]] == second_highest, T, F, missing=F)
+      second = if_else(column == second_highest, T, F, missing=F)
       kable_input = column_spec(kable_input, idx, bold = highest, underline = second)      
     } else{
       kable_input = column_spec(kable_input, idx, bold = highest)
