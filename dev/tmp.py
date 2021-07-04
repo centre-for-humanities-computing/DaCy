@@ -124,19 +124,19 @@ spacing_aug = create_spacing_augmenter(doc_level=1, spacing_level=1)
 n = 20
 # augmenter   name               n rep
 augmenters = [
-    (dont_augment, "No augmentation", 1),
-    (keyboard_aug_02, "Keystroke errors 2%", n),
-    (keyboard_aug_05, "Keystroke errors 5%", n),
-    (keyboard_aug_15, "Keystroke errors 15%", n),
-    (æøå_aug, "Æøå Augmentation", 1),
-    (lower_case_aug, "Lowercase", 1),
-    (dk_aug, "Danish names", n),
-    (muslim_aug, "Muslim names", n),
-    (f_aug, "Female names", n),
-    (m_aug, "Male names", n),
-    (punct_aug, "Abbreviated first names", 1),
-    (spacing_aug_05, "Spacing Augmention 5%", n),
-    (spacing_aug, "No Spacing", 1),
+    # (dont_augment, "No augmentation", 1),
+    # (keyboard_aug_02, "Keystroke errors 2%", n),
+    # (keyboard_aug_05, "Keystroke errors 5%", n),
+    # (keyboard_aug_15, "Keystroke errors 15%", n),
+    # (æøå_aug, "Æøå Augmentation", 1),
+    # (lower_case_aug, "Lowercase", 1),
+    # (dk_aug, "Danish names", n),
+    # (muslim_aug, "Muslim names", n),
+    # (f_aug, "Female names", n),
+    # (m_aug, "Male names", n),
+    # (punct_aug, "Abbreviated first names", 1),
+    # (spacing_aug_05, "Spacing Augmention 5%", n),
+    # (spacing_aug, "No Spacing", 1),
 ]
 
 
@@ -235,4 +235,4 @@ for mdl in model_dict:
 
     scores = pd.concat(scores)
 
-    scores.to_csv(f"robustness/{mdl}_augmentation_performance_w_dep.csv")
+    scores.to_csv(f"robustness/{mdl}_augmentation_performance_w_dep2.csv")
