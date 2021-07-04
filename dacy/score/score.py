@@ -154,7 +154,7 @@ def score(
 
         # and collapse list to dict
         for key in scores.keys():
-            scores[key] = [s[key] for s in scores_ls]
+            scores[key] = [s[key] if key in s else None for s in scores_ls]
 
         scores["k"] = list(range(k))
 
