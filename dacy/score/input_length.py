@@ -14,7 +14,7 @@ def n_sents_score(
     apply_fn: Callable,
     dataset: str = "dane",
     split: str = "test",
-    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents"],
+    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],
     verbose: bool = True,
     **kwargs,
 ) -> pd.DataFrame:
@@ -44,7 +44,7 @@ def n_sents_score(
 
     for i, n in enumerate(n_sents):
         if verbose is True:
-            print(f"[INFO] Calculating score using {n_sents} sentences")
+            print(f"[INFO] Calculating score using {n} sentences")
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)
         scores = pd.concat([scores, scores_]) if i != 0 else scores_

@@ -3,27 +3,32 @@ from spacy.tokens import Span, Doc
 from spacy.training import Example
 from spacy.lang.da import Danish
 
-
-from dev.apply_fn_utils import add_iob, no_misc_getter
+from .apply_fn_utils import add_iob, no_misc_getter
 
 from NERDA.precooked import DA_BERT_ML
 
+# to download the danlp and nerda you will have to set up a certificate:
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
 model = DA_BERT_ML()
-#model.download_network()
+# model.download_network()
 model.load_network()
-nlp = Danish()
+nlp_da = Danish()
 
-from nltk.tokenize import word_tokenize
 
-def apply_nerda(examples: Iterable[Example], use_spacy: bool=False) -> List[Example]:
+def apply_nerda(examples: Iterable[Example], use_spacy: bool = True) -> List[Example]:
 
     sentences = []
     docs_y = []
     for example in examples:
         # tokenization
         if use_spacy:
-            sentences.append([t.text for t in nlp(example.reference.text)])
+            sentences.append([t.text for t in nlp_da(example.reference.text)])
         else:
+            from nltk.tokenize import word_tokenize
+
             sentences.append(word_tokenize(example.reference.text))
         docs_y.append(example.reference)
 
@@ -32,7 +37,11 @@ def apply_nerda(examples: Iterable[Example], use_spacy: bool=False) -> List[Exam
 
     examples_ = []
     for doc_y, label, words in zip(docs_y, labels, sentences):
-        doc = Doc(nlp.vocab, words=words, ents=label)
+        if len(label) < len(words):
+            label += ["O"] * (len(words) - len(label))
+
+        doc = Doc(nlp_da.vocab, words=words)
+        doc = add_iob(doc, iob=label)
         examples_.append(Example(doc, doc_y))
     return examples_
 

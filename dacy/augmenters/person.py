@@ -6,6 +6,8 @@ import random
 from functools import partial
 from typing import Callable, Dict, Iterator, List, Optional
 
+import numpy as np
+
 import spacy
 from spacy.language import Language
 from spacy.training import Example
@@ -90,7 +92,7 @@ def pers_augmenter(
     text = make_text_from_orth(example_dict)
 
     doc = nlp.make_doc(text)
-    yield example.from_dict(doc, example_dict)
+    yield Example.from_dict(doc, example_dict)
 
 
 def augment_entity(
@@ -335,14 +337,23 @@ def handle_morph(
 def handle_head(
     values: List[str], aug_ents: List[List[str]], entity_slices: List[tuple]
 ) -> List[str]:
-    """keep first head, set rest to refer to index of first name"""
-    running_add = 0
-    for i, s in enumerate(entity_slices):
-        values[s[0] + running_add : s[1] + running_add] = [
-            values[s[0] + running_add : s[1] + running_add][0]
-        ] + [s[0] + running_add] * (len(aug_ents[i]) - 1)
-        running_add += len(aug_ents[i]) - (s[1] - s[0])
-    return values
+    """keep first head correcting for changing entity size, set rest to refer to index of first name"""
+    values = np.array(values)
+
+    offset = 0
+    for aug_ent, s in zip(aug_ents, entity_slices):
+        offset_ = len(aug_ent) - (s[1] - s[0])
+        values[values > s[0]+ offset] += offset_
+        values = np.concatenate(
+            [
+                np.array(values[: s[0]+ offset]),
+                np.array([values[s[0] + offset]] + [s[0] + offset] * (len(aug_ent) - 1)),
+                np.array(values[s[1] + offset:]),
+            ]
+        )
+        offset += offset_
+    l = values.tolist()
+    return l
 
 
 def handle_dep(
