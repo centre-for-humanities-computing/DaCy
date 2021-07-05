@@ -9,7 +9,8 @@ def load_names(
     gender: Optional[str] = None,
     min_prop_gender: float = 0,
 ) -> Dict[str, List[str]]:
-    """loads the names lookup table. Danish is derived from Danmarks statistik (2021).
+    """
+    Loads the names lookup table. Danish is derived from Danmarks statistik (2021).
     Muslim names are derived from Meldgaard (2005), https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
 
     Args:
@@ -22,7 +23,7 @@ def load_names(
         min_prop_gender (float): minimum probability of a names being a given gender. The probability of a
             given name being a
             specific gender is based on the proportion of people with the given name is that gender. Only
-                used when gender is set. Defaults to 0.
+            used when gender is set. Defaults to 0.
 
     Returns:
         Dict[str, List[str]]: A dictionary of Muslim names containing the keys "first_name" and "last_name".
@@ -43,7 +44,9 @@ def load_names(
         # Change: groupby state_office and divide by sum
         names = names.groupby(level=0).apply(lambda x: x / float(x.sum()))
         names = names.reset_index()
-        names = names.loc[(names["gender"] == gender) & (names["count"] >= min_prop_gender)]
+        names = names.loc[
+            (names["gender"] == gender) & (names["count"] >= min_prop_gender)
+        ]
 
     first_names = names.loc[names["first_name"] == True]
     last_names = names.loc[names["first_name"] == False]
