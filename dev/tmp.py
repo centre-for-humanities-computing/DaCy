@@ -124,19 +124,19 @@ spacing_aug = create_spacing_augmenter(doc_level=1, spacing_level=1)
 n = 20
 # augmenter   name               n rep
 augmenters = [
-    # (dont_augment, "No augmentation", 1),
-    # (keyboard_aug_02, "Keystroke errors 2%", n),
-    # (keyboard_aug_05, "Keystroke errors 5%", n),
-    # (keyboard_aug_15, "Keystroke errors 15%", n),
-    # (æøå_aug, "Æøå Augmentation", 1),
-    # (lower_case_aug, "Lowercase", 1),
-    # (dk_aug, "Danish names", n),
-    # (muslim_aug, "Muslim names", n),
-    # (f_aug, "Female names", n),
-    # (m_aug, "Male names", n),
-    # (punct_aug, "Abbreviated first names", 1),
-    # (spacing_aug_05, "Spacing Augmention 5%", n),
-    # (spacing_aug, "No Spacing", 1),
+    (dont_augment, "No augmentation", 1),
+    (keyboard_aug_02, "Keystroke errors 2%", n),
+    (keyboard_aug_05, "Keystroke errors 5%", n),
+    (keyboard_aug_15, "Keystroke errors 15%", n),
+    (æøå_aug, "Æøå Augmentation", 1),
+    (lower_case_aug, "Lowercase", 1),
+    (dk_aug, "Danish names", n),
+    (muslim_aug, "Muslim names", n),
+    (f_aug, "Female names", n),
+    (m_aug, "Male names", n),
+    (punct_aug, "Abbreviated first names", 1),
+    (spacing_aug_05, "Spacing Augmention 5%", n),
+    (spacing_aug, "No Spacing", 1),
 ]
 
 
@@ -147,7 +147,8 @@ augmenters = [
 # %%
 # from dev.robustness_apply_fn.apply_fn_danlp import apply_danlp_bert
 # from dev.robustness_apply_fn.apply_fn_flair import apply_flair
-# #from dev.robustness_apply_fn.apply_fn_polyglot import apply_polyglot
+from dev.robustness_apply_fn.apply_fn_polyglot import apply_polyglot
+
 # from dev.robustness_apply_fn.apply_fn_nerda import apply_nerda
 
 # %% [markdown]
@@ -156,17 +157,17 @@ augmenters = [
 
 # %%
 model_dict = {
-    "stanza": "da",
-    "spacy_small": "da_core_news_sm",
-    "spacy_medium": "da_core_news_md",
-    "spacy_large": "da_core_news_lg",
-    "dacy_small": "da_dacy_small_tft-0.0.0",
-    "dacy_medium": "da_dacy_medium_tft-0.0.0",
-    "dacy_large": "da_dacy_large_tft-0.0.0",
-    # "flair" : apply_flair,
-    # #"polyglot" : apply_polyglot,
-    # "danlp_bert" : apply_danlp_bert,
-    # "nerda_bert" : apply_nerda,
+    # "stanza": "da",
+    # "spacy_small": "da_core_news_sm",
+    # "spacy_medium": "da_core_news_md",
+    # "spacy_large": "da_core_news_lg",
+    # "dacy_small": "da_dacy_small_tft-0.0.0",
+    # "dacy_medium": "da_dacy_medium_tft-0.0.0",
+    # "dacy_large": "da_dacy_large_tft-0.0.0",
+    # # "flair" : apply_flair,
+    "polyglot": apply_polyglot,
+    # # "danlp_bert" : apply_danlp_bert,
+    # # "nerda_bert" : apply_nerda,
 }
 
 
@@ -188,8 +189,9 @@ Path("robustness").mkdir(parents=True, exist_ok=True)
 # %%
 import pandas as pd
 import spacy
-import spacy_stanza
-import stanza
+
+# import spacy_stanza
+# import stanza
 
 
 import dacy
@@ -206,10 +208,10 @@ for mdl in model_dict:
         apply_fn = spacy.load(model_dict[mdl])
         g = spacy.prefer_gpu()
         print("GPU", g)
-    elif "stanza" in mdl:
-        stanza.download(model_dict[mdl])
-        # Initialize the pipeline
-        apply_fn = spacy_stanza.load_pipeline(model_dict[mdl])
+    # elif "stanza" in mdl:
+    #     stanza.download(model_dict[mdl])
+    #     # Initialize the pipeline
+    #     apply_fn = spacy_stanza.load_pipeline(model_dict[mdl])
     else:
         apply_fn = model_dict[mdl]
 

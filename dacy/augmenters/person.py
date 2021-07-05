@@ -343,12 +343,14 @@ def handle_head(
     offset = 0
     for aug_ent, s in zip(aug_ents, entity_slices):
         offset_ = len(aug_ent) - (s[1] - s[0])
-        values[values > s[0]+ offset] += offset_
+        values[values > s[0] + offset] += offset_
         values = np.concatenate(
             [
-                np.array(values[: s[0]+ offset]),
-                np.array([values[s[0] + offset]] + [s[0] + offset] * (len(aug_ent) - 1)),
-                np.array(values[s[1] + offset:]),
+                np.array(values[: s[0] + offset]),
+                np.array(
+                    [values[s[0] + offset]] + [s[0] + offset] * (len(aug_ent) - 1)
+                ),
+                np.array(values[s[1] + offset :]),
             ]
         )
         offset += offset_
@@ -410,17 +412,3 @@ def resize_entity_list(
             random.choice(ent_dict["last_name"])
             for _ in range(len(pattern) - len(entity))
         ]
-
-
-
-
-from danlp.models import load_flair_ner_model
-from flair.data import Sentence
-
-# Load the NER tagger using the DaNLP wrapper
-flair_model = load_flair_ner_model()
-
-# Using the flair NER tagger
-sentence = Sentence('Jens Peter Hansen kommer fra Danmark') 
-flair_model.predict(sentence) 
-print(sentence.to_tagged_string())
