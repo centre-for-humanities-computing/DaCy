@@ -9,10 +9,11 @@
   <meta property="og:description" content="These include methods for downloading DaCy models and loading them into memory. dacy.download: This includes a series of functions for downloading DaCy models. dacy.load: This includes a series of ..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Sentiment" href="dacy.sentiment.html" /><link rel="prev" title="Using DaCy" href="usingdacy.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.24.beta37"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
         <title>Downloading and Loading - DaCy 0.4.2 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css" />
+      <link rel="stylesheet" href="_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+    <link rel="stylesheet" href="_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
     
 
 
@@ -49,7 +50,8 @@
   --color-brand-content: #ff8f8f;
   
   }
-</style><link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css"></head>
+</style><link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" href="_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
   <body dir="">
     
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -158,7 +160,7 @@
 <p>This includes a series of functions for downloading DaCy models.</p>
 <dl class="py function">
 <dt id="dacy.download.download_model">
-<code class="sig-prename descclassname"><span class="pre">dacy.download.</span></code><code class="sig-name descname"><span class="pre">download_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="headerlink" href="#dacy.download.download_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">dacy.download.</span></code><code class="sig-name descname"><span class="pre">download_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="reference internal" href="_modules/dacy/download.html#download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.download_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>downloads a DaCy model to the specified save_path or to the default cache directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -179,7 +181,7 @@
 </dd></dl>
 <dl class="py function">
 <dt id="dacy.download.models">
-<code class="sig-prename descclassname"><span class="pre">dacy.download.</span></code><code class="sig-name descname"><span class="pre">models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">list</span><a class="headerlink" href="#dacy.download.models" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">dacy.download.</span></code><code class="sig-name descname"><span class="pre">models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">list</span><a class="reference internal" href="_modules/dacy/download.html#models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of valid DaCy models</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -196,7 +198,7 @@
 <p>This includes a series of functionality for loading and locating DaCy models.</p>
 <dl class="py function">
 <dt id="dacy.load.load">
-<code class="sig-prename descclassname"><span class="pre">dacy.load.</span></code><code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.load.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">dacy.load.</span></code><code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="reference internal" href="_modules/dacy/load.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.load.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load a dacy model as a SpaCy text processing pipeline. If the model is not downloaded the it will download the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -220,7 +222,7 @@
 </dd></dl>
 <dl class="py function">
 <dt id="dacy.load.models">
-<code class="sig-prename descclassname"><span class="pre">dacy.load.</span></code><code class="sig-name descname"><span class="pre">models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">list</span><a class="headerlink" href="#dacy.load.models" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">dacy.load.</span></code><code class="sig-name descname"><span class="pre">models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">list</span><a class="reference internal" href="_modules/dacy/load.html#models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.load.models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of valid DaCy models</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -238,7 +240,7 @@
 </dd></dl>
 <dl class="py function">
 <dt id="dacy.load.where_is_my_dacy">
-<code class="sig-prename descclassname"><span class="pre">dacy.load.</span></code><code class="sig-name descname"><span class="pre">where_is_my_dacy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">str</span><a class="headerlink" href="#dacy.load.where_is_my_dacy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">dacy.load.</span></code><code class="sig-name descname"><span class="pre">where_is_my_dacy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">str</span><a class="reference internal" href="_modules/dacy/load.html#where_is_my_dacy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.load.where_is_my_dacy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a path to where DaCy models are located</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -325,11 +327,12 @@
       
     </aside>
   </main>
-</div><script src="_static/jquery.js"></script>
+</div>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/main.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    </body>
+    <script src="_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
 </html>

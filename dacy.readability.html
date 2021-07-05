@@ -9,10 +9,11 @@
   <meta property="og:description" content="dacy.readability.readability: This includes functionality for extracting readability measures from text." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Subclasses" href="dacy.subclasses.html" /><link rel="prev" title="Sentiment" href="dacy.sentiment.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.24.beta37"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
         <title>Readability - DaCy 0.4.2 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css" />
+      <link rel="stylesheet" href="_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+    <link rel="stylesheet" href="_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
     
 
 
@@ -49,7 +50,8 @@
   --color-brand-content: #ff8f8f;
   
   }
-</style><link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css"></head>
+</style><link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" href="_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
   <body dir="">
     
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -157,7 +159,7 @@
 <p>This includes functionality for extracting readability measures from text.</p>
 <dl class="py function">
 <dt id="dacy.readability.readability.LIX_getter">
-<code class="sig-prename descclassname"><span class="pre">dacy.readability.readability.</span></code><code class="sig-name descname"><span class="pre">LIX_getter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span> → <span class="pre">float</span><a class="headerlink" href="#dacy.readability.readability.LIX_getter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">dacy.readability.readability.</span></code><code class="sig-name descname"><span class="pre">LIX_getter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span> → <span class="pre">float</span><a class="reference internal" href="_modules/dacy/readability/readability.html#LIX_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.readability.readability.LIX_getter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract the LIX score from a doc</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -171,7 +173,7 @@
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="k">import</span> <span class="n">Doc</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"LIX"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">dacy</span><span class="o">.</span><span class="n">readability</span><span class="o">.</span><span class="n">LIX_getter</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"Dette er en simpel tekst"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">LIX</span>  <span class="c1"># extrac the LIX score from your document</span>
@@ -248,11 +250,12 @@
       
     </aside>
   </main>
-</div><script src="_static/jquery.js"></script>
+</div>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/main.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    </body>
+    <script src="_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
 </html>
