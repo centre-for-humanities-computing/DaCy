@@ -108,25 +108,22 @@ def augment_entity(
     and apply transformation to the entity.
 
     Examples:
-    >>> entities = [["Lasse", "Hansen"], ["Kenneth", "Christian", "Enevoldsen"]]
-    >>> ent_dict = {"first_name" : ["John", "Ole"], "last_name" : ["Eriksen"]}
-    >>> patterns = ["fn,ln", "abbpunct,ln"]
-    >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_pattern_size=False, keep_name=True, prob=1)
-    >>> [['L.', 'Hansen'], ['K.', 'Christian', 'Enevoldsen']]
-    >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_pattern_size=True, keep_name=True, prob=1)
-    >>> [['Lasse', 'Hansen'], ['K.', 'Christian']]
-    >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_pattern_size=True, keep_name=False, prob=1)
-    >>> [['Ole', 'Eriksen'], ['J.', 'Eriksen']]
-    >>> augment_entity(entities, ent_dict, patterns, None,
-                       force_pattern_size=False, keep_name=False, prob=1)
-    >>> [['O.', 'Eriksen'], ['John', 'Eriksen', 'Enevoldsen']]
+        >>> entities = [["Lasse", "Hansen"], ["Kenneth", "Christian", "Enevoldsen"]]
+        >>> ent_dict = {"first_name" : ["John", "Ole"], "last_name" : ["Eriksen"]}
+        >>> patterns = ["fn,ln", "abbpunct,ln"]
+        >>> augment_entity(entities, ent_dict, patterns, None, force_pattern_size=False, keep_name=True, prob=1)
+        [['L.', 'Hansen'], ['K.', 'Christian', 'Enevoldsen']]
+        >>> augment_entity(entities, ent_dict, patterns, None, force_pattern_size=True, keep_name=True, prob=1)
+        [['Lasse', 'Hansen'], ['K.', 'Christian']]
+        >>> augment_entity(entities, ent_dict, patterns, None, force_pattern_size=True, keep_name=False, prob=1)
+        [['Ole', 'Eriksen'], ['J.', 'Eriksen']]
+        >>> augment_entity(entities, ent_dict, patterns, None, force_pattern_size=False, keep_name=False, prob=1)
+        [['O.', 'Eriksen'], ['John', 'Eriksen', 'Enevoldsen']]
 
     Returns:
         List[List[str]]: Augmented names
     """
+
     if isinstance(patterns, str):
         patterns = [patterns]
 
@@ -156,7 +153,9 @@ def augment_entity(
                 if j >= len(pattern):
                     new_entity.append(ent)
                 else:
-                    new_entity.append(patterns_dict[pattern[j]](ent, keep_name, ent_dict))
+                    new_entity.append(
+                        patterns_dict[pattern[j]](ent, keep_name, ent_dict)
+                    )
         new_entity_spans.append(new_entity)
     return new_entity_spans
 
@@ -411,3 +410,17 @@ def resize_entity_list(
             random.choice(ent_dict["last_name"])
             for _ in range(len(pattern) - len(entity))
         ]
+
+
+
+
+from danlp.models import load_flair_ner_model
+from flair.data import Sentence
+
+# Load the NER tagger using the DaNLP wrapper
+flair_model = load_flair_ner_model()
+
+# Using the flair NER tagger
+sentence = Sentence('Jens Peter Hansen kommer fra Danmark') 
+flair_model.predict(sentence) 
+print(sentence.to_tagged_string())
