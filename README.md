@@ -26,6 +26,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 -->
 
 # 📰 News
+
 - 0.4.1 (03/06/21)
   - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
@@ -102,12 +103,12 @@ For more on how to use DaCy please check out our [documentation)
 
 DaCy also include a detailed documentaion as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
 
-|                                                                                                                                            | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [🌟 Getting Started](https://kennethenevoldsen.github.io/DaCy/usingdacy.html)                                            | An introduction on how to use DaCy       |                       |
-| [📖 Documentation](https://kennethenevoldsen.github.io/DaCy/) | The Documentation of DaCy |  |
-| [😡😂 Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                    | A simple introduction to the new sentiment features in DaCy.                                                               |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
-| [😎 wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
+|                                                                                                                                                      | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [🌟 Getting Started](https://kennethenevoldsen.github.io/DaCy/usingdacy.html)                                                                         | An introduction on how to use DaCy                                                                                         |                                                                                                                                                                                                                    |
+| [📖 Documentation](https://kennethenevoldsen.github.io/DaCy/)                                                                                         | The Documentation of DaCy                                                                                                  |                                                                                                                                                                                                                    |
+| [😡😂 Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                   | A simple introduction to the new sentiment features in DaCy.                                                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
+| [😎 wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
 
 
 
@@ -205,11 +206,11 @@ python -m pytest--cov=.
 
   DaCy is intended to run on all major OS, this include Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of linux) it is likely that DaCy will run there as well.
 
-| Operating System | Status |
-| ---------------- | ------ |
-| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml) |
-| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml) | 
-| Windows (Latest) | [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml) | 
+| Operating System | Status                                                                                                                                                                                                                  |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml)     |
+| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml) |
+| Windows (Latest) | [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml)            |
 
   
 </details>
