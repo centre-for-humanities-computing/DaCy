@@ -16,12 +16,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install furo sphinx-copybutton sphinxext-opengraph
-        pip install sphinx==3.5.4
+        pip install sphinx furo sphinx-copybutton sphinxext-opengraph
     - name: Build and Commit
       uses: sphinx-notes/pages@master
       with:
         documentation_path: docs
+        
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
