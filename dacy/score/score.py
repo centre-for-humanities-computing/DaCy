@@ -1,9 +1,6 @@
 """
 This includes function for scoring models applied to a SpaCy corpus.
 """
-
-from __future__ import annotations
-
 from time import time
 from copy import copy
 from functools import partial
