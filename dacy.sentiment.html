@@ -2,16 +2,19 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta property="og:title" content="Sentiment" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="dacy.sentiment.html" />
   <meta property="og:description" content="dacy.sentiment.getters: This includes a series of getters extensions for extracting sentiment. dacy.sentiment.wrapped_models: this include functions for reading in the wrapped version of sentiment ..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Readability" href="dacy.readability.html" /><link rel="prev" title="Downloading and Loading" href="download.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.24.beta37"/>
+    <meta name="generator" content="sphinx-4.0.2, furo 2021.06.24.beta37"/>
         <title>Sentiment - DaCy 0.4.2 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css" />
     
 
@@ -150,14 +153,14 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="sentiment">
+        <section id="sentiment">
 <h1>Sentiment<a class="headerlink" href="#sentiment" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-dacy.sentiment.getters">
+<section id="module-dacy.sentiment.getters">
 <span id="dacy-sentiment-getters"></span><h2>dacy.sentiment.getters<a class="headerlink" href="#module-dacy.sentiment.getters" title="Permalink to this headline">¶</a></h2>
 <p>This includes a series of getters extensions for extracting sentiment.</p>
 <dl class="py function">
-<dt id="dacy.sentiment.getters.da_vader_getter">
-<code class="sig-prename descclassname"><span class="pre">dacy.sentiment.getters.</span></code><code class="sig-name descname"><span class="pre">da_vader_getter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatization</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> → <span class="pre">dict</span><a class="headerlink" href="#dacy.sentiment.getters.da_vader_getter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="dacy.sentiment.getters.da_vader_getter">
+<span class="sig-prename descclassname"><span class="pre">dacy.sentiment.getters.</span></span><span class="sig-name descname"><span class="pre">da_vader_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatization</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> → <span class="pre">dict</span><a class="headerlink" href="#dacy.sentiment.getters.da_vader_getter" title="Permalink to this definition">¶</a></dt>
 <dd><p>a getter function for extracting polarity using the Danish implementation of Vader</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -174,14 +177,14 @@
 </dd>
 </dl>
 </dd></dl>
-</div>
-<div class="section" id="module-dacy.sentiment.wrapped_models">
+</section>
+<section id="module-dacy.sentiment.wrapped_models">
 <span id="dacy-sentiment-wrapped-models"></span><h2>dacy.sentiment.wrapped_models<a class="headerlink" href="#module-dacy.sentiment.wrapped_models" title="Permalink to this headline">¶</a></h2>
 <p>this include functions for reading in the wrapped version of sentiment models inclduing DaNLP’s sentiment model and Extra Bladet’s senda.
 This is not meant as a replace of preexisting frameworks, but simply as a convenient wrapper around preexisting architecture.</p>
 <dl class="py function">
-<dt id="dacy.sentiment.wrapped_models.add_bertemotion_emo">
-<code class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></code><code class="sig-name descname"><span class="pre">add_bertemotion_emo</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_bertemotion_emo" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="dacy.sentiment.wrapped_models.add_bertemotion_emo">
+<span class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></span><span class="sig-name descname"><span class="pre">add_bertemotion_emo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_bertemotion_emo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the daNLP bertEmoiton model for emotion classification to the spacy language pipeline</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -201,8 +204,8 @@ This is not meant as a replace of preexisting frameworks, but simply as a conven
 </dl>
 </dd></dl>
 <dl class="py function">
-<dt id="dacy.sentiment.wrapped_models.add_bertemotion_laden">
-<code class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></code><code class="sig-name descname"><span class="pre">add_bertemotion_laden</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_bertemotion_laden" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="dacy.sentiment.wrapped_models.add_bertemotion_laden">
+<span class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></span><span class="sig-name descname"><span class="pre">add_bertemotion_laden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_bertemotion_laden" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the daNLP bertEmoiton model for classifying whether a text is
 emotionally laden or not</p>
 <dl class="field-list simple">
@@ -223,8 +226,8 @@ emotionally laden or not</p>
 </dl>
 </dd></dl>
 <dl class="py function">
-<dt id="dacy.sentiment.wrapped_models.add_berttone_polarity">
-<code class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></code><code class="sig-name descname"><span class="pre">add_berttone_polarity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_berttone_polarity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="dacy.sentiment.wrapped_models.add_berttone_polarity">
+<span class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></span><span class="sig-name descname"><span class="pre">add_berttone_polarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_berttone_polarity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the daNLP bertTone model for classification of polarity to the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -244,8 +247,8 @@ emotionally laden or not</p>
 </dl>
 </dd></dl>
 <dl class="py function">
-<dt id="dacy.sentiment.wrapped_models.add_berttone_subjectivity">
-<code class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></code><code class="sig-name descname"><span class="pre">add_berttone_subjectivity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_berttone_subjectivity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="dacy.sentiment.wrapped_models.add_berttone_subjectivity">
+<span class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></span><span class="sig-name descname"><span class="pre">add_berttone_subjectivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_berttone_subjectivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the daNLP bertTone model for detecting whether a statement is subjective to the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -265,8 +268,8 @@ emotionally laden or not</p>
 </dl>
 </dd></dl>
 <dl class="py function">
-<dt id="dacy.sentiment.wrapped_models.add_senda">
-<code class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></code><code class="sig-name descname"><span class="pre">add_senda</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_senda" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="dacy.sentiment.wrapped_models.add_senda">
+<span class="sig-prename descclassname"><span class="pre">dacy.sentiment.wrapped_models.</span></span><span class="sig-name descname"><span class="pre">add_senda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.sentiment.wrapped_models.add_senda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the senda tranformer model for classification of polarity to the spacy language pipeline</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -284,8 +287,8 @@ emotionally laden or not</p>
 </dd>
 </dl>
 </dd></dl>
-</div>
-</div>
+</section>
+</section>
 
       </article>
       <footer>
@@ -355,7 +358,8 @@ emotionally laden or not</p>
       
     </aside>
   </main>
-</div><script src="_static/jquery.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/main.js"></script>

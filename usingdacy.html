@@ -2,16 +2,19 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta property="og:title" content="Using DaCy" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="usingdacy.html" />
-  <meta property="og:description" content="To use the model you first have to download either the small, medium or large model. To see a list of all available models: import dacy for model in dacy.models(): print(model) # da_dacy_-l-ctra_sm..." />
+  <meta property="og:description" content="To use the model you first have to download either the small, medium or large model. To see a list of all available models: import dacy for model in dacy.models(): print(model) # da_dacy_small_tft-..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Downloading and Loading" href="download.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.24.beta37"/>
+    <meta name="generator" content="sphinx-4.0.2, furo 2021.06.24.beta37"/>
         <title>Using DaCy - DaCy 0.4.2 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css" />
     
 
@@ -150,14 +153,14 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="using-dacy">
+        <section id="using-dacy">
 <h1>Using DaCy<a class="headerlink" href="#using-dacy" title="Permalink to this headline">¶</a></h1>
 <p>To use the model you first have to download either the small, medium or large model. To see a list
 of all available models:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
 <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">dacy</span><span class="o">.</span><span class="n">models</span><span class="p">():</span>
    <span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-<span class="c1"># da_dacy_-l-ctra_small_tft-0.0.0</span>
+<span class="c1"># da_dacy_small_tft-0.0.0</span>
 <span class="c1"># da_dacy_medium_tft-0.0.0</span>
 <span class="c1"># da_dacy_large_tft-0.0.0</span>
 </pre></div>
@@ -189,7 +192,7 @@ the model to a specific directory:</p>
 <p>DaCy is build using SpaCy, thus you will be able to find a lot of the required documentation for
 using the pipeline in their very well written documentation on their <a class="reference external" href="https://spacy.io">website</a></p>
 </div>
-<div class="section" id="tagging-named-entities">
+<section id="tagging-named-entities">
 <h2>Tagging named entities<a class="headerlink" href="#tagging-named-entities" title="Permalink to this headline">¶</a></h2>
 <p>A named entity is a “real-world object” that’s assigned a name – for example, a person, a country, a product or a book title.
 DaCy can recognize organizations, persons, and location. As seen below is also includes a mixed category.</p>
@@ -210,8 +213,8 @@ DaCy can recognize organizations, persons, and location. As seen below is also i
 <p>For more on named entity recognition see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#named-entities">documentation</a>.</p>
 </div>
 <a class="reference internal image-reference" href="_images/ner.png"><img alt="Named entity recognition using DaCy" src="_images/ner.png" style="width: 800px;"/></a>
-</div>
-<div class="section" id="tagging-parts-of-speech">
+</section>
+<section id="tagging-parts-of-speech">
 <h2>Tagging parts-of-speech<a class="headerlink" href="#tagging-parts-of-speech" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">"Token POS-tag"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
@@ -237,8 +240,8 @@ DaCy can recognize organizations, persons, and location. As seen below is also i
 <p class="admonition-title">See also</p>
 <p>For more on Part-of-speech tagging see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#pos-tagging">documentation</a>.</p>
 </div>
-</div>
-<div class="section" id="dependency-parsing">
+</section>
+<section id="dependency-parsing">
 <h2>Dependency parsing<a class="headerlink" href="#dependency-parsing" title="Permalink to this headline">¶</a></h2>
 <p>DaCy features a fast and accurate syntactic dependency parser. In DaCy this dependency parsing is also
 used for sentence segmentation and detecting noun chunks.</p>
@@ -254,8 +257,8 @@ used for sentence segmentation and detecting noun chunks.</p>
 <p class="admonition-title">See also</p>
 <p>For more on dependency parsing with DaCy, especially on how to navigate the tree, see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#dependency-parse">documentation</a>.</p>
 </div>
-</div>
-<div class="section" id="more-guides-and-tutorials">
+</section>
+<section id="more-guides-and-tutorials">
 <h2>More guides and tutorials<a class="headerlink" href="#more-guides-and-tutorials" title="Permalink to this headline">¶</a></h2>
 <p>DaCy also include a couple of additional tutorials which are available as a notebook on Google’s Colab.</p>
 <div class="table-wrapper"><table class="docutils align-default">
@@ -278,8 +281,8 @@ add it to your SpaCy pipeline using DaCy helper functions.</p></td>
 </tr>
 </tbody>
 </table></div>
-</div>
-</div>
+</section>
+</section>
 
       </article>
       <footer>
@@ -351,7 +354,8 @@ add it to your SpaCy pipeline using DaCy helper functions.</p></td>
       
     </aside>
   </main>
-</div><script src="_static/jquery.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/main.js"></script>
