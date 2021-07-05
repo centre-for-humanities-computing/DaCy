@@ -33,7 +33,6 @@ read_csv_extended = function(name){
   }
   return(df)
 }
-names(perf)
 
 spacy_models =c ("dacy_large", "dacy_medium", "dacy_small", "spacy_large", "spacy_medium", "spacy_small")
 gpu_models  =c ("danlp_bert", "flair", "nerda_bert", "stanza")
@@ -118,18 +117,16 @@ score_t_test = function(mdl, augmenter, default, data, score){
   x = d[[score]][d$augmenter == augmenter]
   mu = mean(d[[score]][d$augmenter == default]) # no aug is run twice on some models (w/o gpu)
   
-  
-  
   t = t.test(x = x,
          mu = mu, paired = FALSE, var.equal = FALSE,
          conf.level = 0.95)
   return (t)
 }
-score_t_test(mdl = "dacy_large", 
-             augmenter = "Keystroke errors 2%", 
-             default = "No augmentation", 
-             data = perf %>% filter(!model %in% no_dep & gpu == T), 
-             score="dep_las")
+# score_t_test(mdl = "dacy_large", 
+#              augmenter = "Keystroke errors 2%", 
+#              default = "No augmentation", 
+#              data = perf %>% filter(!model %in% no_dep & gpu == T), 
+#              score="dep_las")
 
 score_to_df = function(default, data, score){
   dfs = NULL
@@ -150,9 +147,12 @@ score_to_df = function(default, data, score){
       sigma = sd(v)
       print(paste(mdl, aug, length(v)))
       t = score_t_test(mdl=mdl, augmenter=aug, default=default, data=data, score=score)
+      
+      p = p.adjust(t$p.value, method = "bonferroni", n = length(8))
+
       dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=mu, sd=sigma, 
                         conf_int = paste("(",  round(t$conf.int[1], 2),", ",  round(t$conf.int[2], 2), ")", sep = ""),
-                        p_value=t$p.value)
+                        p_value=p)
       i = i+1
     }
   }
@@ -162,6 +162,12 @@ score_to_df = function(default, data, score){
 
 ```
 
+  
+  
+  
+  
+
+
 
 ```{r ent_perf}
 names_from = c("spacy_large", "spacy_medium", "dacy_large", "dacy_medium", "danlp_bert", "spacy_small", 
@@ -169,7 +175,9 @@ names_from = c("spacy_large", "spacy_medium", "dacy_large", "dacy_medium", "danl
 names_to = c("SpaCy Large", "SpaCy Medium", "DaCy Large", "DaCy Medium", "DaNLP BERT", "SpaCy Small", 
                    "Flair", "Stanza", "NERDA", "DaCy Small")
 
-ent_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_ent), score="ents_f")
+ent_perf = score_to_df(default = "No augmentation",
+                       data=perf %>% filter(!model %in% no_ent & gpu == T),
+                       score="ents_f")
 
 bootstrapped_aug = ent_perf %>% filter(!is.na(sd)) %>% select(augmenter)
 bootstrapped_aug = unique(bootstrapped_aug$augmenter)
@@ -179,7 +187,7 @@ ent_per_tbl = ent_perf %>% arrange(conf_int) %>%
          mean = if_else(nchar(mean) == 3, paste(mean, "0", sep=""), mean),
          p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
          string_value = if_else(is.na(sd), paste(mean, sep=""),
-                                paste(mean, conf_int, p_value_star, sep=" ")),
+                                paste(mean,  " (", round(sd, 2), ")", p_value_star, sep="")),
          model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
   select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
   pivot_wider(names_from = augmenter, values_from=c(string_value))
@@ -204,9 +212,20 @@ ent_per_tbl %>%
 ```
 
 
+
+# sort names
+# remove spacing
+# cluster 1st column
+# deterministic/stochastic
+# confint -> sd
+# two decimal (str)
+# Notes:
+  - * denotes significance using p>0.05 from no augmentation, w. bonferoni correction 
+  - NERDA limits input size to 128 wordpieces which leads to truncation on long input sizes and with a high degree of keystroke errors.
+
 ```{r pos perf}
 
-pos_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_pos), score="tag_acc")
+pos_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_pos & gpu == T), score="tag_acc")
 
 pos_per_tbl = pos_perf %>% arrange(conf_int) %>% 
   mutate(mean = paste(round(mean, 2)),
@@ -235,6 +254,11 @@ pos_per_tbl %>%
 
 ```
 
+# remove names and no spacing
+# conf -> sd
+# col names
+# stoch / det.
+# grouping
 
 
 ```{r dep perf}
@@ -268,6 +292,12 @@ las_perf_tbl %>%
 ```
 
 
+# remove names and no spacing
+# conf -> sd
+# col names
+# stoch / det.
+# grouping
+
 ```{r general perf}
 gen_perf = sum_perf_no_aug %>% 
   mutate(model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
@@ -300,7 +330,7 @@ gen_perf %>%
   kable_styling(full_width = F) %>% 
   footnote(number = c("Wall Time is the average time taken by the model to go through the DaNE test set",
     "All models were given either their own tokenizer or spacys depending on best performance",
-                      "All models were found to perform best with the spacy tokenizer (except polyglot)",
+                      "All models were found to perform best with the spacy tokenizer, except polyglot.",
                       "Stanza uses the spacy-stanza implementation",
                       "The speed on the DaNLP model is taken as provided by the framework, but the model has the same size as DaCy medium so you are likely to see performance gains"))
   
