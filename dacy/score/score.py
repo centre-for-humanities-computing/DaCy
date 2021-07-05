@@ -48,7 +48,7 @@ def score(
         "token",
         "pos",
         "ents",
-        "dep"
+        "dep",
     ],
     augmenters: List[Callable[[Language, Example], Iterable[Example]]] = [],
     k: int = 1,

@@ -47,17 +47,33 @@ perf_w_dep = files %>% map_df(read_csv) %>%
   mutate(gpu = T)
 
 perf = perf %>% 
-  filter(!(model %in% unique(perf_w_dep$model) & augmenter == "No augmentation" & gpu == T)) %>%
+  filter(!(model %in% unique(perf_w_dep$model) & augmenter %in% unique(perf_w_dep$augmenter) & gpu == T)) %>%
   plyr::rbind.fill(., perf_w_dep) %>% 
   mutate(tag_acc = if_else(model == "stanza", pos_acc, tag_acc)) %>% 
   select(-pos_acc)
 
+files = list.files(path = "../../robustness/", pattern = "*dep2.csv", full.names = T)
+perf_w_dep = files %>% map_df(read_csv) %>% 
+  select(-starts_with("dep_las_")) %>% 
+  mutate(gpu = T)
+
+perf = perf %>% 
+  filter(!(model %in% unique(perf_w_dep$model) & augmenter %in% unique(perf_w_dep$augmenter) & gpu == T)) %>%
+  plyr::rbind.fill(., perf_w_dep) %>% 
+  mutate(tag_acc = if_else(model == "stanza", pos_acc, tag_acc)) %>% 
+  select(-pos_acc)
 
 speed_perf = perf %>% 
-  group_by(model, gpu) %>% 
-  summarise(wall_time = mean(wall_time))
+  mutate(input_size = if_else(augmenter == "Input size augmentation 5 sentences", 5, 1),
+         input_size = if_else(augmenter == "Input size augmentation 10 sentences", 10, input_size)) %>% 
+  group_by(model, gpu, 
+           #input_size
+           ) %>% 
+  summarise(wall_time = mean(wall_time)) 
 
-perf = perf %>% select(-wall_time) %>% merge(., speed_perf, by=c("model", "gpu"))
+perf = perf %>% 
+  select(-wall_time) %>% 
+  merge(., speed_perf, by=c("model", "gpu"))
 
 ```
 
@@ -91,7 +107,7 @@ sum_perf_no_aug = sum_perf %>% ungroup() %>%
 
 no_ent = sum_perf_no_aug$model[sum_perf_no_aug$ents_f == 0]
 no_pos = sum_perf_no_aug$model[sum_perf_no_aug$tag_acc == 0]
-no_dep = sum_perf_no_aug$model[sum_perf_no_aug$dep_las == 0]
+no_dep = sum_perf_no_aug$model[sum_perf_no_aug$dep_las == 0 | is.na(sum_perf_no_aug$dep_las)]
 ```
 
 
@@ -112,8 +128,8 @@ score_t_test = function(mdl, augmenter, default, data, score){
 score_t_test(mdl = "dacy_large", 
              augmenter = "Keystroke errors 2%", 
              default = "No augmentation", 
-             data = perf %>% filter(!model %in% no_dep), 
-             score="ents_f")
+             data = perf %>% filter(!model %in% no_dep & gpu == T), 
+             score="dep_las")
 
 score_to_df = function(default, data, score){
   dfs = NULL
@@ -223,9 +239,11 @@ pos_per_tbl %>%
 
 ```{r dep perf}
 
-las_perf = score_to_df(default = "No augmentation", data=perf %>% filter(!model %in% no_dep), score="dep_las")
+las_perf = score_to_df(default = "No augmentation", 
+                       data=perf %>% filter((!(model %in% no_dep)) & gpu == T), 
+                       score="dep_las")
 
-pos_per_tbl = pos_perf %>% arrange(conf_int) %>% 
+las_perf_tbl = las_perf %>% arrange(conf_int) %>% 
   mutate(mean = paste(round(mean, 2)),
          mean = if_else(nchar(mean) == 3, paste(mean, "0", sep=""), mean),
          p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
@@ -235,19 +253,16 @@ pos_per_tbl = pos_perf %>% arrange(conf_int) %>%
   select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
   pivot_wider(names_from = augmenter, values_from=c(string_value))
 
-high_columns = names(pos_per_tbl)[2:ncol(pos_per_tbl)]
+high_columns = names(las_perf_tbl)[2:ncol(las_perf_tbl)]
 
-pos_per_tbl %>% 
+las_perf_tbl %>% 
   kbl(booktabs=T, align=c("l", rep("c", nrow(.)-1))) %>% 
-  add_header_above(c(" " = 1, "Augmentation" = ncol(pos_per_tbl)-1 - length(bootstrapped_aug), 
+  add_header_above(c(" " = 1, "Augmentation" = ncol(las_perf_tbl)-1 - length(bootstrapped_aug), 
                      "Bootstrapped Augmentations" = length(bootstrapped_aug))) %>% 
-  add_header_above(c("POS Performance of Danish NLP pipeline" = ncol(pos_per_tbl))) %>% 
-  highlight_highest(., pos_per_tbl, columns = high_columns) %>% 
-  kable_styling(full_width = F) %>% 
-  footnote(number = c("Generally there is little performance differences between models trained for POS tagging",
-                      "However, larger models adapt better to augmentations.",
-                      "Pos tagging is very stable compared to NER",
-                      "Maybe relevant to examine the paper: 'Part-of-Speech Tagging from 97% to 100%: Is It Time for Some Linguistics?'"))
+  add_header_above(c("Dependency Parsing Performance of Danish NLP pipeline" = ncol(las_perf_tbl))) %>% 
+  highlight_highest(., las_perf_tbl, columns = high_columns) %>% 
+  kable_styling(full_width = F) %>% 09
+  footnote(number = c(""))
   
 
 ```
@@ -291,3 +306,9 @@ gen_perf %>%
   
 
 ```
+
+
+
+
+# TO ADD
+- speed pr. input size
