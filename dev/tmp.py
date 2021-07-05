@@ -43,7 +43,7 @@
 
 import sys
 
-sys.path.append("/home/kenneth/github/DaCy")
+sys.path.append("/home/lasse/DaCy")
 
 # %%
 from dacy.datasets import dane
