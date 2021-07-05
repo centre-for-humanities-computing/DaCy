@@ -1,8 +1,8 @@
 title: "Train Spacy Transformer for DaNE"
 description: >
-    This project template lets you train a part-of-speech tagger, morphologizer, 
-    dependency parser and named entity recognition using the tagged dataset DaNE 
-    corpus. It takes care of downloading the corpus, converting it to spaCy's 
+    This project template lets you train a part-of-speech tagger, morphologizer,
+    dependency parser and named entity recognition using the tagged dataset DaNE
+    corpus. It takes care of downloading the corpus, converting it to spaCy's
     format and training and evaluating the model. The template uses the `BotXO`
     transformer for Danish downloaded via. Huggingface.
 
@@ -38,7 +38,7 @@ assets:
   - dest: "assets/${vars.dataset}"
     script:
     - "mkdir -p assets/dane"
-    - "python utils.py" 
+    - "python utils.py"
 
 workflows:
   all_large:
