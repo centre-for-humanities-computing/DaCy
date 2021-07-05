@@ -1,6 +1,4 @@
-from typing import Callable
 import numpy as np
-from functools import partial
 import collections
 
 
@@ -34,4 +32,3 @@ def flatten_dict(d: dict, sep: str = "_") -> dict:
         return dict(items)
 
     return __inner_flatten(d, "", sep)
-
