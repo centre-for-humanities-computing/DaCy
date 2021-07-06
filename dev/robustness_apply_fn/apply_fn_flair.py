@@ -38,7 +38,7 @@ def apply_flair(examples: Iterable[Example], use_spacy=True) -> List[Example]:
                 (
                     tok.text,
                     tok.tags["ner"].value,
-                    tok.tags["ner"].value,
+                    tok.tags["upos"].value,
                     tok.whitespace_after,
                 )
                 for tok in f_sent
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     from dacy.datasets import dane
 
     test = dane(splits=["test"])
-    examples = apply_flair(test(nlp), use_spacy=False)
-    examples_spacy = apply_flair(test(nlp), use_spacy=True)
+    examples = apply_flair(test(nlp_da), use_spacy=False)
+    examples_spacy = apply_flair(test(nlp_da), use_spacy=True)
 
     from spacy import displacy
 
@@ -76,4 +76,5 @@ if __name__ == "__main__":
         examples=examples_spacy, attr="ents", allow_overlap=True, getter=no_misc_getter
     )
 
+    pos_scores = Scorer.score_token_attr(examples, "tag")
     pos_scores = Scorer.score_token_attr(examples, "tag")

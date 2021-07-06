@@ -34,8 +34,8 @@ highlight_highest = function(kable_input, dataset, columns, underline_second=T, 
     highest = if_else(column== max(column, na.rm=T), T, F, missing=F)
     
     if (underline_second){
-      sorted = sort(column)
-      second_highest = sorted[length(sorted)-1]
+      sorted = sort(column[column != max(column, na.rm=T)])
+      second_highest = max(sorted, na.rm = T)
       second = if_else(column == second_highest, T, F, missing=F)
       kable_input = column_spec(kable_input, idx, bold = highest, underline = second)      
     } else{
