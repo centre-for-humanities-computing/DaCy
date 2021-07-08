@@ -1,0 +1,4 @@
+[run]
+omit = 
+        dacy/tests/* 
+        dacy/sentiment/vaderSentiment_da.py

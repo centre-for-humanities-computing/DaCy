@@ -1,10 +1,12 @@
 import numpy as np
 import collections
 
+
 def softmax(x):
     return np.exp(x) / sum(np.exp(x))
 
-def flatten_dict(d: dict, sep: str='_') -> dict:
+
+def flatten_dict(d: dict, sep: str = "_") -> dict:
     """flattens a nested dictionary
 
     Args:
@@ -13,7 +15,7 @@ def flatten_dict(d: dict, sep: str='_') -> dict:
 
     Returns:
         dict: the flattened dict.
-    
+
     Example:
         >>> flatten({'a': 1, 'c': {'a': 2, 'b': {'x': 5, 'y' : 10}}, 'd': [1, 2, 3]})
         {'a': 1, 'c_a': 2, 'c_b_x': 5, 'd': [1, 2, 3], 'c_b_y': 10}
@@ -28,4 +30,5 @@ def flatten_dict(d: dict, sep: str='_') -> dict:
             else:
                 items.append((new_key, v))
         return dict(items)
+
     return __inner_flatten(d, "", sep)

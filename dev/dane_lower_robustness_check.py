@@ -8,7 +8,7 @@ from spacy import displacy
 from spacy.cli.convert import conllu_to_docs
 from spacy.scorer import Scorer
 from spacy.tokens import Doc, Span
-from spacy.training import Corpus
+from spacy.training import Corpus, Example
 from spacy.training.augment import create_lower_casing_augmenter
 
 ddt = DDT()
@@ -45,6 +45,11 @@ corpus_lower = Corpus(
     "corpus/dane/dane_test.spacy", augmenter=create_lower_casing_augmenter(level=1)
 )
 
+words = ["hello", "world", "!"]
+spaces = [True, False, False]
+predicted = Doc(nlp.vocab, words=words, spaces=spaces)
+example = Example(predicted, predicted)
+
 examples_lower = [apply_model(e) for e in corpus_lower(nlp)]
 scores_lower = scorer.score_spans(examples_lower, "ents")
 
@@ -60,11 +65,10 @@ bert = load_bert_ner_model()
 example = examples[28]
 
 
-def apply_bert_model(example, i):
-    print(i)
+def apply_bert_model(example, bert_model):
     doc = example.predicted
     # uses spacy tokenization
-    tokens, labels = bert.predict([t.text for t in example.predicted])
+    tokens, labels = bert_model.predict([t.text for t in example.predicted])
     ent = []
     for i, t in enumerate(zip(doc, labels)):
         token, label = t
@@ -86,7 +90,23 @@ def apply_bert_model(example, i):
     return example
 
 
-examples_bert = [apply_bert_model(e, i) for i, e in enumerate(corpus(nlp))]
+
+text = "det her er en tekst med et navn der er Lasse"
+bert.predict(text.split())
+bert.predict("det her en test")
+bert.predict("det her en test".split(), IOBformat=False)
+
+tekst_tokenized = ['Han', 'hedder', 'Anders', 'And', 'Andersen', 'og', 'bor', 'i', 'Århus', 'C']
+bert.predict(tekst_tokenized, IOBformat=False)
+
+apply_bert_model(example, bert)
+
+apply_
+
+from dacy.datasets import dane
+test = dane(splits=["test"])
+
+examples_bert = [apply_bert_model(e, bert) for i, e in enumerate(test(nlp))]
 # Examine predictions
 # displacy.render(examples_bert[28].reference, style="ent")
 # displacy.render(examples_bert[28].predicted, style="ent")

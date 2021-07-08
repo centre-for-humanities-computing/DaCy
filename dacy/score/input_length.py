@@ -1,10 +1,12 @@
 """
 Contains functions for testing the performance of models on varying input length.
 """
-from functools import partial
-from typing import Callable, Optional, List, Union
-from .score import score, Scores
+from typing import Callable, List, Union
+
+import pandas as pd
+
 from ..datasets import dane
+from .score import score
 
 
 def n_sents_score(
@@ -12,10 +14,10 @@ def n_sents_score(
     apply_fn: Callable,
     dataset: str = "dane",
     split: str = "test",
-    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents"],
+    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],
     verbose: bool = True,
     **kwargs,
-) -> Scores:
+) -> pd.DataFrame:
     """scores the performance of a given model on examples of a given number of sentences.
 
     Args:
@@ -31,11 +33,8 @@ def n_sents_score(
         kwargs (dict): arguments to be passed to dataset or the score function.
 
     Returns:
-        Scores: returns a Score dataclass. Which contain the scores dictionary and convenience function for printing and turning it into a dataframe.
+        pandas.DataFrame: returns a pandas dataframe containing the performance metrics.
     """
-    # score_fn:  A scoring function which takes in a list of examples and return a dictionary of the form {"score_name": score}.
-    # dataset: currently only "dane"
-    # kwargs = argumetns to be passed to score
 
     dataset_fn = {"dane": dane}
     if isinstance(n_sents, int):
@@ -45,8 +44,8 @@ def n_sents_score(
 
     for i, n in enumerate(n_sents):
         if verbose is True:
-            print(f"[INFO] Calculating score using {n_sents} sentences")
+            print(f"[INFO] Calculating score using {n} sentences")
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)
-        scores = scores + scores_ if i != 0 else scores_
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_
     return scores

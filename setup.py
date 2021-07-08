@@ -1,11 +1,20 @@
 import setuptools
 
-with open("README.md", "r") as f:
+with open("dacy/about.py") as f:
+    v = f.read()
+    for l in v.split("\n"):
+        if l.startswith("__version__"):
+            __version__ = l.split('"')[-2]
+
+with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
+
+with open("requirements.txt", encoding="utf-8") as f:
+    requirements = f.read()
 
 setuptools.setup(
     name="dacy",
-    version="0.0.1",
+    version=__version__,
     description="a Danish preprocessing pipeline trained in SpaCy. \
         At the time of writing it has achieved State-of-the-Art \
             performance on all Benchmark tasks for Danish",
@@ -19,7 +28,7 @@ setuptools.setup(
     data_files=[("", ["dacy/datasets/lookup_tables/*.csv"])],
     include_package_data=True,
     # external packages as dependencies
-    install_requires=["spacy", "spacy-transformers", "tqdm", "danlp"],
+    install_requires=requirements,
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are

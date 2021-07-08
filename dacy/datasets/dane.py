@@ -19,6 +19,7 @@ def dane(
     splits: List[str] = ["train", "dev", "test"],
     redownload: bool = False,
     n_sents: int = 1,
+    open_unverified_connection: bool = False,
     **kwargs
 ) -> Union[List[Corpus], Corpus]:
     """
@@ -31,6 +32,8 @@ def dane(
             Defaults to ["train", "dev", "test"]. 
         redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.
         n_sents (int, optional): Number of sentences per document. Only applied in datasets is downloaded. Defaults to 1.
+        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
 
     Returns:
         Union[List[Corpus], Corpus]: Returns a spacy corpus or a list thereof.
@@ -39,6 +42,11 @@ def dane(
         >>> import dacy
         >>> train, dev, test = dacy.datasets.dane(splits=["train", "dev", "test"])
     """
+    if open_unverified_connection:
+        import ssl
+
+        ssl._create_default_https_context = ssl._create_unverified_context
+
     if save_path is None:
         save_path_ = os.path.join(DEFAULT_CACHE_DIR, "datasets")
     else:

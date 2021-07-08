@@ -1,129 +1,165 @@
 """
 This includes function for scoring models applied to a SpaCy corpus.
 """
-
 from __future__ import annotations
 
+from time import time
 from copy import copy
 from functools import partial
-from typing import Callable, List, Optional, Union
+from typing import Callable, Dict, Iterable, List, Optional, Union
 
-import numpy as np
-from pydantic import BaseModel
+import pandas as pd
 from spacy.language import Language
 from spacy.scorer import Scorer
-from spacy.training import Corpus
+from spacy.training import Corpus, Example, dont_augment
+from spacy.tokens import Doc, Span
 
 from ..utils import flatten_dict
 
 
-class Scores(BaseModel):
-    scores: dict
+def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
+    """A utility getter for scoring entities without including MISC
 
-    def mean(self, score: str):
-        s = self.scores[score]
-        return np.mean(s)
+    Args:
+        doc (Doc): a SpaCy Doc
+        attr (str): attribute to be extracted
 
-    def std(self, score: str):
-        s = self.scores[score]
-        return np.std(s)
+    Returns:
+        Iterable[Span]
+    """
+    spans = getattr(doc, attr)
+    for span in spans:
+        if span.label_ == "MISC":
+            continue
+        yield span
 
-    def summary(self, score: str):
-        std = self.std(score)
-        mean = self.mean(score)
-        return f"{round(mean, 2)} ({round(std, 2)})"
 
-    def to_df(self):
-        import pandas as pd
-
-        return pd.DataFrame(self.scores)
-
-    def __repr_str__(self, join_str: str) -> str:
-        return join_str.join(
-            repr(v) if a is None else f"{a}={v!r}"
-            for a, v in [(k, self.summary(k)) for k in self.scores.keys()]
-        )
-
-    def __add__(self, other: Scores):
-        for k in self.scores.keys():
-            if k in other.scores:
-                self.scores[k] += other.scores[k]
-        for k in other.scores.keys():
-            if k not in self.scores.keys():
-                self.scores[k] = other.scores[k]
-        return self
+def dep_getter(token, attr):
+    dep = getattr(token, attr)
+    dep = token.vocab.strings.as_string(dep).lower()
+    return dep
 
 
 def score(
     corpus: Corpus,
-    apply_fn: Callable,
-    score_fn: List[Union[Callable, str]] = ["token", "pos", "ents"],
-    augmenter: Union[List[Callable], Callable] = [],
+    apply_fn: Union[Callable[[Iterable[Example], List[Example]]], Language],
+    score_fn: List[Union[Callable[[Iterable[Example]], dict], str]] = [
+        "token",
+        "pos",
+        "ents",
+        "dep",
+    ],
+    augmenters: List[Callable[[Language, Example], Iterable[Example]]] = [],
     k: int = 1,
     nlp: Optional[Language] = None,
     **kwargs,
-) -> Scores:
+) -> pd.DataFrame:
     """scores a models performance on a given corpus with potentially augmentations applied to it.
 
     Args:
         corpus (Corpus): A spacy Corpus
-        apply_fn (Callable): A wrapper function for the model you wish to score. The model should
-            take in a spacy Example and output a tagged version of it.
-        score_fn (List[Union[Callable, str]], optional): A scoring function which takes in a list of
-            examples and return a dictionary of the form {"score_name": score}.Four potiential
-            strings are valid. "ents" for measuring the performance of entity spans."pos" for measuring
-            the performance of pos-tags. "token" for measuring the performance of tokenization. "nlp"
-            for measuring the performance of all components in the specified nlp pipeline. Defaults to
-            ["token", "pos", "ents"].
-        augmenter (Union[List[Callable], Callable], optional): A spaCy style augmenter which should be
-            applied to the corpus or a list thereof. defaults to [], indicating no augmenters.
+        apply_fn (Union[Callable, Language]): A wrapper function for the model you wish to score. The model should
+            take in a list of spacy Examples (Iterable[Example]) and output a tagged version of it (Iterable[Example]).
+            A SpaCy pipeline (Language) can be provided as is.
+        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A scoring function which takes in a list of
+            examples (Iterable[Example]) and return a dictionary of performance scores. Four potiential
+            strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring
+            the performance of fine-grained (tag_acc), and coarse-grained (pos_acc) pos-tags. "token" for measuring
+            the performance of tokenization. "dep" for measuring the performance of dependency parsing. "nlp" for measuring
+            the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents", "dep"].
+        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A spaCy style augmenters
+            which should be applied to the corpus or a list thereof. defaults to [], indicating no augmenters.
         k (int, optional): Number of times it should run the augmentation and test the performance on
             the corpus. Defaults to 1.
         nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty
-            Danish pipeline. Defaults to None.
+            Danish pipeline. Defaults to None. Used for loading the calling the corpus.
 
     Returns:
-        Scores: returns a Scores dataclass, which contain the scores dictionary and convenience functions.
-            E.g. to extracting a dataframe.
+        pandas.DataFrame: returns a pandas dataframe containing the performance metrics.
 
     Example:
         >>> from spacy.training.augment import create_lower_casing_augmenter
         >>> train, dev, test = dacy.datasets.dane(predefined_splits=True)
-        >>> def apply_model(example):
-                example.predicted = nlp(example.predicted.text)
-                return example
-        >>> scores = scores(test, augmenter=create_lower_casing_augmenter(0.5), apply_model)
-        >>> scores.scores # extract dictionary of scores
-        >>> scores.to_df() # creates a pandas dataframe of scores
+        >>> nlp = dacy.load("da_dacy_small_tft-0.0.0")
+        >>> scores = scores(test, augmenter=[create_lower_casing_augmenter(0.5)], apply_fn = nlp)
     """
+    if callable(augmenters):
+        augmenters = [augmenters]
+    if len(augmenters) == 0:
+        augmenters = [dont_augment]
+
+    def __apply_nlp(examples):
+        examples = ((e.x.text, e.y) for e in examples)
+        doc_tuples = nlp_.pipe(examples, as_tuples=True)
+        return [Example(x, y) for x, y in doc_tuples]
+
+    if isinstance(apply_fn, Language):
+        nlp_ = apply_fn
+        apply_fn = __apply_nlp
+
     if nlp is None:
         from spacy.lang.da import Danish
 
         nlp = Danish()
 
     scorer = Scorer(nlp)
+
+    def ents_scorer(examples):
+        scores = Scorer.score_spans(examples, attr="ents")
+        scores_no_misc = Scorer.score_spans(
+            examples, attr="ents", getter=no_misc_getter
+        )
+        scores["ents_excl_MISC"] = {
+            k: scores_no_misc[k] for k in ["ents_p", "ents_r", "ents_f"]
+        }
+        return scores
+
+    def pos_scorer(examples):
+        scores = Scorer.score_token_attr(examples, attr="pos")
+        scores_ = Scorer.score_token_attr(examples, attr="tag")
+        for k in scores_:
+            scores[k] = scores_[k]
+        return scores
+
     def_scorers = {
-        "ents": partial(Scorer.score_spans, attr="ents"),
-        "pos": partial(Scorer.score_token_attr, attr="pos"),
+        "ents": ents_scorer,
+        "pos": pos_scorer,
         "token": Scorer.score_tokenization,
         "nlp": scorer.score,
+        "dep": partial(
+            Scorer.score_deps,
+            attr="dep",
+            getter=dep_getter,
+            ignore_labels=("p", "punct"),
+        ),
     }
-    corpus_ = copy(corpus)
-    if augmenter is not None:
+
+    def __score(augmenter):
+
+        corpus_ = copy(corpus)
         corpus_.augmenter = augmenter
+        scores_ls = []
+        for i in range(k):
+            s = time()
+            examples = apply_fn(corpus_(nlp))
+            speed = time() - s
+            scores = {"wall_time": speed}
+            for fn in score_fn:
+                if isinstance(fn, str):
+                    fn = def_scorers[fn]
+                scores.update(fn(examples))
+            scores = flatten_dict(scores)
+            scores_ls.append(scores)
 
-    scores_ls = []
-    for i in range(k):
-        examples = [apply_fn(e) for e in corpus_(nlp)]
-        scores = {}
-        for fn in score_fn:
-            if isinstance(fn, str):
-                fn = def_scorers[fn]
-            scores.update(fn(examples))
-        scores = flatten_dict(scores)
-        scores_ls.append(scores)
+        # and collapse list to dict
+        for key in scores.keys():
+            scores[key] = [s[key] if key in s else None for s in scores_ls]
 
-    # and collapse list to dict
-    for key in scores.keys():
-        scores[key] = [s[key] for s in scores_ls]
-    return Scores(scores=scores)
+        scores["k"] = list(range(k))
+
+        return pd.DataFrame(scores)
+
+    for i, aug in enumerate(augmenters):
+        scores_ = __score(aug)
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_
+    return scores

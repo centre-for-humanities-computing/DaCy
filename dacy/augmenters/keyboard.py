@@ -2,16 +2,10 @@
 This includes functions for character augmentation based on keyboard layout.
 """
 
-from typing import Dict, Set, Tuple, Callable, Iterator, Union
-from functools import partial
-
-import spacy
-from spacy.language import Language
-from spacy.training import Example
+from typing import Dict, Generator, Set, Tuple, List
 
 from pydantic import BaseModel
 
-from .character import char_replace_augmenter
 
 qwerty_en_array = {
     "default": [
@@ -39,9 +33,8 @@ qwerty_da_array = {
     "shifted": [
         ["!", '"', "#", "€", "%", "&", "/", "(", ")", "=", "?", "`"],
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Å", "^"],
-        ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Æ", "Ø", "*"][
-            ">", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "_"
-        ],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Æ", "Ø", "*"],
+        [">", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "_"],
     ],
 }
 KEYBOARDS = {
@@ -63,25 +56,50 @@ class Keyboard(BaseModel):
         Keyboard: a Keyboard object
     """
 
-    keyboard_array = Dict[str, str]
+    keyboard_array: Dict[str, List[List[str]]]
     shift_distance: int = 3
 
     def coordinate(self, key: str) -> Tuple[int, int]:
+        """get coordinate for key
+
+        Args:
+            key (str): keyboard key
+
+        Returns:
+            Tuple[int, int]: key coordinate on keyboard
+        """
         for arr in self.keyboard_array:
             for x, row in enumerate(self.keyboard_array[arr]):
                 for y, k in enumerate(row):
                     if key == k:
-                        return x, y
+                        return (x, y)
 
         raise ValueError(f"key {key} was not found in keyboard array")
 
     def is_shifted(self, key: str) -> bool:
+        """is the key shifted?
+
+        Args:
+            key (str): keyboard key
+
+        Returns:
+            bool: a boolean indicating whether key is shifted.
+        """
         for x in self.keyboard_array["shifted"]:
             if key in x:
                 return True
         return False
 
     def euclidian_distance(self, key_a: str, key_b: str) -> int:
+        """Returns euclidian distance between two keys
+
+        Args:
+            key_a (str): keyboard key
+            key_b (str): keyboard key
+
+        Returns:
+            int: The euclidian distance between two keyboard keys.
+        """
         x1, y1 = self.coordinate(key_a)
         x2, y2 = self.coordinate(key_b)
 
@@ -94,12 +112,26 @@ class Keyboard(BaseModel):
         return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5 + shift_cost
 
     def all_keys(self):
+        """yields all keys in keyboard.
+
+        Yields:
+            all keys in keyboard.
+        """
         for arr in self.keyboard_array:
             for x, _ in enumerate(self.keyboard_array[arr]):
                 for k in self.keyboard_array[arr][x]:
                     yield k
 
     def get_neighboors(self, key: str, distance: int = 1) -> Set[int]:
+        """gets the neighbours of a key with a specified distance.
+
+        Args:
+            key (str): A keyboard key
+            distance (int, optional): The euclidian distance of neightbours. Defaults to 1.
+
+        Returns:
+            Set[int]: The neighbours of a key with a specified distance.
+        """
         l = []
         for k in self.all_keys():
             if k == key:
@@ -110,35 +142,3 @@ class Keyboard(BaseModel):
 
     def create_distance_dict(self, distance: int = 1) -> dict:
         return {k: self.get_neighboors(k, distance=distance) for k in self.all_keys()}
-
-
-@spacy.registry.augmenters("keyboard_augmenter.v1")
-def create_keyboard_augmenter(
-    doc_level: float,
-    char_level: float,
-    distance=1,
-    keyboard: Union[str, Keyboard] = "QWERTY_EN",
-) -> Callable[[Language, Example], Iterator[Example]]:
-    """Create a document level augmenter using plausible typos based on keyboard distance.
-
-    Args:
-        doc_level (float): probability to augment document.
-        char_level (float): probability to augment character, if document is augmented.
-        distance (int, optional): keyboard distance. Defaults to 1.
-        keyboard (str, Keyboard, optional): A Keyboard class or a string denoting a default keyboard.
-            Possible options for string include:
-            "QWERTY_EN": English QWERTY keyboard
-            "QWERTY_DA": Danish QWERTY keyboard
-            Defaults to "QWERTY_EN".
-
-    Returns:
-        Callable[[Language, Example], Iterator[Example]]: The augmentation function
-    """
-    kb = KEYBOARDS[keyboard]
-    replace_dict = kb.create_distance_dict(distance=distance)
-    return partial(
-        char_replace_augmenter,
-        replacement=replace_dict,
-        doc_level=doc_level,
-        char_level=char_level,
-    )
