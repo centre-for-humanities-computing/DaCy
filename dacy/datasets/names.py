@@ -39,6 +39,7 @@ def load_names(
     if ethnicity is not None:
         names = names.loc[names["ethnicity"] == ethnicity]
 
+    last_names = names.loc[names["first_name"] == False]
     if gender is not None:
         names = names.groupby(["name", "gender", "first_name"]).agg({"count": "sum"})
         # Change: groupby state_office and divide by sum
@@ -49,7 +50,6 @@ def load_names(
         ]
 
     first_names = names.loc[names["first_name"] == True]
-    last_names = names.loc[names["first_name"] == False]
     return {
         "first_name": first_names.name.tolist(),
         "last_name": last_names.name.tolist(),
