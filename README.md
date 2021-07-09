@@ -18,13 +18,22 @@
 
 -->
 
-DaCy is a Danish preprocessing pipeline trained in SpaCy. At the time of writing it has achieved State-of-the-Art performance on all Benchmark tasks for Danish. This repository contains code for reproducing DaCy as well as download and loading the models. Furthermore, it also contains guides on how to use DaCy.
+DaCy is a Danish preprocessing pipeline trained in SpaCy. It has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish. This repository contains material for using the DaCy, reproducing the results and guides on usage of the package. Furthermore, it also a behavioural test for biases and robustness of Danish NLP pipelines.
+
 <!--
 EASTER EGG:
 https://www.youtube.com/watch?v=E7WQ1tdxSqI
 -->
 
 # 📰 News
+- 1.0.0 (09/07/21)
+  - DaCy version 1.0.0 releases.
+    - Including a series of augmenters with a few specifically designed for Danish
+    - Code for behavioural tests of NLP pipelines
+    - A new tutorials for both 📖
+  - The first paper on DaCy check it out as a preprint [here](missing) and [code](missing) for reproducing it! 🌟
+  - A new beautiful hand-drawn logo 🤩
+  - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
 - 0.4.1 (03/06/21)
   - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
@@ -34,16 +43,13 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
 - 0.2.1 (30/03/21)
   - DaCy now includes a small model for efficient processing based on the Danish [Ælæctra](https://sprogteknologi.dk/dataset/918158b9-ac6b-4484-a44a-4e3de386dfca) 🏃
-- 0.1.1 (24/03/21)
-  - DaCy included wrapped version on major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
-  - Tutorials is added to introduce the above functionality
-- 0.0.1 (25/02/21)
-  - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
-
 
 <details>
   <summary>See older news items</summary>
 
+- 0.1.1 (24/03/21)
+  - DaCy included wrapped version on major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
+  - Tutorials is added to introduce the above functionality
 - 0.0.1 (25/02/21)
   - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
 
@@ -76,7 +82,7 @@ To use the model you first have to download either the small, medium, or large m
 import dacy
 for model in dacy.models():
     print(model)
-# da_dacy_-l-ctra_small_tft-0.0.0
+# da_dacy_small_tft-0.0.0
 # da_dacy_medium_tft-0.0.0
 # da_dacy_large_tft-0.0.0
 ```
@@ -99,7 +105,7 @@ For more on how to use DaCy please check out our [documentation)
 
 # 👩‍🏫 Tutorials and documentation
 
-DaCy also include a detailed documentaion as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorial are located in the `tutorials` folder.
+DaCy also includes a detailed documentation as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorials are located in the `tutorials` folder.
 
 |                                                                                                                                            | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -112,22 +118,23 @@ DaCy also include a detailed documentaion as well as a series of Jupyter noteboo
 
 # 🦾 Performance and Training
 
-The following table shows the performance on the DaNE dataset when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>. 
+The following table shows the performance on the DaNE test set when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>. 
 
 <div align="center"><img src="img/perf.png"/></div>
 
+Stanza uses the spacy-stanza implementation. The speed on the DaNLP model is as reported by the framework, which does not utilize batch input. However, given the model size, it can be expected to reach speeds comparable to DaCy medium. Empty cells indicate that the framework does not include the specific model.
 
 <details>
   <summary> Training and reproduction </summary>
 
-the folder `DaCy_training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](DaCy_training/readme.md).
+the folder `training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](training/readme.md).
 
-Want to learn more about how the model was trained, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
+Want to learn more about how DaCy initially came to be, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
 </details>
 
-
-
+## Robustness and Biases
+DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](missing).
 
 # 🤔 Issues and Usage Q&A
 
@@ -139,7 +146,7 @@ To ask questions, report issues or request features, please use the [GitHub Issu
 <details>
   <summary>Where is my DaCy model located?</summary>
 
-  To figure out where where your DaCy model is located you can always use:
+  To figure out where your DaCy model is located you can always use:
 
   ```python
   where_is_my_dacy()
@@ -150,9 +157,7 @@ To ask questions, report issues or request features, please use the [GitHub Issu
 <details>
   <summary>Why doesn't the performance metrics match the performance metrics reported on the DaNLP GitHub?</summary>
 
-The performance metrics by DaNLP gives the model the 'gold standard' tokenization of the dataset as opposed to having the pipeline tokenize the text itself. This allows for comparison of the models on an even ground regardless of their tokenizer, but inflated the performance in general. DaCy on the other hand reports the performance metrics using its own tokenization this makes the result closer to something you would see on a real dataset and doesreflect how tokenization influence your performance.
-
-
+The performance metrics by DaNLP gives the model the 'gold standard' tokenization of the dataset as opposed to having the pipeline tokenize the text itself. This allows for comparison of the models on an even ground regardless of their tokenizer but inflated the performance in general. DaCy on the other hand reports the performance metrics using a tokenizer this makes the result closer to something you would see on a real dataset and does reflect how tokenization influence your performance. All models tested was tested either using their own tokenizer or SpaCy Danish tokenizer depending on which performed the best. All models except Stanza and Polyglot were found to perform best with the SpaCy tokenizer.
 </details>
 
 </details>
@@ -161,7 +166,7 @@ The performance metrics by DaNLP gives the model the 'gold standard' tokenizatio
   <summary>How do i test the code and run the test suite?</summary>
 
 
-DaCy comes with an extensive test suite. In order to run the tests, you'll usually want to clone the repository and build DaCy from source. This will also install the required development dependencies and test utilities defined in the requirements.txt.
+DaCy comes with an extensive test suite. In order to run the tests, you'll usually want to clone the repository and build DaCy from the source. This will also install the required development dependencies and test utilities defined in the requirements.txt.
 
 
 ```
@@ -180,7 +185,7 @@ python -m pytest dacy/tests/test_readability.py
 ```
 
 **Code Coverage**
-If you want check code coverage as well you can run the following:
+If you want to check code coverage as well you can run the following:
 ```
 pip install pytest-cov
 
@@ -202,7 +207,7 @@ python -m pytest--cov=.
 <details>
   <summary>Does DaCy run on X?</summary>
 
-  DaCy is intended to run on all major OS, this include Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of linux) it is likely that DaCy will run there as well.
+  DaCy is intended to run on all major OS, this includes Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of Linux) DaCy will likely run there as well.
 
 | Operating System | Status |
 | ---------------- | ------ |
@@ -222,7 +227,7 @@ python -m pytest--cov=.
   To make the documentation you can run:
   
   ```
-  # install sphinx, thems and extensions
+  # install sphinx, themes and extensions
   pip install sphinx furo sphinx-copybutton sphinxext-opengraph
 
   # generate html from documentations
@@ -255,10 +260,12 @@ If you use this library in your research, please kindly cite:
 DaCy is released under the Apache License, Version 2.0. See the [`LICENSE`](https://github.com/KennethEnevoldsen/DaCy/blob/main/LICENSE) file for more details.
 
 ## Contact
-To contact the author feel free to use the application form on my [website](www.kennethenevoldsen.com) or contact me on social media. Please note that for issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues).
+For issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Otherwise please use the [Discussion Forums](missing).
 
+<!--
+if we want a linkedin / twitter at some point
 [<img align="left" alt="KCEnevoldsen | Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />][twitter]
-[<img align="left" alt="KennethEnevoldsen | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
+[<img align="left" alt="KennethEnevoldsen | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin] 
 
 <br />
 
@@ -266,3 +273,4 @@ To contact the author feel free to use the application form on my [website](www.
 
 [twitter]: https://twitter.com/KCEnevoldsen
 [linkedin]: https://www.linkedin.com/in/kennethenevoldsen/
+-->
