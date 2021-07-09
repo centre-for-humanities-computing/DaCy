@@ -48,13 +48,13 @@ muslim_aug = create_pers_augmenter(
     patterns=["fn", "fn,ln", "fn,ln,ln"],
 )
 f_aug = create_pers_augmenter(
-    dk_name_dict,
+    f_name_dict,
     force_pattern_size=True,
     keep_name=False,
     patterns=["fn", "fn,ln", "fn,ln,ln"],
 )
 m_aug = create_pers_augmenter(
-    muslim_name_dict,
+    m_name_dict,
     force_pattern_size=True,
     keep_name=False,
     patterns=["fn", "fn,ln", "fn,ln,ln"],
