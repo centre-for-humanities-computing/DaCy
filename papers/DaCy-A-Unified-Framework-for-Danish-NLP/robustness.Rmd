@@ -11,7 +11,7 @@ This notebook contains code for producing the tables in the paper "DaCy: A Unifi
 library(tidyverse)
 library(kableExtra)
 library(janitor)
-source("../dev/model_comparison/utility.R")
+source("../../dev/model_comparison/utility.R")
 ```
 
 

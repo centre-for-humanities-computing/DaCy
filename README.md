@@ -25,13 +25,14 @@ EASTER EGG:
 https://www.youtube.com/watch?v=E7WQ1tdxSqI
 -->
 
+
 # 📰 News
 - 1.0.0 (09/07/21)
   - DaCy version 1.0.0 releases.
     - Including a series of augmenters with a few specifically designed for Danish
     - Code for behavioural tests of NLP pipelines
-    - A new tutorials for both 📖
-  - The first paper on DaCy check it out as a preprint [here](missing) and [code](missing) for reproducing it! 🌟
+    - A new tutorial for both 📖
+  - The first paper on DaCy check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
   - A new beautiful hand-drawn logo 🤩
   - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
 - 0.4.1 (03/06/21)
@@ -241,19 +242,22 @@ python -m pytest--cov=.
 
 
 ## Acknowledgements
-This is really an acknowledgement of great open-source software and contributors. This wouldn't have been possible with the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available. DaNLP has made it extremely easy to get access to Danish resources to train on and even supplied some of the tagged data themselves and have done great job of developing these datasets.
+DaCy is a result of great open-source software and contributors. It wouldn't have been possible without the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available and developing Ælæctra. A huge compliment also goes out to DaNLP which have made it easy to get access to Danish resources and even supplied some of the tagged data themselves.
 
 ## References
 
 If you use this library in your research, please kindly cite:
 
 ```bibtex
-@inproceedings{enevoldsen2020dacy,
-    title={DaCy: A SpaCy NLP Pipeline for Danish},
+@inproceedings{dacy2021,
+    title={DaCy: A Unified Framework for Danish NLP},
     author={Enevoldsen, Kenneth},
     year={2021}
 }
 ```
+
+To read more on this paper or to see the code for reproducing the results please check out the associated [readme](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md).
+
 
 ## License
 

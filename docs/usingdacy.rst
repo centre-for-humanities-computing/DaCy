@@ -9,7 +9,7 @@ of all available models:
    import dacy
    for model in dacy.models():
       print(model)
-   # da_dacy_-l-ctra_small_tft-0.0.0
+   # da_dacy_small_tft-0.0.0
    # da_dacy_medium_tft-0.0.0
    # da_dacy_large_tft-0.0.0
 
