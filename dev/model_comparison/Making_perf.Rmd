@@ -1,0 +1,76 @@
+---
+title: "making_the_perf_df"
+author: "K. Enevoldsen"
+date: "7/6/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r read files}
+files = list.files(path = "../../robustness/", pattern = "*dep2.csv", full.names = T)
+perf_w_dep2 = files %>% map_df(read_csv) %>% 
+  select(-starts_with("dep_las_")) %>% 
+  mutate(gpu = T) %>% 
+  drop_na()
+
+files = list.files(path = "../../robustness/", pattern = "*dep.csv", full.names = T)
+perf_w_dep = files %>% map_df(read_csv) %>% 
+  select(-starts_with("dep_las_")) %>% 
+  filter(!augmenter %in% c("Input size augmentation 5 sentences", "Input size augmentation 10 sentences")) %>% 
+  mutate(gpu = T) %>% bind_rows(perf_w_dep2)
+
+
+files = list.files("../../robustness/", full.names = T)
+valid_files = c()
+for (f in files){
+  split = str_split(f, "_", )[[1]]
+  if (!split[length(split)] %in% c("test.csv", "overlap.csv", "dep.csv", "dep2.csv")){
+    valid_files = c(valid_files, f)
+  }
+}
+
+read_csv_extended = function(name){
+  df = read_csv(name)
+  split = str_split(name, "_", )[[1]]
+  if (split[length(split)] %in% c("gpu.csv")){
+    df["gpu"] = "True"
+  } else {
+    df["gpu"] = "Non-relevant"
+  }
+  return(df)
+}
+
+spacy_models =c ("dacy_large", "dacy_medium", "dacy_small", "spacy_large", "spacy_medium", "spacy_small")
+gpu_models  =c ("danlp_bert", "flair", "nerda_bert", "stanza")
+perf = valid_files %>% map_df(read_csv_extended) %>% 
+  mutate(gpu = if_else((model %in% spacy_models & gpu == "True") | model %in% gpu_models,  T, F)) %>% 
+  select(-starts_with("dep_las_"))
+
+perf = perf %>% filter((model %in% spacy_models & gpu == F) | model %in% c("danlp_bert", "flair", "nerda_bert")) 
+
+perf = bind_rows(perf, perf_w_dep) %>% 
+  mutate(tag_acc = if_else(model == "stanza", pos_acc, tag_acc)) %>%
+  select(-pos_acc)
+
+speed_perf = perf %>% 
+  filter(augmenter %in% c("No augmentation") ) %>% 
+  group_by(model, gpu) %>%
+  summarise(wall_time = mean(wall_time, na.rm = T))
+
+perf = perf %>% 
+  select(-wall_time) %>% 
+  merge(., speed_perf, by=c("model", "gpu")) %>% 
+  mutate(dep_uas = if_else(model %in% c("polyglot", "flair"), 0, dep_uas))
+
+perf %>% filter(model == "polyglot") %>% select(model, augmenter, dep_uas) %>% filter(augmenter == "No augmentation") %>% View
+
+unique(perf$model)
+unique(perf_w_dep2$model)
+
+
+
+```

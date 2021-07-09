@@ -14,6 +14,7 @@ metrics_from_json = function(file){
     "Location" = metrics$ents_per_type$LOC$f * 100,
     "Organization" = metrics$ents_per_type$ORG$f * 100,
     "Person" = metrics$ents_per_type$PER$f * 100,
+    "Misc" = metrics$ents_per_type$MISC$f * 100,
     "Avg F1" = metrics$ents_f * 100,
     "UAS" = metrics$dep_uas * 100,
     "LAS" = metrics$dep_las * 100,
