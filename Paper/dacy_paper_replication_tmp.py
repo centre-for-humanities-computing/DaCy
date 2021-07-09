@@ -20,8 +20,8 @@ from dacy.datasets import dane, danish_names, female_names, male_names, muslim_n
 from dacy.score import n_sents_score, score
 from spacy.training.augment import create_lower_casing_augmenter, dont_augment
 
-from apply_fns.apply_fn_danlp import apply_danlp_bert
-from apply_fns.apply_fn_flair import apply_flair
+# from apply_fns.apply_fn_danlp import apply_danlp_bert
+# from apply_fns.apply_fn_flair import apply_flair
 from apply_fns.apply_fn_nerda import apply_nerda
 
 # from apply_fns.apply_fn_polyglot import apply_polyglot
@@ -123,8 +123,8 @@ model_dict = {
     # "dacy_large": "da_dacy_large_tft-0.0.0",
     # "flair": apply_flair,
     # "polyglot": apply_polyglot,
-    "danlp_bert": apply_danlp_bert,
-    # "nerda_bert": apply_nerda,
+    # "danlp_bert": apply_danlp_bert,
+    "nerda_bert": apply_nerda,
 }
 
 # # Performance
