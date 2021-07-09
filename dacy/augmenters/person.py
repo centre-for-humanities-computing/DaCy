@@ -42,8 +42,6 @@ def create_pers_augmenter(
             if False, will sample new names from ent_dict. Defaults to True.
         prob (float, optional): which proportion of entities to augment. Defaults to 1.
 
-        See augment_entity() for augmentation examples.
-
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The augmenter
     """
