@@ -28,3 +28,6 @@ Will generate a series of `.csv`s in `robustness` folder, under the name `robust
 
 ## Getting the results
 For convenience, we have included our version of the combined dataset of above mentioned `.csv`s which was used to reproduce the tables in the paper.
+
+## Creating the tables
+The R markdown `robustness.Rmd` contains the code for automatically generating the LateX tables.
