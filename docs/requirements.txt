@@ -1,1 +1,4 @@
-sphinx==3.5.4
+sphinx
+furo
+sphinx-copybutton
+sphinxext-opengraph

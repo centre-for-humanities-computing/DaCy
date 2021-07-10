@@ -10,10 +10,6 @@ from danlp.download import download_model as danlp_download
 from danlp.download import _unzip_process_func
 from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
 
-from .classification_transformer import (
-    install_classification_extensions,
-)
-
 
 def add_huggingface_model(
     nlp: Language,
