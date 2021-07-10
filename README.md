@@ -33,10 +33,10 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
     - Including a series of augmenters with a few specifically designed for Danish
     - Code for behavioural tests of NLP pipelines
     - A new tutorial for both 📖
-  <!-- - The first paper on DaCy; check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟 -->
+    - The first paper on DaCy; check it out as a preprint and code for reproducing it [here](https://github.com/centre-for-humanities-computing/DaCy/tree/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP)! 🌟 
   - A new beautiful hand-drawn logo 🤩
   - A test for biases and robustness in Danish NLP pipelines 🧐
-  - DaCy is now officially supported by the `Centre for Humanities Computing <https://chcaa.io/#/>`__ at Aarhus University
+  - DaCy is now officially supported by the [Centre for Humanities Computing](https://chcaa.io) at Aarhus University
 - 0.4.1 (03/06/21)
   - DaCy now have a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
