@@ -9,10 +9,10 @@
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
-[![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 [![github actions docs](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/DaCy/)
 [![CodeFactor](https://www.codefactor.io/repository/github/kennethenevoldsen/dacy/badge)](https://www.codefactor.io/repository/github/kennethenevoldsen/dacy)
 <!-- 
+[![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 <a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/trunajod">
 [![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
