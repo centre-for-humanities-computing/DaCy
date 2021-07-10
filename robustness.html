@@ -1,0 +1,314 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta property="og:title" content="Robustness and Biases" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="robustness.html" />
+  <meta property="og:description" content="In the paper DaCy: A Unified Framework for Danish NLP we conduct a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pip..." />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Downloading and Loading" href="download.html" /><link rel="prev" title="General performance" href="performance.html" />
+
+    <meta name="generator" content="sphinx-4.0.3, furo 2021.07.05.beta38"/>
+        <title>Robustness and Biases - DaCy 0.4.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css" />
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  .override-dark {
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+  }
+</style><link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">DaCy 0.4.2 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingdacy.html">Using DaCy</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Performance</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">General performance</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Robustness and Biases</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/KennethEnevoldsen/DaCy">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <section id="robustness-and-biases">
+<h1>Robustness and Biases<a class="headerlink" href="#robustness-and-biases" title="Permalink to this headline">¶</a></h1>
+<p>In the paper <a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/blob/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md">DaCy: A Unified Framework for Danish NLP</a>
+we conduct a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other
+Danish language processing pipelines. This page represent only parts of the paper for the full introduction, we naturally recommend reading the paper.
+Let’s start by examining a couple of the augmentation, namely changing out names or introducing plausible keytype errors.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="note admonition">
+<p class="admonition-title">Original</p>
+<p>Peter Schmeichel mener også, at det danske landshold anno 2021 tilhører verdenstoppen og kan vinde den kommende kamp mod England.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Female name augmentation</p>
+<p>Anne Østergaard mener også, at det danske landshold anno 2021 tilhører verdenstoppen og kan vinde den kommende kamp mod England.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">5% keytype errors</p>
+<p>Peter Schmeichel mener ogsål at det dansie landahold anno 2921 tilhører vefdrnstoppen og kan vonde den kimmende kamp mod England.</p>
+</div>
+</div>
+<p>The underlying assumption of making these augmentation is that the tags of the sentence does not change with augmentation.
+In our case this include that “Anna Østergaard” is still a person and that “vonde” still can be considered a verb based on its context.</p>
+<p>Based on this we can assume that if a models performs worse on a given set of names or with minor spelling variation or errors we can conclude that we model are vulnerable to such input.
+For instance if the model has a hard time dealing replacing æ, ø, and å with ae, oe, and aa it might not be ideal to apply to historic texts.</p>
+<p>As seen in the above while some of these are reasonable for humans, others like the 15% keytype errors test the limit of
+what humans and models can reasonably read.</p>
+<div class="important admonition">
+<p class="admonition-title">15% keytype errors</p>
+<p>Peter Schmeichel mejer ogsp, at ddt danske landshoof anbo 202q tilhårer gerfenatop0en of lan vinde sen kpmkendw lamp mod England.</p>
+</div>
+<p>The following tables show a detailed breakdown of performance for named entity recognition, part-of-speech tagging and dependency parsing.
+These show some general trends, some of which include:</p>
+<ul class="simple">
+<li><p>Spelling variations and abbreviated first names consistently reduce performance of all models on all tasks.</p></li>
+<li><p>Even simple replacements of æ, ø, and å with ae, oe, and aa lead to notable performance degradation.</p></li>
+<li><p>In general, larger models handle augmentations better than small models with DaCy large performing the best</p></li>
+<li><p>The BiLSTM-based models (Stanza and Flair) perform competitively under augmentations and are only consistently outperformed by DaCy large.</p></li>
+</ul>
+<section id="named-entity-recognition">
+<h2>Named entity recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this headline">¶</a></h2>
+<p>In the following table we see a the performance on named entity recognition (NER) of Danish NLP pipelines
+reported as average F1 scores excluding the MISC category. We have highlighted the best scores in
+bold and second best are underlined. The “*” denotes that the result is significantly different
+from baseline using a significance threshold of 0.05 with Bonferroni correction for multiple comparisons.
+Values in parentheses denote the standard deviation.</p>
+<a class="reference internal image-reference" href="_images/ner_robustness.png"><img alt="NER performance of Danish NLP pipelines" src="_images/ner_robustness.png" style="width: 1000px;"/></a>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>NERDA limits input size to 128 wordpieces which leads to truncation on long input sizes and when there is a high rates of keystroke errors.</p>
+</div>
+<p>Besides the general trends noted above we can also note that:</p>
+<ul class="simple">
+<li><p>All models show a bias toward Muslim names, except DaCy large. The robustness of DaCy large likely stems from the multilingual pre-training.</p></li>
+<li><p>All models show no significant biases based on gender with the exception of Polyglot.</p></li>
+<li><p>DaCy small is robust to spelling errors and outperforms larger models such as DaNLP’s BERT and NERDA.</p></li>
+<li><p>DaNLP’s BERT and NERDA models were found to under-perform if given longer input lengths.</p></li>
+<li><p>DaCy’s models consistently perform slightly better with more context, but are not vulnerable to shorter input.</p></li>
+<li><p>Lack of casing is detrimental for NER for the cased models, most notably Flair, the SpaCy models, DaCy large and DaCy small.</p></li>
+</ul>
+</section>
+<section id="part-of-speech-tagging">
+<h2>Part-of-speech tagging<a class="headerlink" href="#part-of-speech-tagging" title="Permalink to this headline">¶</a></h2>
+<p>In the following table we see the accuracy of Danish NLP pipeline on part-of-speech tagging.</p>
+<a class="reference internal image-reference" href="_images/pos_robustness.png"><img alt="POS performance of Danish NLP pipelines" src="_images/pos_robustness.png" style="width: 1000px;"/></a>
+<p>One might wonder why the performance is so high for part-of-speech-tagging have long had a performance around 97-98% and it is argued by <a class="reference external" href="https://nlp.stanford.edu/pubs/CICLing2011-manning-tagging.pdf">Manning (2011)</a> that obtaining greater accuracy requires updates to the training data rather than new architectures.</p>
+</section>
+<section id="dependency-parsing">
+<h2>Dependency parsing<a class="headerlink" href="#dependency-parsing" title="Permalink to this headline">¶</a></h2>
+<p>In the following table we see the LAS score of Danish models for dependency parsing.</p>
+<a class="reference internal image-reference" href="_images/dep_robustness.png"><img alt="Dependency parsing performance of Danish NLP pipelines" src="_images/dep_robustness.png" style="width: 1000px;"/></a>
+</section>
+</section>
+
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="download.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Downloading and Loading</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="performance.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">General performance</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Kenneth Enevoldsen
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="_sources/robustness.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Robustness and Biases</a><ul>
+<li><a class="reference internal" href="#named-entity-recognition">Named entity recognition</a></li>
+<li><a class="reference internal" href="#part-of-speech-tagging">Part-of-speech tagging</a></li>
+<li><a class="reference internal" href="#dependency-parsing">Dependency parsing</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/main.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    </body>
+</html>

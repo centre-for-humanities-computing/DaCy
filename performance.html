@@ -4,14 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta property="og:title" content="Readability" />
+  <meta property="og:title" content="General performance" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="dacy.readability.html" />
-  <meta property="og:description" content="dacy.readability.readability:" />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Subclasses" href="dacy.subclasses.html" /><link rel="prev" title="Augmenters" href="dacy.augmenters.html" />
+  <meta property="og:url" content="performance.html" />
+  <meta property="og:description" content="In the paper DaCy: A Unified Framework for Danish NLP we compare DaCy’s models with other Danish language processing pipelines. This page represents only parts of the paper for the comprehensive in..." />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Robustness and Biases" href="robustness.html" /><link rel="prev" title="Using DaCy" href="usingdacy.html" />
 
     <meta name="generator" content="sphinx-4.0.3, furo 2021.07.05.beta38"/>
-        <title>Readability - DaCy 0.4.2 documentation</title>
+        <title>General performance - DaCy 0.4.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -131,17 +131,17 @@
 <li class="toctree-l1"><a class="reference internal" href="usingdacy.html">Using DaCy</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Performance</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">General performance</a></li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">General performance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="robustness.html">Robustness and Biases</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Package References</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="download.html">Downloading and Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Readability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
 </ul>
 <ul>
@@ -160,10 +160,36 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <section id="readability">
-<h1>Readability<a class="headerlink" href="#readability" title="Permalink to this headline">¶</a></h1>
-<section id="dacy-readability-readability">
-<h2>dacy.readability.readability<a class="headerlink" href="#dacy-readability-readability" title="Permalink to this headline">¶</a></h2>
+        <section id="general-performance">
+<h1>General performance<a class="headerlink" href="#general-performance" title="Permalink to this headline">¶</a></h1>
+<p>In the paper <a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/blob/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md">DaCy: A Unified Framework for Danish NLP</a>
+we compare DaCy’s models with other Danish language processing pipelines. This page represents only parts of the paper for the comprehensive introduction, we recommend reading the paper.</p>
+<p>In the table below you see the performance of Danish language processing pipelines scored on the DaNE test set, including part-of-speech tagging (POS),
+named entity recognition (NER) and dependency parsing.
+The best score are highlighted with bold while the second best is underlined.
+Empty cells indicate that the framework does not include the specific model.</p>
+<a class="reference internal image-reference" href="_images/perf.png"><img alt="Performance of Danish NLP pipelines" src="_images/perf.png" style="width: 1000px;"/></a>
+<p>The speed on the DaNLP model is as reported by the framework, which does not utilize batch input.
+However, given the model size, it can be expected to reach speeds comparable to DaCy medium.</p>
+<div class="note admonition">
+<p class="admonition-title">What is LAS and UAS?</p>
+<p>Unlabelled attachment score (UAS) denotes the percentage of words that get assigned the correct head,
+while labelled attachment score (LAS) is the percentage of words that get assigned the correct head and label.
+Unsure of what a head is? Then i recommend this <a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/14.pdf">chapter</a>
+by Jurafsky and Martin.</p>
+</div>
+<p>From the table we see that DaCy large has state-of-the-art on all tasks, most notably on NER
+and dependency parsing with DaCy Medium providing a good alternative especially when running on CPUs,
+where one might even consider running the SpaCy large and if you are only interested in NER and speed Flair might
+provide a reasonable model.</p>
+<section id="measuring-performance">
+<h2>Measuring performance<a class="headerlink" href="#measuring-performance" title="Permalink to this headline">¶</a></h2>
+<p>Typically when measuring performance on these benchmark there is a tendency to feed the model the gold standard tokens.
+While this might seem reasonable at first as it allows for easier comparisons of modules and architectures, it does
+inflate the performance metrics. What is more important it does not reflect what you are probably really interested in,
+the performance you get when you apply the model. Thus here we measure the performance using the models own tokenizer or SpaCy tokenizer if it performs better.
+Polyglot and Stanza performing better with their own tokenizers while the remaining models perform best with SpaCy’s.</p>
+<p>Benchmark performance is rarely everything though, so be sure to check out the more nuanced section on model <a class="reference external" href="https://kennethenevoldsen.github.io/DaCy/robustness.html">robustness and biases</a>.</p>
 </section>
 </section>
 
@@ -171,23 +197,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="dacy.subclasses.html">
+          <a class="next-page" href="robustness.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Subclasses</div>
+                <div class="title">Robustness and Biases</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="dacy.augmenters.html">
+          <a class="prev-page" href="usingdacy.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Augmenters</div>
+                <div class="title">Using DaCy</div>
                 
               </div>
             </a>
@@ -201,7 +227,7 @@
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
             |
-            <a class="muted-link" href="_sources/dacy.readability.rst.txt"
+            <a class="muted-link" href="_sources/performance.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -221,8 +247,8 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Readability</a><ul>
-<li><a class="reference internal" href="#dacy-readability-readability">dacy.readability.readability</a></li>
+<li><a class="reference internal" href="#">General performance</a><ul>
+<li><a class="reference internal" href="#measuring-performance">Measuring performance</a></li>
 </ul>
 </li>
 </ul>

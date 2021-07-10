@@ -7,10 +7,10 @@
   <meta property="og:title" content="DaCy" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="index.html" />
-  <meta property="og:description" content="DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, named-entity recognition (NER) and ..." />
+  <meta property="og:description" content="DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing, it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, named-entity recognition (NER) and..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
 
-    <meta name="generator" content="sphinx-4.0.2, furo 2021.06.24.beta37"/>
+    <meta name="generator" content="sphinx-4.0.3, furo 2021.07.05.beta38"/>
         <title>Home - DaCy 0.4.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
@@ -130,10 +130,17 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingdacy.html">Using DaCy</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">General performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robustness.html">Robustness and Biases</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Package References</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
 </ul>
@@ -156,39 +163,52 @@
         <section id="dacy">
 <h1>DaCy<a class="headerlink" href="#dacy" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="https://github.com/KennethEnevoldsen/DaCy"><img alt="https://img.shields.io/github/stars/KennethEnevoldsen/DaCy.svg?style=social&amp;label=Star&amp;maxAge=2592000" src="https://img.shields.io/github/stars/KennethEnevoldsen/DaCy.svg?style=social&amp;label=Star&amp;maxAge=2592000"/></a>
-<p>DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing it has achieved State-of-the-Art performance on part-of-speech (POS) tagging,
+<p>DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing, it has achieved State-of-the-Art performance on part-of-speech (POS) tagging,
 named-entity recognition (NER) and Dependency parsing for Danish.</p>
-<p>This website contains the documentation for DaCy as well introduction for how to get started using DaCy for your project.</p>
+<p>This website contains the documentation for DaCy as well as an introduction to how to get started using DaCy for your project.</p>
 <section id="news">
 <h2>📰 News<a class="headerlink" href="#news" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p>04/06/21</p>
-<p>-DaCy now have a stunningly looking documentation site 🌟</p>
-</li>
-<li><p>01/06/21</p>
 <ul class="simple">
-<li><p>DaCy’s tests now cover 99% of its codebase 🎉</p></li>
-<li><p>DaCy’s test suite is now being applied for all major operating systems instead of just linux 👩‍💻</p></li>
+<li><p>1.0.0 (09/07/21)</p>
+<ul>
+<li><p>DaCy version 1.0.0 releases.
+- Including a series of augmenters with a few specifically designed for Danish
+- Code for behavioural tests of NLP pipelines
+- A new tutorial for both 📖</p></li>
+<li><p>The first paper on DaCy check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟</p></li>
+<li><p>A new beautiful hand-drawn logo 🤩</p></li>
+<li><p>A behavioural test for biases and robustness in Danish NLP pipelines 🧐</p></li>
 </ul>
 </li>
-<li><p>25/05/21</p>
-<ul class="simple">
+<li><p>0.4.1 (03/06/21)</p>
+<ul>
+<li><p>DaCy now have a stunningly looking documentation site 🌟</p></li>
+</ul>
+</li>
+<li><p>0.3.1 (01/06/21)</p>
+<ul>
+<li><p>DaCy’s tests now cover 99% of its codebase 🎉</p></li>
+<li><p>DaCy’s test suite is now being applied for all major operating systems instead of just Linux 👩‍💻</p></li>
+</ul>
+</li>
+<li><p>0.2.2 (25/05/21)</p>
+<ul>
 <li><p>The new Danish Model Senda was added to DaCy</p></li>
 </ul>
 </li>
-<li><p>30/03/21</p>
-<ul class="simple">
+<li><p>0.2.1 (30/03/21)</p>
+<ul>
 <li><p>DaCy now includes a small model for efficient processing based on the Danish Ælæctra 🏃</p></li>
 </ul>
 </li>
-<li><p>24/03/21</p>
-<ul class="simple">
-<li><p>DaCy included wrapped version on major Danish sentiment analysis software including the models by DaNLP. As well as code for wrapping any sequence classification model into its pipeline 🤩</p></li>
-<li><p>Totorials is added to introduce the above functionality</p></li>
+<li><p>0.1.1 (24/03/21)</p>
+<ul>
+<li><p>DaCy included a wrapped version on major Danish sentiment analysis software including the models by DaNLP. As well as code for wrapping any sequence classification model into its pipeline 🤩</p></li>
+<li><p>Tutorials is added to introduce the above functionality</p></li>
 </ul>
 </li>
-<li><p>25/02/21</p>
-<ul class="simple">
+<li><p>0.0.1 (25/02/21)</p>
+<ul>
 <li><p>DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰</p></li>
 </ul>
 </li>
@@ -196,9 +216,10 @@ named-entity recognition (NER) and Dependency parsing for Danish.</p>
 </section>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
-<p>The documentation is organized in two parts:</p>
+<p>The documentation is organized in three parts:</p>
 <ul class="simple">
-<li><p><strong>Getting Started</strong> contains the installation instructions on how to use DaCy.</p></li>
+<li><p><strong>Getting Started</strong> contains the installation instructions and guided and tutorials on how to use DaCy.</p></li>
+<li><p><strong>Performance</strong> contains a series of performance metrics and comparisons of DaCy and other Danish NLP pipelines.</p></li>
 <li><p><strong>Package References</strong> contains the documentation of each public class and function.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
@@ -215,6 +236,21 @@ named-entity recognition (NER) and Dependency parsing for Danish.</p>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">General performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#measuring-performance">Measuring performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="robustness.html">Robustness and Biases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="robustness.html#named-entity-recognition">Named entity recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robustness.html#part-of-speech-tagging">Part-of-speech tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robustness.html#dependency-parsing">Dependency parsing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Package References</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="download.html">Downloading and Loading</a><ul>
@@ -222,18 +258,30 @@ named-entity recognition (NER) and Dependency parsing for Danish.</p>
 <li class="toctree-l2"><a class="reference internal" href="download.html#module-dacy.load">dacy.load</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dacy.datasets.html#dacy-datasets-dane">dacy.datasets.dane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.datasets.html#dacy-datasets-names">dacy.datasets.names</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dacy.sentiment.html#module-dacy.sentiment.getters">dacy.sentiment.getters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dacy.sentiment.html#module-dacy.sentiment.wrapped_models">dacy.sentiment.wrapped_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.sentiment.html#dacy-sentiment-getters">dacy.sentiment.getters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.sentiment.html#dacy-sentiment-wrapped-models">dacy.sentiment.wrapped_models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dacy.augmenters.html#dacy-augmenters-character">dacy.augmenters.character</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.augmenters.html#dacy-augmenters-danish">dacy.augmenters.danish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.augmenters.html#dacy-augmenters-person">dacy.augmenters.person</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.augmenters.html#dacy-augmenters-keyboard">dacy.augmenters.keyboard</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dacy.readability.html#module-dacy.readability.readability">dacy.readability.readability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.readability.html#dacy-readability-readability">dacy.readability.readability</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dacy.subclasses.html#module-dacy.subclasses.wrappers">dacy.subclasses.wrappers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dacy.subclasses.html#module-dacy.subclasses.classification_transformer">dacy.subclasses.classification_transformer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.subclasses.html#dacy-subclasses-wrappers">dacy.subclasses.wrappers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dacy.subclasses.html#dacy-subclasses-classification-transformer">dacy.subclasses.classification_transformer</a></li>
 </ul>
 </li>
 </ul>

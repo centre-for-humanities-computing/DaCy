@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-4.0.2, furo 2021.06.24.beta37"/><title>Index - DaCy 0.4.2 documentation</title>
+    <meta name="generator" content="sphinx-4.0.3, furo 2021.07.05.beta38"/><title>Index - DaCy 0.4.2 documentation</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -123,10 +123,17 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingdacy.html">Using DaCy</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">General performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robustness.html">Robustness and Biases</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Package References</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
 </ul>
@@ -149,52 +156,12 @@
         
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#W"><strong>W</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#D"><strong>D</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#W"><strong>W</strong></a></div>
 </section>
-<section id="A" class="genindex-section">
-  <h2>A</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.sentiment.html#dacy.sentiment.wrapped_models.add_bertemotion_emo">add_bertemotion_emo() (in module dacy.sentiment.wrapped_models)</a>
-</li>
-        <li><a href="dacy.sentiment.html#dacy.sentiment.wrapped_models.add_bertemotion_laden">add_bertemotion_laden() (in module dacy.sentiment.wrapped_models)</a>
-</li>
-        <li><a href="dacy.sentiment.html#dacy.sentiment.wrapped_models.add_berttone_polarity">add_berttone_polarity() (in module dacy.sentiment.wrapped_models)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.sentiment.html#dacy.sentiment.wrapped_models.add_berttone_subjectivity">add_berttone_subjectivity() (in module dacy.sentiment.wrapped_models)</a>
-</li>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.wrappers.add_danlp_model">add_danlp_model() (in module dacy.subclasses.wrappers)</a>
-</li>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.wrappers.add_huggingface_model">add_huggingface_model() (in module dacy.subclasses.wrappers)</a>
-</li>
-        <li><a href="dacy.sentiment.html#dacy.sentiment.wrapped_models.add_senda">add_senda() (in module dacy.sentiment.wrapped_models)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="C" class="genindex-section">
-  <h2>C</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.ClassificationTransformer">ClassificationTransformer (class in dacy.subclasses.classification_transformer)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.ClassificationTransformerModel">ClassificationTransformerModel() (in module dacy.subclasses.classification_transformer)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
 <section id="D" class="genindex-section">
   <h2>D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.sentiment.html#dacy.sentiment.getters.da_vader_getter">da_vader_getter() (in module dacy.sentiment.getters)</a>
-</li>
         <li>
     dacy.download
 
@@ -202,48 +169,13 @@
           <li><a href="download.html#module-dacy.download">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     dacy.load
 
         <ul>
           <li><a href="download.html#module-dacy.load">module</a>
-</li>
-        </ul></li>
-        <li>
-    dacy.readability.readability
-
-        <ul>
-          <li><a href="dacy.readability.html#module-dacy.readability.readability">module</a>
-</li>
-        </ul></li>
-        <li>
-    dacy.sentiment.getters
-
-        <ul>
-          <li><a href="dacy.sentiment.html#module-dacy.sentiment.getters">module</a>
-</li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    dacy.sentiment.wrapped_models
-
-        <ul>
-          <li><a href="dacy.sentiment.html#module-dacy.sentiment.wrapped_models">module</a>
-</li>
-        </ul></li>
-        <li>
-    dacy.subclasses.classification_transformer
-
-        <ul>
-          <li><a href="dacy.subclasses.html#module-dacy.subclasses.classification_transformer">module</a>
-</li>
-        </ul></li>
-        <li>
-    dacy.subclasses.wrappers
-
-        <ul>
-          <li><a href="dacy.subclasses.html#module-dacy.subclasses.wrappers">module</a>
 </li>
         </ul></li>
         <li><a href="download.html#dacy.download.download_model">download_model() (in module dacy.download)</a>
@@ -252,49 +184,9 @@
   </tr></table>
 </section>
 
-<section id="F" class="genindex-section">
-  <h2>F</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.ClassificationTransformer.from_disk">from_disk() (dacy.subclasses.classification_transformer.ClassificationTransformer method)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="H" class="genindex-section">
-  <h2>H</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.huggingface_classification_from_pretrained">huggingface_classification_from_pretrained() (in module dacy.subclasses.classification_transformer)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="I" class="genindex-section">
-  <h2>I</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.init">init() (in module dacy.subclasses.classification_transformer)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.install_classification_extensions">install_classification_extensions() (in module dacy.subclasses.classification_transformer)</a>
-</li>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.install_extensions">install_extensions() (in module dacy.subclasses.classification_transformer)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
 <section id="L" class="genindex-section">
   <h2>L</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.readability.html#dacy.readability.readability.LIX_getter">LIX_getter() (in module dacy.readability.readability)</a>
-</li>
-    </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="download.html#dacy.load.load">load() (in module dacy.load)</a>
 </li>
@@ -306,16 +198,14 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.make_classification_getter">make_classification_getter() (in module dacy.subclasses.classification_transformer)</a>
-</li>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.make_classification_transformer">make_classification_transformer() (in module dacy.subclasses.classification_transformer)</a>
-</li>
         <li><a href="download.html#dacy.download.models">models() (in module dacy.download)</a>
 
         <ul>
           <li><a href="download.html#dacy.load.models">(in module dacy.load)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     module
 
@@ -324,27 +214,7 @@
 </li>
           <li><a href="download.html#module-dacy.load">dacy.load</a>
 </li>
-          <li><a href="dacy.readability.html#module-dacy.readability.readability">dacy.readability.readability</a>
-</li>
-          <li><a href="dacy.sentiment.html#module-dacy.sentiment.getters">dacy.sentiment.getters</a>
-</li>
-          <li><a href="dacy.sentiment.html#module-dacy.sentiment.wrapped_models">dacy.sentiment.wrapped_models</a>
-</li>
-          <li><a href="dacy.subclasses.html#module-dacy.subclasses.classification_transformer">dacy.subclasses.classification_transformer</a>
-</li>
-          <li><a href="dacy.subclasses.html#module-dacy.subclasses.wrappers">dacy.subclasses.wrappers</a>
-</li>
         </ul></li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="S" class="genindex-section">
-  <h2>S</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="dacy.subclasses.html#dacy.subclasses.classification_transformer.ClassificationTransformer.set_annotations">set_annotations() (dacy.subclasses.classification_transformer.ClassificationTransformer method)</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
