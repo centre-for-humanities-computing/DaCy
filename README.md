@@ -2,8 +2,8 @@
 # DaCy: A SpaCy NLP Pipeline for Danish
 
 
-[![release version](https://img.shields.io/badge/DaCy%20Version-0.4.2-green)](https://github.com/KennethEnevoldsen/DaCy)
-[![python version](https://img.shields.io/badge/Python-%3E=3.6-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![PyPI version](https://badge.fury.io/py/dacy.svg)](https://pypi.org/project/dacy/)
+[![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
 [![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
@@ -29,13 +29,13 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 # 📰 News
 - 1.0.0 (09/07/21)
-  - DaCy version 1.0.0 releases.
+  - DaCy version 1.0.0 releases as the first version to pypi! 📦
     - Including a series of augmenters with a few specifically designed for Danish
     - Code for behavioural tests of NLP pipelines
     - A new tutorial for both 📖
-  - The first paper on DaCy check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
+  - The first paper on DaCy; check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
   - A new beautiful hand-drawn logo 🤩
-  - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
+  - A test for biases and robustness in Danish NLP pipelines 🧐
 - 0.4.1 (03/06/21)
   - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
