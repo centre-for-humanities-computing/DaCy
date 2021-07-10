@@ -135,12 +135,12 @@ More guides and tutorials
 
 .. |colab_sent| image:: https://colab.research.google.com/assets/colab-badge.svg
    :width: 100pt
-   :target: https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb
 
 
 .. |colab_clf| image:: https://colab.research.google.com/assets/colab-badge.svg
    :width: 100pt
-   :target: https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb
 
 DaCy also include a couple of additional tutorials which are available as a notebook on Google's Colab.
 

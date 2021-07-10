@@ -33,14 +33,15 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
     - Including a series of augmenters with a few specifically designed for Danish
     - Code for behavioural tests of NLP pipelines
     - A new tutorial for both 📖
-  - The first paper on DaCy; check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
+  <!-- - The first paper on DaCy; check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟 -->
   - A new beautiful hand-drawn logo 🤩
   - A test for biases and robustness in Danish NLP pipelines 🧐
+  - DaCy is now officially supported by the `Centre for Humanities Computing <https://chcaa.io/#/>`__ at Aarhus University
 - 0.4.1 (03/06/21)
   - DaCy now have a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
   - DaCy's tests now cover 99% of its codebase 🎉
-  - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻
+  - DaCy's test suite is now being applied for all major operating systems instead of just Linux 👩‍💻
 - 0.2.2 (25/05/21)
   - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
 - 0.2.1 (30/03/21)
@@ -50,7 +51,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   <summary>See older news items</summary>
 
 - 0.1.1 (24/03/21)
-  - DaCy included wrapped version on major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
+  - DaCy included a wrapped version of major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
   - Tutorials is added to introduce the above functionality
 - 0.0.1 (25/02/21)
   - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
@@ -147,7 +148,7 @@ DaCy compares the performance of Danish language processing pipeline under a lar
 
 # 🤔 Issues and Usage Q&A
 
-To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.
+To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
 
 ## FAQ
 

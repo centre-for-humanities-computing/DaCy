@@ -1,8 +1,8 @@
 DaCy
 ================================
 
-.. image:: https://img.shields.io/github/stars/KennethEnevoldsen/DaCy.svg?style=social&label=Star&maxAge=2592000
-   :target: https://github.com/KennethEnevoldsen/DaCy
+.. image:: https://img.shields.io/github/stars/centre-for-humanities-computing/DaCy.svg?style=social&label=Star&maxAge=2592000
+   :target: https://github.com/centre-for-humanities-computing/DaCy
 
 DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing, it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, 
 named-entity recognition (NER) and Dependency parsing for Danish. 
@@ -18,10 +18,11 @@ This website contains the documentation for DaCy as well as an introduction to h
     - Including a series of augmenters with a few specifically designed for Danish
     - Code for behavioural tests of NLP pipelines
     - A new tutorial for both 📖
-  - The first paper on DaCy check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
-  - A new beautiful hand-drawn logo 🤩
-  - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
-
+    - A new beautiful hand-drawn logo 🤩
+    - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
+    - DaCy is now officially supported by the `Centre for Humanities Computing <https://chcaa.io/#/>`__ at Aarhus University
+.. - The first paper on DaCy check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
+    
 * 0.4.1 (03/06/21)
 
   - DaCy now have a stunningly looking documentation site 🌟
@@ -54,7 +55,7 @@ Contents
   
 The documentation is organized in three parts:
 
-- **Getting Started** contains the installation instructions and guided and tutorials on how to use DaCy.
+- **Getting Started** contains the installation instructions, guides, and tutorials on how to use DaCy.
 - **Performance** contains a series of performance metrics and comparisons of DaCy and other Danish NLP pipelines.
 - **Package References** contains the documentation of each public class and function.
 
@@ -87,7 +88,7 @@ The documentation is organized in three parts:
 
 
 .. toctree::
-  GitHub Repository <https://github.com/KennethEnevoldsen/DaCy>
+  GitHub Repository <https://github.com/centre-for-humanities-computing/DaCy>
 
    
 
