@@ -6,11 +6,6 @@ from .classification_transformer import install_classification_extensions
 import os
 from spacy.language import Language
 
-from danlp.download import download_model as danlp_download
-from danlp.download import _unzip_process_func
-from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
-
-
 def add_huggingface_model(
     nlp: Language,
     download_name: str,
@@ -96,6 +91,14 @@ def add_danlp_model(
     Returns:
         Language: your text processing pipeline with the transformer model included
     """
+    try:
+        from danlp.download import download_model as danlp_download
+        from danlp.download import _unzip_process_func
+        from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError(f"{e}: This typically happens as you need additional packages to run parts of DaNLP. Installing them should solve the issue.")
+
+
     if open_unverified_connection:
         import ssl
 

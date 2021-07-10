@@ -27,7 +27,15 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     # external packages as dependencies
-    install_requires=requirements,
+    install_requires=[
+        "tqdm>=4.42.1",
+        "spacy>=3.0.3",
+        "spacy-transformers>=1.0.1",
+        "pandas >= 1.0.0"
+        ],
+    extras_require={
+        'all' : ['danlp']
+    }
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
