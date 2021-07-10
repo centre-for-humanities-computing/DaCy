@@ -59,13 +59,20 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 
 # 🔧 Installation
-it currently only possible to download DaCy directly from GitHub, however this can be done quite easily using:
+To get started using DaCy simply install it using pip by running the following line in your terminal:
 ```bash
-pip install git+https://github.com/KennethEnevoldsen/DaCy
+pip install dacy
 ```
 
 <details>
   <summary>Detailed instructions</summary>
+
+  The default installation of DaCy does not install danlp as it have a lot dependencies which might collide with your packages you might wish to use. DaCy only uses danlp, for downloading its wrapped models for sentiment.
+  If you wish to install DaNLP as well simply run:
+
+  ```bash
+  pip install dacy[all]
+  ```
 
   ### Install from source
   ```
