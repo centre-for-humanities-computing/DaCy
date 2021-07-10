@@ -3,19 +3,19 @@
 
 
 [![PyPI version](https://badge.fury.io/py/dacy.svg)](https://pypi.org/project/dacy/)
-[![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/centre-for-humanities-computing/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style.html)
-[![license](https://img.shields.io/github/license/KennethEnevoldsen/DaCy.svg?color=blue)](https://github.com/KennethEnevoldsen/DaCy)
+[![license](https://img.shields.io/github/license/centre-for-humanities-computing/DaCy.svg?color=blue)](https://github.com/centre-for-humanities-computing/DaCy)
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
-[![github actions pytest](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/Dacy/actions)
-[![github actions docs](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/documentation.yml/badge.svg)](https://kennethenevoldsen.github.io/DaCy/)
-![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
-[![CodeFactor](https://www.codefactor.io/repository/github/kennethenevoldsen/dacy/badge)](https://www.codefactor.io/repository/github/kennethenevoldsen/dacy)
+[![github actions pytest](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/centre-for-humanities-computing/Dacy/actions)
+[![github actions docs](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/documentation.yml/badge.svg)](https://centre-for-humanities-computing.github.io/DaCy/)
+![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/centre-for-humanities-computing/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
+[![CodeFactor](https://www.codefactor.io/repository/github/centre-for-humanities-computing/dacy/badge)](https://www.codefactor.io/repository/github/centre-for-humanities-computing/dacy)
 <!-- 
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 <a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/trunajod">
-[![Github All Releases](https://img.shields.io/github/downloads/kennethenevoldsen/dacy/total.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/centre-for-humanities-computing/dacy/total.svg)]()
 
 -->
 
@@ -37,7 +37,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   - A new beautiful hand-drawn logo 🤩
   - A test for biases and robustness in Danish NLP pipelines 🧐
 - 0.4.1 (03/06/21)
-  - DaCy now have a stunningly looking [documentation site](https://kennethenevoldsen.github.io/DaCy/) 🌟. It even got a dark mode!
+  - DaCy now have a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even got a dark mode!
 - 0.3.1 (01/06/21)
   - DaCy's tests now cover 99% of its codebase 🎉
   - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻
@@ -76,7 +76,7 @@ pip install dacy
 
   ### Install from source
   ```
-  git clone https://github.com/KennethEnevoldsen/DaCy.git
+  git clone https://github.com/centre-for-humanities-computing/DaCy.git
   cd DaCy
   pip install .
   ```
@@ -110,7 +110,7 @@ dacy.download_model("da_dacy_medium_tft-0.0.0", your_save_path)
 nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
 ```
 
-For more on how to use DaCy please check out our [documentation)
+For more on how to use DaCy please check out our [documentation](https://centre-for-humanities-computing.github.io/DaCy/)
 
 # 👩‍🏫 Tutorials and documentation
 
@@ -118,10 +118,10 @@ DaCy also includes a detailed documentation as well as a series of Jupyter noteb
 
 |                                                                                                                                                      | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [🌟 Getting Started](https://kennethenevoldsen.github.io/DaCy/usingdacy.html)                                                                         | An introduction on how to use DaCy                                                                                         |                                                                                                                                                                                                                    |
-| [📖 Documentation](https://kennethenevoldsen.github.io/DaCy/)                                                                                         | The Documentation of DaCy                                                                                                  |                                                                                                                                                                                                                    |
-| [😡😂 Sentiment](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                   | A simple introduction to the new sentiment features in DaCy.                                                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
-| [😎 wrapping a fine-tuned Tranformer](https://github.com/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
+| [🌟 Getting Started](https://centre-for-humanities-computing.github.io/DaCy/usingdacy.html)                                                                         | An introduction on how to use DaCy                                                                                         |                                                                                                                                                                                                                    |
+| [📖 Documentation](https://centre-for-humanities-computing.github.io/DaCy/)                                                                                         | The Documentation of DaCy                                                                                                  |                                                                                                                                                                                                                    |
+| [😡😂 Sentiment](https://github.com/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                                                   | A simple introduction to the new sentiment features in DaCy.                                                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)                             |
+| [😎 wrapping a fine-tuned Tranformer](https://github.com/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) | A guide on how to wrap an already fine-tuned transformer to and add it to your SpaCy pipeline using DaCy helper functions. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb) |
 
 
 
@@ -147,7 +147,7 @@ DaCy compares the performance of Danish language processing pipeline under a lar
 
 # 🤔 Issues and Usage Q&A
 
-To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.
+To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.
 
 ## FAQ
 
@@ -220,9 +220,9 @@ python -m pytest--cov=.
 
 | Operating System | Status                                                                                                                                                                                                                  |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest-cov-comment.yml)     |
-| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_mac_catalina.yml) |
-| Windows (Latest) | [![github actions pytest windows](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/KennethEnevoldsen/DaCy/actions/workflows/pytest_windows.yml)            |
+| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml)     |
+| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_mac_catalina.yml) |
+| Windows (Latest) | [![github actions pytest windows](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_windows.yml)            |
 
   
 </details>
@@ -269,10 +269,10 @@ To read more on this paper or to see the code for reproducing the results please
 
 ## License
 
-DaCy is released under the Apache License, Version 2.0. See the [`LICENSE`](https://github.com/KennethEnevoldsen/DaCy/blob/main/LICENSE) file for more details.
+DaCy is released under the Apache License, Version 2.0. See the [`LICENSE`](https://github.com/centre-for-humanities-computing/DaCy/blob/main/LICENSE) file for more details.
 
 ## Contact
-For feature request issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Otherwise, please use the [Discussion Forums](missing).
+For feature request issues and bugs please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Otherwise, please use the [Discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
 
 <!--
 if we want a linkedin / twitter at some point
