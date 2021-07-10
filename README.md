@@ -265,7 +265,7 @@ To read more on this paper or to see the code for reproducing the results please
 DaCy is released under the Apache License, Version 2.0. See the [`LICENSE`](https://github.com/KennethEnevoldsen/DaCy/blob/main/LICENSE) file for more details.
 
 ## Contact
-For issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Otherwise please use the [Discussion Forums](missing).
+For feature request issues and bugs please use the [GitHub Issue Tracker](https://github.com/KennethEnevoldsen/DaCy/issues). Otherwise, please use the [Discussion Forums](missing).
 
 <!--
 if we want a linkedin / twitter at some point
