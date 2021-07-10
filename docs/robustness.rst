@@ -63,7 +63,7 @@ from baseline using a significance threshold of 0.05 with Bonferroni correction 
 Values in parentheses denote the standard deviation. 
 
 .. image:: ../img/ner_robustness.png
-  :width: 800
+  :width: 1000
   :alt: NER performance of Danish NLP pipelines
 
 
@@ -74,7 +74,9 @@ Values in parentheses denote the standard deviation.
 
 Besides the general trends noted above we can also note that:
 
-* All models show a bias toward male and Muslim names, except DaCy large and small. The robustness of DaCy large might stem from the multilingual pre-training and the model size, while for DaCy small it is likely the well-curated training data. 
+* All models show a bias toward Muslim names, except DaCy large. The robustness of DaCy large likely stems from the multilingual pre-training. 
+
+* All models show no significant biases based on gender with the exception of Polyglot.
 
 * DaCy small is robust to spelling errors and outperforms larger models such as DaNLP's BERT and NERDA.
 
@@ -90,9 +92,21 @@ Part-of-speech tagging
 
 In the following table we see the accuracy of Danish NLP pipeline on part-of-speech tagging.
 
+
 .. image:: ../img/pos_robustness.png
-  :width: 800
+  :width: 1000
   :alt: POS performance of Danish NLP pipelines
+
+.. .. raw:: html
+
+..    <iframe src="_static/table_pos.html" height="655px" width="100%" frameBorder="0"></iframe>
+
+.. .. raw:: html
+..    :file: _static/table_pos.html
+
+.. .. image:: ../img/pos_robustness.png
+..   :width: 800
+..   :alt: POS performance of Danish NLP pipelines
 
 
 One might wonder why the performance is so high for part-of-speech-tagging have long had a performance around 97-98% and it is argued by `Manning (2011) <https://nlp.stanford.edu/pubs/CICLing2011-manning-tagging.pdf>`__ that obtaining greater accuracy requires updates to the training data rather than new architectures.
@@ -103,7 +117,18 @@ Dependency parsing
 In the following table we see the LAS score of Danish models for dependency parsing.
 
 .. image:: ../img/dep_robustness.png
-  :width: 800
+  :width: 1000
   :alt: Dependency parsing performance of Danish NLP pipelines
+
+.. .. raw:: html
+
+..    <iframe src="_static/table_dep.html" height="550px" width="100%" frameBorder="0"></iframe>
+
+.. .. raw:: html
+..    :file: _static/table_dep.html
+
+.. .. image:: ../img/dep_robustness.png
+..   :width: 800
+..   :alt: Dependency parsing performance of Danish NLP pipelines
 
 

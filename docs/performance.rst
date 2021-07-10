@@ -9,9 +9,11 @@ named entity recognition (NER) and dependency parsing.
 The best score are highlighted with bold while the second best is underlined.
 Empty cells indicate that the framework does not include the specific model.
 
+
 .. image:: ../img/perf.png
-  :width: 800
+  :width: 1000
   :alt: Performance of Danish NLP pipelines
+
 
 The speed on the DaNLP model is as reported by the framework, which does not utilize batch input. 
 However, given the model size, it can be expected to reach speeds comparable to DaCy medium. 
@@ -22,7 +24,7 @@ However, given the model size, it can be expected to reach speeds comparable to 
 
    Unlabelled attachment score (UAS) denotes the percentage of words that get assigned the correct head,
    while labelled attachment score (LAS) is the percentage of words that get assigned the correct head and label. 
-   If you want to learn more about dependency grammer i recommend this `chapter <https://web.stanford.edu/~jurafsky/slp3/14.pdf>`__
+   Unsure of what a head is? Then i recommend this `chapter <https://web.stanford.edu/~jurafsky/slp3/14.pdf>`__
    by Jurafsky and Martin.
 
 From the table we see that DaCy large has state-of-the-art on all tasks, most notably on NER
