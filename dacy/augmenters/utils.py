@@ -15,4 +15,3 @@ def make_text_from_orth(example_dict: dict) -> str:
         if spacy:
             text += " "
     return text
-

@@ -32,7 +32,6 @@ if __name__ == "__main__":
 
     os.chdir("..")
     from dacy.datasets import dane
-    from spacy.lang.da import Danish
 
     test = dane(splits=["test"])
     nlp = Danish()

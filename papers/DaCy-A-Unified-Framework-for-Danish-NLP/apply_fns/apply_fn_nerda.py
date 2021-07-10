@@ -1,5 +1,5 @@
 from typing import Iterable, List
-from spacy.tokens import Span, Doc
+from spacy.tokens import Doc
 from spacy.training import Example
 from spacy.lang.da import Danish
 
@@ -51,7 +51,6 @@ if __name__ == "__main__":
 
     os.chdir("..")
     from dacy.datasets import dane
-    from spacy.lang.da import Danish
 
     test = dane(splits=["test"])
     nlp = Danish()

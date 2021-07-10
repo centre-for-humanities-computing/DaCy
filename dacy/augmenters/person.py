@@ -134,7 +134,7 @@ def augment_entity(
         "abbpunct": sample_abbreviation_punct,
     }
 
-    for i in range(len(entities)):
+    for i, _ in enumerate(entities):
         pattern = random.choices(patterns, weights=patterns_prob, k=1)[0]
         pattern = pattern.split(",")
 
@@ -158,42 +158,34 @@ def augment_entity(
     return new_entity_spans
 
 
-"""
-Name sampling functions
-"""
+# Name sampling functions
 
 
 def sample_first_name(name: str, keep_name: bool, name_dict: dict) -> str:
     if keep_name:
         return name
-    else:
-        return random.choice(name_dict["first_name"])
+    return random.choice(name_dict["first_name"])
 
 
 def sample_abbreviation(name: str, keep_name: bool, name_dict: dict) -> str:
     if keep_name:
         return name[0]
-    else:
-        return random.choice(name_dict["first_name"])[0]
+    return random.choice(name_dict["first_name"])[0]
 
 
 def sample_abbreviation_punct(name: str, keep_name: bool, name_dict: dict) -> str:
     if keep_name:
         return name[0] + "."
-    else:
-        return random.choice(name_dict["first_name"])[0] + "."
+    return random.choice(name_dict["first_name"])[0] + "."
 
 
 def sample_last_name(name: str, keep_name: bool, name_dict: dict) -> str:
     if keep_name:
         return name
-    else:
-        return random.choice(name_dict["last_name"])
+    return random.choice(name_dict["last_name"])
 
 
-"""
-Slicers
-"""
+# Slicers
 
 
 def get_ent_slices(entities: List[str], ent_type="PER") -> List[tuple]:
@@ -243,29 +235,27 @@ def update_slice(
 ) -> List[str]:
     if type == "ORTH":
         return handle_orth(values, aug_ents, entity_slices)
-    elif type == "SPACY":
+    if type == "SPACY":
         return handle_spacy(values, aug_ents, entity_slices)
-    elif type == "TAG":
+    if type == "TAG":
         return handle_tag(values, aug_ents, entity_slices)
-    elif type == "LEMMA":
+    if type == "LEMMA":
         return handle_lemma(values, aug_ents, entity_slices)
-    elif type == "POS":
+    if type == "POS":
         return handle_pos(values, aug_ents, entity_slices)
-    elif type == "MORPH":
+    if type == "MORPH":
         return handle_morph(values, aug_ents, entity_slices)
-    elif type == "HEAD":
+    if type == "HEAD":
         return handle_head(values, aug_ents, entity_slices)
-    elif type == "DEP":
+    if type == "DEP":
         return handle_dep(values, aug_ents, entity_slices)
-    elif type == "SENT_START":
+    if type == "SENT_START":
         return handle_sent_start(values, aug_ents, entity_slices)
-    elif type == "entities":
+    if type == "entities":
         return handle_entities(values, aug_ents, entity_slices)
 
 
-"""
-Handlers for spacy properties
-"""
+# Handlers for spacy properties
 
 
 def handle_orth(
@@ -405,8 +395,6 @@ def resize_entity_list(
     If less names in the entity list, sample random last name"""
     if len(entity) > len(pattern):
         return entity[: len(pattern)]
-    else:
-        return entity + [
-            random.choice(ent_dict["last_name"])
-            for _ in range(len(pattern) - len(entity))
-        ]
+    return entity + [
+        random.choice(ent_dict["last_name"]) for _ in range(len(pattern) - len(entity))
+    ]
