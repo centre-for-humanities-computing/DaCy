@@ -20,7 +20,7 @@ You can also install DaCy directly from source using:
 
 .. code-block::
 
-   git clone https://github.com/KennethEnevoldsen/DaCy.git
+   git clone https://github.com/centre-for-humanities-computing/DaCy.git
    cd DaCy
    pip install .
 
@@ -28,4 +28,4 @@ or simply:
 
 .. code-block::
 
-   pip install git+https://github.com/KennethEnevoldsen/DaCy
+   pip install git+https://github.com/centre-for-humanities-computing/DaCy

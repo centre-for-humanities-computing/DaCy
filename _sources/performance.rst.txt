@@ -41,4 +41,4 @@ inflate the performance metrics. What is more important it does not reflect what
 the performance you get when you apply the model. Thus here we measure the performance using the models own tokenizer or SpaCy tokenizer if it performs better.
 Polyglot and Stanza performing better with their own tokenizers while the remaining models perform best with SpaCy's.
 
-Benchmark performance is rarely everything though, so be sure to check out the more nuanced section on model `robustness and biases <https://kennethenevoldsen.github.io/DaCy/robustness.html>`__.
+Benchmark performance is rarely everything though, so be sure to check out the more nuanced section on model `robustness and biases <https://centre-for-humanities-computing.github.io/DaCy/robustness.html>`__.
