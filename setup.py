@@ -35,7 +35,7 @@ setuptools.setup(
         ],
     extras_require={
         'all' : ['danlp']
-    }
+    },
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
