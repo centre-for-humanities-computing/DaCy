@@ -1,5 +1,5 @@
 <a href="https://explosion.ai"><img src="img/icon.png" width="175" height="175" align="right" /></a>
-# DaCy: A SpaCy NLP Pipeline for Danish
+# DaCy: An efficient NLP Pipeline for Danish
 
 
 [![PyPI version](https://badge.fury.io/py/dacy.svg)](https://pypi.org/project/dacy/)
