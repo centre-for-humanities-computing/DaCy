@@ -4,7 +4,6 @@ This includes a series of functionality for loading and locating DaCy models.
 import os
 from typing import Optional
 
-import spacy
 from spacy.language import Language
 
 from .download import download_model, DEFAULT_CACHE_DIR, models_url
@@ -24,6 +23,8 @@ def load(model: str, path: Optional[str] = None) -> Language:
         >>> import dacy
         >>> dacy.load("da_dacy_medium_tft-0.0.0")
     """
+    import spacy
+
     if path is None:
         path = DEFAULT_CACHE_DIR
 

@@ -96,7 +96,7 @@ def add_danlp_model(
         from danlp.download import _unzip_process_func
         from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
     except ModuleNotFoundError as e:
-        raise ModuleNotFoundError(f"{e}: This typically happens as you need additional packages to run parts of DaNLP. Installing them should solve the issue.")
+        raise ModuleNotFoundError(f"{e}: This typically happens as you need additional packages to run parts of DaNLP. Installing them should solve the issue this can be done using ´pip install danlp[all]´.")
 
 
     if open_unverified_connection:

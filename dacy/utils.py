@@ -1,8 +1,8 @@
-import numpy as np
 import collections
 
 
 def softmax(x):
+    import numpy as np
     return np.exp(x) / sum(np.exp(x))
 
 
