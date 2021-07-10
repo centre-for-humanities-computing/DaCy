@@ -6,9 +6,9 @@ with open("dacy/about.py") as f:
         if l.startswith("__version__"):
             __version__ = l.split('"')[-2]
 
-with open("README.md", encoding='utf-8') as f:
+with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
-    
+
 with open("requirements.txt", encoding="utf-8") as f:
     requirements = f.read()
 
@@ -25,6 +25,7 @@ setuptools.setup(
     author_email="kennethcenevoldsen@gmail.com",
     url="https://github.com/KennethEnevoldsen/dacy",
     packages=setuptools.find_packages(),
+    data_files=[("", ["dacy/datasets/lookup_tables/*.csv"])],
     include_package_data=True,
     # external packages as dependencies
     install_requires=requirements,

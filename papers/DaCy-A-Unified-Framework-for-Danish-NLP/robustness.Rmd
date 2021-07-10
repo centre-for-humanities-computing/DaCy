@@ -1,0 +1,311 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+This notebook contains code for producing the tables in the paper "DaCy: A Unified Framework for Danish NLP"
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(janitor)
+setwd("/Users/au561649/Desktop/Github/DaCy/papers/DaCy-A-Unified-Framework-for-Danish-NLP/")
+
+source("../../dev/model_comparison/utility.R")
+```
+
+
+```{r read files}
+perf = read_csv("augmentation_robustness.csv")
+
+perf = perf %>% 
+  mutate(across(ends_with("_acc"), ~ .x * 100),
+         across(ends_with("_f"), ~ .x * 100),
+         across(ends_with("_p"), ~ .x * 100),
+         across(ends_with("_r"), ~ .x * 100),
+         across(starts_with("dep"), ~ .x * 100)
+         )
+
+```
+
+```{r summary tables}
+sum_perf = perf %>% 
+  group_by(model, augmenter, gpu) %>% 
+  summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("token"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("wall"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("tag"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("pos"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("dep"), ~ mean(.x, na.rm = TRUE))) %>%
+  select(model, augmenter, wall_time, gpu, everything()) 
+
+# sum_perf %>% filter(augmenter %in% c("Male names", "Danish names","Muslim names", "No augmentation") & model == "dacy_medium") %>% select(ents_per_type_LOC_f, ents_per_type_ORG_f)
+
+sum_perf_no_aug = sum_perf %>% ungroup() %>% 
+  filter(augmenter == "No augmentation") %>% 
+  arrange(desc(gpu)) %>% 
+  group_by(model) %>% 
+    summarise(across(starts_with("ents"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("token"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("tag"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("pos"), ~ mean(.x, na.rm = TRUE)),
+            across(starts_with("dep"), ~ mean(.x, na.rm = TRUE)),
+            wall_time_str = case_when(
+              n() >= 2 ~            paste(round_half_up(wall_time, 1), collapse = " / "),
+            TRUE ~                  paste(round_half_up(wall_time, 1), "-", sep = " / ", collapse = "!!")
+            )
+            )
+str = sum_perf_no_aug$wall_time_str[sum_perf_no_aug$model == "polyglot"] 
+sum_perf_no_aug$wall_time_str[sum_perf_no_aug$model == "polyglot"] = paste("-", str_split(str, " / ")[[1]][1], sep = " / ")
+
+no_ent = sum_perf_no_aug$model[sum_perf_no_aug$ents_f == 0]
+no_pos = sum_perf_no_aug$model[sum_perf_no_aug$tag_acc == 0]
+no_dep = sum_perf_no_aug$model[sum_perf_no_aug$dep_las == 0 | is.na(sum_perf_no_aug$dep_las)]
+```
+
+
+```{r scoring summary functions}
+score_t_test = function(mdl, augmenter, default, data, score){
+  d = data %>% filter(model == mdl)
+
+  x = d[[score]][d$augmenter == augmenter]
+  mu = d[[score]][d$augmenter == default]
+  
+  if (length(mu) == 1){
+    t = t.test(x = x,
+           mu = mu, paired = FALSE, var.equal = FALSE,
+           conf.level = 0.95)
+  } else {
+    t = t.test(x = x,
+           y = mu, paired = FALSE, var.equal = FALSE,
+           conf.level = 0.95) 
+  }
+  return (t)
+}
+
+score_to_df = function(data, score){
+  dfs = NULL
+  i = 1
+  for(mdl in unique(data$model)){
+    for (aug in unique(data$augmenter)){
+      v = data[[score]][data$augmenter == aug & data$model == mdl]
+      
+      if (length(v) <= 2){
+          dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=v[1], sd=NA, 
+                    conf_int = "",
+                    p_value=NA)
+          i = i+1
+          next
+      }
+      
+      mu = mean(v)
+      sigma = sd(v)
+      print(paste(mdl, aug, length(v)))
+      if (aug %in% c("Female names", "Muslim names", "Male names")){
+        default = "Danish names"
+      } else {
+        default = "No augmentation"
+      }
+      t = score_t_test(mdl=mdl, augmenter=aug, default=default, data=data, score=score)
+      
+      p = p.adjust(t$p.value, method = "bonferroni", n = 7)
+
+      dfs[[i]] = tibble(model=mdl, augmenter=aug, mean=mu, sd=sigma, 
+                        conf_int = paste("(",  round(t$conf.int[1], 2),", ",  round(t$conf.int[2], 2), ")", sep = ""),
+                        p_value=p)
+      i = i+1
+    }
+  }
+  return(bind_rows(dfs))
+}
+```
+
+```{r ent_perf}
+names_from = c("spacy_large", "spacy_medium", "dacy_large", "dacy_medium", "danlp_bert", "spacy_small", 
+                   "flair", "stanza", "nerda_bert", "dacy_small", "polyglot")
+names_to = c("SpaCy large", "SpaCy medium", "DaCy large", "DaCy medium", "DaNLP BERT", "SpaCy small", 
+                   "Flair", "Stanza", "NERDA", "DaCy small", "Polyglot")
+aug_names_from = c("No augmentation", "Æøå Augmentation", "Lowercase", "Input size augmentation 5 sentences",
+                   "Input size augmentation 10 sentences", "Abbreviated first names", "Danish names", 
+                   "Muslim names", "Female names", "Male names", "Keystroke errors 2%", "Keystroke errors 5%", "Keystroke errors 15%") 
+aug_names_to = c("baseline", "Æøå", "Lowercase", "5 sentences",
+                   "10 sentences", "Abbreviated", "Danish", 
+                   "Muslim", "Female", "Male", "2%", "5%", "15%") 
+
+
+ent_perf = score_to_df(
+  data=perf %>% filter((!(model %in% no_ent) & gpu == T) | model == "polyglot"),
+  score="ents_excl_MISC_ents_f"
+  ) %>% 
+  filter(augmenter != "No Spacing")
+
+bootstrapped_aug = ent_perf %>% filter(!is.na(sd)) %>% filter(augmenter %in% aug_names_from) %>% select(augmenter)
+bootstrapped_aug = unique(bootstrapped_aug$augmenter)
+
+ent_per_tbl = ent_perf %>% arrange(conf_int) %>% 
+  mutate(mean = paste(format(round_half_up(mean, 1), digits = 1, nsmall=1)),
+         p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         string_value = if_else(is.na(sd), paste(mean, sep=""),
+                                paste(mean,  " (", 
+                                      format(round_half_up(sd, 1), digits = 1, nsmall=1), 
+                                      ")", p_value_star, sep="")),
+         model = plyr::mapvalues(model, from=names_from, to=names_to),
+         augmenter = plyr::mapvalues(augmenter, from=aug_names_from, to=aug_names_to)) %>% 
+  select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
+  pivot_wider(names_from = augmenter, values_from=c(string_value)) %>% 
+  select(Model=model, all_of(aug_names_to)) # reorder
+
+
+high_columns = names(ent_per_tbl)[2:ncol(ent_per_tbl)]
+
+ent_per_tbl %>% 
+  kbl(booktabs=T, 
+      # format="latex",
+      align=c("l", rep("c", nrow(.)-1)),
+      table.attr = "style='width:30%;'") %>% 
+  add_header_above(c(" " = 4, "Input Length" = 2, "Names" = 5, 
+                     "Keystroke Errors" = 3)) %>% 
+  add_header_above(c(" " = 2, "Deterministic Augmentations" = ncol(ent_per_tbl)-2 - length(bootstrapped_aug), 
+                     "Stochastic Augmentations" = length(bootstrapped_aug))) %>% 
+  highlight_highest(., ent_per_tbl, columns = high_columns) %>% 
+  kable_styling(full_width = F) %>%
+  kable_material(c("striped", "condensed")) 
+
+  
+  # split table
+c1 = names(ent_per_tbl)[2:7]
+c2 = names(ent_per_tbl)[8:ncol(ent_per_tbl)]
+
+ent_per_tbl_1 = ent_per_tbl %>% 
+  select(Model, all_of(c1))
+
+ent_per_tbl_1 %>% 
+  kbl(booktabs=T, 
+      format="latex",
+      align=c("l", rep("c", nrow(.)-1))) %>% 
+  add_header_above(c(" " = 4, "Input Length" = 2, "Names" = 1)) %>% 
+  add_header_above(c(" " = 2, "Deterministic Augmentations" = 5)) %>% 
+  highlight_highest(., ent_per_tbl_1, columns = c1)
+
+ent_per_tbl_2 = ent_per_tbl %>% 
+  select(Model, all_of(c2))
+
+ent_per_tbl_2 %>% 
+  kbl(booktabs=T, 
+      format="latex",
+      align=c("l", rep("c", nrow(.)-1))) %>% 
+  add_header_above(c(" " = 1, "Names" = 4, "Keystroke Errors" = 3)) %>% 
+  add_header_above(c(" " = 1, "Stochastic Augmentations" = 7)) %>% 
+  highlight_highest(., ent_per_tbl_2, columns = c2)
+```
+
+```{r}
+ent_perf %>% filter(augmenter %in% c("Muslim names", "Danish names", "Female names", "Male names")) %>% group_by(augmenter) %>% 
+  summarise(mean = mean(mean ,na.rm=T))
+
+```
+
+
+```{r pos perf}
+aug_names_from = c("No augmentation", "Æøå Augmentation", "Lowercase", "Input size augmentation 5 sentences",
+                   "Input size augmentation 10 sentences", "Keystroke errors 2%", "Keystroke errors 5%", "Keystroke errors 15%") 
+aug_names_to = c("Baseline", "Æøå", "Lowercase", "5 sentences",
+                   "10 sentences", "2%", "5%", "15%") 
+
+pos_perf = score_to_df(data=perf %>% filter(!model %in% no_pos & gpu == T), score="tag_acc")
+
+pos_per_tbl = pos_perf %>% arrange(conf_int) %>% 
+  mutate(mean = paste(format(round_half_up(mean, 1), digit = 1, nsmall=1)),
+         p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         string_value = if_else(is.na(sd), paste(mean, sep=""),
+                                paste(mean,  " (", 
+                                      format(round_half_up(sd, 1), digits = 1, nsmall=1), 
+                                      ")", p_value_star, sep="")),
+         model = plyr::mapvalues(model, from=names_from, to=names_to),
+         augmenter = plyr::mapvalues(augmenter, from=aug_names_from, to=aug_names_to)) %>% 
+  select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
+  pivot_wider(names_from = augmenter, values_from=c(string_value)) %>% 
+  select(Model=model, all_of(aug_names_to)) # reoder
+
+high_columns = names(pos_per_tbl)[2:ncol(pos_per_tbl)]
+
+pos_per_tbl %>% 
+  kbl(booktabs=T, 
+      # format="latex", 
+      align=c("l", rep("c", nrow(.)-1))) %>% 
+  add_header_above(c(" " = 4, "Input Length" = 2, "Keystroke Errors" = 3)) %>% 
+  add_header_above(c(" " = 2, "Deterministic Augmentations" = 4, "Stochastic Augmentations" = 3)) %>% 
+  highlight_highest(., pos_per_tbl, columns = high_columns) %>% 
+  kable_styling(full_width = T) %>%
+  kable_material(c("striped", "condensed"))
+```
+
+```{r dep perf}
+las_perf = score_to_df(data=perf %>% 
+                         filter((!(model %in% no_dep)) & gpu == T) %>%
+                         filter(!is.na(dep_las)), 
+                       score="dep_las")
+
+las_perf_tbl = las_perf %>% arrange(conf_int) %>% 
+  mutate(mean = paste(format(round_half_up(mean, 1), digits = 1, nsmall = 1)),
+         p_value_star = if_else(p_value < 0.05, "*", "", missing =""),
+         string_value = if_else(is.na(sd), paste(mean, sep=""),
+                                paste(mean,  " (", 
+                                      format(round_half_up(sd, 1), digits = 1, nsmall=1), 
+                                      ")", p_value_star, sep="")),
+         model = plyr::mapvalues(model, from=names_from, to=names_to),
+         augmenter = plyr::mapvalues(augmenter, from=aug_names_from, to=aug_names_to)) %>% 
+  select(-c(mean, sd, p_value, p_value_star, conf_int)) %>% 
+  pivot_wider(names_from = augmenter, values_from=c(string_value)) %>% 
+  select(Model=model, all_of(aug_names_to)) # reoder
+
+
+high_columns = names(las_perf_tbl)[2:ncol(las_perf_tbl)]
+
+las_perf_tbl %>% 
+  kbl(booktabs=T, 
+      # format="latex",
+      align=c("l", rep("c", nrow(.)-1))) %>% 
+    add_header_above(c(" " = 4, "Input Length" = 2, "Keystroke Errors" = 3)) %>% 
+  add_header_above(c(" " = 2, "Deterministic Augmentations" = 4, "Stochastic Augmentations" = 3)) %>% 
+  highlight_highest(., las_perf_tbl, columns = high_columns) %>% 
+  # kable_styling(latex_options = c( "scale_down")) 
+  kable_material(c("striped")) %>% 
+  kable_styling(full_width = F)
+```
+
+
+```{r general perf}
+gen_perf = sum_perf_no_aug %>% 
+  mutate(model = plyr::mapvalues(model, from=names_from, to=names_to)) %>% 
+  select(Model = model, 
+         Accuracy = tag_acc,
+         Person = ents_per_type_PER_f, Location = ents_per_type_LOC_f, 
+         Organization = ents_per_type_ORG_f,
+         Misc = ents_per_type_MISC_f, 
+         F1 = ents_f, 
+         `F1 w/o Misc` = ents_excl_MISC_ents_f,
+         LAS = dep_las,
+         UAS = dep_uas,
+         `Wall Time (GPU/CPU)` = wall_time_str
+         )
+
+gen_perf[gen_perf == 0] = NA
+
+
+options(knitr.kable.NA = '')
+
+high_columns = names(gen_perf)[2:(length(names(gen_perf))-1)]
+
+gen_perf %>% 
+  kbl(booktabs=T, 
+      # format="latex", 
+      align=c("l", rep("c", nrow(.))), digits = c(0, rep(2, nrow(.)-1))) %>% 
+  add_header_above(c(" " =1, "POS" = 1, "NER" = 6, "Dependency Parsing"=2, "Speed" = 1)) %>% 
+  # add_header_above(c("General Performance of Danish NLP pipeline" = 11)) %>% 
+  highlight_highest(., gen_perf, columns = high_columns, str_col_to_numeric = F) %>% 
+  kable_styling(full_width = F) %>% 
+  kable_material(c("striped"))
+```

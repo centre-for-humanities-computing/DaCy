@@ -25,7 +25,7 @@ dacy_large_000 = (
 
 
 models_url = {
-    "da_dacy_-l-ctra_small_tft-0.0.0": dacy_small_000,
+    "da_dacy_small_tft-0.0.0": dacy_small_000,
     "da_dacy_medium_tft-0.0.0": dacy_medium_000,
     "da_dacy_large_tft-0.0.0": dacy_large_000,
 }
@@ -42,7 +42,7 @@ def models() -> list:
 
 
 def download_model(
-    model: str, save_path: Optional[str] = None, force: bool = False
+    model: str, save_path: Optional[str] = None, force: bool = False, verbose: bool = True,
 ) -> bool:
     """
     downloads a DaCy model to the specified save_path or to the default cache directory.
@@ -51,6 +51,7 @@ def download_model(
         model (str): string indicating DaCy model, use dacy.models() to get a list of models
         save_path (str, optional): The path you want to save your model to. Defaults to None denoting the default cache directory. Which can be found using using dacy.where_is_my_dacy().
         force (bool, optional): Should it download the model regardless of it already being present? Defaults to False.
+        verbose (bool): Toggles the verbosity of the function. Defaults to True.
 
     Returns:
         True if the model is downloaded as intended
@@ -71,6 +72,8 @@ def download_model(
     if os.path.exists(path) and force is False:
         return True
 
+    if verbose is True:
+        print(f"\n[INFO] Downloading '{model}'")
     Path(save_path).mkdir(parents=True, exist_ok=True)
     download_url(url, dl_path)
     shutil.unpack_archive(dl_path, save_path)

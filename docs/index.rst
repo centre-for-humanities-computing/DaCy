@@ -4,37 +4,47 @@ DaCy
 .. image:: https://img.shields.io/github/stars/KennethEnevoldsen/DaCy.svg?style=social&label=Star&maxAge=2592000
    :target: https://github.com/KennethEnevoldsen/DaCy
 
-DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, 
+DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing, it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, 
 named-entity recognition (NER) and Dependency parsing for Danish. 
 
-This website contains the documentation for DaCy as well introduction for how to get started using DaCy for your project.
+This website contains the documentation for DaCy as well as an introduction to how to get started using DaCy for your project.
 
 📰 News
 ---------------------------------
 
-* 04/06/21
+* 1.0.0 (09/07/21)
 
-  -DaCy now have a stunningly looking documentation site 🌟
+  - DaCy version 1.0.0 releases.
+    - Including a series of augmenters with a few specifically designed for Danish
+    - Code for behavioural tests of NLP pipelines
+    - A new tutorial for both 📖
+  - The first paper on DaCy check it out as a preprint [here](missing) and [code](papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md) for reproducing it! 🌟
+  - A new beautiful hand-drawn logo 🤩
+  - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
 
-* 01/06/21
+* 0.4.1 (03/06/21)
+
+  - DaCy now have a stunningly looking documentation site 🌟
+
+* 0.3.1 (01/06/21)
 
   - DaCy's tests now cover 99% of its codebase 🎉
-  - DaCy's test suite is now being applied for all major operating systems instead of just linux 👩‍💻 
+  - DaCy's test suite is now being applied for all major operating systems instead of just Linux 👩‍💻 
 
-* 25/05/21
+* 0.2.2 (25/05/21)
 
   - The new Danish Model Senda was added to DaCy
 
-* 30/03/21
+* 0.2.1 (30/03/21)
 
   - DaCy now includes a small model for efficient processing based on the Danish Ælæctra 🏃
 
-* 24/03/21
+* 0.1.1 (24/03/21)
 
-  - DaCy included wrapped version on major Danish sentiment analysis software including the models by DaNLP. As well as code for wrapping any sequence classification model into its pipeline 🤩
-  - Totorials is added to introduce the above functionality
+  - DaCy included a wrapped version on major Danish sentiment analysis software including the models by DaNLP. As well as code for wrapping any sequence classification model into its pipeline 🤩
+  - Tutorials is added to introduce the above functionality
 
-* 25/02/21
+* 0.0.1 (25/02/21)
 
   - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
 
@@ -42,9 +52,10 @@ This website contains the documentation for DaCy as well introduction for how to
 Contents
 ---------------------------------
   
-The documentation is organized in two parts:
+The documentation is organized in three parts:
 
-- **Getting Started** contains the installation instructions on how to use DaCy.
+- **Getting Started** contains the installation instructions and guided and tutorials on how to use DaCy.
+- **Performance** contains a series of performance metrics and comparisons of DaCy and other Danish NLP pipelines.
 - **Package References** contains the documentation of each public class and function.
 
 .. toctree::
@@ -56,12 +67,23 @@ The documentation is organized in two parts:
 
 .. toctree::
    :maxdepth: 3
+   :caption: Performance
+
+   performance
+   robustness
+
+
+.. toctree::
+   :maxdepth: 3
    :caption: Package References
 
    download
+   dacy.datasets
    dacy.sentiment
+   dacy.augmenters
    dacy.readability
    dacy.subclasses
+
 
 
 .. toctree::

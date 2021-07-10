@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🗯 Discussions Forum
+    url: https://center-for-humanities-computing.github.io/DaCy/discussions
+    about: Usage questions, general discussion and anything else that isn't a bug report.
+  - name: 💫 spaCy Usage Guides & API reference
+    url: https://center-for-humanities-computing.github.io/DaCy/
+    about: Everything you need to know about DaCy and how to use it.
+  - name: 🛠 Submit a Pull Request
+    url: https://github.com/center-for-humanities-computing/DaCy/pulls
+    about: Did you spot a mistake and know how to fix it? Feel free to submit a PR and contribute!
