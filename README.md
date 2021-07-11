@@ -144,7 +144,7 @@ Want to learn more about how DaCy initially came to be, check out this [blog pos
 </details>
 
 ## Robustness and Biases
-DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](missing).
+DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](https://centre-for-humanities-computing.github.io/DaCy/robustness.html).
 
 # 🤔 Issues and Usage Q&A
 
@@ -260,7 +260,7 @@ If you use this library in your research, please kindly cite:
 ```bibtex
 @inproceedings{dacy2021,
     title={DaCy: A Unified Framework for Danish NLP},
-    author={Enevoldsen, Kenneth},
+    author={Enevoldsen, Kenneth and Hansen, Lasse and Nielbo Kristoffer},
     year={2021}
 }
 ```
