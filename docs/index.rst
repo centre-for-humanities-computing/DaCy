@@ -25,7 +25,7 @@ This website contains the documentation for DaCy as well as an introduction to h
     
 * 0.4.1 (03/06/21)
 
-  - DaCy now have a stunningly looking documentation site 🌟
+  - DaCy now has a stunningly looking documentation site 🌟
 
 * 0.3.1 (01/06/21)
 
@@ -42,7 +42,7 @@ This website contains the documentation for DaCy as well as an introduction to h
 
 * 0.1.1 (24/03/21)
 
-  - DaCy included a wrapped version on major Danish sentiment analysis software including the models by DaNLP. As well as code for wrapping any sequence classification model into its pipeline 🤩
+  - DaCy includes a wrapped version of major Danish sentiment analysis software including the models by DaNLP, as well as code for wrapping any sequence classification model into its pipeline 🤩
   - Tutorials is added to introduce the above functionality
 
 * 0.0.1 (25/02/21)

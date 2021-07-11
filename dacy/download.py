@@ -42,7 +42,10 @@ def models() -> list:
 
 
 def download_model(
-    model: str, save_path: Optional[str] = None, force: bool = False, verbose: bool = True,
+    model: str,
+    save_path: Optional[str] = None,
+    force: bool = False,
+    verbose: bool = True,
 ) -> bool:
     """
     downloads a DaCy model to the specified save_path or to the default cache directory.
@@ -59,6 +62,8 @@ def download_model(
     Example:
         >>> download_model(model="da_dacy_medium_tft-0.0.0")
     """
+    if model in {"small", "medium", "large"}:
+        model = f"da_dacy_{model}_tft-0.0.0"
     if model not in models_url:
         raise ValueError(
             "The model is not available in DaCy. Please use dacy.models() to see a list of all models"
