@@ -9,8 +9,8 @@ To get started using DaCy simply install it using pip by running the following l
 
 Detailed instructions
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-The default installation of DaCy does not install danlp as it has a lot of dependencies that might collide with the packages you might wish to use. DaCy only uses danlp, for downloading its wrapped models for sentiment.
-If you wish to install danlp with dacy simply run:
+The default installation of DaCy does not install danlp as it has a lot of dependencies that might collide with the packages you might wish to use. DaCy only uses danlp for downloading its wrapped models for sentiment.
+If you wish to install danlp with dacy you can run:
 
 .. code-block::
 
@@ -24,7 +24,7 @@ You can also install DaCy directly from source using:
    cd DaCy
    pip install .
 
-or simply:
+or
 
 .. code-block::
 

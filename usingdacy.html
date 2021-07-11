@@ -177,32 +177,34 @@ of all available models:</p>
 <p>The name of the indicated language (<code class="code docutils literal notranslate"><span class="pre">da</span></code>), framework (<code class="code docutils literal notranslate"><span class="pre">dacy</span></code>), model size (e.g.
 <code class="code docutils literal notranslate"><span class="pre">small</span></code>), model type (<code class="code docutils literal notranslate"><span class="pre">tft</span></code>),and model version (<code class="code docutils literal notranslate"><span class="pre">0.0.0</span></code>)</p>
 </div>
-<p>From here we can now download a model simply using:</p>
+<p>From here we can now download a model using:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">)</span>
+<span class="c1"># or equivalently</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"medium"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Which will download the model to the <code class="code docutils literal notranslate"><span class="pre">.dacy</span></code> directory in your home directory.
-If the model is already downloaded this will simply load the model. To download
+If the model is already downloaded the model will be loaded. To download
 the model to a specific directory:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Just download</span>
 <span class="n">dacy</span><span class="o">.</span><span class="n">download_model</span><span class="p">(</span><span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">,</span> <span class="n">your_save_path</span><span class="p">)</span>
 <span class="c1"># Download and load</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">,</span> <span class="n">your_save_path</span><span class="p">)</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">,</span> <span class="n">your_save_path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Using this we can now apply DaCy to text using:</p>
+<p>Using this we can now apply DaCy to text with conventional SpaCy syntax:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering bygget i SpaCy."</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>DaCy is build using SpaCy, thus you will be able to find a lot of the required documentation for
+<p>DaCy is built using SpaCy, hence you will be able to find a lot of the required documentation for
 using the pipeline in their very well written documentation on their <a class="reference external" href="https://spacy.io">website</a></p>
 </div>
 <section id="tagging-named-entities">
 <h2>Tagging named entities<a class="headerlink" href="#tagging-named-entities" title="Permalink to this headline">¶</a></h2>
 <p>A named entity is a “real-world object” that’s assigned a name – for example, a person, a country, a product or a book title.
-DaCy can recognize organizations, persons, and location. As seen below is also includes a mixed category.</p>
+DaCy can recognize organizations, persons, and location, as well as other miscellaneous entities.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
    <span class="k">print</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="s2">":"</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
 <span class="c1"># DaCy : ORG</span>
@@ -252,7 +254,7 @@ DaCy can recognize organizations, persons, and location. As seen below is also i
 <h2>Dependency parsing<a class="headerlink" href="#dependency-parsing" title="Permalink to this headline">¶</a></h2>
 <p>DaCy features a fast and accurate syntactic dependency parser. In DaCy this dependency parsing is also
 used for sentence segmentation and detecting noun chunks.</p>
-<p>You can see the dependency of DaCy using:</p>
+<p>You can see the dependency tree using:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"DaCy er en effektiv pipeline til dansk fritekst."</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
@@ -267,7 +269,7 @@ used for sentence segmentation and detecting noun chunks.</p>
 </section>
 <section id="more-guides-and-tutorials">
 <h2>More guides and tutorials<a class="headerlink" href="#more-guides-and-tutorials" title="Permalink to this headline">¶</a></h2>
-<p>DaCy also include a couple of additional tutorials which are available as a notebook on Google’s Colab.</p>
+<p>DaCy also includes a couple of additional tutorials which are available as a notebook on Google’s Colab.</p>
 <div class="table-wrapper"><table class="docutils align-default">
 <colgroup>
 <col style="width: 18%"/>
