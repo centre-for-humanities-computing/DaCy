@@ -1,3 +1,7 @@
+"""
+Helper functions for loading name dictionary for person augmentation
+"""
+
 import os
 from typing import Dict, List, Optional
 import pandas as pd

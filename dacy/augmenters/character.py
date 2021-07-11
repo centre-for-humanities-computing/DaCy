@@ -1,5 +1,5 @@
 """
-This includes SpaCy augmenters for character level augmentation.
+SpaCy augmenters for character level augmentation.
 """
 
 

@@ -1,5 +1,5 @@
 """
-This includes functions for character augmentation based on keyboard layout.
+Functions for character augmentation based on keyboard layout.
 """
 
 from typing import Dict, Generator, Set, Tuple, List

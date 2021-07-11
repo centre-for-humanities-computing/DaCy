@@ -1,5 +1,5 @@
 """
-This includes a series of getters extensions for extracting sentiment.
+Getters extension for extracting sentiment.
 """
 
 from spacy.tokens import Doc

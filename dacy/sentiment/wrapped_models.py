@@ -1,6 +1,6 @@
 """
-this include functions for reading in the wrapped version of sentiment models inclduing DaNLP's sentiment model and Extra Bladet's senda. 
-This is not meant as a replace of preexisting frameworks, but simply as a convenient wrapper around preexisting architecture.
+Functions for reading in the wrapped version of sentiment models inclduing DaNLP's sentiment model and Extra Bladet's senda. 
+This is not meant as a replacement of existing frameworks, but simply as a convenient wrapper around preexisting architecture.
 """
 
 from spacy.language import Language
@@ -10,12 +10,13 @@ from dacy.subclasses import (
     add_huggingface_model,
 )
 
+
 def add_berttone_subjectivity(
     nlp: Language,
     verbose: bool = True,
     open_unverified_connection: bool = False,
     force_extension: bool = False,
-) -> Language:  
+) -> Language:
     """Adds the daNLP bertTone model for detecting whether a statement is subjective to the pipeline.
 
     Args:
@@ -145,7 +146,6 @@ def add_bertemotion_emo(
         open_unverified_connection=open_unverified_connection,
         force_extension=force_extension,
     )
-
 
 
 def add_senda(nlp: Language, force_extension: bool = False) -> Language:

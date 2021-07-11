@@ -1,5 +1,5 @@
 """
-This includes Danish specific SpaCy augmenters.
+Danish specific SpaCy augmenters.
 """
 
 from functools import partial

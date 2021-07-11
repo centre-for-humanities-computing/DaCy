@@ -1,5 +1,5 @@
 """
-This includes augmentation function for SpaCy, which augment persons (PERS) entities.
+Augmentation function for SpaCy which augments persons (PERS) entities.
 """
 
 import random
