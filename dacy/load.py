@@ -8,6 +8,7 @@ from spacy.language import Language
 
 from .download import download_model, DEFAULT_CACHE_DIR, models_url
 
+
 def load(model: str, path: Optional[str] = None) -> Language:
     """
     load a dacy model as a SpaCy text processing pipeline. If the model is not downloaded the it will download the model.
@@ -28,6 +29,8 @@ def load(model: str, path: Optional[str] = None) -> Language:
     if path is None:
         path = DEFAULT_CACHE_DIR
 
+    if model in {"small", "medium", "large"}:
+        model = f"da_dacy_{model}_tft-0.0.0"
     download_model(model, path)
     path = os.path.join(path, model)
     return spacy.load(path)
@@ -44,6 +47,7 @@ def where_is_my_dacy() -> str:
         >>> dacy.where_is_my_dacy()
     """
     return DEFAULT_CACHE_DIR
+
 
 def models() -> list:
     """
