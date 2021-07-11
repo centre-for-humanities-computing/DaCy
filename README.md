@@ -260,7 +260,7 @@ If you use this library in your research, please kindly cite:
 ```bibtex
 @inproceedings{dacy2021,
     title={DaCy: A Unified Framework for Danish NLP},
-    author={Enevoldsen, Kenneth and Hansen, Lasse and Nielbo Kristoffer},
+    author={Enevoldsen, Kenneth and Hansen, Lasse and Nielbo, Kristoffer},
     year={2021}
 }
 ```
