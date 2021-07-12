@@ -42,5 +42,4 @@ def add_iob(doc: Doc, iob: List[str]) -> Doc:
 def apply_on_multiple_examples(func: Callable) -> Callable:
     def inner(examples: Iterable[Example], **kwargs) -> Iterable[Example]:
         return [func(e, **kwargs) for e in examples]
-
     return inner

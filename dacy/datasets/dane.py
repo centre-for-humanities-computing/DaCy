@@ -5,9 +5,8 @@ This includes the DaNE dataset wrapped and read in as a SpaCy corpus.
 import os
 from pathlib import Path
 import shutil
-from typing import List, Optional, Union, Tuple
+from typing import List, Optional, Union
 
-from danlp.datasets import DDT
 from spacy.training import Corpus
 
 from ..download import DEFAULT_CACHE_DIR, download_url

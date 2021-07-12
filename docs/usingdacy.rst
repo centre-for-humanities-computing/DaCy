@@ -139,6 +139,14 @@ More guides and tutorials
    :width: 100pt
    :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb
 
+.. |colab_augm| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :width: 100pt
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-augmentation.ipynb
+
+.. |colab_robu| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :width: 100pt
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb
+
 
 .. |colab_clf| image:: https://colab.research.google.com/assets/colab-badge.svg
    :width: 100pt
@@ -146,12 +154,15 @@ More guides and tutorials
 
 DaCy also includes a couple of additional tutorials which are available as a notebook on Google's Colab.
 
-+--------------+-----------------------------------------------------------------+
-| Google Colab | Content                                                         |
-+==============+=================================================================+
-| |colab_sent| |  A simple introduction to the new sentiment features in DaCy.   | 
-+--------------+-----------------------------------------------------------------+
-| |colab_clf|  | A guide on how to wrap an already fine-tuned transformer and    |
-|              | add it to your SpaCy pipeline using DaCy helper functions.      |
-+--------------+-----------------------------------------------------------------+
-
++--------------+---------------------------------------------------------------------------+
+| Google Colab | Content                                                                   |
++==============+===========================================================================+
+| |colab_sent| |  A simple introduction to the new sentiment features in DaCy.             | 
++--------------+---------------------------------------------------------------------------+
+| |colab_augm| |  A guide on how to augment text using the DaCy augmenters.                | 
++--------------+---------------------------------------------------------------------------+
+| |colab_rubu| |  A guide on how to use augmenters to measure model robustness and biases. | 
++--------------+---------------------------------------------------------------------------+
+| |colab_clf|  | A guide on how to wrap an already fine-tuned transformer and              |
+|              | add it to your SpaCy pipeline using DaCy helper functions.                |
++--------------+---------------------------------------------------------------------------+
