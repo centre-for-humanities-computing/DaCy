@@ -76,7 +76,9 @@ html_context = {
     "conf_py_path": "/docs/",
 }
 
+
 html_static_path = ["_static"]
+html_favicon = 'favicon.ico'
 
 html_theme_options = {
     "light_logo": "icon.png",
