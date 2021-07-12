@@ -44,7 +44,7 @@ KEYBOARDS = {
 
 
 class Keyboard(BaseModel):
-    """A pydantic dataclass object for denoting Keyboard setup.
+    """A Pydantic dataclass object for constructing Keyboard setup.
 
     Args:
         keyboard_array (Dict[str, str]): An array corresponding to a keyboard.

@@ -17,7 +17,7 @@ def add_berttone_subjectivity(
     open_unverified_connection: bool = False,
     force_extension: bool = False,
 ) -> Language:
-    """Adds the daNLP bertTone model for detecting whether a statement is subjective to the pipeline.
+    """Adds the DaNLP BertTone model for detecting whether a statement is subjective to the pipeline.
 
     Args:
         nlp (Language): A spacy text-processing pipeline
@@ -48,7 +48,7 @@ def add_berttone_polarity(
     open_unverified_connection: bool = False,
     force_extension: bool = False,
 ) -> Language:
-    """Adds the daNLP bertTone model for classification of polarity to the pipeline.
+    """Adds the DaNLP BertTone model for classification of polarity to the pipeline.
 
     Args:
         nlp (Language): A spacy text-processing pipeline
@@ -80,8 +80,8 @@ def add_bertemotion_laden(
     force_extension: bool = False,
 ) -> Language:
     """
-    Adds the daNLP bertEmoiton model for classifying whether a text is
-    emotionally laden or not
+    Adds the DaNLP BertEmotion model for classifying whether a text is
+    emotionally laden or not.
 
     Args:
         nlp (Language): A spacy text-processing pipeline
@@ -113,7 +113,7 @@ def add_bertemotion_emo(
     force_extension: bool = False,
 ) -> Language:
     """
-    Adds the daNLP bertEmoiton model for emotion classification to the spacy language pipeline
+    Adds the DaNLP BertEmotion model for emotion classification to the spacy language pipeline.
 
     Args:
         nlp (Language): A spacy text-processing pipeline

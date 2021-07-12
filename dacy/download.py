@@ -48,11 +48,11 @@ def download_model(
     verbose: bool = True,
 ) -> bool:
     """
-    downloads a DaCy model to the specified save_path or to the default cache directory.
+    Downloads a DaCy model to the specified save_path or to the default cache directory.
 
     Args:
         model (str): string indicating DaCy model, use dacy.models() to get a list of models
-        save_path (str, optional): The path you want to save your model to. Defaults to None denoting the default cache directory. Which can be found using using dacy.where_is_my_dacy().
+        save_path (str, optional): The path you want to save your model to. Defaults to None denoting the default cache directory. This can be found using using dacy.where_is_my_dacy().
         force (bool, optional): Should it download the model regardless of it already being present? Defaults to False.
         verbose (bool): Toggles the verbosity of the function. Defaults to True.
 

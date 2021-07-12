@@ -21,7 +21,7 @@ from .keyboard import KEYBOARDS, Keyboard
 def create_char_swap_augmenter(
     doc_level: float, char_level: float
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Created an augmenter which augments by swapping to characters in a token.
+    """Creates an augmenter that swaps two characters in a token.
 
     Args:
         doc_level (float): probability to augment document.
@@ -37,7 +37,7 @@ def create_char_swap_augmenter(
 def create_spacing_augmenter(
     doc_level: float, spacing_level: float
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Created an augmenter which augments by removing spacing.
+    """Creates an augmenter that removes spacing.
 
     Args:
         doc_level (float): probability to augment document.
@@ -53,7 +53,7 @@ def create_spacing_augmenter(
 def create_char_random_augmenter(
     doc_level: float, char_level: float, keyboard: Union[str, Keyboard] = "QWERTY_EN"
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Created an augmenter which augments by replacing a character with a random character from the
+    """Creates an augmenter that replacies a character with a random character from the
     keyboard.
 
     Args:
@@ -86,7 +86,7 @@ def create_keyboard_augmenter(
     distance=1,
     keyboard: Union[str, Keyboard] = "QWERTY_EN",
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Create a document level augmenter using plausible typos based on keyboard distance.
+    """Creates a document level augmenter using plausible typos based on keyboard distance.
 
     Args:
         doc_level (float): probability to augment document.
@@ -115,7 +115,7 @@ def create_keyboard_augmenter(
 def create_char_replace_augmenter(
     doc_level: float, char_level: float, replacement: dict
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Created an augmenter which augments by replacing a character with a random character from the
+    """Creates an augmenter that replaces a character with a random character from the
     keyboard.
 
     Args:

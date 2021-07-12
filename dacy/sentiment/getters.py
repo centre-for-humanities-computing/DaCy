@@ -7,7 +7,7 @@ from .vaderSentiment_da import SentimentIntensityAnalyzer
 
 
 def da_vader_getter(doc: Doc, lemmatization: bool = True) -> dict:
-    """a getter function for extracting polarity using the Danish implementation of Vader
+    """A getter function for extracting polarity using the Danish implementation of Vader
 
     Args:
         doc (Doc): a SpaCy document
