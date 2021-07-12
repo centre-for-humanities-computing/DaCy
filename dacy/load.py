@@ -1,5 +1,5 @@
 """
-This includes a series of functionality for loading and locating DaCy models.
+Functionality for loading and locating DaCy models.
 """
 import os
 from typing import Optional
@@ -8,9 +8,10 @@ from spacy.language import Language
 
 from .download import download_model, DEFAULT_CACHE_DIR, models_url
 
+
 def load(model: str, path: Optional[str] = None) -> Language:
     """
-    load a dacy model as a SpaCy text processing pipeline. If the model is not downloaded the it will download the model.
+    Load a DaCy model as a SpaCy text processing pipeline. If the model is not downloaded it will also download the model.
 
     Args:
         model (str): the model you wish to load. To see available model see dacy.models()
@@ -22,12 +23,16 @@ def load(model: str, path: Optional[str] = None) -> Language:
     Example:
         >>> import dacy
         >>> dacy.load("da_dacy_medium_tft-0.0.0")
+        >>> # or equivalently
+        >>> dacy.load("medium")
     """
     import spacy
 
     if path is None:
         path = DEFAULT_CACHE_DIR
 
+    if model.lower() in {"small", "medium", "large"}:
+        model = f"da_dacy_{model}_tft-0.0.0"
     download_model(model, path)
     path = os.path.join(path, model)
     return spacy.load(path)
@@ -44,6 +49,7 @@ def where_is_my_dacy() -> str:
         >>> dacy.where_is_my_dacy()
     """
     return DEFAULT_CACHE_DIR
+
 
 def models() -> list:
     """

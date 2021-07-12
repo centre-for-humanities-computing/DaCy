@@ -1,5 +1,5 @@
 """
-This includes a series of functions for wrapping a sequence classification transformer in a SpaCy pipeline
+Functions for wrapping a sequence classification transformer in a SpaCy pipeline
 
 """
 

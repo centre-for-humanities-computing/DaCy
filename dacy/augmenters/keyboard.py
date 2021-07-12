@@ -1,5 +1,5 @@
 """
-This includes functions for character augmentation based on keyboard layout.
+Functions for character augmentation based on keyboard layout.
 """
 
 from typing import Dict, Generator, Set, Tuple, List
@@ -44,7 +44,7 @@ KEYBOARDS = {
 
 
 class Keyboard(BaseModel):
-    """A pydantic dataclass object for denoting Keyboard setup.
+    """A Pydantic dataclass object for constructing Keyboard setup.
 
     Args:
         keyboard_array (Dict[str, str]): An array corresponding to a keyboard.

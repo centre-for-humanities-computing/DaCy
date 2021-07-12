@@ -38,10 +38,10 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   - A test for biases and robustness in Danish NLP pipelines 🧐
   - DaCy is now officially supported by the [Centre for Humanities Computing](https://chcaa.io) at Aarhus University
 - 0.4.1 (03/06/21)
-  - DaCy now have a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even got a dark mode!
+  - DaCy now has a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even has a dark mode!
 - 0.3.1 (01/06/21)
   - DaCy's tests now cover 99% of its codebase 🎉
-  - DaCy's test suite is now being applied for all major operating systems instead of just Linux 👩‍💻
+  - DaCy's test suite is now applied for all major operating systems instead of just Linux 👩‍💻
 - 0.2.2 (25/05/21)
   - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
 - 0.2.1 (30/03/21)
@@ -51,7 +51,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   <summary>See older news items</summary>
 
 - 0.1.1 (24/03/21)
-  - DaCy included a wrapped version of major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
+  - DaCy includes a wrapped version of major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
   - Tutorials is added to introduce the above functionality
 - 0.0.1 (25/02/21)
   - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
@@ -100,6 +100,8 @@ for model in dacy.models():
 To download and load a model simply execute:
 ```python
 nlp = dacy.load("da_dacy_medium_tft-0.0.0")
+# or equivalently
+nlp = dacy.load("medium")
 ```
 
 Which will download the model to the `.dacy` directory in your home directory. 
@@ -115,7 +117,7 @@ For more on how to use DaCy please check out our [documentation](https://centre-
 
 # 👩‍🏫 Tutorials and documentation
 
-DaCy also includes a detailed documentation as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorials are located in the `tutorials` folder.
+DaCy includes detailed documentation as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorials are located in the `tutorials` folder.
 
 |                                                                                                                                                      | Content                                                                                                                    | Google Colab                                                                                                                                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -137,18 +139,18 @@ Stanza uses the spacy-stanza implementation. The speed on the DaNLP model is as 
 <details>
   <summary> Training and reproduction </summary>
 
-the folder `training` contains a SpaCy project which will allow for a reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information please see the training [readme](training/readme.md).
+the folder `training` contains a SpaCy project which will allow for reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information, please see the training [readme](training/readme.md).
 
 Want to learn more about how DaCy initially came to be, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
 </details>
 
 ## Robustness and Biases
-DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](missing).
+DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](https://centre-for-humanities-computing.github.io/DaCy/robustness.html).
 
 # 🤔 Issues and Usage Q&A
 
-To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Question related to SpaCy is kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
+To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
 
 ## FAQ
 
@@ -173,7 +175,7 @@ The performance metrics by DaNLP gives the model the 'gold standard' tokenizatio
 </details>
 
 <details>
-  <summary>How do i test the code and run the test suite?</summary>
+  <summary>How do I test the code and run the test suite?</summary>
 
 
 DaCy comes with an extensive test suite. In order to run the tests, you'll usually want to clone the repository and build DaCy from the source. This will also install the required development dependencies and test utilities defined in the requirements.txt.
@@ -188,14 +190,14 @@ python -m pytest
 
 which will run all the test in the `dacy/tests` folder.
 
-To run a specific test for instance if you wish to run the test on the readability functions, you can run:
+Specific tests can be run using:
 
 ```
 python -m pytest dacy/tests/test_readability.py
 ```
 
 **Code Coverage**
-If you want to check code coverage as well you can run the following:
+If you want to check code coverage you can run the following:
 ```
 pip install pytest-cov
 
@@ -251,16 +253,16 @@ python -m pytest--cov=.
 
 
 ## Acknowledgements
-DaCy is a result of great open-source software and contributors. It wouldn't have been possible without the work by the SpaCy team which developed an integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available and developing Ælæctra. A huge compliment also goes out to DaNLP which have made it easy to get access to Danish resources and even supplied some of the tagged data themselves.
+DaCy is a result of great open-source software and contributors. It wouldn't have been possible without the work by the SpaCy team which developed and integrated the software. Huggingface for developing Transformers and making model sharing convenient. BotXO for training and sharing the Danish BERT model and [Malte Hojmark-Bertelsen](https://github.com/MalteHB) for making it easily available and developing Ælæctra. A huge compliment also goes out to DaNLP which have made it easy to get access to Danish resources and even supplied some of the tagged data themselves.
 
 ## References
 
-If you use this library in your research, please kindly cite:
+If you use this library in your research, please cite:
 
 ```bibtex
 @inproceedings{dacy2021,
     title={DaCy: A Unified Framework for Danish NLP},
-    author={Enevoldsen, Kenneth},
+    author={Enevoldsen, Kenneth and Hansen, Lasse and Nielbo, Kristoffer},
     year={2021}
 }
 ```

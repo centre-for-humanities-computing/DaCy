@@ -1,3 +1,7 @@
+"""
+Helper functions for loading name dictionaries for person augmentation.
+"""
+
 import os
 from typing import Dict, List, Optional
 import pandas as pd
@@ -10,19 +14,19 @@ def load_names(
     min_prop_gender: float = 0,
 ) -> Dict[str, List[str]]:
     """
-    Loads the names lookup table. Danish is derived from Danmarks statistik (2021).
-    Muslim names are derived from Meldgaard (2005), https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
+    Loads the names lookup table. Danish are from Danmarks statistik (2021).
+    Muslim names are from Meldgaard (2005), https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
 
     Args:
-        min_count (int, optional): Minimum number of occurances of the name for it to be included.
+        min_count (int, optional): Minimum number of occurences of the name for it to be included.
             Defaults to 0.
         ethnicity (Optional[str], optional): Which ethnicity should be included. None indicate all is
             included. Options include "muslim", "danish". Defaults to None.
         gender (Optional[str], optional): Which gender should be included. None indicate all is included.
             Options include "male", "female". Defaults to None.
-        min_prop_gender (float): minimum probability of a names being a given gender. The probability of a
+        min_prop_gender (float): minimum probability of a name being a given gender. The probability of a
             given name being a
-            specific gender is based on the proportion of people with the given name is that gender. Only
+            specific gender is based on the proportion of people with the given name of that gender. Only
             used when gender is set. Defaults to 0.
 
     Returns:

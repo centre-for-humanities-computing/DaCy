@@ -1,10 +1,11 @@
 """
-This include convenient wrapper functions for wrapping DaNLP and Huggingface models in a SpaCy text processing pipeline.
+Convenient wrapper functions for wrapping DaNLP and Huggingface models in a SpaCy text processing pipeline.
 """
 
 from .classification_transformer import install_classification_extensions
 import os
 from spacy.language import Language
+
 
 def add_huggingface_model(
     nlp: Language,
@@ -96,8 +97,9 @@ def add_danlp_model(
         from danlp.download import _unzip_process_func
         from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
     except ModuleNotFoundError as e:
-        raise ModuleNotFoundError(f"{e}: This typically happens as you need additional packages to run parts of DaNLP. Installing them should solve the issue this can be done using ´pip install danlp[all]´.")
-
+        raise ModuleNotFoundError(
+            f"{e}: This typically happens as you need additional packages to run parts of DaNLP. Installing them should solve the issue this can be done using ´pip install danlp[all]´."
+        )
 
     if open_unverified_connection:
         import ssl

@@ -1,5 +1,5 @@
 """
-This includes augmentation function for SpaCy, which augment persons (PERS) entities.
+Augmentation function for SpaCy which augments persons (PER) entities.
 """
 
 import random
@@ -18,32 +18,37 @@ from .utils import make_text_from_orth
 @spacy.registry.augmenters("pers_augmenter.v1")
 def create_pers_augmenter(
     ent_dict: Dict[str, List[str]],
-    patterns: List[str] = ["fn,ln", "abbpunct,ln"],
+    patterns: List[str],
+    force_pattern_size: bool,
+    keep_name: bool,
     patterns_prob: Optional[List[float]] = None,
-    force_pattern_size: bool = False,
-    keep_name: bool = True,
     prob: float = 1,
 ) -> Callable[[Language, Example], Iterator[Example]]:
     """Create person augmenter
 
     Args:
         ent_dict (Dict[str, List[str]]): A dictionary with keys "first_name" and "last_name". Values should be a list of names to sample from.
-        patterns (List[float, optional): The patterns to replace names with.
-            Will choose one at random if more than one, optionally weighted by pattern_probs
-            Options: "fn", "ln", "abb", "abbpunct". Defaults to ["fn,ln","abbpunct,ln"].
+        patterns (List[str]): The patterns to replace names with. Should be a list of strings with each pattern in a string separated by a comma.
+            Will choose one at random if more than one, optionally weighted by pattern_probs.
+            Options: "fn", "ln", "abb", "abbpunct". .
             "fn" = first name
             "ln" = last name
             "abb" = abbreviate to first character (e.g. Lasse -> L)
-            "abbpunct" = abbreviate to first character including punctuation (e.g. Lasse -> L.)
+            "abbpunct" = abbreviate to first character including punctuation (e.g. Lasse -> L.).
+            Patterns can be arbitrarily combined, e.g. ["fn,ln", "abbpunct,ln,ln,ln"]
+        force_pattern_size (bool): Whether to force entities to have the same format/length as the pattern. Defaults to False.
+        keep_name (bool): Whether to use the current name or sample from ent_dict. I.e., if True, will only augment if the pattern is "abb" or "abbpunct",
+            if False, will sample new names from ent_dict. Defaults to True.
         patterns_prob (List[float]). Weights for the patterns, must be None or have same lengths as pattern.
             Defaults to None (equal weights)
-        force_pattern_size (bool, optional): Whether to force entities to have the same format/length as the pattern. Defaults to False.
-        keep_name (bool, optional): Whether to use the current name or sample from ent_dict. I.e., if True, will only augment if the pattern is "abb" or "abbpunct",
-            if False, will sample new names from ent_dict. Defaults to True.
         prob (float, optional): which proportion of entities to augment. Defaults to 1.
 
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The augmenter
+
+    >>> from dacy.dataset import danish_names
+    >>> name_dict = danish_names()
+    >>> pers_aug = create_pers_augmenter(name_dict, patterns=["fn,ln","abbpunct,ln"], force_pattern_size=True, keep_name=False)
     """
     return partial(
         pers_augmenter,
@@ -103,7 +108,7 @@ def augment_entity(
     prob: float,
 ) -> List[List[str]]:
     """Augment entities. For each entity to augment, randomly sample a pattern
-    and apply transformation to the entity.
+    and apply transformation to the entity. See create_pers_augmenter.
 
     Examples:
         >>> entities = [["Lasse", "Hansen"], ["Kenneth", "Christian", "Enevoldsen"]]

@@ -79,9 +79,10 @@ def score(
 
     Example:
         >>> from spacy.training.augment import create_lower_casing_augmenter
-        >>> train, dev, test = dacy.datasets.dane(predefined_splits=True)
+        >>> from dacy.datasets import dane
+        >>> test = dane(splits=["test")
         >>> nlp = dacy.load("da_dacy_small_tft-0.0.0")
-        >>> scores = scores(test, augmenter=[create_lower_casing_augmenter(0.5)], apply_fn = nlp)
+        >>> scores = score(test, augmenter=[create_lower_casing_augmenter(0.5)], apply_fn = nlp)
     """
     if callable(augmenters):
         augmenters = [augmenters]
