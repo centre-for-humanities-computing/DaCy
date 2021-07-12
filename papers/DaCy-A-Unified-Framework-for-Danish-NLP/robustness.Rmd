@@ -129,7 +129,7 @@ names_to = c("SpaCy large", "SpaCy medium", "DaCy large", "DaCy medium", "DaNLP 
 aug_names_from = c("No augmentation", "Æøå Augmentation", "Lowercase", "Input size augmentation 5 sentences",
                    "Input size augmentation 10 sentences", "Abbreviated first names", "Danish names", 
                    "Muslim names", "Female names", "Male names", "Keystroke errors 2%", "Keystroke errors 5%", "Keystroke errors 15%") 
-aug_names_to = c("baseline", "Æøå", "Lowercase", "5 sentences",
+aug_names_to = c("Baseline", "Æøå", "Lowercase", "5 sentences",
                    "10 sentences", "Abbreviated", "Danish", 
                    "Muslim", "Female", "Male", "2%", "5%", "15%") 
 
