@@ -1,0 +1,291 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="generator" content="sphinx-4.1.0, furo 2021.07.05.beta38"/>
+        <title>dacy.datasets.dane - DaCy 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css" />
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  .override-dark {
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+  }
+</style><link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">DaCy 1.0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingdacy.html">Using DaCy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">General performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../robustness.html">Robustness and Biases</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.sentiment.html">Sentiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.augmenters.html">Augmenters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.readability.html">Readability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.subclasses.html">Subclasses</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for dacy.datasets.dane</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">This includes the DaNE dataset wrapped and read in as a SpaCy corpus.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">spacy.training</span> <span class="k">import</span> <span class="n">Corpus</span>
+
+<span class="kn">from</span> <span class="nn">..download</span> <span class="k">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_url</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">DATASETS</span>
+
+
+<div class="viewcode-block" id="dane"><a class="viewcode-back" href="../../../dacy.datasets.html#dacy.datasets.dane.dane">[docs]</a><span class="k">def</span> <span class="nf">dane</span><span class="p">(</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">splits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"train"</span><span class="p">,</span> <span class="s2">"dev"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">],</span>
+    <span class="n">redownload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">n_sents</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Corpus</span><span class="p">],</span> <span class="n">Corpus</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Reads the DaNE dataset as a spacy Corpus.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        save_path (str, optional): Path to the DaNE dataset If it does not contain the dataset it</span>
+<span class="sd">            is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.</span>
+<span class="sd">        splits (List[str], optional): Which splits of the dataset should be returned. Possible options include "train", "dev", "test", "all".</span>
+<span class="sd">            Defaults to ["train", "dev", "test"]. </span>
+<span class="sd">        redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.</span>
+<span class="sd">        n_sents (int, optional): Number of sentences per document. Only applied if the dataset is downloaded. Defaults to 1.</span>
+<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
+<span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Union[List[Corpus], Corpus]: Returns a SpaCy corpus or a list thereof.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import dacy</span>
+<span class="sd">        &gt;&gt;&gt; train, dev, test = dacy.datasets.dane(splits=["train", "dev", "test"])</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">open_unverified_connection</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">ssl</span>
+
+        <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+
+    <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">save_path_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="s2">"datasets"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">save_path_</span> <span class="o">=</span> <span class="n">save_path</span>
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path_</span><span class="p">,</span> <span class="s2">"dane"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="p">(</span><span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">save_path</span><span class="p">))</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="s2">"dane"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">save_path_</span><span class="p">))</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">redownload</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">dl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s2">"dane.zip"</span><span class="p">)</span>
+        <span class="n">download_url</span><span class="p">(</span><span class="n">DATASETS</span><span class="p">[</span><span class="s2">"dane"</span><span class="p">],</span> <span class="n">dl_path</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">dl_path</span><span class="p">,</span> <span class="n">save_path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dl_path</span><span class="p">)</span>
+
+    <span class="n">wpaths</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"dane_train.conllu"</span><span class="p">,</span>
+        <span class="s2">"dane_dev.conllu"</span><span class="p">,</span>
+        <span class="s2">"dane_test.conllu"</span><span class="p">,</span>
+        <span class="s2">"dane.conllu"</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">wpath</span> <span class="ow">in</span> <span class="n">wpaths</span><span class="p">:</span>
+        <span class="n">wpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">wpath</span><span class="p">)</span>
+        <span class="n">cpath</span> <span class="o">=</span> <span class="n">wpath</span><span class="p">[:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">f</span><span class="s2">"_</span><span class="si">{n_sents}</span><span class="s2">"</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">cpath</span> <span class="o">+</span> <span class="s2">".spacy"</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">cpath</span> <span class="o">+=</span> <span class="s2">".conllu"</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">wpath</span><span class="p">,</span> <span class="n">cpath</span><span class="p">)</span>
+        <span class="c1"># convert to spacy</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">"python -m spacy convert </span><span class="si">{cpath}</span><span class="s2"> </span><span class="si">{save_path}</span><span class="s2"> --converter conllu --merge-subtokens -n </span><span class="si">{n_sents}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cpath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="n">splits</span><span class="p">]</span>
+    <span class="n">corpora</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"all"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">,</span>
+        <span class="s2">"test"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_test_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">,</span>
+        <span class="s2">"dev"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_dev_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">,</span> 
+        <span class="s2">"train"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_train_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
+        <span class="n">corpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Corpus</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">[</span><span class="n">split</span><span class="p">])))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpora</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">corpora</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">corpora</span></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Kenneth Enevoldsen
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>

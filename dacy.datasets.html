@@ -7,7 +7,7 @@
   <meta property="og:title" content="Datasets" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="dacy.datasets.html" />
-  <meta property="og:description" content="dacy.datasets.dane: dacy.datasets.names:" />
+  <meta property="og:description" content="dacy.datasets.dane: This includes the DaNE dataset wrapped and read in as a SpaCy corpus. dacy.datasets.names: Helper functions for loading name dictionaries for person augmentation." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Sentiment" href="dacy.sentiment.html" /><link rel="prev" title="Downloading and Loading" href="download.html" />
 
     <meta name="generator" content="sphinx-4.1.0, furo 2021.07.05.beta38"/>
@@ -162,11 +162,155 @@
         </label>
         <section id="datasets">
 <h1>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h1>
-<section id="dacy-datasets-dane">
-<h2>dacy.datasets.dane<a class="headerlink" href="#dacy-datasets-dane" title="Permalink to this headline">¶</a></h2>
+<section id="module-dacy.datasets.dane">
+<span id="dacy-datasets-dane"></span><h2>dacy.datasets.dane<a class="headerlink" href="#module-dacy.datasets.dane" title="Permalink to this headline">¶</a></h2>
+<p>This includes the DaNE dataset wrapped and read in as a SpaCy corpus.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.datasets.dane.dane">
+<span class="sig-prename descclassname"><span class="pre">dacy.datasets.dane.</span></span><span class="sig-name descname"><span class="pre">dane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">['train',</span> <span class="pre">'dev',</span> <span class="pre">'test']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.training.corpus.Corpus</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">spacy.training.corpus.Corpus</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/dacy/datasets/dane.html#dane"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.dane.dane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the DaNE dataset as a spacy Corpus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the DaNE dataset If it does not contain the dataset it
+is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.</p></li>
+<li><p><strong>splits</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Which splits of the dataset should be returned. Possible options include “train”, “dev”, “test”, “all”.
+Defaults to [“train”, “dev”, “test”].</p></li>
+<li><p><strong>redownload</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should the dataset be redownloaded. Defaults to False.</p></li>
+<li><p><strong>n_sents</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of sentences per document. Only applied if the dataset is downloaded. Defaults to 1.</p></li>
+<li><p><strong>open_unverified_connection</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should you download from an unverified connection. Defaults to False.</p></li>
+<li><p><strong>force_extension</strong> (<em>bool</em><em>, </em><em>optional</em>) – Set the extension to the doc regardless of whether it already exists. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a SpaCy corpus or a list thereof.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[List[Corpus], Corpus]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dacy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train</span><span class="p">,</span> <span class="n">dev</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">dane</span><span class="p">(</span><span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="s2">"train"</span><span class="p">,</span> <span class="s2">"dev"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
 </section>
-<section id="dacy-datasets-names">
-<h2>dacy.datasets.names<a class="headerlink" href="#dacy-datasets-names" title="Permalink to this headline">¶</a></h2>
+<section id="module-dacy.datasets.names">
+<span id="dacy-datasets-names"></span><h2>dacy.datasets.names<a class="headerlink" href="#module-dacy.datasets.names" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions for loading name dictionaries for person augmentation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.datasets.names.danish_names">
+<span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">danish_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/dacy/datasets/names.html#danish_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.danish_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of Danish names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of Danish names containing the keys “first_name” and “last_name”. The list is derived from Danmarks statistik (2021).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="k">import</span> <span class="n">danish_names</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="n">danish_names</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"first_name"</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"last_name"</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.datasets.names.female_names">
+<span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">female_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/dacy/datasets/names.html#female_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.female_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of Danish female names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of names containing the keys “first_name” and “last_name”. The list is derived from Danmarks statistik (2021).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="k">import</span> <span class="n">female_names</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="n">female_names</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"first_name"</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"last_name"</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.datasets.names.load_names">
+<span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">load_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ethnicity</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gender</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_prop_gender</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/dacy/datasets/names.html#load_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.load_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the names lookup table. Danish are from Danmarks statistik (2021).
+Muslim names are from Meldgaard (2005), <a class="reference external" href="https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/">https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_count</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum number of occurences of the name for it to be included.
+Defaults to 0.</p></li>
+<li><p><strong>ethnicity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Which ethnicity should be included. None indicate all is
+included. Options include “muslim”, “danish”. Defaults to None.</p></li>
+<li><p><strong>gender</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Which gender should be included. None indicate all is included.
+Options include “male”, “female”. Defaults to None.</p></li>
+<li><p><strong>min_prop_gender</strong> (<em>float</em>) – minimum probability of a name being a given gender. The probability of a
+given name being a
+specific gender is based on the proportion of people with the given name of that gender. Only
+used when gender is set. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary of Muslim names containing the keys “first_name” and “last_name”.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict[str, List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.datasets.names.male_names">
+<span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">male_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/dacy/datasets/names.html#male_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.male_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of Danish male names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of names containing the keys “first_name” and “last_name”. The list is derived from Danmarks statistik (2021).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="k">import</span> <span class="n">male_names</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="n">male_names</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"first_name"</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"last_name"</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.datasets.names.muslim_names">
+<span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">muslim_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/dacy/datasets/names.html#muslim_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.muslim_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of Muslim names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A dictionary of Muslim names containing the keys “first_name” and “last_name”. The list is derived from Meldgaard (2005),</dt><dd><p><a class="reference external" href="https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/">https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/</a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="k">import</span> <span class="n">muslim_names</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="n">muslim_names</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"first_name"</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="s2">"last_name"</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
 </section>
 </section>
 
@@ -225,8 +369,8 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Datasets</a><ul>
-<li><a class="reference internal" href="#dacy-datasets-dane">dacy.datasets.dane</a></li>
-<li><a class="reference internal" href="#dacy-datasets-names">dacy.datasets.names</a></li>
+<li><a class="reference internal" href="#module-dacy.datasets.dane">dacy.datasets.dane</a></li>
+<li><a class="reference internal" href="#module-dacy.datasets.names">dacy.datasets.names</a></li>
 </ul>
 </li>
 </ul>

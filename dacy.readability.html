@@ -7,7 +7,7 @@
   <meta property="og:title" content="Readability" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="dacy.readability.html" />
-  <meta property="og:description" content="dacy.readability.readability:" />
+  <meta property="og:description" content="dacy.readability.readability: Functionality for extracting readability measures from text." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Subclasses" href="dacy.subclasses.html" /><link rel="prev" title="Augmenters" href="dacy.augmenters.html" />
 
     <meta name="generator" content="sphinx-4.1.0, furo 2021.07.05.beta38"/>
@@ -162,8 +162,32 @@
         </label>
         <section id="readability">
 <h1>Readability<a class="headerlink" href="#readability" title="Permalink to this headline">¶</a></h1>
-<section id="dacy-readability-readability">
-<h2>dacy.readability.readability<a class="headerlink" href="#dacy-readability-readability" title="Permalink to this headline">¶</a></h2>
+<section id="module-dacy.readability.readability">
+<span id="dacy-readability-readability"></span><h2>dacy.readability.readability<a class="headerlink" href="#module-dacy.readability.readability" title="Permalink to this headline">¶</a></h2>
+<p>Functionality for extracting readability measures from text.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="dacy.readability.readability.LIX_getter">
+<span class="sig-prename descclassname"><span class="pre">dacy.readability.readability.</span></span><span class="sig-name descname"><span class="pre">LIX_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/dacy/readability/readability.html#LIX_getter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.readability.readability.LIX_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the LIX score from a doc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>doc</strong> (<em>Doc</em>) – A SpaCy document</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the LIX score for the document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="k">import</span> <span class="n">Doc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"LIX"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">dacy</span><span class="o">.</span><span class="n">readability</span><span class="o">.</span><span class="n">LIX_getter</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"Dette er en simpel tekst"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">LIX</span>  <span class="c1"># extrac the LIX score from your document</span>
+</pre></div>
+</div>
+</dd></dl>
 </section>
 </section>
 
@@ -222,7 +246,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Readability</a><ul>
-<li><a class="reference internal" href="#dacy-readability-readability">dacy.readability.readability</a></li>
+<li><a class="reference internal" href="#module-dacy.readability.readability">dacy.readability.readability</a></li>
 </ul>
 </li>
 </ul>
