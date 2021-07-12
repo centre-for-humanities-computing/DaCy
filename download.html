@@ -10,7 +10,7 @@
   <meta property="og:description" content="These include methods for downloading DaCy models and loading them into memory. dacy.download: Functions for downloading DaCy models. dacy.load: Functionality for loading and locating DaCy models." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Datasets" href="dacy.datasets.html" /><link rel="prev" title="Robustness and Biases" href="robustness.html" />
 
-    <meta name="generator" content="sphinx-4.0.3, furo 2021.07.05.beta38"/>
+    <meta name="generator" content="sphinx-4.1.0, furo 2021.07.05.beta38"/>
         <title>Downloading and Loading - DaCy 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
@@ -125,17 +125,17 @@
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption"><span class="caption-text">Getting Started</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingdacy.html">Using DaCy</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Performance</span></p>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">General performance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="robustness.html">Robustness and Biases</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Downloading and Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
@@ -168,13 +168,13 @@
 <p>Functions for downloading DaCy models.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.download.download_model">
-<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="headerlink" href="#dacy.download.download_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads a DaCy model to the specified save_path or to the default cache directory.</p>
+<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#dacy.download.download_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a DaCy model to the specified save_path or to the default cache directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<em>str</em>) – string indicating DaCy model, use dacy.models() to get a list of models</p></li>
-<li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path you want to save your model to. Defaults to None denoting the default cache directory. Which can be found using using dacy.where_is_my_dacy().</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path you want to save your model to. Defaults to None denoting the default cache directory. This can be found using using dacy.where_is_my_dacy().</p></li>
 <li><p><strong>force</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should it download the model regardless of it already being present? Defaults to False.</p></li>
 <li><p><strong>verbose</strong> (<em>bool</em>) – Toggles the verbosity of the function. Defaults to True.</p></li>
 </ul>
@@ -190,7 +190,7 @@
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.download.models">
-<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">list</span><a class="headerlink" href="#dacy.download.models" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dacy.download.models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of valid DaCy models</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -207,8 +207,8 @@
 <p>Functionality for loading and locating DaCy models.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.load.load">
-<span class="sig-prename descclassname"><span class="pre">dacy.load.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> → <span class="pre">spacy.language.Language</span><a class="headerlink" href="#dacy.load.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>load a dacy model as a SpaCy text processing pipeline. If the model is not downloaded the it will download the model.</p>
+<span class="sig-prename descclassname"><span class="pre">dacy.load.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">spacy.language.Language</span></span></span><a class="headerlink" href="#dacy.load.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a DaCy model as a SpaCy text processing pipeline. If the model is not downloaded it will also download the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -226,12 +226,14 @@
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dacy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or equivalently</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"medium"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.load.models">
-<span class="sig-prename descclassname"><span class="pre">dacy.load.</span></span><span class="sig-name descname"><span class="pre">models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">list</span><a class="headerlink" href="#dacy.load.models" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dacy.load.</span></span><span class="sig-name descname"><span class="pre">models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#dacy.load.models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of valid DaCy models</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -249,7 +251,7 @@
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.load.where_is_my_dacy">
-<span class="sig-prename descclassname"><span class="pre">dacy.load.</span></span><span class="sig-name descname"><span class="pre">where_is_my_dacy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> → <span class="pre">str</span><a class="headerlink" href="#dacy.load.where_is_my_dacy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dacy.load.</span></span><span class="sig-name descname"><span class="pre">where_is_my_dacy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#dacy.load.where_is_my_dacy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a path to where DaCy models are located</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
