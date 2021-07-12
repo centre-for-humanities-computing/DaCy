@@ -16,9 +16,9 @@ This website contains the documentation for DaCy as well as an introduction to h
 
   -  DaCy version 1.0.0 releases as the first version to pypi! 📦
 
-    - Including a series of augmenters with a few specifically designed for Danish
-    - Code for behavioural tests of NLP pipelines
-    - A new tutorial for both 📖
+     * Including a series of augmenters with a few specifically designed for Danish
+     * Code for behavioural tests of NLP pipelines
+     * And new tutorials for both 📖
 
   - A new beautiful hand-drawn logo 🤩
   - A behavioural test for biases and robustness in Danish NLP pipelines 🧐
