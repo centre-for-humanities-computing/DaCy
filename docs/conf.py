@@ -15,6 +15,8 @@ import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, "..")
+sys.path.insert(0, os.path.abspath("../"))
+
 
 from dacy.about import __version__
 
@@ -40,6 +42,8 @@ extensions = [
     "sphinx_copybutton",
     "sphinx.ext.githubpages",
 ]
+
+# autodoc_mock_imports = ["dacy"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
