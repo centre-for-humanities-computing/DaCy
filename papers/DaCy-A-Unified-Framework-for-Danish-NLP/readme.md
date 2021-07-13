@@ -6,7 +6,7 @@ Danish natural language processing (NLP) has in recent years obtained considerab
 
 ## Reading the paper
 
-Read the paper on arXiv (here)[https://arxiv.org/abs/2107.05295].
+Read the paper on arXiv [here](https://arxiv.org/abs/2107.05295).
 
 ## Reproducing the Paper
 
