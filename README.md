@@ -259,13 +259,16 @@ DaCy is a result of great open-source software and contributors. It wouldn't hav
 
 ## References
 
-If you use this library in your research, please cite:
+If you use this library in your research, please cite the [paper](https://arxiv.org/abs/2107.05295):
 
 ```bibtex
-@inproceedings{dacy2021,
-    title={DaCy: A Unified Framework for Danish NLP},
-    author={Enevoldsen, Kenneth and Hansen, Lasse and Nielbo, Kristoffer},
-    year={2021}
+@misc{enevoldsen2021dacy,
+      title={DaCy: A Unified Framework for Danish NLP}, 
+      author={Kenneth Enevoldsen and Lasse Hansen and Kristoffer Nielbo},
+      year={2021},
+      eprint={2107.05295},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
 }
 ```
 
