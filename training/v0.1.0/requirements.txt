@@ -1,0 +1,9 @@
+cupy-cuda102
+spacy[cuda-102]
+thinc[torch]
+spacy-transformers
+
+wandb
+danlp
+pandas
+conllu
