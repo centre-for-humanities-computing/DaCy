@@ -27,10 +27,11 @@ vars:
   package_version: "0.1.0"
   gpu: 0
   spacy_version: ">=3.1.0"
+  virtual_env: "dacy"
 
 # These are the directories that the project needs. The project CLI will make
 # sure that they always exist.
-directories: ["assets", "corpus", "training", "metrics", "packages"]
+directories: ["assets", "corpus", "training_small", "training_medium", "training_large", "metrics", "packages"]
 
 assets:
   - dest: "assets/${vars.dataset}"
@@ -39,29 +40,36 @@ assets:
     - "python utils.py"
 
 workflows:
-  all_large:
+  large:
     - install
     - fetch_assets
     - convert
     - train_dacy_large
-    - evaluate
+    - evaluate_large
     - package_name_large
 
-  all_medium:
+  medium:
     - install
     - fetch_assets
     - convert
     - train_dacy_medium
-    - evaluate
+    - evaluate_medium
     - package_name_medium
 
-  all_small:
+  small:
     - install
     - fetch_assets
     - convert
     - train_dacy_small
-    - evaluate
+    - evaluate_small
     - package_name_small
+
+  all:
+    - install
+    - fetch_assets
+    - convert
+    - train_all
+
 
 commands:
   - name: install
@@ -106,70 +114,102 @@ commands:
   - name: train_dacy_small
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_small.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "mkdir -p training/small"
+      - "python -m spacy train configs/${vars.config}_small.cfg --output training/small/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
       - "configs/${vars.config}_small.cfg"
     outputs:
-      - "training/${vars.dataset}/model-last"
+      - "training/small/${vars.dataset}/model-last"
 
   - name: train_dacy_medium
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "mkdir -p training/medium"
+      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/medium/${vars.dataset} --gpu-id 1 --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
       - "configs/${vars.config}_medium.cfg"
     outputs:
-      - "training/${vars.dataset}/model-last"
+      - "training7medium/${vars.dataset}/model-last"
 
   - name: train_dacy_large
     help: "Train ${vars.dataset}"
     script:
-      - "python -m spacy train configs/${vars.config}_large.cfg --output training/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "mkdir -p training/large"
+      - "python -m spacy train configs/${vars.config}_large.cfg --output training/large/${vars.dataset} --gpu-id 2 --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
       - "configs/${vars.config}_large.cfg"
     outputs:
-      - "training/${vars.dataset}/model-last"
+      - "training/large/${vars.dataset}/model-last"
 
-  - name: evaluate
+  - name: evaluate_small
     help: "Evaluate on the test data and save the metrics"
     script:
-      - "python -m spacy evaluate ./training/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}.json --gpu-id ${vars.gpu}"
+      - "python -m spacy evaluate ./training/small/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_small_last_${vars.package_name_small}-${vars.package_version}.json --gpu-id 1"
+      - "python -m spacy evaluate ./training/small/${vars.dataset}/model-best ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_small_best_${vars.package_name_small}-${vars.package_version}.json --gpu-id 1"
     deps:
-      - "training/${vars.dataset}/model-last"
+      - "training/small/${vars.dataset}/model-last"
+      - "training/small/${vars.dataset}/model-best"
       - "corpus/${vars.dataset}/test.spacy"
     outputs:
-      - "metrics/${vars.dataset}.json"
+      - "metrics/${vars.dataset}_small_best_${vars.package_name_small}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_small_last_${vars.package_name_small}-${vars.package_version}.json"
+
+  - name: evaluate_medium
+    help: "Evaluate on the test data and save the metrics"
+    script:
+      - "python -m spacy evaluate ./training/medium/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_last_${vars.package_name_medium}-${vars.package_version}.json --gpu-id 1"
+      - "python -m spacy evaluate ./training/medium/${vars.dataset}/model-best ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_best_${vars.package_name_medium}-${vars.package_version}.json --gpu-id 1"
+    deps:
+      - "training/medium/${vars.dataset}/model-last"
+      - "training/medium/${vars.dataset}/model-best"
+      - "corpus/${vars.dataset}/test.spacy"
+    outputs:
+      - "metrics/${vars.dataset}_best_${vars.package_name_medium}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_last_${vars.package_name_medium}-${vars.package_version}.json"
+
+  - name: evaluate_large
+    help: "Evaluate on the test data and save the metrics"
+    script:
+      - "python -m spacy evaluate ./training/large/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_last_${vars.package_name_large}-${vars.package_version}.json --gpu-id 1"
+      - "python -m spacy evaluate ./training/large/${vars.dataset}/model-best ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_best_${vars.package_name_large}-${vars.package_version}.json --gpu-id 1"
+    deps:
+      - "training/large/${vars.dataset}/model-last"
+      - "training/large/${vars.dataset}/model-best"
+      - "corpus/${vars.dataset}/test.spacy"
+    outputs:
+      - "metrics/${vars.dataset}_best_${vars.package_name_large}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_last_${vars.package_name_large}-${vars.package_version}.json"
 
   - name: package_name_small
     help: "Package the trained model so it can be installed"
     script:
-      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_small} --version ${vars.package_version} --force"
+      - "python -m spacy package training/small/${vars.dataset}/model-last packages --name ${vars.package_name_small} --version ${vars.package_version} --force"
     deps:
-      - "training/${vars.dataset}/model-last"
+      - "training/small/${vars.dataset}/model-last"
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.package_name_small}-${vars.package_version}/dist/en_${vars.package_name_small}-${vars.package_version}.tar.gz"
 
   - name: package_name_medium
     help: "Package the trained model so it can be installed"
     script:
-      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_medium} --version ${vars.package_version} --force"
+      - "python -m spacy package training/medium/${vars.dataset}/model-last packages --name ${vars.package_name_medium} --version ${vars.package_version} --force"
     deps:
-      - "training/${vars.dataset}/model-last"
+      - "training/medium/${vars.dataset}/model-last"
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.package_name_medium}-${vars.package_version}/dist/en_${vars.package_name_medium}-${vars.package_version}.tar.gz"
 
   - name: package_name_large
     help: "Package the trained model so it can be installed"
     script:
-      - "python -m spacy package training/${vars.dataset}/model-last packages --name ${vars.package_name_large} --version ${vars.package_version} --force"
+      - "python -m spacy package training/large/${vars.dataset}/model-last packages --name ${vars.package_name_large} --version ${vars.package_version} --force"
     deps:
-      - "training/${vars.dataset}/model-last"
+      - "training/large/${vars.dataset}/model-last"
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.package_name_large}-${vars.package_version}/dist/en_${vars.package_name_large}-${vars.package_version}.tar.gz"
 
@@ -181,3 +221,33 @@ commands:
       - "rm -rf metrics/*"
       - "rm -rf corpus/*"
 
+
+  - name: train_all
+    help: "Trains all models on ${vars.dataset}"
+    script:
+      - "screen -d -m workon ${dacy}; spacy project run small"
+      - "screen -d -m workon ${dacy}; spacy project run medium"
+      - "screen -d -m workon ${dacy}; spacy project run large"
+    deps:
+      - "corpus/${vars.dataset}/train.spacy"
+      - "corpus/${vars.dataset}/dev.spacy"
+      - "configs/${vars.config}_large.cfg"
+      - "configs/${vars.config}_medium.cfg"
+      - "configs/${vars.config}_small.cfg"
+    outputs:
+      - "training/large/${vars.dataset}/model-last"
+      - "training/medium/${vars.dataset}/model-last"
+      - "training/small/${vars.dataset}/model-last"
+      - "metrics/${vars.dataset}_best_${vars.package_name_large}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_last_${vars.package_name_large}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_best_${vars.package_name_medium}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_last_${vars.package_name_medium}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_best_${vars.package_name_small}-${vars.package_version}.json"
+      - "metrics/${vars.dataset}_last_${vars.package_name_small}-${vars.package_version}.json"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.package_name_large}-${vars.package_version}/dist/en_${vars.package_name_large}-${vars.package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.package_name_medium}-${vars.package_version}/dist/en_${vars.package_name_medium}-${vars.package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.package_name_small}-${vars.package_version}/dist/en_${vars.package_name_small}-${vars.package_version}.tar.gz"
+
+
+screen -d -m yourcommand
