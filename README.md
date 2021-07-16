@@ -1,4 +1,4 @@
-<a href="https://explosion.ai"><img src="img/icon.png" width="175" height="175" align="right" /></a>
+<a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="img/icon.png" width="175" height="175" align="right" /></a>
 # DaCy: An efficient NLP Pipeline for Danish
 
 
@@ -152,7 +152,7 @@ DaCy compares the performance of Danish language processing pipeline under a lar
 
 # 🤔 Issues and Usage Q&A
 
-To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
+To ask report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
 
 ## FAQ
 
