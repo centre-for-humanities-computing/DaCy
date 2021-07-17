@@ -65,12 +65,24 @@ To get started using DaCy simply install it using pip by running the following l
 pip install dacy
 ```
 
+The large version of DaCy uses the sentencepiece tokenizer and protobuf for serialization, to install both of these as well, simply run:
+
+```bash
+pip install dacy[large]
+```
+
 <details>
   <summary>Detailed instructions</summary>
 
   The default installation of DaCy does not install danlp as it have a lot dependencies which might collide with your packages you might wish to use. DaCy only uses danlp, for downloading its wrapped models for sentiment.
   If you wish to install DaNLP as well simply run:
 
+  ```bash
+  pip install dacy[danlp]
+  ```
+
+
+  to install all dependencies run
   ```bash
   pip install dacy[all]
   ```
