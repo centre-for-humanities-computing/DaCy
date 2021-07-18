@@ -32,8 +32,6 @@ def load(model: str, path: Optional[str] = None, force_download: bool=False) -> 
     if path is None:
         path = DEFAULT_CACHE_DIR
 
-    if model.lower() in {"small", "medium", "large"}:
-        model = f"da_dacy_{model}_tft-0.0.0"
     download_model(model, path, force=force_download)
     path = os.path.join(path, model)
     return spacy.load(path)
