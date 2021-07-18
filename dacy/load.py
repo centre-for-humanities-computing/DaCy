@@ -9,13 +9,14 @@ from spacy.language import Language
 from .download import download_model, DEFAULT_CACHE_DIR, models_url
 
 
-def load(model: str, path: Optional[str] = None) -> Language:
+def load(model: str, path: Optional[str] = None, force_download: bool=False) -> Language:
     """
     Load a DaCy model as a SpaCy text processing pipeline. If the model is not downloaded it will also download the model.
 
     Args:
         model (str): the model you wish to load. To see available model see dacy.models()
         path (str, optional): The path to the downloaded model. Defaults to None which corresponds to the path optained using dacy.where_is_my_dacy().
+        force_redownload (bool, optional): Should the model be redownloaded even if already downloaded? Default to False.
 
     Returns:
         Language: a SpaCy text-preprocessing pipeline
@@ -33,7 +34,7 @@ def load(model: str, path: Optional[str] = None) -> Language:
 
     if model.lower() in {"small", "medium", "large"}:
         model = f"da_dacy_{model}_tft-0.0.0"
-    download_model(model, path)
+    download_model(model, path, force=force_download)
     path = os.path.join(path, model)
     return spacy.load(path)
 
