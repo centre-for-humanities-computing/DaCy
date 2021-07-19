@@ -1,4 +1,4 @@
-<a href="https://explosion.ai"><img src="img/icon.png" width="175" height="175" align="right" /></a>
+<a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="img/icon.png" width="175" height="175" align="right" /></a>
 # DaCy: An efficient NLP Pipeline for Danish
 
 
@@ -65,12 +65,24 @@ To get started using DaCy simply install it using pip by running the following l
 pip install dacy
 ```
 
+The large version of DaCy uses the sentencepiece tokenizer and protobuf for serialization, to install both of these as well, simply run:
+
+```bash
+pip install dacy[large]
+```
+
 <details>
   <summary>Detailed instructions</summary>
 
   The default installation of DaCy does not install danlp as it have a lot dependencies which might collide with your packages you might wish to use. DaCy only uses danlp, for downloading its wrapped models for sentiment.
   If you wish to install DaNLP as well simply run:
 
+  ```bash
+  pip install dacy[danlp]
+  ```
+
+
+  to install all dependencies run
   ```bash
   pip install dacy[all]
   ```
@@ -152,7 +164,7 @@ DaCy compares the performance of Danish language processing pipeline under a lar
 
 # 🤔 Issues and Usage Q&A
 
-To ask questions, report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
+To ask report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
 
 ## FAQ
 

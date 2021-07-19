@@ -84,6 +84,7 @@ The documentation is organized in three parts:
    dacy.datasets
    dacy.sentiment
    dacy.augmenters
+   dacy.score
    dacy.readability
    dacy.subclasses
 
