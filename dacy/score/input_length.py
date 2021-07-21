@@ -44,7 +44,7 @@ def n_sents_score(
 
     for i, n in enumerate(n_sents):
         if verbose is True:
-            msg.info("Calculating score using {n} sentences")
+            msg.info(f"Calculating score using {n} sentences")
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)
         scores = pd.concat([scores, scores_]) if i != 0 else scores_
