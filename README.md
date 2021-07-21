@@ -47,6 +47,8 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 - 0.2.1 (30/03/21)
   - DaCy now includes a small model for efficient processing based on the Danish [Ælæctra](https://sprogteknologi.dk/dataset/918158b9-ac6b-4484-a44a-4e3de386dfca) 🏃
 
+<br /> 
+
 <details>
   <summary>See older news items</summary>
 
@@ -58,6 +60,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 </details>
 
+<br /> 
 
 # 🔧 Installation
 To get started using DaCy simply install it using pip by running the following line in your terminal:
@@ -70,6 +73,8 @@ The large version of DaCy uses the sentencepiece tokenizer and protobuf for seri
 ```bash
 pip install dacy[large]
 ```
+
+<br /> 
 
 <details>
   <summary>Detailed instructions</summary>
@@ -95,6 +100,8 @@ pip install dacy[large]
   ```
 
 </details>
+
+<br /> 
 
 
 # 👩‍💻 Usage
@@ -150,6 +157,8 @@ The following table shows the performance on the DaNE test set when compared to 
 
 Stanza uses the spacy-stanza implementation. The speed on the DaNLP model is as reported by the framework, which does not utilize batch input. However, given the model size, it can be expected to reach speeds comparable to DaCy medium. Empty cells indicate that the framework does not include the specific model.
 
+<br /> 
+
 <details>
   <summary> Training and reproduction </summary>
 
@@ -159,6 +168,8 @@ Want to learn more about how DaCy initially came to be, check out this [blog pos
 
 </details>
 
+<br /> 
+
 ## Robustness and Biases
 DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](https://centre-for-humanities-computing.github.io/DaCy/robustness.html).
 
@@ -167,6 +178,8 @@ DaCy compares the performance of Danish language processing pipeline under a lar
 To ask report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
 
 ## FAQ
+
+ <br /> 
 
 
 <details>
@@ -180,11 +193,16 @@ To ask report issues or request features, please use the [GitHub Issue Tracker](
 
 </details>
 
+<br /> 
+
+
 <details>
   <summary>Why doesn't the performance metrics match the performance metrics reported on the DaNLP GitHub?</summary>
 
 The performance metrics by DaNLP gives the model the 'gold standard' tokenization of the dataset as opposed to having the pipeline tokenize the text itself. This allows for comparison of the models on an even ground regardless of their tokenizer but inflated the performance in general. DaCy on the other hand reports the performance metrics using a tokenizer this makes the result closer to something you would see on a real dataset and does reflect how tokenization influence your performance. All models tested was tested either using their own tokenizer or SpaCy Danish tokenizer depending on which performed the best. All models except Stanza and Polyglot were found to perform best with the SpaCy tokenizer.
 </details>
+
+<br /> 
 
 </details>
 
@@ -221,6 +239,7 @@ python -m pytest--cov=.
 
 </details>
 
+<br /> 
 
 <details>
   <summary>Why is vaderSentiment_da.py being excluded in the coverage test?</summary>
@@ -228,6 +247,8 @@ python -m pytest--cov=.
   It is excluded as the functionality is intended to move to another repository called sentida2, which is currently under development.
   
 </details>
+
+<br /> 
 
 
 <details>
@@ -244,6 +265,7 @@ python -m pytest--cov=.
   
 </details>
 
+<br /> 
 
 <details>
   <summary>How is the documentation generated?</summary>
@@ -263,6 +285,7 @@ python -m pytest--cov=.
   
 </details>
 
+ <br /> 
 
 
 
