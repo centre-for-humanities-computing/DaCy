@@ -128,16 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Removing training data and temporary data
+# training
 data
 *.conllu
 *.spacy
-lookup_tables/female_da.csv
-lookup_tables/male_da.csv
-DaCy_training/training/
-DaCy_training/wandb/
-DaCy_training/packages/
-
+corpus/*
+training/*/training/*
+training/*/wandb/*
+training/*/packages/*
 
 # Removing data
 data
@@ -156,3 +154,4 @@ dev/model_comparison/.Rproj*
 tutorials/BenchmarkFairness.ipynb
 _build/*
 dev/model_comparison/.RData
+
