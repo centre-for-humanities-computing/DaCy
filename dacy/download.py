@@ -8,7 +8,7 @@ import urllib.request
 from typing import Optional
 
 from tqdm import tqdm
-
+from wasabi import msg
 
 DEFAULT_CACHE_DIR = os.path.join(str(Path.home()), ".dacy")
 
@@ -78,11 +78,13 @@ def download_model(
         return True
 
     if verbose is True:
-        print(f"\n[INFO] Downloading '{model}'")
+        msg.info(f"\nDownloading '{model}'")
     Path(save_path).mkdir(parents=True, exist_ok=True)
     download_url(url, dl_path)
     shutil.unpack_archive(dl_path, save_path)
     os.remove(dl_path)
+    if verbose is True:
+        msg.info(f"\Model successfully downloaded, you can now load it using dacy.load({model})")
     return True
 
 
