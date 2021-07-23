@@ -1,7 +1,47 @@
 # DaCy Training
-This folder contains the resources for training DaCy models. The `configs` folder includes all the configs used for all the models. While the `proeject.yml` include the workflows used for training the models, with each model containing its own workflow. These workflows and their subcommands can be called using `spacy project run [WORKFLOW/COMMAND]`. 
+This folder contains the resources for training DaCy models. Each folder contain code for training each iteration of DaCy models, where the version number corresponds to the DaCy version. The `configs` folder includes the configs used for all trained models. While the `project.yml` include the workflows used for training the models, with each model containing its own workflow. These workflows and their subcommands can be called using `spacy project run [WORKFLOW/COMMAND]`. For example in `v0.1.0` if you wish to train the small model you would run:
 
-The `requirements.txt` includes the requirements for running the projects, note that these are installed using the workflow in the `project.yml` som you are unlikely to need to install these manually (with the exception of spacy).
+```
+spacy project run small
+```
+
+
+The `requirements.txt` includes the requirements for running the projects, note that these are installed using the workflow in the `project.yml` so you will not need to install these manually (with the exception of spacy).
+
+
+# Version 0.1.1 (experimental)
+This is a version of DaCy trained with a series of augmentation, hopefully to improve performance of the model on downstream tasks. Comparing these model with the models from 0.1.0 we draw the following conclusions:
+
+- DaCy small performance:
+  - w. augmentation (dacy-v1):
+    - similar performance as without augmentation
+    - better peformance on muslim names
+    - way better performance on keystroke errors
+    - better handling of abbreviations
+    - notably worse performance on casing
+- Dacy medium performance:
+    - w. augmentation (dacy-v1):
+        - no augmentation: 1 pp better performance on NER with augmentation and minor on the rest
+        - otherwise very similar performance
+- DaCy large performance:
+    - w. augmentation (dacy-v1):
+        - no augmentation: similar or slightly better without aug.
+        - 8 pp lower on lowercasing
+        - 2-5-10 pp. (2%, 5%, 15%)  improvement in performance when dealing with keystroke errors
+        - slightly worse performance on muslim names
+
+
+# Version 0.1.0
+This is an update of DaCy using SpaCy v3.1.0 for compatibility. The primary changes here include:
+
+- Minor changes to the training procedure (e.g. smaller hidden width in the NER and a higher value for patience)
+- Tokenization no longer strips accents, leading to a meaningful difference between e.g. a and å.
+- Inclusion of a the components `lemmatizer`, `morphologizer`, and `attribute_ruler`
+
+for the exact differences we recommend you examine the `config.cfg` files.
+
+# Version 0.0.0
+This was the first version on DaCy
 
 ## Performance
 The following table shows the performance on the DaNE dataset of models trained for DaCy. Highest scores are highlighted with **bold** and the second highest is <ins>underlined</ins>. The models which do not have a DaCy name is not included in DaCy as faster and better performing models were available. E.g. while the ConvBert model are fast their don't compare favourably to the Ælæctra Model.

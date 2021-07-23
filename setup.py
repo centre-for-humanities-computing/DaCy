@@ -31,10 +31,18 @@ setuptools.setup(
         "tqdm>=4.42.1",
         "spacy>=3.0.3",
         "spacy-transformers>=1.0.1",
-        "pandas >= 1.0.0"
+        "pandas >= 1.0.0",
+        "wabisabi >= 0.8.2"
         ],
     extras_require={
-        'all' : ['danlp']
+        'danlp' : ['danlp>=0.0.11'],
+        'large' : ['protobuf>=3.17.3',
+                 'sentencepiece>=0.1.96',
+                 ],
+        'all' : ['danlp>=0.0.11',
+                 'protobuf>=3.17.3',
+                 'sentencepiece>=0.1.96',
+                 ]
     },
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[

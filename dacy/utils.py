@@ -32,3 +32,4 @@ def flatten_dict(d: dict, sep: str = "_") -> dict:
         return dict(items)
 
     return __inner_flatten(d, "", sep)
+
