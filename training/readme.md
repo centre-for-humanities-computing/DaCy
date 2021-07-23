@@ -8,6 +8,29 @@ spacy project run small
 
 The `requirements.txt` includes the requirements for running the projects, note that these are installed using the workflow in the `project.yml` so you will not need to install these manually (with the exception of spacy).
 
+
+# Version 0.1.1 (experimental)
+This is a version of DaCy trained with a series of augmentation, hopefully to improve performance of the model on downstream tasks. Comparing these model with the models from 0.1.0 we draw the following conclusions:
+
+- DaCy small performance:
+  - w. augmentation (dacy-v1):
+    - similar performance as without augmentation
+    - better peformance on muslim names
+    - way better performance on keystroke errors
+    - better handling of abbreviations
+    - notably worse performance on casing
+- Dacy medium performance:
+    - w. augmentation (dacy-v1):
+        - no augmentation: 1 pp better performance on NER with augmentation and minor on the rest
+        - otherwise very similar performance
+- DaCy large performance:
+    - w. augmentation (dacy-v1):
+        - no augmentation: similar or slightly better without aug.
+        - 8 pp lower on lowercasing
+        - 2-5-10 pp. (2%, 5%, 15%)  improvement in performance when dealing with keystroke errors
+        - slightly worse performance on muslim names
+
+
 # Version 0.1.0
 This is an update of DaCy using SpaCy v3.1.0 for compatibility. The primary changes here include:
 

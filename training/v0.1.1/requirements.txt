@@ -1,0 +1,15 @@
+cupy-cuda102 >= 8.6.0
+spacy[cuda102] >= 3.1.0
+thinc[torch] >= 8.0.7
+spacy-transformers >= 1.0.3
+spacy-huggingface-hub >= 0.0.3
+
+protobuf >= 3.17.3
+sentencepiece >= 0.1.96
+
+wandb >= 0.10.33
+danlp == 0.0.11
+pandas >= 1.2.5
+conllu >= 4.4
+
+dacy >= 1.0.0

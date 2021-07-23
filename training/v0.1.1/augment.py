@@ -13,6 +13,7 @@ from dacy.augmenters import (
     create_pers_augmenter,
     create_spacing_augmenter,
     create_æøå_augmenter,
+    create_char_swap_augmenter
 )
 
 
@@ -68,6 +69,10 @@ keyboard_aug_15 = create_keyboard_augmenter(
     doc_level=1, char_level=0.15, keyboard="QWERTY_DA"
 )
 
+swap_aug2 = create_char_swap_augmenter(doc_level=1, char_level=0.02)
+swap_aug5 = create_char_swap_augmenter(doc_level=1, char_level=0.05)
+swap_aug15 = create_char_swap_augmenter(doc_level=1, char_level=0.15)
+
 
 # Change æ=ae, ø=oe, å=aa
 æøå_aug = create_æøå_augmenter(doc_level=1, char_level=1)
@@ -88,7 +93,7 @@ augmenters = [
         dont_augment,
         "No augmentation",
         1,
-        "Applies no augmentation to the DaNE test set.",
+        "Applies no augmentation to the DaNE test set. Using one sentence at a time as input.",
     ),
     (
         æøå_aug,
@@ -128,6 +133,27 @@ augmenters = [
         "Keystroke errors 15%",
         n,
         "This agmentation simulate keystroke errors by replacing 15% of keys with a neighbouring key on a Danish QWERTY keyboard."
+        + bootstrap_text,
+    ),
+    (
+        swap_aug2,
+        "Character swap 2%",
+        n,
+        "This agmentation mistypes by swapping two adjacent characters 2% of the time."
+        + bootstrap_text,
+    ),
+    (
+        swap_aug5,
+        "Character swap 5%",
+        n,
+        "This agmentation mistypes by swapping two adjacent characters 5% of the time."
+        + bootstrap_text,
+    ),
+    (
+        swap_aug15,
+        "Character swap 15%",
+        n,
+        "This agmentation mistypes by swapping two adjacent characters 15% of the time."
         + bootstrap_text,
     ),
     (

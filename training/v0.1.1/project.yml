@@ -120,7 +120,7 @@ commands:
     help: "Train ${vars.dataset}"
     script:
       - "mkdir -p training/small"
-      - "python -m spacy train configs/${vars.config}_small.cfg --output training/small/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_small.cfg --output training/small/${vars.dataset} --gpu-id ${vars.gpu} --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang} --code danish_augmenter.py"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -132,7 +132,7 @@ commands:
     help: "Train ${vars.dataset}"
     script:
       - "mkdir -p training/medium"
-      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/medium/${vars.dataset} --gpu-id 1 --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_medium.cfg --output training/medium/${vars.dataset} --gpu-id 1 --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang} --code danish_augmenter.py"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -144,7 +144,7 @@ commands:
     help: "Train ${vars.dataset}"
     script:
       - "mkdir -p training/large"
-      - "python -m spacy train configs/${vars.config}_large.cfg --output training/large/${vars.dataset} --gpu-id 2 --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang}"
+      - "python -m spacy train configs/${vars.config}_large.cfg --output training/large/${vars.dataset} --gpu-id 3 --paths.train corpus/${vars.dataset}/train.spacy --paths.dev corpus/${vars.dataset}/dev.spacy --nlp.lang=${vars.lang} --code danish_augmenter.py"
     deps:
       - "corpus/${vars.dataset}/train.spacy"
       - "corpus/${vars.dataset}/dev.spacy"
@@ -185,8 +185,8 @@ commands:
   - name: evaluate_large
     help: "Evaluate on the test data and save the metrics"
     script:
-      - "python -m spacy evaluate ./training/large/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_last_${vars.package_name_large}-${vars.package_version}.json --gpu-id 1"
-      - "python -m spacy evaluate ./training/large/${vars.dataset}/model-best ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_best_${vars.package_name_large}-${vars.package_version}.json --gpu-id 1"
+      - "python -m spacy evaluate ./training/large/${vars.dataset}/model-last ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_last_${vars.package_name_large}-${vars.package_version}.json --gpu-id 3"
+      - "python -m spacy evaluate ./training/large/${vars.dataset}/model-best ./corpus/${vars.dataset}/test.spacy --output ./metrics/${vars.dataset}_best_${vars.package_name_large}-${vars.package_version}.json --gpu-id 3"
       - "python augment.py --model training/large/dane/model-best --output metrics/${vars.dataset}_augmented_best_${vars.package_name_large}-${vars.package_version}.json"
     deps:
       - "training/large/${vars.dataset}/model-last"
@@ -235,7 +235,6 @@ commands:
       - "training/large/${vars.dataset}/model-last"
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.package_name_large}-${vars.package_version}/dist/${vars.lang}_${vars.package_name_large}-${vars.package_version}.tar.gz"
-
 
   - name: publish_small
     help: "Publish package to huggingface model hub."
