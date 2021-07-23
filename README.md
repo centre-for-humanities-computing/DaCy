@@ -11,6 +11,8 @@
 [![github actions docs](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/documentation.yml/badge.svg)](https://centre-for-humanities-computing.github.io/DaCy/)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
 [![CodeFactor](https://www.codefactor.io/repository/github/centre-for-humanities-computing/dacy/badge)](https://www.codefactor.io/repository/github/centre-for-humanities-computing/dacy)
+[![Demo](https://img.shields.io/badge/Try%20the-Demo-important)](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.)
+
 <!-- 
 [![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
 <a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
@@ -19,7 +21,7 @@
 
 -->
 
-DaCy is a Danish preprocessing pipeline trained in SpaCy. It has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish. This repository contains material for using the DaCy, reproducing the results and guides on usage of the package. Furthermore, it also a behavioural test for biases and robustness of Danish NLP pipelines.
+DaCy is a Danish natural language preprocessing framework made with SpaCy. Its largest pipeline has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish. Feel free to try out the [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.). This repository contains material for using the DaCy, reproducing the results and guides on usage of the package. Furthermore, it also contains behavioural tests for biases and robustness of Danish NLP pipelines.
 
 <!--
 EASTER EGG:
@@ -28,6 +30,10 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 
 # 📰 News
+- 1.0.1 (23/07/21)
+  - DaCy in not available on the [Huggingface model hub](https://huggingface.co/models?search=dacy) 🤗 . Including detailed performance descriptions of biases and robustness.
+  - It also got a brand new online [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.) - try it out!
+  - And more, including documentation update and prettier prints.
 - 1.0.0 (09/07/21)
   - DaCy version 1.0.0 releases as the first version to pypi! 📦
     - Including a series of augmenters with a few specifically designed for Danish
@@ -39,6 +45,13 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   - DaCy is now officially supported by the [Centre for Humanities Computing](https://chcaa.io) at Aarhus University
 - 0.4.1 (03/06/21)
   - DaCy now has a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even has a dark mode!
+
+
+<br /> 
+
+<details>
+  <summary>See older news items</summary>
+
 - 0.3.1 (01/06/21)
   - DaCy's tests now cover 99% of its codebase 🎉
   - DaCy's test suite is now applied for all major operating systems instead of just Linux 👩‍💻
@@ -46,12 +59,6 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
   - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
 - 0.2.1 (30/03/21)
   - DaCy now includes a small model for efficient processing based on the Danish [Ælæctra](https://sprogteknologi.dk/dataset/918158b9-ac6b-4484-a44a-4e3de386dfca) 🏃
-
-<br /> 
-
-<details>
-  <summary>See older news items</summary>
-
 - 0.1.1 (24/03/21)
   - DaCy includes a wrapped version of major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
   - Tutorials is added to introduce the above functionality
