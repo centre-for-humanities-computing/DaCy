@@ -136,6 +136,7 @@ corpus/*
 training/*/training/*
 training/*/wandb/*
 training/*/packages/*
+training/*/hub/*
 
 # Removing data
 data

@@ -6,7 +6,7 @@ def test_tutorial():
     # an empty pipeline - replace it with your pipeline of choice
     nlp = spacy.blank("da")
 
-    nlp = add_senda(nlp)
+    nlp = add_senda(nlp, force_extension=True)
 
     texts = ["Sikke en dejlig dag det er i dag", "Sikke noget forfærdeligt møgvejr det er i dag", "FC København og Brøndby IF i duel om mesterskabet"]
 

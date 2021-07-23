@@ -4,6 +4,7 @@ import dacy
 from dacy.subclasses import add_huggingface_model
 
 def test_tutorial():
+    import spacy
     nlp = spacy.blank("da")  # replace with your desired pipeline
     nlp = add_huggingface_model(nlp, 
                         download_name="pin/senda", # the model name on the huggingface hub
@@ -50,7 +51,6 @@ def test_tutorial():
         category=category, labels=labels, doc_extension=doc_extension, force=True
     )
 
-    import spacy
     nlp = spacy.blank("da") # dummy nlp
 
     clf_transformer = nlp.add_pipe(

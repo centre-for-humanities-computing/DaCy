@@ -15,14 +15,14 @@ def test_tutorial():
     doc = nlp("DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering bygget i SpaCy .")
 
     for entity in doc.ents:
-    print(entity, ":", entity.label_)
+        print(entity, ":", entity.label_)
 
     from spacy import displacy
     displacy.render(doc, style="ent")
 
     print("Token POS-tag")
     for token in doc:
-    print(f"{token}: \t\t {token.tag_}")
+        print(f"{token}: \t\t {token.tag_}")
 
     doc = nlp("DaCy er en effektiv pipeline til dansk fritekst.")
     from spacy import displacy
