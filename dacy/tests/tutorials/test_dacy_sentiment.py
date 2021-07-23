@@ -40,8 +40,8 @@ def test_tutorial():
         print(doc._.polarity_prop)
 
     from dacy.sentiment import add_bertemotion_emo, add_bertemotion_laden
-    nlp = add_bertemotion_laden(nlp)  # whether a text is emotionally laden
-    nlp = add_bertemotion_emo(nlp)    # what emotion is portrayed
+    nlp = add_bertemotion_laden(nlp, force_extension=True)  # whether a text is emotionally laden
+    nlp = add_bertemotion_emo(nlp, force_extension=True)    # what emotion is portrayed
 
     texts = ['bilen er flot', 
             'jeg ejer en rød bil og det er en god bil', 

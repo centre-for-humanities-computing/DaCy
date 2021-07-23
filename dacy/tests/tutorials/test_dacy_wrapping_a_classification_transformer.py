@@ -12,6 +12,7 @@ def test_tutorial():
                         model_name="senda",  # the name of the model in the pipeline
                         category="polarity", # the category type it predicts
                         labels=["negative", "neutral", "positive"], # possible outcome labels
+                        force_extension=True,
                         )
 
     import os
