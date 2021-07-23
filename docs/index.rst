@@ -12,7 +12,7 @@ This website contains the documentation for DaCy as well as an introduction to h
 📰 News
 ---------------------------------
 
-* 1.0.1 (23/07/21)
+* 1.1.0 (23/07/21)
   
   - DaCy in not available on the `Huggingface model hub <https://huggingface.co/models?search=dacy>`__ 🤗 . Including detailed performance descriptions of biases and robustness.
   - It also got a brand new online `demo <https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing>`__ - try it out!
