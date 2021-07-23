@@ -19,7 +19,7 @@ def test_tutorial():
     from dacy.sentiment import add_berttone_subjectivity
 
     nlp = spacy.blank("da")
-    nlp = add_berttone_subjectivity(nlp)
+    nlp = add_berttone_subjectivity(nlp, force_extension=True)
 
     texts = ["Analysen viser, at økonomien bliver forfærdelig dårlig", 
             "Jeg tror alligevel, det bliver godt"]
