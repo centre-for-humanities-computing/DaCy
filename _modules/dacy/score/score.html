@@ -1,0 +1,359 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="generator" content="sphinx-4.1.1, furo 2021.07.05.beta38"/>
+        <title>dacy.score.score - DaCy 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css" />
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  .override-dark {
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+  }
+</style><link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">DaCy 1.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingdacy.html">Using DaCy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">General performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../robustness.html">Robustness and Biases</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.sentiment.html">Sentiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.augmenters.html">Augmenters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.score.html">Score</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.readability.html">Readability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dacy.subclasses.html">Subclasses</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for dacy.score.score</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">This includes function for scoring models applied to a SpaCy corpus.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="k">import</span> <span class="n">Language</span>
+<span class="kn">from</span> <span class="nn">spacy.scorer</span> <span class="k">import</span> <span class="n">Scorer</span>
+<span class="kn">from</span> <span class="nn">spacy.training</span> <span class="k">import</span> <span class="n">Corpus</span><span class="p">,</span> <span class="n">Example</span><span class="p">,</span> <span class="n">dont_augment</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="k">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
+
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">flatten_dict</span>
+
+
+<div class="viewcode-block" id="no_misc_getter"><a class="viewcode-back" href="../../../dacy.score.html#dacy.score.score.no_misc_getter">[docs]</a><span class="k">def</span> <span class="nf">no_misc_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Span</span><span class="p">]:</span>
+    <span class="sd">"""A utility getter for scoring entities without including MISC</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        doc (Doc): a SpaCy Doc</span>
+<span class="sd">        attr (str): attribute to be extracted</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Iterable[Span]</span>
+<span class="sd">    """</span>
+    <span class="n">spans</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">span</span> <span class="ow">in</span> <span class="n">spans</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">span</span><span class="o">.</span><span class="n">label_</span> <span class="o">==</span> <span class="s2">"MISC"</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">yield</span> <span class="n">span</span></div>
+
+
+<span class="k">def</span> <span class="nf">dep_getter</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+    <span class="n">dep</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+    <span class="n">dep</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">as_string</span><span class="p">(</span><span class="n">dep</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dep</span>
+
+
+<div class="viewcode-block" id="score"><a class="viewcode-back" href="../../../dacy.score.html#dacy.score.score.score">[docs]</a><span class="k">def</span> <span class="nf">score</span><span class="p">(</span>
+    <span class="n">corpus</span><span class="p">:</span> <span class="n">Corpus</span><span class="p">,</span>
+    <span class="n">apply_fn</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Example</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Example</span><span class="p">]]],</span> <span class="n">Language</span><span class="p">],</span>
+    <span class="n">score_fn</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Example</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"token"</span><span class="p">,</span>
+        <span class="s2">"pos"</span><span class="p">,</span>
+        <span class="s2">"ents"</span><span class="p">,</span>
+        <span class="s2">"dep"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">augmenters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Language</span><span class="p">,</span> <span class="n">Example</span><span class="p">],</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Example</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">nlp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Language</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">"""scores a models performance on a given corpus with potentially augmentations applied to it.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        corpus (Corpus): A spacy Corpus</span>
+<span class="sd">        apply_fn (Union[Callable, Language]): A wrapper function for the model you wish to score. The model should</span>
+<span class="sd">            take in a list of spacy Examples (Iterable[Example]) and output a tagged version of it (Iterable[Example]).</span>
+<span class="sd">            A SpaCy pipeline (Language) can be provided as is.</span>
+<span class="sd">        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A scoring function which takes in a list of</span>
+<span class="sd">            examples (Iterable[Example]) and return a dictionary of performance scores. Four potiential</span>
+<span class="sd">            strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring</span>
+<span class="sd">            the performance of fine-grained (tag_acc), and coarse-grained (pos_acc) pos-tags. "token" for measuring</span>
+<span class="sd">            the performance of tokenization. "dep" for measuring the performance of dependency parsing. "nlp" for measuring</span>
+<span class="sd">            the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents", "dep"].</span>
+<span class="sd">        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A spaCy style augmenters</span>
+<span class="sd">            which should be applied to the corpus or a list thereof. defaults to [], indicating no augmenters.</span>
+<span class="sd">        k (int, optional): Number of times it should run the augmentation and test the performance on</span>
+<span class="sd">            the corpus. Defaults to 1.</span>
+<span class="sd">        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty</span>
+<span class="sd">            Danish pipeline. Defaults to None. Used for loading the calling the corpus.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pandas.DataFrame: returns a pandas dataframe containing the performance metrics.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from spacy.training.augment import create_lower_casing_augmenter</span>
+<span class="sd">        &gt;&gt;&gt; from dacy.datasets import dane</span>
+<span class="sd">        &gt;&gt;&gt; test = dane(splits=["test")</span>
+<span class="sd">        &gt;&gt;&gt; nlp = dacy.load("da_dacy_small_tft-0.0.0")</span>
+<span class="sd">        &gt;&gt;&gt; scores = score(test, augmenter=[create_lower_casing_augmenter(0.5)], apply_fn = nlp)</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">augmenters</span><span class="p">):</span>
+        <span class="n">augmenters</span> <span class="o">=</span> <span class="p">[</span><span class="n">augmenters</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">augmenters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">augmenters</span> <span class="o">=</span> <span class="p">[</span><span class="n">dont_augment</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__apply_nlp</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="n">examples</span> <span class="o">=</span> <span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">)</span>
+        <span class="n">doc_tuples</span> <span class="o">=</span> <span class="n">nlp_</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">as_tuples</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Example</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">doc_tuples</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">apply_fn</span><span class="p">,</span> <span class="n">Language</span><span class="p">):</span>
+        <span class="n">nlp_</span> <span class="o">=</span> <span class="n">apply_fn</span>
+        <span class="n">apply_fn</span> <span class="o">=</span> <span class="n">__apply_nlp</span>
+
+    <span class="k">if</span> <span class="n">nlp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">spacy.lang.da</span> <span class="k">import</span> <span class="n">Danish</span>
+
+        <span class="n">nlp</span> <span class="o">=</span> <span class="n">Danish</span><span class="p">()</span>
+
+    <span class="n">scorer</span> <span class="o">=</span> <span class="n">Scorer</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">ents_scorer</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_spans</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">"ents"</span><span class="p">)</span>
+        <span class="n">scores_no_misc</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_spans</span><span class="p">(</span>
+            <span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">"ents"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">no_misc_getter</span>
+        <span class="p">)</span>
+        <span class="n">scores</span><span class="p">[</span><span class="s2">"ents_excl_MISC"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">scores_no_misc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"ents_p"</span><span class="p">,</span> <span class="s2">"ents_r"</span><span class="p">,</span> <span class="s2">"ents_f"</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">scores</span>
+
+    <span class="k">def</span> <span class="nf">pos_scorer</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_token_attr</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">"pos"</span><span class="p">)</span>
+        <span class="n">scores_</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_token_attr</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">"tag"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">scores_</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">scores</span>
+
+    <span class="n">def_scorers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"ents"</span><span class="p">:</span> <span class="n">ents_scorer</span><span class="p">,</span>
+        <span class="s2">"pos"</span><span class="p">:</span> <span class="n">pos_scorer</span><span class="p">,</span>
+        <span class="s2">"token"</span><span class="p">:</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_tokenization</span><span class="p">,</span>
+        <span class="s2">"nlp"</span><span class="p">:</span> <span class="n">scorer</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+        <span class="s2">"dep"</span><span class="p">:</span> <span class="n">partial</span><span class="p">(</span>
+            <span class="n">Scorer</span><span class="o">.</span><span class="n">score_deps</span><span class="p">,</span>
+            <span class="n">attr</span><span class="o">=</span><span class="s2">"dep"</span><span class="p">,</span>
+            <span class="n">getter</span><span class="o">=</span><span class="n">dep_getter</span><span class="p">,</span>
+            <span class="n">ignore_labels</span><span class="o">=</span><span class="p">(</span><span class="s2">"p"</span><span class="p">,</span> <span class="s2">"punct"</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__score</span><span class="p">(</span><span class="n">augmenter</span><span class="p">):</span>
+
+        <span class="n">corpus_</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+        <span class="n">corpus_</span><span class="o">.</span><span class="n">augmenter</span> <span class="o">=</span> <span class="n">augmenter</span>
+        <span class="n">scores_ls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+            <span class="n">examples</span> <span class="o">=</span> <span class="n">apply_fn</span><span class="p">(</span><span class="n">corpus_</span><span class="p">(</span><span class="n">nlp</span><span class="p">))</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">s</span>
+            <span class="n">scores</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"wall_time"</span><span class="p">:</span> <span class="n">speed</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">score_fn</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">fn</span> <span class="o">=</span> <span class="n">def_scorers</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span>
+                <span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">examples</span><span class="p">))</span>
+            <span class="n">scores</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+            <span class="n">scores_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+        <span class="c1"># and collapse list to dict</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scores</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">s</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores_ls</span><span class="p">]</span>
+
+        <span class="n">scores</span><span class="p">[</span><span class="s2">"k"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">aug</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">augmenters</span><span class="p">):</span>
+        <span class="n">scores_</span> <span class="o">=</span> <span class="n">__score</span><span class="p">(</span><span class="n">aug</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scores</span><span class="p">,</span> <span class="n">scores_</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">scores_</span>
+    <span class="k">return</span> <span class="n">scores</span></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Kenneth Enevoldsen
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>

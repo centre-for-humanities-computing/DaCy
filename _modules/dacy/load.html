@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.1.1, furo 2021.07.05.beta38"/>
-        <title>dacy.load - DaCy 1.0.1 documentation</title>
+        <title>dacy.load - DaCy 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -95,7 +95,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">DaCy 1.0.1 documentation</div></a>
+      <a href="../../index.html"><div class="brand">DaCy 1.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -135,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.datasets.html">Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.augmenters.html">Augmenters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dacy.score.html">Score</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.subclasses.html">Subclasses</a></li>
 </ul>
@@ -164,22 +165,26 @@
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="k">import</span> <span class="n">Language</span>
 
 <span class="kn">from</span> <span class="nn">.download</span> <span class="k">import</span> <span class="n">download_model</span><span class="p">,</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">models_url</span>
+<span class="kn">from</span> <span class="nn">wasabi</span> <span class="k">import</span> <span class="n">msg</span>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../download.html#dacy.load.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../download.html#dacy.load.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force_download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Load a DaCy model as a SpaCy text processing pipeline. If the model is not downloaded it will also download the model.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model (str): the model you wish to load. To see available model see dacy.models()</span>
 <span class="sd">        path (str, optional): The path to the downloaded model. Defaults to None which corresponds to the path optained using dacy.where_is_my_dacy().</span>
+<span class="sd">        force_redownload (bool, optional): Should the model be redownloaded even if already downloaded? Default to False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Language: a SpaCy text-preprocessing pipeline</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; import dacy</span>
-<span class="sd">        &gt;&gt;&gt; dacy.load("da_dacy_medium_tft-0.0.0")</span>
+<span class="sd">        &gt;&gt;&gt; dacy.load("da_dacy_medium_trf-0.1.0")</span>
 <span class="sd">        &gt;&gt;&gt; # or equivalently</span>
 <span class="sd">        &gt;&gt;&gt; dacy.load("medium")</span>
 <span class="sd">    """</span>
@@ -188,15 +193,15 @@
     <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">DEFAULT_CACHE_DIR</span>
 
-    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"small"</span><span class="p">,</span> <span class="s2">"medium"</span><span class="p">,</span> <span class="s2">"large"</span><span class="p">}:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">f</span><span class="s2">"da_dacy_</span><span class="si">{model}</span><span class="s2">_tft-0.0.0"</span>
-    <span class="n">download_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">download_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force_download</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""Returns a path to where DaCy models are located</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        verbose (bool, optional): Toggles the verbosity of the function. Defaults to True.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: path to the location of DaCy models</span>
@@ -205,6 +210,11 @@
 <span class="sd">        &gt;&gt;&gt; import dacy</span>
 <span class="sd">        &gt;&gt;&gt; dacy.where_is_my_dacy()</span>
 <span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">"DaCy pipelines above and including version 0.1.0 are installed as a python module and are thus located in your python environment under the respective names. </span><span class="se">\</span>
+<span class="s2">                To get a list of installed models use spacy.util.get_installed_models()"</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">DEFAULT_CACHE_DIR</span></div>
 
 

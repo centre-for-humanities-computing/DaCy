@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.1.1, furo 2021.07.05.beta38"/>
-        <title>dacy.download - DaCy 1.0.1 documentation</title>
+        <title>dacy.download - DaCy 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -95,7 +95,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">DaCy 1.0.1 documentation</div></a>
+      <a href="../../index.html"><div class="brand">DaCy 1.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -135,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.datasets.html">Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.augmenters.html">Augmenters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dacy.score.html">Score</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.subclasses.html">Subclasses</a></li>
 </ul>
@@ -161,30 +162,22 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">wasabi</span> <span class="k">import</span> <span class="n">msg</span>
 
 
 <span class="n">DEFAULT_CACHE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()),</span> <span class="s2">".dacy"</span><span class="p">)</span>
 
-
-<span class="n">dacy_small_000</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">"https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download"</span>
-<span class="p">)</span>
-<span class="n">dacy_medium_000</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">"https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download"</span>
-<span class="p">)</span>
-<span class="n">dacy_large_000</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">"https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download"</span>
-<span class="p">)</span>
-
-
 <span class="n">models_url</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"da_dacy_small_tft-0.0.0"</span><span class="p">:</span> <span class="n">dacy_small_000</span><span class="p">,</span>
-    <span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">:</span> <span class="n">dacy_medium_000</span><span class="p">,</span>
-    <span class="s2">"da_dacy_large_tft-0.0.0"</span><span class="p">:</span> <span class="n">dacy_large_000</span><span class="p">,</span>
+    <span class="s2">"da_dacy_small_tft-0.0.0"</span><span class="p">:</span> <span class="s2">"https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download"</span><span class="p">,</span>
+    <span class="s2">"da_dacy_medium_tft-0.0.0"</span><span class="p">:</span> <span class="s2">"https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download"</span><span class="p">,</span>
+    <span class="s2">"da_dacy_large_tft-0.0.0"</span><span class="p">:</span> <span class="s2">"https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download"</span><span class="p">,</span>
+    <span class="s2">"da_dacy_small_trf-0.1.0"</span><span class="p">:</span> <span class="s2">"https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl"</span><span class="p">,</span>
+    <span class="s2">"da_dacy_medium_trf-0.1.0"</span><span class="p">:</span> <span class="s2">"https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl"</span><span class="p">,</span>
+    <span class="s2">"da_dacy_large_trf-0.1.0"</span><span class="p">:</span> <span class="s2">"https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl"</span><span class="p">,</span>
+
 <span class="p">}</span>
 
 
@@ -203,44 +196,55 @@
     <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    Downloads a DaCy model to the specified save_path or to the default cache directory.</span>
+<span class="sd">    Downloads and install a specified DaCy pipeline.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model (str): string indicating DaCy model, use dacy.models() to get a list of models</span>
-<span class="sd">        save_path (str, optional): The path you want to save your model to. Defaults to None denoting the default cache directory. This can be found using using dacy.where_is_my_dacy().</span>
+<span class="sd">        save_path (str, optional): The path you want to save your model to. Is only used for DaCy models of v0.0.0 as later models are installed as modules to allow for better versioning. Defaults to None denoting the default cache directory. This can be found using using dacy.where_is_my_dacy().</span>
 <span class="sd">        force (bool, optional): Should it download the model regardless of it already being present? Defaults to False.</span>
 <span class="sd">        verbose (bool): Toggles the verbosity of the function. Defaults to True.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        True if the model is downloaded as intended</span>
+<span class="sd">        a string of the model location</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; download_model(model="da_dacy_medium_tft-0.0.0")</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"small"</span><span class="p">,</span> <span class="s2">"medium"</span><span class="p">,</span> <span class="s2">"large"</span><span class="p">}:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">f</span><span class="s2">"da_dacy_</span><span class="si">{model}</span><span class="s2">_tft-0.0.0"</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">f</span><span class="s2">"da_dacy_</span><span class="si">{model}</span><span class="s2">_trf-0.1.0"</span>
+
     <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">models_url</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"The model is not available in DaCy. Please use dacy.models() to see a list of all models"</span>
         <span class="p">)</span>
-    <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">save_path</span> <span class="o">=</span> <span class="n">DEFAULT_CACHE_DIR</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="n">models_url</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
-    <span class="n">dl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s2">"tmp.zip"</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">force</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># model v. 0.0.0</span>
+        <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">save_path</span> <span class="o">=</span> <span class="n">DEFAULT_CACHE_DIR</span>
 
-    <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[INFO] Downloading '</span><span class="si">{model}</span><span class="s2">'"</span><span class="p">)</span>
-    <span class="n">Path</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dl_path</span><span class="p">)</span>
-    <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">dl_path</span><span class="p">,</span> <span class="n">save_path</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dl_path</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">models_url</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+        <span class="n">dl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s2">"tmp.zip"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">force</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">path</span>
+
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Downloading '</span><span class="si">{model}</span><span class="s2">'"</span><span class="p">)</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dl_path</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">dl_path</span><span class="p">,</span> <span class="n">save_path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dl_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">"\Model successfully downloaded, you can now load it using dacy.load(</span><span class="si">{model}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">spacy.util</span> <span class="k">import</span> <span class="n">get_installed_models</span>
+        <span class="n">mdl</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">mdl</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">get_installed_models</span><span class="p">():</span>
+            <span class="n">install</span><span class="p">(</span><span class="n">models_url</span><span class="p">[</span><span class="n">model</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">mdl</span></div>
 
 
 <span class="k">class</span> <span class="nc">DownloadProgressBar</span><span class="p">(</span><span class="n">tqdm</span><span class="p">):</span>
@@ -251,10 +255,17 @@
 
 
 <span class="k">def</span> <span class="nf">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span>
     <span class="k">with</span> <span class="n">DownloadProgressBar</span><span class="p">(</span>
         <span class="n">unit</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">miniters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
         <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">output_path</span><span class="p">,</span> <span class="n">reporthook</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">update_to</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="install"><a class="viewcode-back" href="../../download.html#dacy.download.install">[docs]</a><span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">subprocess</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pip"</span><span class="p">,</span> <span class="s2">"install"</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span></div>
 </pre></div>
       </article>
       <footer>

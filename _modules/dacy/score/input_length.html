@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <meta name="generator" content="sphinx-4.1.1, furo 2021.07.05.beta38"/>
-        <title>dacy.readability.readability - DaCy 1.1.0 documentation</title>
+        <title>dacy.score.input_length - DaCy 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -155,36 +155,58 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <h1>Source code for dacy.readability.readability</h1><div class="highlight"><pre>
+        <h1>Source code for dacy.score.input_length</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""</span>
-<span class="sd">Functionality for extracting readability measures from text.</span>
+<span class="sd">Contains functions for testing the performance of models on varying input length.</span>
 <span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="k">import</span> <span class="n">Doc</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="kn">from</span> <span class="nn">..datasets</span> <span class="k">import</span> <span class="n">dane</span>
+<span class="kn">from</span> <span class="nn">.score</span> <span class="k">import</span> <span class="n">score</span>
+<span class="kn">from</span> <span class="nn">wasabi</span> <span class="k">import</span> <span class="n">msg</span>
 
-<div class="viewcode-block" id="LIX_getter"><a class="viewcode-back" href="../../../dacy.readability.html#dacy.readability.readability.LIX_getter">[docs]</a><span class="k">def</span> <span class="nf">LIX_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Extract the LIX score from a doc</span>
+<div class="viewcode-block" id="n_sents_score"><a class="viewcode-back" href="../../../dacy.score.html#dacy.score.input_length.n_sents_score">[docs]</a><span class="k">def</span> <span class="nf">n_sents_score</span><span class="p">(</span>
+    <span class="n">n_sents</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+    <span class="n">apply_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"dane"</span><span class="p">,</span>
+    <span class="n">split</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"test"</span><span class="p">,</span>
+    <span class="n">score_fn</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"token"</span><span class="p">,</span> <span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"ents"</span><span class="p">,</span> <span class="s2">"dep"</span><span class="p">],</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">"""scores the performance of a given model on examples of a given number of sentences.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        doc (Doc): A SpaCy document</span>
+<span class="sd">        n_sents (Union[int, List[int]]): Number of sentences which the performance should be applied to.</span>
+<span class="sd">        apply_fn (Callable):  A wrapper function for the model you wish to score. The model should take in a spacy Example and output a tagged version of it.</span>
+<span class="sd">        dataset (str, optional): Which dataset should this be applied to. Possible options include "dane". Defaults to "dane".</span>
+<span class="sd">        split (str, optional): Which splits of the dataset should be used. Possible options include "train", "dev", "test", "all".</span>
+<span class="sd">            Defaults to "test".</span>
+<span class="sd">        score_fn (List[Union[str, Callable]], optional): A scoring function which takes in a list of examples and return a dictionary of the form {"score_name": score}.</span>
+<span class="sd">            Four potiential strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring the performance of pos-tags.</span>
+<span class="sd">            "token" for measuring the performance of tokenization. "nlp" for measuring the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents"].</span>
+<span class="sd">        verbose (bool, optional): Toggles the verbosity of the function. Defualts to True</span>
+<span class="sd">        kwargs (dict): arguments to be passed to dataset or the score function.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        float: the LIX score for the document</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; from spacy.tokens import Doc</span>
-<span class="sd">        &gt;&gt;&gt; Doc.set_extension("LIX", getter=dacy.readability.LIX_getter)</span>
-<span class="sd">        &gt;&gt;&gt; doc = nlp("Dette er en simpel tekst")</span>
-<span class="sd">        &gt;&gt;&gt; doc._.LIX  # extract the LIX score from your document</span>
+<span class="sd">        pandas.DataFrame: returns a pandas dataframe containing the performance metrics.</span>
 <span class="sd">    """</span>
-    <span class="n">O</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="n">P</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">))</span>
-    <span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">])</span>
 
-    <span class="n">LIX</span> <span class="o">=</span> <span class="n">O</span> <span class="o">/</span> <span class="n">P</span> <span class="o">+</span> <span class="n">L</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">O</span>
-    <span class="k">return</span> <span class="n">LIX</span></div>
+    <span class="n">dataset_fn</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"dane"</span><span class="p">:</span> <span class="n">dane</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_sents</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">n_sents</span> <span class="o">=</span> <span class="p">[</span><span class="n">n_sents</span><span class="p">]</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">"k"</span><span class="p">]</span> <span class="k">if</span> <span class="s2">"k"</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">n_sents</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">"Calculating score using </span><span class="si">{n}</span><span class="s2"> sentences"</span><span class="p">)</span>
+        <span class="n">corpus</span> <span class="o">=</span> <span class="n">dataset_fn</span><span class="p">[</span><span class="n">dataset</span><span class="p">](</span><span class="n">splits</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">n_sents</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">scores_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">apply_fn</span><span class="o">=</span><span class="n">apply_fn</span><span class="p">,</span> <span class="n">score_fn</span><span class="o">=</span><span class="n">score_fn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scores</span><span class="p">,</span> <span class="n">scores_</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">scores_</span>
+    <span class="k">return</span> <span class="n">scores</span></div>
 </pre></div>
       </article>
       <footer>

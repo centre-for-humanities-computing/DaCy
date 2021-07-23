@@ -7,11 +7,11 @@
   <meta property="og:title" content="Installation" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="installation.html" />
-  <meta property="og:description" content="To get started using DaCy simply install it using pip by running the following line in your terminal: pip install dacy Detailed instructions: The default installation of DaCy does not install danlp..." />
+  <meta property="og:description" content="To get started using DaCy simply install it using pip by running the following line in your terminal: pip install dacy Using DaCy Large: The large version of DaCy uses the sentencepiece tokenizer a..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Using DaCy" href="usingdacy.html" /><link rel="prev" title="DaCy" href="index.html" />
 
     <meta name="generator" content="sphinx-4.1.1, furo 2021.07.05.beta38"/>
-        <title>Installation - DaCy 1.0.1 documentation</title>
+        <title>Installation - DaCy 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -101,7 +101,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 1.0.1 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy 1.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon" for="__toc">
@@ -141,6 +141,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.score.html">Score</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
 </ul>
@@ -166,13 +167,21 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">dacy</span>
 </pre></div>
 </div>
-<section id="detailed-instructions">
-<h2>Detailed instructions<a class="headerlink" href="#detailed-instructions" title="Permalink to this headline">¶</a></h2>
+<section id="using-dacy-large">
+<h2>Using DaCy Large<a class="headerlink" href="#using-dacy-large" title="Permalink to this headline">¶</a></h2>
+<p>The large version of DaCy uses the sentencepiece tokenizer and protobuf for serialization, to install both of these run:</p>
+</section>
+<section id="using-dacy-with-danlp">
+<h2>Using DaCy with DaNLP<a class="headerlink" href="#using-dacy-with-danlp" title="Permalink to this headline">¶</a></h2>
 <p>The default installation of DaCy does not install danlp as it has a lot of dependencies that might collide with the packages you might wish to use. DaCy only uses danlp for downloading its wrapped models for sentiment.
 If you wish to install danlp with dacy you can run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">dacy</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">dacy</span><span class="p">[</span><span class="n">danlp</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>to install all dependencies run:</p>
+</section>
+<section id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline">¶</a></h2>
 <p>You can also install DaCy directly from source using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">centre</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">humanities</span><span class="o">-</span><span class="n">computing</span><span class="o">/</span><span class="n">DaCy</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">DaCy</span>
@@ -241,7 +250,9 @@ If you wish to install danlp with dacy you can run:</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#detailed-instructions">Detailed instructions</a></li>
+<li><a class="reference internal" href="#using-dacy-large">Using DaCy Large</a></li>
+<li><a class="reference internal" href="#using-dacy-with-danlp">Using DaCy with DaNLP</a></li>
+<li><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
 </ul>
 </li>
 </ul>
