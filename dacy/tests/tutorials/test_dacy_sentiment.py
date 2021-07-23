@@ -61,7 +61,7 @@ def test_tutorial():
     from spacy.tokens import Doc
     from dacy.sentiment import da_vader_getter
 
-    Doc.set_extension("vader_da", getter=da_vader_getter)
+    Doc.set_extension("vader_da", getter=da_vader_getter, force=True)
 
     # download model
     from spacy.cli import download
