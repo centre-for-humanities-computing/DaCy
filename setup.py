@@ -32,7 +32,7 @@ setuptools.setup(
         "spacy>=3.0.3",
         "spacy-transformers>=1.0.1",
         "pandas >= 1.0.0",
-        "wabisabi >= 0.8.2"
+        "wasabi >= 0.8.2"
         ],
     extras_require={
         'danlp' : ['danlp>=0.0.11'],
