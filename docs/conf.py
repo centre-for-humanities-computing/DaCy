@@ -78,7 +78,7 @@ html_context = {
 
 
 html_static_path = ["_static"]
-html_favicon = 'favicon.ico'
+html_favicon = '_static/favicon.ico'
 
 html_theme_options = {
     "light_logo": "icon.png",
