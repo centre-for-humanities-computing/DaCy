@@ -3,7 +3,7 @@ Functions for wrapping a sequence classification transformer in a SpaCy pipeline
 
 """
 
-from typing import List, Callable, Iterable, Iterator, Optional, Dict, Union
+from typing import List, Callable, Iterable, Dict, Union
 from pathlib import Path
 
 from spacy.language import Language
@@ -262,7 +262,7 @@ def make_classification_getter(category, labels, doc_extension):
 
     def label_getter(doc) -> str:
         prop = getattr(doc._, f"{category}_prop")
-        return labels[np.argmax(prop["prop"])]
+        return labels[int(prop["prop"].argmax())]
 
     return prop_getter, label_getter
 
