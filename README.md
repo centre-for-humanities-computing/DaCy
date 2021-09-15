@@ -1,7 +1,6 @@
 <a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="https://github.com/centre-for-humanities-computing/DaCy/raw/main/img/icon.png" width="175" height="175" align="right" /></a>
 # DaCy: An efficient NLP Pipeline for Danish
 
-
 [![PyPI version](https://badge.fury.io/py/dacy.svg)](https://pypi.org/project/dacy/)
 [![pip downloads](https://img.shields.io/pypi/dm/dacy.svg)](https://pypi.org/project/dacy/)
 [![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/centre-for-humanities-computing/DaCy)
