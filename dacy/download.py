@@ -18,7 +18,7 @@ models_url = {
     "da_dacy_large_tft-0.0.0": "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download",
     "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl",
     "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl",
-    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",
+    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",
 
 }
 
