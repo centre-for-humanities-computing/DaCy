@@ -200,7 +200,9 @@ To ask report issues or request features, please use the [GitHub Issue Tracker](
 <details>
   <summary>Where is my DaCy model located?</summary>
 
-  To figure out where your DaCy model is located you can always use:
+  By default the models are located in `~/.dacy`. The location can be configured with the environmental variable `DACY_CACHE_DIR`.
+
+  Additionally, to figure out where your DaCy model is located you can always use:
 
   ```python
   where_is_my_dacy()
