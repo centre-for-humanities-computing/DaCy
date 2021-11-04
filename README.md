@@ -33,8 +33,9 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 # 📰 News
 - 1.2.0 (04/11/21)
-  - Removed the readability module, we instead recommend you use the more extensive [textdescriptives](https://github.com/hlasse/TextDescriptives) package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
-  - Added support for the configuring the default the model location with the environmental variable `DACY_CACHE_DIR` thanks to a PR by [dhpullack](https://github.com/dhpollack) 🙏.
+  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingfaces model hub which is faster and more stable 🌟.
+  - Removed the readability module, we recommend using the more extensive [textdescriptives](https://github.com/hlasse/TextDescriptives) package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
+  - Added support for configuring the default save path with the environmental variable `DACY_CACHE_DIR` thanks to a PR by [dhpullack](https://github.com/dhpollack) 🙏.
 - 1.1.0 (23/07/21)
   - DaCy is now available on the [Huggingface model hub](https://huggingface.co/models?search=dacy) 🤗 . Including detailed performance descriptions of biases and robustness.
   - It also got a brand new online [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.) - try it out!
@@ -51,28 +52,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 - 0.4.1 (03/06/21)
   - DaCy now has a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even has a dark mode!
 
-
-<br /> 
-
-<details>
-  <summary>See older news items</summary>
-
-- 0.3.1 (01/06/21)
-  - DaCy's tests now cover 99% of its codebase 🎉
-  - DaCy's test suite is now applied for all major operating systems instead of just Linux 👩‍💻
-- 0.2.2 (25/05/21)
-  - The new Danish Model [Senda](https://github.com/ebanalyse/senda) was added to DaCy
-- 0.2.1 (30/03/21)
-  - DaCy now includes a small model for efficient processing based on the Danish [Ælæctra](https://sprogteknologi.dk/dataset/918158b9-ac6b-4484-a44a-4e3de386dfca) 🏃
-- 0.1.1 (24/03/21)
-  - DaCy includes a wrapped version of major Danish sentiment analysis software including the models by [DaNLP](https://github.com/alexandrainst/danlp). As well as code for wrapping any sequence classification model into its pipeline 🤩
-  - Tutorials is added to introduce the above functionality
-- 0.0.1 (25/02/21)
-  - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
-
-</details>
-
-<br /> 
+To see older news items check out the [website](https://centre-for-humanities-computing.github.io/DaCy/).
 
 # 🔧 Installation
 To get started using DaCy simply install it using pip by running the following line in your terminal:

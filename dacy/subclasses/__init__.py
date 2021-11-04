@@ -4,6 +4,5 @@ from .classification_transformer import (
 )
 
 from .wrappers import (
-    add_huggingface_model,
-    add_danlp_model
+    add_huggingface_model
 )
