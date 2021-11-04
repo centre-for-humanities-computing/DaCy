@@ -29,7 +29,7 @@ setuptools.setup(
     # external packages as dependencies
     install_requires=[
         "tqdm>=4.42.1",
-        "spacy>=3.0.3",
+        "spacy>=3.1.4",
         "spacy-transformers>=1.0.1",
         "pandas >= 1.0.0",
         "wasabi >= 0.8.2"
