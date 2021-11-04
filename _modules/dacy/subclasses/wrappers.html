@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.08"/>
-        <title>dacy.subclasses.wrappers - DaCy 1.1.4 documentation</title>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>dacy.subclasses.wrappers - DaCy 1.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">DaCy 1.1.4 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">DaCy 1.2.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.score.html">Score</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.subclasses.html">Subclasses</a></li>
 </ul>
 <ul>
@@ -259,77 +258,6 @@
         <span class="s2">"model"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">"@architectures"</span><span class="p">:</span> <span class="s2">"dacy.ClassificationTransformerModel.v1"</span><span class="p">,</span>
             <span class="s2">"name"</span><span class="p">:</span> <span class="n">download_name</span><span class="p">,</span>
-            <span class="s2">"num_labels"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
-
-    <span class="n">install_classification_extensions</span><span class="p">(</span>
-        <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
-        <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-        <span class="n">doc_extension</span><span class="o">=</span><span class="n">doc_extension</span><span class="p">,</span>
-        <span class="n">force</span><span class="o">=</span><span class="n">force_extension</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">transformer</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span>
-        <span class="s2">"classification_transformer"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span>
-    <span class="p">)</span>
-    <span class="n">transformer</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">nlp</span></div>
-
-
-<div class="viewcode-block" id="add_danlp_model"><a class="viewcode-back" href="../../../dacy.subclasses.html#dacy.subclasses.wrappers.add_danlp_model">[docs]</a><span class="k">def</span> <span class="nf">add_danlp_model</span><span class="p">(</span>
-    <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
-    <span class="n">download_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">subpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">doc_extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">category</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">force_extension</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
-    <span class="sd">"""Adds a DaNLP transformer model to the NLP pipeline. The transfomer model should be a model for sequence classification.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        nlp (Language): A spacy text-processing pipeline</span>
-<span class="sd">        download_name (str): the name of the model you wish to download</span>
-<span class="sd">        subpath (str): the path under which DaNLP stores the model</span>
-<span class="sd">        doc_extension (str): The extension to the doc which you wish the save the transformer data under. This includes output tensor, wordpieces and more.</span>
-<span class="sd">        model_name (str): What you want your model to be called in the nlp pipeline</span>
-<span class="sd">        category (str): The category of the output. This is the label which is used to extract from the model. E.g. "sentiment" would allow you to extract the sentiment from doc._.sentiment</span>
-<span class="sd">        labels (list): The labels of the model</span>
-<span class="sd">        verbose (bool): Toggles the verbosity of the download. Defaults to True.</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
-<span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Language: your text processing pipeline with the transformer model included</span>
-<span class="sd">    """</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">danlp.download</span> <span class="k">import</span> <span class="n">download_model</span> <span class="k">as</span> <span class="n">danlp_download</span>
-        <span class="kn">from</span> <span class="nn">danlp.download</span> <span class="k">import</span> <span class="n">_unzip_process_func</span>
-        <span class="kn">from</span> <span class="nn">danlp.download</span> <span class="k">import</span> <span class="n">DEFAULT_CACHE_DIR</span> <span class="k">as</span> <span class="n">DANLP_DIR</span>
-    <span class="k">except</span> <span class="n">ModuleNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ModuleNotFoundError</span><span class="p">(</span>
-            <span class="n">f</span><span class="s2">"</span><span class="si">{e}</span><span class="s2">: This typically happens as you need additional packages to run parts of DaNLP. Installing them should solve the issue this can be done using ´pip install danlp[all]´."</span>
-        <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">open_unverified_connection</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">ssl</span>
-
-        <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
-
-    <span class="n">path_sub</span> <span class="o">=</span> <span class="n">danlp_download</span><span class="p">(</span>
-        <span class="n">download_name</span><span class="p">,</span> <span class="n">DANLP_DIR</span><span class="p">,</span> <span class="n">process_func</span><span class="o">=</span><span class="n">_unzip_process_func</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
-    <span class="p">)</span>
-    <span class="n">path_sub</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_sub</span><span class="p">,</span> <span class="n">subpath</span><span class="p">)</span>
-
-    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">"doc_extension_attribute"</span><span class="p">:</span> <span class="n">doc_extension</span><span class="p">,</span>
-        <span class="s2">"model"</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">"@architectures"</span><span class="p">:</span> <span class="s2">"dacy.ClassificationTransformerModel.v1"</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="p">:</span> <span class="n">path_sub</span><span class="p">,</span>
             <span class="s2">"num_labels"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span>
         <span class="p">},</span>
     <span class="p">}</span>

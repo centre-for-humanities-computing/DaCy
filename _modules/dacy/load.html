@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.08"/>
-        <title>dacy.load - DaCy 1.1.4 documentation</title>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>dacy.load - DaCy 1.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">DaCy 1.1.4 documentation</div></a>
+      <a href="../../index.html"><div class="brand">DaCy 1.2.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.score.html">Score</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dacy.subclasses.html">Subclasses</a></li>
 </ul>
 <ul>
@@ -254,7 +253,7 @@
 
 
 <div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""Returns a path to where DaCy models are located</span>
+    <span class="sd">"""Returns a path to where DaCy models are located. The default the model location can be configured with the environmental variable `DACY_CACHE_DIR`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        verbose (bool, optional): Toggles the verbosity of the function. Defaults to True.</span>

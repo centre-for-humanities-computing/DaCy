@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.08"/>
-        <title>dacy.sentiment.wrapped_models - DaCy 1.1.4 documentation</title>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>dacy.sentiment.wrapped_models - DaCy 1.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">DaCy 1.1.4 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">DaCy 1.2.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.score.html">Score</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dacy.subclasses.html">Subclasses</a></li>
 </ul>
 <ul>
@@ -219,78 +218,51 @@
 
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="k">import</span> <span class="n">Language</span>
 
-<span class="kn">from</span> <span class="nn">dacy.subclasses</span> <span class="k">import</span> <span class="p">(</span>
-    <span class="n">add_danlp_model</span><span class="p">,</span>
-    <span class="n">add_huggingface_model</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dacy.subclasses</span> <span class="k">import</span> <span class="n">add_huggingface_model</span>
 
 
 <div class="viewcode-block" id="add_berttone_subjectivity"><a class="viewcode-back" href="../../../dacy.sentiment.html#dacy.sentiment.wrapped_models.add_berttone_subjectivity">[docs]</a><span class="k">def</span> <span class="nf">add_berttone_subjectivity</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">force_extension</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
     <span class="sd">"""Adds the DaNLP BertTone model for detecting whether a statement is subjective to the pipeline.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): A spacy text-processing pipeline</span>
-<span class="sd">        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
 <span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Language: your text processing pipeline with the transformer model included</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">add_danlp_model</span><span class="p">(</span>
-        <span class="n">nlp</span><span class="p">,</span>
-        <span class="n">download_name</span><span class="o">=</span><span class="s2">"bert.subjective"</span><span class="p">,</span>
-        <span class="n">subpath</span><span class="o">=</span><span class="s2">"bert.sub.v0.0.1"</span><span class="p">,</span>
-        <span class="n">doc_extension</span><span class="o">=</span><span class="s2">"berttone_subj_trf_data"</span><span class="p">,</span>
-        <span class="n">model_name</span><span class="o">=</span><span class="s2">"berttone_subj"</span><span class="p">,</span>
-        <span class="n">category</span><span class="o">=</span><span class="s2">"subjectivity"</span><span class="p">,</span>
-        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"objective"</span><span class="p">,</span> <span class="s2">"subjective"</span><span class="p">],</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-        <span class="n">open_unverified_connection</span><span class="o">=</span><span class="n">open_unverified_connection</span><span class="p">,</span>
-        <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">add_huggingface_model</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="s2">"DaNLP/da-bert-tone-subjective-objective"</span><span class="p">,</span> 
+                                 <span class="s2">"berttone_subj_trf_data"</span><span class="p">,</span>
+                                 <span class="s2">"berttone_subj"</span><span class="p">,</span>
+                                  <span class="s2">"subjectivity"</span><span class="p">,</span> 
+                                  <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"objective"</span><span class="p">,</span> <span class="s2">"subjective"</span><span class="p">],</span> <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="add_berttone_polarity"><a class="viewcode-back" href="../../../dacy.sentiment.html#dacy.sentiment.wrapped_models.add_berttone_polarity">[docs]</a><span class="k">def</span> <span class="nf">add_berttone_polarity</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">force_extension</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
     <span class="sd">"""Adds the DaNLP BertTone model for classification of polarity to the pipeline.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): A spacy text-processing pipeline</span>
-<span class="sd">        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
 <span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Language: your text processing pipeline with the transformer model included</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">add_danlp_model</span><span class="p">(</span>
-        <span class="n">nlp</span><span class="p">,</span>
-        <span class="n">download_name</span><span class="o">=</span><span class="s2">"bert.polarity"</span><span class="p">,</span>
-        <span class="n">subpath</span><span class="o">=</span><span class="s2">"bert.pol.v0.0.1"</span><span class="p">,</span>
-        <span class="n">doc_extension</span><span class="o">=</span><span class="s2">"berttone_pol_trf_data"</span><span class="p">,</span>
-        <span class="n">model_name</span><span class="o">=</span><span class="s2">"berttone_pol"</span><span class="p">,</span>
-        <span class="n">category</span><span class="o">=</span><span class="s2">"polarity"</span><span class="p">,</span>
-        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"positive"</span><span class="p">,</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"negative"</span><span class="p">],</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-        <span class="n">open_unverified_connection</span><span class="o">=</span><span class="n">open_unverified_connection</span><span class="p">,</span>
-        <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">add_huggingface_model</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="s2">"DaNLP/da-bert-tone-sentiment-polarity"</span><span class="p">,</span> 
+                                 <span class="s2">"berttone_pol_trf_data"</span><span class="p">,</span>
+                                 <span class="s2">"berttone_pol"</span><span class="p">,</span>
+                                  <span class="s2">"polarity"</span><span class="p">,</span> 
+                                  <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"positive"</span><span class="p">,</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"negative"</span><span class="p">],</span> <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="add_bertemotion_laden"><a class="viewcode-back" href="../../../dacy.sentiment.html#dacy.sentiment.wrapped_models.add_bertemotion_laden">[docs]</a><span class="k">def</span> <span class="nf">add_bertemotion_laden</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">force_extension</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
     <span class="sd">"""</span>
@@ -299,31 +271,20 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): A spacy text-processing pipeline</span>
-<span class="sd">        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
 <span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Language: your text processing pipeline with the transformer model included</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">add_danlp_model</span><span class="p">(</span>
-        <span class="n">nlp</span><span class="p">,</span>
-        <span class="n">download_name</span><span class="o">=</span><span class="s2">"bert.noemotion"</span><span class="p">,</span>
-        <span class="n">subpath</span><span class="o">=</span><span class="s2">"bert.noemotion"</span><span class="p">,</span>
-        <span class="n">doc_extension</span><span class="o">=</span><span class="s2">"bertemotion_laden_trf_data"</span><span class="p">,</span>
-        <span class="n">model_name</span><span class="o">=</span><span class="s2">"bertemotion_laden"</span><span class="p">,</span>
-        <span class="n">category</span><span class="o">=</span><span class="s2">"laden"</span><span class="p">,</span>
-        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Emotional"</span><span class="p">,</span> <span class="s2">"No emotion"</span><span class="p">],</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-        <span class="n">open_unverified_connection</span><span class="o">=</span><span class="n">open_unverified_connection</span><span class="p">,</span>
-        <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">add_huggingface_model</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="s2">"DaNLP/da-bert-emotion-binary"</span><span class="p">,</span> 
+                                 <span class="s2">"bertemotion_laden_trf_data"</span><span class="p">,</span>
+                                 <span class="s2">"bertemotion_laden"</span><span class="p">,</span>
+                                  <span class="s2">"laden"</span><span class="p">,</span> 
+                                  <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Emotional"</span><span class="p">,</span> <span class="s2">"No emotion"</span><span class="p">],</span> <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="add_bertemotion_emo"><a class="viewcode-back" href="../../../dacy.sentiment.html#dacy.sentiment.wrapped_models.add_bertemotion_emo">[docs]</a><span class="k">def</span> <span class="nf">add_bertemotion_emo</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">force_extension</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
     <span class="sd">"""</span>
@@ -331,8 +292,6 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): A spacy text-processing pipeline</span>
-<span class="sd">        verbose (bool, optional):  toggles the verbosity (whether it prints or not) of the download. Defaults to True.</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
 <span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
@@ -348,18 +307,11 @@
         <span class="s2">"Sorg/trist"</span><span class="p">,</span>
         <span class="s2">"Frygt/Bekymret"</span><span class="p">,</span>
     <span class="p">]</span>
-    <span class="k">return</span> <span class="n">add_danlp_model</span><span class="p">(</span>
-        <span class="n">nlp</span><span class="p">,</span>
-        <span class="n">download_name</span><span class="o">=</span><span class="s2">"bert.emotion"</span><span class="p">,</span>
-        <span class="n">subpath</span><span class="o">=</span><span class="s2">"bert.emotion"</span><span class="p">,</span>
-        <span class="n">doc_extension</span><span class="o">=</span><span class="s2">"bertemotion_emo_trf_data"</span><span class="p">,</span>
-        <span class="n">model_name</span><span class="o">=</span><span class="s2">"bertemotion_emo"</span><span class="p">,</span>
-        <span class="n">category</span><span class="o">=</span><span class="s2">"emotion"</span><span class="p">,</span>
-        <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-        <span class="n">open_unverified_connection</span><span class="o">=</span><span class="n">open_unverified_connection</span><span class="p">,</span>
-        <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">add_huggingface_model</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="s2">"DaNLP/da-bert-emotion-classification"</span><span class="p">,</span> 
+                                 <span class="s2">"bertemotion_emo_trf_data"</span><span class="p">,</span>
+                                 <span class="s2">"bertemotion_emo"</span><span class="p">,</span>
+                                  <span class="s2">"emotion"</span><span class="p">,</span> 
+                                  <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">force_extension</span><span class="o">=</span><span class="n">force_extension</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="add_senda"><a class="viewcode-back" href="../../../dacy.sentiment.html#dacy.sentiment.wrapped_models.add_senda">[docs]</a><span class="k">def</span> <span class="nf">add_senda</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">force_extension</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
@@ -368,7 +320,6 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): A spacy text-processing pipeline</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
 <span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>

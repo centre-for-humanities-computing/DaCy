@@ -8,12 +8,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="dacy.score.html" />
   <meta property="og:description" content="dacy.score.score:(Beta) This includes function for scoring models applied to a SpaCy corpus. dacy.score.input_length:(Beta) Contains functions for testing the performance of models on varying input..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Readability" href="dacy.readability.html" /><link rel="prev" title="Augmenters" href="dacy.augmenters.html" />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Subclasses" href="dacy.subclasses.html" /><link rel="prev" title="Augmenters" href="dacy.augmenters.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.08"/>
-        <title>Score - DaCy 1.1.4 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>Score - DaCy 1.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -135,7 +135,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 1.1.4 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy 1.2.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -186,7 +186,6 @@
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Score</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
 </ul>
 <ul>
@@ -287,7 +286,7 @@ Danish pipeline. Defaults to None. Used for loading the calling the corpus.</p><
 <span class="target" id="module-dacy.score.input_length"></span><p>Contains functions for testing the performance of models on varying input length.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.score.input_length.n_sents_score">
-<span class="sig-prename descclassname"><span class="pre">dacy.score.input_length.</span></span><span class="sig-name descname"><span class="pre">n_sents_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'dane'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">['token',</span> <span class="pre">'pos',</span> <span class="pre">'ents',</span> <span class="pre">'dep']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="reference internal" href="_modules/dacy/score/input_length.html#n_sents_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.score.input_length.n_sents_score" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">dacy.score.input_length.</span></span><span class="sig-name descname"><span class="pre">n_sents_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'dane'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">['token',</span> <span class="pre">'pos',</span> <span class="pre">'ents',</span> <span class="pre">'dep']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="reference internal" href="_modules/dacy/score/input_length.html#n_sents_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.score.input_length.n_sents_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>scores the performance of a given model on examples of a given number of sentences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -320,12 +319,12 @@ Four potiential strings are valid. “ents” for measuring the performance of e
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="dacy.readability.html">
+          <a class="next-page" href="dacy.subclasses.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Readability</div>
+                <div class="title">Subclasses</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

@@ -8,12 +8,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="dacy.subclasses.html" />
   <meta property="og:description" content="dacy.subclasses.wrappers: Convenient wrapper functions for wrapping DaNLP and Huggingface models in a SpaCy text processing pipeline. dacy.subclasses.classification_transformer: Functions for wrapp..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Readability" href="dacy.readability.html" />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Score" href="dacy.score.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.08"/>
-        <title>Subclasses - DaCy 1.1.4 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>Subclasses - DaCy 1.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -135,7 +135,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 1.1.4 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy 1.2.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -186,7 +186,6 @@
 <li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.score.html">Score</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.readability.html">Readability</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Subclasses</a></li>
 </ul>
 <ul>
@@ -222,33 +221,6 @@
 <section id="module-dacy.subclasses.wrappers">
 <span id="dacy-subclasses-wrappers"></span><h2>dacy.subclasses.wrappers<a class="headerlink" href="#module-dacy.subclasses.wrappers" title="Permalink to this headline">¶</a></h2>
 <p>Convenient wrapper functions for wrapping DaNLP and Huggingface models in a SpaCy text processing pipeline.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="dacy.subclasses.wrappers.add_danlp_model">
-<span class="sig-prename descclassname"><span class="pre">dacy.subclasses.wrappers.</span></span><span class="sig-name descname"><span class="pre">add_danlp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subpath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">spacy.language.Language</span></span></span><a class="reference internal" href="_modules/dacy/subclasses/wrappers.html#add_danlp_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.subclasses.wrappers.add_danlp_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a DaNLP transformer model to the NLP pipeline. The transfomer model should be a model for sequence classification.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>nlp</strong> (<em>Language</em>) – A spacy text-processing pipeline</p></li>
-<li><p><strong>download_name</strong> (<em>str</em>) – the name of the model you wish to download</p></li>
-<li><p><strong>subpath</strong> (<em>str</em>) – the path under which DaNLP stores the model</p></li>
-<li><p><strong>doc_extension</strong> (<em>str</em>) – The extension to the doc which you wish the save the transformer data under. This includes output tensor, wordpieces and more.</p></li>
-<li><p><strong>model_name</strong> (<em>str</em>) – What you want your model to be called in the nlp pipeline</p></li>
-<li><p><strong>category</strong> (<em>str</em>) – The category of the output. This is the label which is used to extract from the model. E.g. “sentiment” would allow you to extract the sentiment from doc._.sentiment</p></li>
-<li><p><strong>labels</strong> (<em>list</em>) – The labels of the model</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em>) – Toggles the verbosity of the download. Defaults to True.</p></li>
-<li><p><strong>open_unverified_connection</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should you download from an unverified connection. Defaults to False.</p></li>
-<li><p><strong>force_extension</strong> (<em>bool</em><em>, </em><em>optional</em>) – Set the extension to the doc regardless of whether it already exists. Defaults to False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>your text processing pipeline with the transformer model included</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Language</p>
-</dd>
-</dl>
-</dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.subclasses.wrappers.add_huggingface_model">
 <span class="sig-prename descclassname"><span class="pre">dacy.subclasses.wrappers.</span></span><span class="sig-name descname"><span class="pre">add_huggingface_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">spacy.language.Language</span></span></span><a class="reference internal" href="_modules/dacy/subclasses/wrappers.html#add_huggingface_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.subclasses.wrappers.add_huggingface_model" title="Permalink to this definition">¶</a></dt>
@@ -408,14 +380,14 @@ The doc._.clf_trf_data attribute is set prior to calling the callback. By defaul
         
         <div class="related-pages">
           
-          <a class="prev-page" href="dacy.readability.html">
+          <a class="prev-page" href="dacy.score.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Readability</div>
+                <div class="title">Score</div>
                 
               </div>
             </a>
