@@ -245,7 +245,7 @@ which will run all the test in the `dacy/tests` folder.
 Specific tests can be run using:
 
 ```
-python -m pytest dacy/tests/test_readability.py
+python -m pytest dacy/tests/test_utils.py
 ```
 
 **Code Coverage**
