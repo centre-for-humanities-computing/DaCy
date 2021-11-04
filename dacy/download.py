@@ -10,7 +10,7 @@ from tqdm import tqdm
 from wasabi import msg
 
 
-DEFAULT_CACHE_DIR = os.path.join(str(Path.home()), ".dacy")
+DEFAULT_CACHE_DIR = os.getenv("DACY_CACHE_DIR", os.path.join(str(Path.home()), ".dacy"))
 
 models_url = {
     "da_dacy_small_tft-0.0.0": "https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download",
