@@ -12,9 +12,16 @@ This website contains the documentation for DaCy as well as an introduction to h
 📰 News
 ---------------------------------
 
+* 1.2.0 (04/11/21)
+
+  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface's model hub which is faster and more stable 🌟.
+  - Removed the readability module, we instead recommend you use the more extensive `textdescriptives <https://github.com/hlasse/TextDescriptives>`__ package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
+  - Added support for the configuring the default the model location with the environmental variable 'DACY_CACHE_DIR' thanks to a PR by `dhpullack <https://github.com/dhpollack>`__ 🙏.
+
+
 * 1.1.0 (23/07/21)
   
-  - DaCy in not available on the `Huggingface model hub <https://huggingface.co/models?search=dacy>`__ 🤗 . Including detailed performance descriptions of biases and robustness.
+  - DaCy in now available on the `Huggingface model hub <https://huggingface.co/models?search=dacy>`__ 🤗 . Including detailed performance descriptions of biases and robustness.
   - It also got a brand new online `demo <https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing>`__ - try it out!
   - And more, including documentation update and prettier prints.
 
@@ -91,7 +98,6 @@ The documentation is organized in three parts:
    dacy.sentiment
    dacy.augmenters
    dacy.score
-   dacy.readability
    dacy.subclasses
 
 

@@ -15,21 +15,11 @@ def test_tutorial():
                         force_extension=True,
                         )
 
-    import os
+    from transformers import AutoModelForSequenceClassification
 
-    from danlp.download import download_model as danlp_download
-    from danlp.download import _unzip_process_func
-    from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
-    from transformers import AutoModelForSequenceClassification, BertTokenizer
-
-    # downloading model and setting a path to its location
-    path_sub = danlp_download(
-        "bert.polarity", DANLP_DIR, process_func=_unzip_process_func, verbose=True
-    )
-    path_sub = os.path.join(path_sub, "bert.pol.v0.0.1")
-
-    # loading it in with transformers
-    berttone = AutoModelForSequenceClassification.from_pretrained(path_sub, num_labels=3)
+    # load and download the model
+    name = "DaNLP/da-bert-tone-sentiment-polarity"
+    berttone = AutoModelForSequenceClassification.from_pretrained(name, num_labels=3)
 
     from dacy.subclasses import ClassificationTransformer, install_classification_extensions
 
@@ -41,7 +31,7 @@ def test_tutorial():
         "doc_extension_attribute": doc_extension,
         "model": {
             "@architectures": "dacy.ClassificationTransformerModel.v1",
-            "name": path_sub,
+            "name": name,
             "num_labels": len(labels),
         },
     }

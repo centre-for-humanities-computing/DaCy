@@ -40,7 +40,7 @@ def load(
 
 
 def where_is_my_dacy(verbose: bool = True) -> str:
-    """Returns a path to where DaCy models are located
+    """Returns a path to where DaCy models are located. The default the model location can be configured with the environmental variable `DACY_CACHE_DIR`.
 
     Args:
         verbose (bool, optional): Toggles the verbosity of the function. Defaults to True.

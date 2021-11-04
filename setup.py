@@ -28,19 +28,17 @@ setuptools.setup(
     include_package_data=True,
     # external packages as dependencies
     install_requires=[
-        "tqdm>=4.42.1",
-        "spacy>=3.0.3",
-        "spacy-transformers>=1.0.1",
-        "pandas >= 1.0.0",
-        "wasabi >= 0.8.2"
+        "tqdm>=4.42.1,<4.43.0",
+        "spacy>=3.1.4,<3.2.0",
+        "spacy-transformers>=1.0.1,<1.1.0",
+        "pandas >= 1.0.0,<1.3.4",
+        "wasabi >= 0.8.2,< 0.9.0"
         ],
     extras_require={
-        'danlp' : ['danlp>=0.0.11'],
         'large' : ['protobuf>=3.17.3',
                  'sentencepiece>=0.1.96',
                  ],
-        'all' : ['danlp>=0.0.11',
-                 'protobuf>=3.17.3',
+        'all' : ['protobuf>=3.17.3',
                  'sentencepiece>=0.1.96',
                  ]
     },
