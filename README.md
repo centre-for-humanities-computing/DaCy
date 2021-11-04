@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 # 📰 News
 - 1.2.0 (04/11/21)
-  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingfaces model hub which is faster and more stable 🌟.
+  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface's model hub which is faster and more stable 🌟.
   - Removed the readability module, we recommend using the more extensive [textdescriptives](https://github.com/hlasse/TextDescriptives) package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
   - Added support for configuring the default save path with the environmental variable `DACY_CACHE_DIR` thanks to a PR by [dhpullack](https://github.com/dhpollack) 🙏.
 - 1.1.0 (23/07/21)

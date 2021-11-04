@@ -14,7 +14,7 @@ This website contains the documentation for DaCy as well as an introduction to h
 
 * 1.2.0 (04/11/21)
 
-  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingfaces model hub which is faster and more stable 🌟.
+  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface's model hub which is faster and more stable 🌟.
   - Removed the readability module, we instead recommend you use the more extensive `textdescriptives <https://github.com/hlasse/TextDescriptives>`__ package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
   - Added support for the configuring the default the model location with the environmental variable 'DACY_CACHE_DIR' thanks to a PR by `dhpullack <https://github.com/dhpollack>`__ 🙏.
 
