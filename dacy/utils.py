@@ -1,4 +1,4 @@
-import collections
+from collections.abc import MutableMapping
 
 
 def softmax(x):
@@ -25,10 +25,11 @@ def flatten_dict(d: dict, sep: str = "_") -> dict:
         items = []
         for k, v in d.items():
             new_key = parent_key + sep + k if parent_key else k
-            if isinstance(v, collections.MutableMapping):
+            if isinstance(v, MutableMapping):
                 items.extend(__inner_flatten(v, new_key, sep=sep).items())
             else:
                 items.append((new_key, v))
         return dict(items)
 
     return __inner_flatten(d, "", sep)
+

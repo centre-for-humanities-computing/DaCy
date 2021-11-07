@@ -5,9 +5,6 @@ import spacy
 
 from dacy.subclasses import ClassificationTransformer, install_classification_extensions
 
-from danlp.download import download_model as danlp_download
-from danlp.download import _unzip_process_func
-from danlp.download import DEFAULT_CACHE_DIR as DANLP_DIR
 
 
 def test_classification_transformer():
@@ -20,12 +17,6 @@ def test_classification_transformer():
         "Jeg tror alligvel, det bliver godt",
     ]
 
-    # downloading model and setting a path to its location
-    path_sub = danlp_download(
-        "bert.polarity", DANLP_DIR, process_func=_unzip_process_func, verbose=True
-    )
-    path_sub = os.path.join(path_sub, "bert.pol.v0.0.1")
-
     labels = ["positive", "neutral", "negative"]
 
     doc_extension = "berttone_pol_trf_data"
@@ -35,7 +26,7 @@ def test_classification_transformer():
         "doc_extension_attribute": doc_extension,
         "model": {
             "@architectures": "dacy.ClassificationTransformerModel.v1",
-            "name": path_sub,
+            "name": "DaNLP/da-bert-tone-sentiment-polarity",
             "num_labels": len(labels),
         },
     }

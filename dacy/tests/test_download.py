@@ -7,19 +7,23 @@ import dacy
 
 
 def test_urls():
-    for m, url in models_url.items():
-        print(m)
+    for m in dacy.models():
+        url = models_url[m]
         req = urllib.request.Request(url, method="HEAD")
         f = urllib.request.urlopen(req)
         assert f.status == 200
+
+    for m in ["da_dacy_small_tft-0.0.0", "da_dacy_medium_tft-0.0.0", "da_dacy_large_tft-0.0.0"]:
         print("\t Status:", f.status)
         size = int(f.headers["Content-Length"]) / 1e6
         assert size > 20
         print("\t File Size:", round(size), "mb")
+    
+
 
 
 def test_load():
-    models = ["da_dacy_medium_tft-0.0.0"]
+    models = ["da_dacy_medium_trf-0.1.0", "da_dacy_medium_tft-0.0.0"]
     for m in models:
         nlp = load(m)
         nlp("Dette er en test tekst")
