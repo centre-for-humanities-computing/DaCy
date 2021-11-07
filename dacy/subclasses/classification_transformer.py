@@ -270,7 +270,7 @@ def make_classification_getter(category, labels, doc_extension):
 
     def label_getter(doc) -> Optional[str]:
         prop = getattr(doc._, f"{category}_prop")
-        if prop["prop"]:
+        if prop["prop"] is not None:
             return labels[int(prop["prop"].argmax())]
         else:
             return None
