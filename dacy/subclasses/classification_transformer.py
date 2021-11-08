@@ -3,8 +3,9 @@ Functions for wrapping a sequence classification transformer in a SpaCy pipeline
 
 """
 
-from typing import List, Callable, Iterable, Dict, Union
+from typing import List, Callable, Iterable, Dict, Optional, Union
 from pathlib import Path
+import warnings
 
 from spacy.language import Language
 from spacy import util
@@ -255,14 +256,25 @@ def huggingface_classification_from_pretrained(
 def make_classification_getter(category, labels, doc_extension):
     def prop_getter(doc) -> dict:
         trf_data = getattr(doc._, doc_extension)
-        return {
-            "prop": softmax(trf_data.tensors[0][0]).round(decimals=3),
-            "labels": labels,
-        }
+        if trf_data.tensors:
+            return {
+                "prop": softmax(trf_data.tensors[0][0]).round(decimals=3),
+                "labels": labels,
+            }
+        else:
+            warnings.warn("The tensors from the transformer forward pass is empty this is likely caused by an empty input string. Thus the model will return None")
+            return {
+                "prop": None,
+                "labels": labels,
+            }
 
-    def label_getter(doc) -> str:
+    def label_getter(doc) -> Optional[str]:
         prop = getattr(doc._, f"{category}_prop")
-        return labels[int(prop["prop"].argmax())]
+        if prop["prop"] is not None:
+            return labels[int(prop["prop"].argmax())]
+        else:
+            return None
+
 
     return prop_getter, label_getter
 

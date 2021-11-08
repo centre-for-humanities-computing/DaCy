@@ -17,11 +17,15 @@ def test_add_berttone_subjectivity():
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
         "Jeg tror alligevel, det bliver godt",
+        ""
     ]
-    actual = ["objective", "subjective"]
+    actual = ["objective", "subjective", None]
     docs = nlp.pipe(texts)
     for d, a in zip(docs, actual):
-        assert d._.subjectivity == a
+        if a is None:
+            assert d._.subjectivity is None
+        else:
+            assert d._.subjectivity == a
 
 
 def test_add_berttone_polarity():
