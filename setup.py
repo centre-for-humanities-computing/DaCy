@@ -5,7 +5,7 @@ with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 with open("requirements.txt", encoding="utf-8") as f:
-    requirements = [l.strip() for l in f]
+    requirements = f.read().split("\n")
 
 setuptools.setup(
     name="dacy",
