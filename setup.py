@@ -1,16 +1,11 @@
 import setuptools
-
-with open("dacy/about.py") as f:
-    v = f.read()
-    for l in v.split("\n"):
-        if l.startswith("__version__"):
-            __version__ = l.split('"')[-2]
+from dacy.about import __version__
 
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 with open("requirements.txt", encoding="utf-8") as f:
-    requirements = f.read()
+    requirements = [l.strip() for l in f]
 
 setuptools.setup(
     name="dacy",
@@ -27,13 +22,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     # external packages as dependencies
-    install_requires=[
-        "tqdm>=4.42.1,<4.43.0",
-        "spacy>=3.1.4,<3.2.0",
-        "spacy-transformers>=1.0.1,<1.1.0",
-        "pandas >= 1.0.0,<1.3.4",
-        "wasabi >= 0.8.2,< 0.9.0"
-        ],
+    install_requires=requirements,
     extras_require={
         'large' : ['protobuf>=3.17.3',
                  'sentencepiece>=0.1.96',
