@@ -1,9 +1,9 @@
 import setuptools
 with open("dacy/about.py") as f:
-     v = f.read()
-     for l in v.split("\n"):
-         if l.startswith("__version__"):
-             __version__ = l.split('"')[-2]
+    v = f.read()
+    for l in v.split("\n"):
+        if l.startswith("__version__"):
+            __version__ = l.split('"')[-2]
 
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
