@@ -11,13 +11,11 @@ import spacy
 
 def test_add_berttone_subjectivity():
     nlp = spacy.blank("en")
-    nlp = add_berttone_subjectivity(
-        nlp, force_extension=True
-    )
+    nlp = add_berttone_subjectivity(nlp, force_extension=True)
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
         "Jeg tror alligevel, det bliver godt",
-        ""
+        "",
     ]
     actual = ["objective", "subjective", None]
     docs = nlp.pipe(texts)
@@ -30,9 +28,7 @@ def test_add_berttone_subjectivity():
 
 def test_add_berttone_polarity():
     nlp = spacy.blank("en")
-    nlp = add_berttone_polarity(
-        nlp, force_extension=True
-    )
+    nlp = add_berttone_polarity(nlp, force_extension=True)
 
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
@@ -47,16 +43,12 @@ def test_add_berttone_polarity():
 
 def test_add_bertemotion_laden():
     nlp = spacy.blank("da")
-    nlp = add_bertemotion_laden(
-        nlp, force_extension=True
-    )
+    nlp = add_bertemotion_laden(nlp, force_extension=True)
 
 
 def test_add_bertemotion_emo():
     nlp = spacy.blank("da")
-    nlp = add_bertemotion_emo(
-        nlp, force_extension=True
-    )
+    nlp = add_bertemotion_emo(nlp, force_extension=True)
     doc = nlp("Har i set at Tesla har landet en raket på månen? Det er vildt!!")
     assert doc._.emotion == "Overasket/Målløs"
 

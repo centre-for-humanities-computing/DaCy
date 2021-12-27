@@ -13,13 +13,15 @@ def test_urls():
         f = urllib.request.urlopen(req)
         assert f.status == 200
 
-    for m in ["da_dacy_small_tft-0.0.0", "da_dacy_medium_tft-0.0.0", "da_dacy_large_tft-0.0.0"]:
+    for m in [
+        "da_dacy_small_tft-0.0.0",
+        "da_dacy_medium_tft-0.0.0",
+        "da_dacy_large_tft-0.0.0",
+    ]:
         print("\t Status:", f.status)
         size = int(f.headers["Content-Length"]) / 1e6
         assert size > 20
         print("\t File Size:", round(size), "mb")
-    
-
 
 
 def test_load():

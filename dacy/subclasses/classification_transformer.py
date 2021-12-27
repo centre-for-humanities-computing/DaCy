@@ -262,7 +262,9 @@ def make_classification_getter(category, labels, doc_extension):
                 "labels": labels,
             }
         else:
-            warnings.warn("The tensors from the transformer forward pass is empty this is likely caused by an empty input string. Thus the model will return None")
+            warnings.warn(
+                "The tensors from the transformer forward pass is empty this is likely caused by an empty input string. Thus the model will return None"
+            )
             return {
                 "prop": None,
                 "labels": labels,
@@ -274,7 +276,6 @@ def make_classification_getter(category, labels, doc_extension):
             return labels[int(prop["prop"].argmax())]
         else:
             return None
-
 
     return prop_getter, label_getter
 

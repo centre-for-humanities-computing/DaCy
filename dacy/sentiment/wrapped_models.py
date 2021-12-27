@@ -21,11 +21,15 @@ def add_berttone_subjectivity(
     Returns:
         Language: your text processing pipeline with the transformer model included
     """
-    return add_huggingface_model(nlp, "DaNLP/da-bert-tone-subjective-objective", 
-                                 "berttone_subj_trf_data",
-                                 "berttone_subj",
-                                  "subjectivity", 
-                                  labels=["objective", "subjective"], force_extension=force_extension)
+    return add_huggingface_model(
+        nlp,
+        "DaNLP/da-bert-tone-subjective-objective",
+        "berttone_subj_trf_data",
+        "berttone_subj",
+        "subjectivity",
+        labels=["objective", "subjective"],
+        force_extension=force_extension,
+    )
 
 
 def add_berttone_polarity(
@@ -41,11 +45,15 @@ def add_berttone_polarity(
     Returns:
         Language: your text processing pipeline with the transformer model included
     """
-    return add_huggingface_model(nlp, "DaNLP/da-bert-tone-sentiment-polarity", 
-                                 "berttone_pol_trf_data",
-                                 "berttone_pol",
-                                  "polarity", 
-                                  labels=["positive", "neutral", "negative"], force_extension=force_extension)
+    return add_huggingface_model(
+        nlp,
+        "DaNLP/da-bert-tone-sentiment-polarity",
+        "berttone_pol_trf_data",
+        "berttone_pol",
+        "polarity",
+        labels=["positive", "neutral", "negative"],
+        force_extension=force_extension,
+    )
 
 
 def add_bertemotion_laden(
@@ -63,11 +71,15 @@ def add_bertemotion_laden(
     Returns:
         Language: your text processing pipeline with the transformer model included
     """
-    return add_huggingface_model(nlp, "DaNLP/da-bert-emotion-binary", 
-                                 "bertemotion_laden_trf_data",
-                                 "bertemotion_laden",
-                                  "laden", 
-                                  labels=["Emotional", "No emotion"], force_extension=force_extension)
+    return add_huggingface_model(
+        nlp,
+        "DaNLP/da-bert-emotion-binary",
+        "bertemotion_laden_trf_data",
+        "bertemotion_laden",
+        "laden",
+        labels=["Emotional", "No emotion"],
+        force_extension=force_extension,
+    )
 
 
 def add_bertemotion_emo(
@@ -94,11 +106,15 @@ def add_bertemotion_emo(
         "Sorg/trist",
         "Frygt/Bekymret",
     ]
-    return add_huggingface_model(nlp, "DaNLP/da-bert-emotion-classification", 
-                                 "bertemotion_emo_trf_data",
-                                 "bertemotion_emo",
-                                  "emotion", 
-                                  labels=labels, force_extension=force_extension)
+    return add_huggingface_model(
+        nlp,
+        "DaNLP/da-bert-emotion-classification",
+        "bertemotion_emo_trf_data",
+        "bertemotion_emo",
+        "emotion",
+        labels=labels,
+        force_extension=force_extension,
+    )
 
 
 def add_senda(nlp: Language, force_extension: bool = False) -> Language:
