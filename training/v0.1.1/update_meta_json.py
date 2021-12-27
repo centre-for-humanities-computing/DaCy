@@ -19,32 +19,43 @@ def main(meta_json, meta_augment_json, size, decimals=3):
     meta["url"] = "https://chcaa.io/#/"
     meta["license"] = "Apache-2.0 License"
 
-
-    mdl_used = {"small": 
-                    {"name": "Maltehb/-l-ctra-danish-electra-small-cased",
-                    "author": "Malte Højmark-Bertelsen",
-                    "url": "https://huggingface.co/Maltehb/-l-ctra-danish-electra-small-cased",
-                    "license": "CC BY 4.0"},
-                "medium": 
-                    {"name": "Maltehb/danish-bert-botxo",
-                    "author": "BotXO.ai",
-                    "url": "https://huggingface.co/Maltehb/danish-bert-botxo",
-                    "license": "CC BY 4.0"},
-                "large": {"name":"xlm-roberta-large",
-                "author":"Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, Veselin Stoyanov",
-                "url":"https://huggingface.co/xlm-roberta-large",
-                "license":"CC BY 4.0"}}
+    mdl_used = {
+        "small": {
+            "name": "Maltehb/-l-ctra-danish-electra-small-cased",
+            "author": "Malte Højmark-Bertelsen",
+            "url": "https://huggingface.co/Maltehb/-l-ctra-danish-electra-small-cased",
+            "license": "CC BY 4.0",
+        },
+        "medium": {
+            "name": "Maltehb/danish-bert-botxo",
+            "author": "BotXO.ai",
+            "url": "https://huggingface.co/Maltehb/danish-bert-botxo",
+            "license": "CC BY 4.0",
+        },
+        "large": {
+            "name": "xlm-roberta-large",
+            "author": "Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, Veselin Stoyanov",
+            "url": "https://huggingface.co/xlm-roberta-large",
+            "license": "CC BY 4.0",
+        },
+    }
     model = mdl_used[size]
 
-    meta["sources"] = [{"name":"UD Danish DDT v2.5",
-        "url":"https://github.com/UniversalDependencies/UD_Danish-DDT",
-        "license":"CC BY-SA 4.0",
-        "author":"Johannsen, Anders; Mart\u00ednez Alonso, H\u00e9ctor; Plank, Barbara"},
-        {"name":"DaNE",
-        "url":"https://github.com/alexandrainst/danlp/blob/master/docs/datasets.md#danish-dependency-treebank-dane",
-        "license":"CC BY-SA 4.0",
-        "author":"Rasmus Hvingelby, Amalie B. Pauli, Maria Barrett, Christina Rosted, Lasse M. Lidegaard, Anders S\u00f8gaard"
-        }, model]
+    meta["sources"] = [
+        {
+            "name": "UD Danish DDT v2.5",
+            "url": "https://github.com/UniversalDependencies/UD_Danish-DDT",
+            "license": "CC BY-SA 4.0",
+            "author": "Johannsen, Anders; Mart\u00ednez Alonso, H\u00e9ctor; Plank, Barbara",
+        },
+        {
+            "name": "DaNE",
+            "url": "https://github.com/alexandrainst/danlp/blob/master/docs/datasets.md#danish-dependency-treebank-dane",
+            "license": "CC BY-SA 4.0",
+            "author": "Rasmus Hvingelby, Amalie B. Pauli, Maria Barrett, Christina Rosted, Lasse M. Lidegaard, Anders S\u00f8gaard",
+        },
+        model,
+    ]
 
     meta["requirements"] = ["spacy-transformers>=1.0.3,<1.1.0"]
 

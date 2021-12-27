@@ -9,6 +9,7 @@ from ..datasets import dane
 from .score import score
 from wasabi import msg
 
+
 def n_sents_score(
     n_sents: Union[int, List[int]],
     apply_fn: Callable,
