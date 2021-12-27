@@ -255,13 +255,7 @@ python -m pytest--cov=.
 <details>
   <summary>Does DaCy run on X?</summary>
 
-  DaCy is intended to run on all major OS, this includes Windows (latest version), MacOS (Catalina) and the latest version of Linux (Ubuntu). Below you can see if DaCy passes its test suite for the system of interest. The first one indicated Linux. Please note these are only the systems DaCy is being actively tested on, if you run on a similar system (e.g. an earlier version of Linux) DaCy will likely run there as well.
-
-| Operating System | Status                                                                                                                                                                                                                  |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ubuntu (Latest)  | [![github actions pytest ubuntu](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml)     |
-| MacOS (Catalina) | [![github actions pytest catalina](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_mac_catalina.yml/badge.svg)](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_mac_catalina.yml) |
-| Windows (Latest) | [![github actions pytest windows](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_windows.yml/badge.svg)](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest_windows.yml)            |
+  DaCy is intended to run on all major OS, and is thus tested on Windows (latest version), MacOS (latest version) and the latest version of Linux (Ubuntu). If you run on a similar system (e.g. an earlier version of Linux) DaCy will likely run there as well.
 
   
 </details>
