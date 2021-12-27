@@ -4,12 +4,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>dacy.datasets.dane - DaCy 1.2.3 documentation</title>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
+        <title>dacy.datasets.dane - DaCy 1.2.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
     
     
 
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">DaCy 1.2.3 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">DaCy 1.2.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -216,14 +216,14 @@
 <span class="sd">"""</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">spacy.training</span> <span class="k">import</span> <span class="n">Corpus</span>
+<span class="kn">from</span> <span class="nn">spacy.training</span> <span class="kn">import</span> <span class="n">Corpus</span>
 
-<span class="kn">from</span> <span class="nn">..download</span> <span class="k">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_url</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">DATASETS</span>
+<span class="kn">from</span> <span class="nn">..download</span> <span class="kn">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_url</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">DATASETS</span>
 
 
 <div class="viewcode-block" id="dane"><a class="viewcode-back" href="../../../dacy.datasets.html#dacy.datasets.dane.dane">[docs]</a><span class="k">def</span> <span class="nf">dane</span><span class="p">(</span>
@@ -232,7 +232,7 @@
     <span class="n">redownload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">n_sents</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Corpus</span><span class="p">],</span> <span class="n">Corpus</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Reads the DaNE dataset as a spacy Corpus.</span>
@@ -241,7 +241,7 @@
 <span class="sd">        save_path (str, optional): Path to the DaNE dataset If it does not contain the dataset it</span>
 <span class="sd">            is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.</span>
 <span class="sd">        splits (List[str], optional): Which splits of the dataset should be returned. Possible options include "train", "dev", "test", "all".</span>
-<span class="sd">            Defaults to ["train", "dev", "test"]. </span>
+<span class="sd">            Defaults to ["train", "dev", "test"].</span>
 <span class="sd">        redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.</span>
 <span class="sd">        n_sents (int, optional): Number of sentences per document. Only applied if the dataset is downloaded. Defaults to 1.</span>
 <span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
@@ -286,24 +286,26 @@
 
     <span class="k">for</span> <span class="n">wpath</span> <span class="ow">in</span> <span class="n">wpaths</span><span class="p">:</span>
         <span class="n">wpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">wpath</span><span class="p">)</span>
-        <span class="n">cpath</span> <span class="o">=</span> <span class="n">wpath</span><span class="p">[:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">f</span><span class="s2">"_</span><span class="si">{n_sents}</span><span class="s2">"</span>
+        <span class="n">cpath</span> <span class="o">=</span> <span class="n">wpath</span><span class="p">[:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">cpath</span> <span class="o">+</span> <span class="s2">".spacy"</span><span class="p">):</span>
             <span class="k">continue</span>
         <span class="n">cpath</span> <span class="o">+=</span> <span class="s2">".conllu"</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">wpath</span><span class="p">,</span> <span class="n">cpath</span><span class="p">)</span>
         <span class="c1"># convert to spacy</span>
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span>
-            <span class="n">f</span><span class="s2">"python -m spacy convert </span><span class="si">{cpath}</span><span class="s2"> </span><span class="si">{save_path}</span><span class="s2"> --converter conllu --merge-subtokens -n </span><span class="si">{n_sents}</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"python -m spacy convert </span><span class="si">{</span><span class="n">cpath</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2"> --converter conllu --merge-subtokens -n </span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cpath</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="n">splits</span><span class="p">]</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">[</span><span class="n">splits</span><span class="p">]</span>
     <span class="n">corpora</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"all"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">,</span>
-        <span class="s2">"test"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_test_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">,</span>
-        <span class="s2">"dev"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_dev_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">,</span> 
-        <span class="s2">"train"</span><span class="p">:</span> <span class="n">f</span><span class="s2">"dane_train_</span><span class="si">{n_sents}</span><span class="s2">.spacy"</span><span class="p">}</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"all"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"dane_</span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">.spacy"</span><span class="p">,</span>
+        <span class="s2">"test"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"dane_test_</span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">.spacy"</span><span class="p">,</span>
+        <span class="s2">"dev"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"dane_dev_</span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">.spacy"</span><span class="p">,</span>
+        <span class="s2">"train"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"dane_train_</span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">.spacy"</span><span class="p">,</span>
+    <span class="p">}</span>
 
     <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
         <span class="n">corpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Corpus</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">[</span><span class="n">split</span><span class="p">])))</span>
@@ -322,10 +324,8 @@
 
         <div class="related-information">
               Copyright &#169;  |
-            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
-              and
-              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+          Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
         </div>
         
       </footer>
@@ -340,7 +340,7 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     </body>

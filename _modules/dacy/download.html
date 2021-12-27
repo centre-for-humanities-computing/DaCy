@@ -4,12 +4,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>dacy.download - DaCy 1.2.3 documentation</title>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
+        <title>dacy.download - DaCy 1.2.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
     
     
 
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">DaCy 1.2.3 documentation</div></a>
+      <a href="../../index.html"><div class="brand">DaCy 1.2.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -216,11 +216,11 @@
 <span class="sd">"""</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
-<span class="kn">from</span> <span class="nn">wasabi</span> <span class="k">import</span> <span class="n">msg</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">wasabi</span> <span class="kn">import</span> <span class="n">msg</span>
 
 
 <span class="n">DEFAULT_CACHE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"DACY_CACHE_DIR"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()),</span> <span class="s2">".dacy"</span><span class="p">))</span>
@@ -232,7 +232,6 @@
     <span class="s2">"da_dacy_small_trf-0.1.0"</span><span class="p">:</span> <span class="s2">"https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl"</span><span class="p">,</span>
     <span class="s2">"da_dacy_medium_trf-0.1.0"</span><span class="p">:</span> <span class="s2">"https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl"</span><span class="p">,</span>
     <span class="s2">"da_dacy_large_trf-0.1.0"</span><span class="p">:</span> <span class="s2">"https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl"</span><span class="p">,</span>
-
 <span class="p">}</span>
 
 
@@ -268,7 +267,7 @@
 <span class="sd">        &gt;&gt;&gt; download_model(model="da_dacy_medium_tft-0.0.0")</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"small"</span><span class="p">,</span> <span class="s2">"medium"</span><span class="p">,</span> <span class="s2">"large"</span><span class="p">}:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">f</span><span class="s2">"da_dacy_</span><span class="si">{model}</span><span class="s2">_trf-0.1.0"</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"da_dacy_</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">_trf-0.1.0"</span>
 
     <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">models_url</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -286,16 +285,19 @@
             <span class="k">return</span> <span class="n">path</span>
 
         <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Downloading '</span><span class="si">{model}</span><span class="s2">'"</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Downloading '</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
         <span class="n">Path</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dl_path</span><span class="p">)</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">dl_path</span><span class="p">,</span> <span class="n">save_path</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dl_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">"\Model successfully downloaded, you can now load it using dacy.load(</span><span class="si">{model}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"\Model successfully downloaded, you can now load it using dacy.load(</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">path</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">spacy.util</span> <span class="k">import</span> <span class="n">get_installed_models</span>
+        <span class="kn">from</span> <span class="nn">spacy.util</span> <span class="kn">import</span> <span class="n">get_installed_models</span>
+
         <span class="n">mdl</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">mdl</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">get_installed_models</span><span class="p">():</span>
             <span class="n">install</span><span class="p">(</span><span class="n">models_url</span><span class="p">[</span><span class="n">model</span><span class="p">])</span>
@@ -311,6 +313,7 @@
 
 <span class="k">def</span> <span class="nf">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">urllib.request</span>
+
     <span class="k">with</span> <span class="n">DownloadProgressBar</span><span class="p">(</span>
         <span class="n">unit</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">miniters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
@@ -320,6 +323,7 @@
 <div class="viewcode-block" id="install"><a class="viewcode-back" href="../../download.html#dacy.download.install">[docs]</a><span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">subprocess</span>
     <span class="kn">import</span> <span class="nn">sys</span>
+
     <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pip"</span><span class="p">,</span> <span class="s2">"install"</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span></div>
 </pre></div>
         </article>
@@ -333,10 +337,8 @@
 
         <div class="related-information">
               Copyright &#169;  |
-            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
-              and
-              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+          Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
         </div>
         
       </footer>
@@ -351,7 +353,7 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/main.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     </body>

@@ -7,15 +7,15 @@
   <meta property="og:title" content="Using DaCy" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="usingdacy.html" />
-  <meta property="og:description" content="To use the model you first have to download either the small, medium or large model. To see a list of all available models: import dacy for model in dacy.models(): print(model) # da_dacy_small_tft-..." />
+  <meta property="og:description" content="To use the model you first have to download either the small, medium or large model. To see a list of all available models: From here we can now download a model using: Which will download the mode..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="General performance" href="performance.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Using DaCy - DaCy 1.2.3 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
+        <title>Using DaCy - DaCy 1.2.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
     
     
 
@@ -135,7 +135,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 1.2.3 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy 1.2.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -222,7 +222,7 @@
 of all available models:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
 <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">dacy</span><span class="o">.</span><span class="n">models</span><span class="p">():</span>
-   <span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 <span class="c1"># da_dacy_small_tft-0.0.0</span>
 <span class="c1"># da_dacy_medium_tft-0.0.0</span>
 <span class="c1"># da_dacy_large_tft-0.0.0</span>
@@ -262,7 +262,7 @@ using the pipeline in their very well written documentation on their <a class="r
 <p>A named entity is a “real-world object” that’s assigned a name – for example, a person, a country, a product or a book title.
 DaCy can recognize organizations, persons, and location, as well as other miscellaneous entities.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
-   <span class="k">print</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="s2">":"</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="s2">":"</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
 <span class="c1"># DaCy : ORG</span>
 <span class="c1"># dansk : MISC</span>
 <span class="c1"># SpaCy : ORG</span>
@@ -281,9 +281,9 @@ DaCy can recognize organizations, persons, and location, as well as other miscel
 </section>
 <section id="tagging-parts-of-speech">
 <h2>Tagging parts-of-speech<a class="headerlink" href="#tagging-parts-of-speech" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">"Token POS-tag"</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Token POS-tag"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
-   <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">"{token}: {token.pos_}"</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="c1"># Token POS-tag</span>
 <span class="c1"># DaCy:              PROPN</span>
 <span class="c1"># er:                AUX</span>
@@ -384,11 +384,9 @@ add it to your SpaCy pipeline using DaCy helper functions.</p></td>
 
         <div class="related-information">
               Copyright &#169;  |
-            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
-              and
-              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="_sources/usingdacy.rst.txt"
+          Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            | <a class="muted-link" href="_sources/usingdacy.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -428,7 +426,7 @@ add it to your SpaCy pipeline using DaCy helper functions.</p></td>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/main.js"></script>
+    <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     </body>
