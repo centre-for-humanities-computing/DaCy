@@ -1,5 +1,4 @@
 import setuptools
-
 with open("dacy/about.py") as f:
     v = f.read()
     for l in v.split("\n"):
@@ -10,7 +9,7 @@ with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 with open("requirements.txt", encoding="utf-8") as f:
-    requirements = f.read()
+    requirements = f.read().split("\n")
 
 setuptools.setup(
     name="dacy",
@@ -33,6 +32,7 @@ setuptools.setup(
         "pandas >= 1.0.0,<2.0.0",
         "wasabi >= 0.8.2,< 0.9.0",
     ],
+
     extras_require={
         "large": [
             "protobuf>=3.17.3",
