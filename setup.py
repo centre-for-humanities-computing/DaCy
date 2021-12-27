@@ -1,4 +1,5 @@
 import setuptools
+
 with open("dacy/about.py") as f:
     v = f.read()
     for l in v.split("\n"):
@@ -32,7 +33,6 @@ setuptools.setup(
         "pandas >= 1.0.0,<2.0.0",
         "wasabi >= 0.8.2,< 0.9.0",
     ],
-
     extras_require={
         "large": [
             "protobuf>=3.17.3",
