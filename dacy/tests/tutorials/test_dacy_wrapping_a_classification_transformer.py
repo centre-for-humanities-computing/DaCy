@@ -3,17 +3,20 @@ import dacy
 
 from dacy.subclasses import add_huggingface_model
 
+
 def test_tutorial():
     import spacy
+
     nlp = spacy.blank("da")  # replace with your desired pipeline
-    nlp = add_huggingface_model(nlp, 
-                        download_name="pin/senda", # the model name on the huggingface hub
-                        doc_extension="senda_trf_data", # the doc extention for transformer data e.g. including wordpieces
-                        model_name="senda",  # the name of the model in the pipeline
-                        category="polarity", # the category type it predicts
-                        labels=["negative", "neutral", "positive"], # possible outcome labels
-                        force_extension=True,
-                        )
+    nlp = add_huggingface_model(
+        nlp,
+        download_name="pin/senda",  # the model name on the huggingface hub
+        doc_extension="senda_trf_data",  # the doc extention for transformer data e.g. including wordpieces
+        model_name="senda",  # the name of the model in the pipeline
+        category="polarity",  # the category type it predicts
+        labels=["negative", "neutral", "positive"],  # possible outcome labels
+        force_extension=True,
+    )
 
     from transformers import AutoModelForSequenceClassification
 
@@ -21,9 +24,12 @@ def test_tutorial():
     name = "DaNLP/da-bert-tone-sentiment-polarity"
     berttone = AutoModelForSequenceClassification.from_pretrained(name, num_labels=3)
 
-    from dacy.subclasses import ClassificationTransformer, install_classification_extensions
+    from dacy.subclasses import (
+        ClassificationTransformer,
+        install_classification_extensions,
+    )
 
-    labels=["positive", "neutral", "negative"]
+    labels = ["positive", "neutral", "negative"]
     doc_extension = "berttone_pol_trf_data"
     category = "polarity"
 
@@ -36,21 +42,22 @@ def test_tutorial():
         },
     }
 
-
     # add the relevant extentsion to the doc
     install_classification_extensions(
         category=category, labels=labels, doc_extension=doc_extension, force=True
     )
 
-    nlp = spacy.blank("da") # dummy nlp
+    nlp = spacy.blank("da")  # dummy nlp
 
     clf_transformer = nlp.add_pipe(
         "classification_transformer", name="berttone", config=config
     )
     clf_transformer.model.initialize()
 
-    texts = ["Analysen viser, at økonomien bliver forfærdelig dårlig", 
-            "Jeg tror alligvel, det bliver godt"]
+    texts = [
+        "Analysen viser, at økonomien bliver forfærdelig dårlig",
+        "Jeg tror alligvel, det bliver godt",
+    ]
 
     docs = nlp.pipe(texts)
 

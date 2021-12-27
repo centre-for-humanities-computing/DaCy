@@ -1,4 +1,4 @@
-#pip install flair==0.4.5
+# pip install flair==0.4.5
 
 from typing import Iterable, List
 from spacy.tokens import Doc

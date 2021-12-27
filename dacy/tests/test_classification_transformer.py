@@ -6,7 +6,6 @@ import spacy
 from dacy.subclasses import ClassificationTransformer, install_classification_extensions
 
 
-
 def test_classification_transformer():
     """
     test if it is possible to wrap a fine-tuned transformer trained for
@@ -42,7 +41,6 @@ def test_classification_transformer():
     )
 
     clf_transformer.model.initialize()
-
 
     docs = list(nlp.pipe(texts))
 

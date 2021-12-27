@@ -19,7 +19,6 @@ models_url = {
     "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl",
     "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl",
     "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",
-
 }
 
 
@@ -79,10 +78,13 @@ def download_model(
         shutil.unpack_archive(dl_path, save_path)
         os.remove(dl_path)
         if verbose is True:
-            msg.info(f"\Model successfully downloaded, you can now load it using dacy.load({model})")
+            msg.info(
+                f"\Model successfully downloaded, you can now load it using dacy.load({model})"
+            )
         return path
     else:
         from spacy.util import get_installed_models
+
         mdl = model.split("-")[0]
         if mdl not in get_installed_models():
             install(models_url[model])
@@ -98,6 +100,7 @@ class DownloadProgressBar(tqdm):
 
 def download_url(url: str, output_path: str) -> None:
     import urllib.request
+
     with DownloadProgressBar(
         unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
     ) as t:
@@ -107,4 +110,5 @@ def download_url(url: str, output_path: str) -> None:
 def install(package):
     import subprocess
     import sys
+
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])

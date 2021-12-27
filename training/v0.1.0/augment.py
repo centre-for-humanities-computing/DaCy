@@ -5,7 +5,8 @@ This is a utility script for applying the augmentation to the DaNE test set and 
 import json
 
 import sys
-sys.path.append("../..") # import dacy
+
+sys.path.append("../..")  # import dacy
 
 import spacy
 from dacy.augmenters import (
@@ -14,7 +15,6 @@ from dacy.augmenters import (
     create_spacing_augmenter,
     create_æøå_augmenter,
 )
-
 
 
 from dacy.datasets import dane, danish_names, female_names, male_names, muslim_names
@@ -179,7 +179,12 @@ def main(model, output):
         msg.info(f"Running augmenter: {nam}")
 
         scores_ = score(
-            corpus=test, apply_fn=nlp, augmenters=aug, score_fn=[scorer.score], k=k, nlp=nlp
+            corpus=test,
+            apply_fn=nlp,
+            augmenters=aug,
+            score_fn=[scorer.score],
+            k=k,
+            nlp=nlp,
         )
         m_d = scores_[scores_.columns].mean().to_dict()
         s_d = scores_[scores_.columns].std().to_dict()
@@ -190,7 +195,9 @@ def main(model, output):
     for n in [5, 10]:
         nam = f"Input size augmentation {n} sentences"
         msg.info(f"Running augmenter: {nam}")
-        scores_ = n_sents_score(n_sents=n, apply_fn=nlp, score_fn=[scorer.score], nlp=nlp)
+        scores_ = n_sents_score(
+            n_sents=n, apply_fn=nlp, score_fn=[scorer.score], nlp=nlp
+        )
         m_d = scores_[scores_.columns].mean().to_dict()
         s_d = scores_[scores_.columns].std().to_dict()
         m_d.pop("k")
@@ -206,12 +213,15 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, help="the model to evaluate", required=True)
-    parser.add_argument("--output", type=str, help="the json output filename", required=True)
+    parser.add_argument(
+        "--model", type=str, help="the model to evaluate", required=True
+    )
+    parser.add_argument(
+        "--output", type=str, help="the json output filename", required=True
+    )
 
     args = parser.parse_args()
     main(args.model, args.output)
-
 
     # import os
     # os.chdir("training/v0.1.0")

@@ -26,14 +26,22 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     # external packages as dependencies
-    install_requires=requirements,
+    install_requires=[
+        "spacy>=3.1.4,<3.2.0",
+        "spacy-transformers>=1.0.1,<1.1.0",
+        "pandas >= 1.0.0,<2.0.0",
+        "wasabi >= 0.8.2,< 0.9.0",
+    ],
+
     extras_require={
-        'large' : ['protobuf>=3.17.3',
-                 'sentencepiece>=0.1.96',
-                 ],
-        'all' : ['protobuf>=3.17.3',
-                 'sentencepiece>=0.1.96',
-                 ]
+        "large": [
+            "protobuf>=3.17.3",
+            "sentencepiece>=0.1.96",
+        ],
+        "all": [
+            "protobuf>=3.17.3",
+            "sentencepiece>=0.1.96",
+        ],
     },
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
