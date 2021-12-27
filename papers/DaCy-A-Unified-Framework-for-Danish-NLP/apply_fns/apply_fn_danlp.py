@@ -1,5 +1,4 @@
-
- ### DaNLP's BERT model requires transformers==3.5.1 (install with pip install transformers==3.5.1 --no-deps)
+### DaNLP's BERT model requires transformers==3.5.1 (install with pip install transformers==3.5.1 --no-deps)
 
 from spacy.tokens import Span, Doc
 from spacy.training import Example
@@ -17,12 +16,14 @@ ssl._create_default_https_context = ssl._create_unverified_context
 bert_model = load_bert_ner_model()
 nlp_da = Danish()
 
+
 def __apply_bert_model(example: Example) -> Example:
     # uses spacy tokenization
     doc = nlp_da(example.reference.text)
     tokens, labels = bert_model.predict([t.text for t in doc])
     doc = add_iob(doc, labels)
     return Example(doc, example.reference)
+
 
 apply_danlp_bert = apply_on_multiple_examples(__apply_bert_model)
 
