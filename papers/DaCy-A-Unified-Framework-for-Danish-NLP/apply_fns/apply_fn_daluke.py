@@ -14,7 +14,10 @@ daluke = AutoNERDaLUKE()
 
 nlp_da = Danish()
 
-def apply_daluke(examples: Iterable[Example], use_spacy: bool = True, batch_size: int = 16) -> List[Example]:
+
+def apply_daluke(
+    examples: Iterable[Example], use_spacy: bool = True, batch_size: int = 16
+) -> List[Example]:
     docs_y, sentences = list(), list()
     for example in examples:
         # Tokenization using spacy or nltk
@@ -22,16 +25,20 @@ def apply_daluke(examples: Iterable[Example], use_spacy: bool = True, batch_size
             sentences.append([t.text for t in nlp_da(example.reference.text)])
         else:
             from nltk.tokenize import word_tokenize
+
             sentences.append(word_tokenize(example.reference.text))
         docs_y.append(example.reference)
     # NER using daluke
     # join `should` not give size issues, as this string is again crudely split in DaLUKE API
-    predictions = predict_ner([" ".join(sent) for sent in sentences], daluke, batch_size=batch_size)
+    predictions = predict_ner(
+        [" ".join(sent) for sent in sentences], daluke, batch_size=batch_size
+    )
     out_examples = list()
     for doc_y, pred, words in zip(docs_y, predictions, sentences):
         doc = add_iob(Doc(nlp_da.vocab, words=words), iob=pred)
         out_examples.append(Example(doc, doc_y))
     return out_examples
+
 
 if __name__ == "__main__":
     import os
