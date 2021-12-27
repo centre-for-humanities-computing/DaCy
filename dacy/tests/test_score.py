@@ -1,4 +1,3 @@
-
 import spacy
 from spacy.lang.da import Danish
 import pandas as pd
@@ -31,7 +30,7 @@ def test_score():
         score_fn=["ents", "pos", "token"],
     )
     assert isinstance(scores, pd.DataFrame)
-    
+
     # test with nlp as input
     scores_ = score(
         corpus=test,
@@ -42,6 +41,7 @@ def test_score():
     )
     for s in scores_:
         assert s in scores.columns
+
 
 def test_n_sents_score():
     nlp = Danish()

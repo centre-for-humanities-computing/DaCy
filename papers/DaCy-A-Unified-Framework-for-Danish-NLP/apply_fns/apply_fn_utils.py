@@ -3,6 +3,7 @@ from typing import Callable, Iterable, List
 from spacy.tokens import Span, Doc
 from spacy.training import Example
 
+
 def no_misc_getter(doc, attr):
     spans = getattr(doc, attr)
     for span in spans:
@@ -39,7 +40,9 @@ def add_iob(doc: Doc, iob: List[str]) -> Doc:
     doc.set_ents(ent)
     return doc
 
+
 def apply_on_multiple_examples(func: Callable) -> Callable:
     def inner(examples: Iterable[Example], **kwargs) -> Iterable[Example]:
         return [func(e, **kwargs) for e in examples]
+
     return inner

@@ -1,7 +1,6 @@
-
-
 def fetch_dane_as_conllu():
     from danlp.datasets import DDT
+
     ddt = DDT()
     train, dev, test = ddt.load_as_conllu(predefined_splits=True)
     with open("assets/dane/dane_train.conllu", "w") as f:
