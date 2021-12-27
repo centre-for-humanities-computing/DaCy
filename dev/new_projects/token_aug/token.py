@@ -27,7 +27,9 @@ def create_synonym_augmenter(
     """
     return partial(synonym_augmenter, level=level, synonyms=synonyms)
 
+
 # TODO check if pos tags is available for synonyms repl
+
 
 def synonym_augmenter(
     nlp: Language,
@@ -41,12 +43,11 @@ def synonym_augmenter(
         return t
 
     example_dict = example.to_dict()
-    example_dict["token_annotation"]["ORTH"] = [
-        __replace(t) for t in example.reference
-    ]
+    example_dict["token_annotation"]["ORTH"] = [__replace(t) for t in example.reference]
     text = make_text_from_orth(example_dict)
     doc = nlp.make_doc(text)
     yield example.from_dict(doc, example_dict)
+
 
 @spacy.registry.augmenters("token_swap_augmenter.v1")
 def create_token_swap_augmenter(
@@ -72,7 +73,7 @@ def token_swap_augmenter(
 ) -> Iterator[Example]:
 
     example_dict = example.to_dict()
-    
+
     n_tok = len(example.y)
     for i in range(n_tok):
         if random.random() < level:
@@ -85,7 +86,7 @@ def token_swap_augmenter(
 
     tok_anno = example_dict["token_annotation"]
     for k in tok_anno:
-        tok_anno[k][i], tok_anno[k][n] = tok_anno[k][n], tok_anno[k][i] 
+        tok_anno[k][i], tok_anno[k][n] = tok_anno[k][n], tok_anno[k][i]
         # TODO fix broken spans
 
     text = make_text_from_orth(example_dict)

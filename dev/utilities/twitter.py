@@ -1,11 +1,5 @@
-
-
 from typing import List
 from spacy.tokens import Doc, Span
-
-
-
-
 
 
 from typing import Dict, Optional, Tuple, List, Union
@@ -69,7 +63,7 @@ class Twitter:
     def __init__(
         self,
         nlp: Language,
-        redo_tokenization : bool = True,
+        redo_tokenization: bool = True,
         lookup: Optional[Dict[str, str]] = None,
         pattern_id: str = "EMOJI",
         attrs: Tuple[str, str, str, str] = DEFAULT_ATTRS,
@@ -144,7 +138,6 @@ class Twitter:
         return None
 
 
-
 def hashtag_getter(doc: Doc) -> List[str]:
     """
     Extract hashtags from text
@@ -162,18 +155,32 @@ def hashtag_getter(doc: Doc) -> List[str]:
         >>> doc._.hashtag  # extrac the hashtags from your document
         ["#yolo", "#life"]
     """
-    def find_hashtags(text, valid_tags = {"#", "＃"}, valid_chars = {"_", "-"}, invalid_tag_suffix = {b'\xe2\x83\xa3', b'\xef\xb8\x8f'}):
+
+    def find_hashtags(
+        text,
+        valid_tags={"#", "＃"},
+        valid_chars={"_", "-"},
+        invalid_tag_suffix={b"\xe2\x83\xa3", b"\xef\xb8\x8f"},
+    ):
         def is_letter(t):
-            if t.isalnum() or t in valid_chars or str.encode(t).startswith(b"\xcc") or str.encode(t).startswith(b"\xe0"):
+            if (
+                t.isalnum()
+                or t in valid_chars
+                or str.encode(t).startswith(b"\xcc")
+                or str.encode(t).startswith(b"\xe0")
+            ):
                 return True
             return False
 
-        
         start = None
         for i, char in enumerate(text):
-            if (char in valid_tags and 
-                not (i+1 != len(text) and str.encode(text[i+1]) in invalid_tag_suffix) and 
-                (i == 0 or not (is_letter(text[i-1]) or text[i-1] == "&"))):
+            if (
+                char in valid_tags
+                and not (
+                    i + 1 != len(text) and str.encode(text[i + 1]) in invalid_tag_suffix
+                )
+                and (i == 0 or not (is_letter(text[i - 1]) or text[i - 1] == "&"))
+            ):
                 start = i
                 continue
             if start is not None and not is_letter(char):
@@ -181,15 +188,14 @@ def hashtag_getter(doc: Doc) -> List[str]:
                     start = None
                     continue
                 print(start, i)
-                if not text[start+1: i].isnumeric():
-                    yield "#" + text[start+1: i]
+                if not text[start + 1 : i].isnumeric():
+                    yield "#" + text[start + 1 : i]
                 start = None
-        if start is not None and not text[start+1: i+1].isnumeric():
+        if start is not None and not text[start + 1 : i + 1].isnumeric():
             print(start, i)
-            yield "#" + text[start+1: i+1]
+            yield "#" + text[start + 1 : i + 1]
 
     return list(find_hashtags(doc.text))
-
 
 
 # def url_getter(doc: Doc) -> List[str]:
@@ -246,18 +252,31 @@ def hashtag_getter(doc: Doc) -> List[str]:
 #     return LIX
 
 
-def find_hashtags(text, valid_tags = {"#", "＃"}, valid_chars = {"_", "-"}, invalid_tag_suffix = {b'\xe2\x83\xa3', b'\xef\xb8\x8f'}):
+def find_hashtags(
+    text,
+    valid_tags={"#", "＃"},
+    valid_chars={"_", "-"},
+    invalid_tag_suffix={b"\xe2\x83\xa3", b"\xef\xb8\x8f"},
+):
     def is_letter(t):
-        if t.isalnum() or t in valid_chars or str.encode(t).startswith(b"\xcc") or str.encode(t).startswith(b"\xe0"):
+        if (
+            t.isalnum()
+            or t in valid_chars
+            or str.encode(t).startswith(b"\xcc")
+            or str.encode(t).startswith(b"\xe0")
+        ):
             return True
         return False
 
-    
     start = None
     for i, char in enumerate(text):
-        if (char in valid_tags and 
-            not (i+1 != len(text) and str.encode(text[i+1]) in invalid_tag_suffix) and 
-            (i == 0 or not (is_letter(text[i-1]) or text[i-1] == "&"))):
+        if (
+            char in valid_tags
+            and not (
+                i + 1 != len(text) and str.encode(text[i + 1]) in invalid_tag_suffix
+            )
+            and (i == 0 or not (is_letter(text[i - 1]) or text[i - 1] == "&"))
+        ):
             start = i
             continue
         if start is not None and not is_letter(char):
@@ -265,20 +284,23 @@ def find_hashtags(text, valid_tags = {"#", "＃"}, valid_chars = {"_", "-"}, inv
                 start = None
                 continue
             print(start, i)
-            if not text[start+1: i].isnumeric():
-                yield "#" + text[start+1: i]
+            if not text[start + 1 : i].isnumeric():
+                yield "#" + text[start + 1 : i]
             start = None
-    if start is not None and not text[start+1: i+1].isnumeric():
+    if start is not None and not text[start + 1 : i + 1].isnumeric():
         print(start, i)
-        yield "#" + text[start+1: i+1]
+        yield "#" + text[start + 1 : i + 1]
 
-for s in ["Fuck hvor fedt! #yolo #life", 
-          "#taga",
-          "invalid hashtags #double#tag",
-          "invalid hashtags #double@tag",
-          "also invalid #1"]:
+
+for s in [
+    "Fuck hvor fedt! #yolo #life",
+    "#taga",
+    "invalid hashtags #double#tag",
+    "invalid hashtags #double@tag",
+    "also invalid #1",
+]:
     result = list(find_hashtags(s))
-    print(s, "\t", result) 
+    print(s, "\t", result)
 
 # from spacy.lang.da import Danish
 # nlp = Danish()
@@ -573,16 +595,21 @@ hash_tag_examples = """"
 """
 
 import re
+
 lines = hash_tag_examples.split("\n")
 examples = []
 for i, line in enumerate(lines):
     if line.startswith("    - description"):
         rex = re.compile(r'<a.*? title="(.*?)" .*?<\/a>')
-        match = rex.findall(lines[i+2][17:-1])
-        examples.append({"desc": lines[i],
-                         "text": lines[i+1][13:-1], 
-                         "expected": lines[i+2][17:-1],
-                         "hashtags": match})
+        match = rex.findall(lines[i + 2][17:-1])
+        examples.append(
+            {
+                "desc": lines[i],
+                "text": lines[i + 1][13:-1],
+                "expected": lines[i + 2][17:-1],
+                "hashtags": match,
+            }
+        )
 
 
 for i, d in enumerate(examples):
@@ -615,75 +642,81 @@ str.encode("áim"[1])
 "â"[0]
 
 
-hashtag_tests = [('text #hashtag', ['#hashtag']),
- ('text #hash0tag', ['#hash0tag']),
- ('text #1tag', ['#1tag']),
- ('text #hash_tag', ['#hash_tag']),
- ('text #1234', []),
- ('text#hashtag', []),
- ('#️hashtag', []),
- ('#⃣hashtag', []),
- ('text #hashtag1 #hashtag2', ['#hashtag1', '#hashtag2']),
- ('text.#hashtag', ['#hashtag']),
- ('&#nbsp;', []),
- ('text #hashtag!', ['#hashtag']),
- ('text #dodge/#answer', ['#dodge', '#answer']),
- ('text #dodge/answer', ['#dodge']),
- ('text dodge/#answer', ['#answer']),
- ('text #hashtagの', ['#hashtagの']),
- ('text\u3000#hashtag', ['#hashtag']),
- ('#hashtag\u3000text', ['#hashtag']),
- ('＃hashtag', ['#hashtag']),
- ('#éhashtag', ['#éhashtag']),
- ('#hashtagé', ['#hashtagé']),
- ('#hashétag', ['#hashétag']),
- ('What is #트위터 anyway?', ['#트위터']),
- ('What is #ашок anyway?', ['#ашок']),
- ('カタカナ #カタカナ カタカナ', ['#カタカナ']),
- ('カタカナ #カタカナ」カタカナ', ['#カタカナ']),
- ('カタカナ #カタカナ', ['#カタカナ']),
- ('カタカナ「#カタカナ カタカナ', ['#カタカナ']),
- ('カタカナ「#カタカナ」カタカナ', ['#カタカナ']),
- ('カタカナ「#カタカナ', ['#カタカナ']),
- ('#カタカナ カタカナ', ['#カタカナ']),
- ('#カタカナ」カタカナ', ['#カタカナ']),
- ('#カタカナ', ['#カタカナ']),
- ('#ﾊｯｼｭﾀｸﾞ\u3000テスト', ['#ﾊｯｼｭﾀｸﾞ']),
- ('#ﾊｯｼｭﾀｸﾞ123', ['#ﾊｯｼｭﾀｸﾞ123']),
- ('#ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ', ['#ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ']),
- ('漢字 #漢字 漢字', ['#漢字']),
- ('漢字 #漢字」漢字', ['#漢字']),
- ('漢字 #漢字', ['#漢字']),
- ('漢字「#漢字 漢字', ['#漢字']),
- ('漢字「#漢字」漢字', ['#漢字']),
- ('漢字「#漢字', ['#漢字']),
- ('#漢字 漢字', ['#漢字']),
- ('#漢字」漢字', ['#漢字']),
- ('#漢字', ['#漢字']),
- ('これは、＃大丈夫。', ['#大丈夫']),
- ('ひらがな #ひらがな ひらがな', ['#ひらがな']),
- ('ひらがな #ひらがな」ひらがな', ['#ひらがな']),
- ('ひらがな #ひらがな', ['#ひらがな']),
- ('ひらがな「#ひらがな ひらがな', ['#ひらがな']),
- ('ひらがな「#ひらがな」ひらがな', ['#ひらがな']),
- ('ひらがな「#ひらがな', ['#ひらがな']),
- ('#ひらがな ひらがな', ['#ひらがな']),
- ('#ひらがな」ひらがな', ['#ひらがな']),
- ('#ひらがな', ['#ひらがな']),
- ('日本語ハッシュタグ #日本語ハッシュタグ', ['#日本語ハッシュタグ']),
- ('日本語ハッシュタグ#日本語ハッシュタグ', []),
- ('#日本語ハッシュタグ。', ['#日本語ハッシュタグ']),
- ('日本語ハッシュタグ。#日本語ハッシュタグ', ['#日本語ハッシュタグ']),
- ('長音ハッシュタグ。#サッカー', ['#サッカー']),
- ('長音ハッシュタグ。#ｻｯｶｰ', ['#ｻｯｶｰ']),
- ('できましたよー！#日本語ハッシュタグ。', ['#日本語ハッシュタグ']),
- ('できましたよー！＃日本語ハッシュタグ。', ['#日本語ハッシュタグ']),
- ('#云々', ['#云々']),
- ('Hashtags in #中文, #日本語, #한국말, and #русский! Try it out!',
-  ['#中文', '#日本語', '#한국말', '#русский']),
- ('Here’s a test tweet for you: #Ateş #qrşt #ştu #ş',
-  ['#Ateş', '#qrşt', '#ştu', '#ş']),
- ('#mûǁae', ['#mûǁae']),
- ('#táim #hag̃ua', ['#táim', '#hag̃ua']),
- ('Arabic hashtag: #فارسی #لس_آنجلس', ['#فارسی', '#لس_آنجلس']),
- ('Thai hashtag: #รายละเอียด', ['#รายละเอียด'])]
+hashtag_tests = [
+    ("text #hashtag", ["#hashtag"]),
+    ("text #hash0tag", ["#hash0tag"]),
+    ("text #1tag", ["#1tag"]),
+    ("text #hash_tag", ["#hash_tag"]),
+    ("text #1234", []),
+    ("text#hashtag", []),
+    ("#️hashtag", []),
+    ("#⃣hashtag", []),
+    ("text #hashtag1 #hashtag2", ["#hashtag1", "#hashtag2"]),
+    ("text.#hashtag", ["#hashtag"]),
+    ("&#nbsp;", []),
+    ("text #hashtag!", ["#hashtag"]),
+    ("text #dodge/#answer", ["#dodge", "#answer"]),
+    ("text #dodge/answer", ["#dodge"]),
+    ("text dodge/#answer", ["#answer"]),
+    ("text #hashtagの", ["#hashtagの"]),
+    ("text\u3000#hashtag", ["#hashtag"]),
+    ("#hashtag\u3000text", ["#hashtag"]),
+    ("＃hashtag", ["#hashtag"]),
+    ("#éhashtag", ["#éhashtag"]),
+    ("#hashtagé", ["#hashtagé"]),
+    ("#hashétag", ["#hashétag"]),
+    ("What is #트위터 anyway?", ["#트위터"]),
+    ("What is #ашок anyway?", ["#ашок"]),
+    ("カタカナ #カタカナ カタカナ", ["#カタカナ"]),
+    ("カタカナ #カタカナ」カタカナ", ["#カタカナ"]),
+    ("カタカナ #カタカナ", ["#カタカナ"]),
+    ("カタカナ「#カタカナ カタカナ", ["#カタカナ"]),
+    ("カタカナ「#カタカナ」カタカナ", ["#カタカナ"]),
+    ("カタカナ「#カタカナ", ["#カタカナ"]),
+    ("#カタカナ カタカナ", ["#カタカナ"]),
+    ("#カタカナ」カタカナ", ["#カタカナ"]),
+    ("#カタカナ", ["#カタカナ"]),
+    ("#ﾊｯｼｭﾀｸﾞ\u3000テスト", ["#ﾊｯｼｭﾀｸﾞ"]),
+    ("#ﾊｯｼｭﾀｸﾞ123", ["#ﾊｯｼｭﾀｸﾞ123"]),
+    ("#ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ", ["#ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ"]),
+    ("漢字 #漢字 漢字", ["#漢字"]),
+    ("漢字 #漢字」漢字", ["#漢字"]),
+    ("漢字 #漢字", ["#漢字"]),
+    ("漢字「#漢字 漢字", ["#漢字"]),
+    ("漢字「#漢字」漢字", ["#漢字"]),
+    ("漢字「#漢字", ["#漢字"]),
+    ("#漢字 漢字", ["#漢字"]),
+    ("#漢字」漢字", ["#漢字"]),
+    ("#漢字", ["#漢字"]),
+    ("これは、＃大丈夫。", ["#大丈夫"]),
+    ("ひらがな #ひらがな ひらがな", ["#ひらがな"]),
+    ("ひらがな #ひらがな」ひらがな", ["#ひらがな"]),
+    ("ひらがな #ひらがな", ["#ひらがな"]),
+    ("ひらがな「#ひらがな ひらがな", ["#ひらがな"]),
+    ("ひらがな「#ひらがな」ひらがな", ["#ひらがな"]),
+    ("ひらがな「#ひらがな", ["#ひらがな"]),
+    ("#ひらがな ひらがな", ["#ひらがな"]),
+    ("#ひらがな」ひらがな", ["#ひらがな"]),
+    ("#ひらがな", ["#ひらがな"]),
+    ("日本語ハッシュタグ #日本語ハッシュタグ", ["#日本語ハッシュタグ"]),
+    ("日本語ハッシュタグ#日本語ハッシュタグ", []),
+    ("#日本語ハッシュタグ。", ["#日本語ハッシュタグ"]),
+    ("日本語ハッシュタグ。#日本語ハッシュタグ", ["#日本語ハッシュタグ"]),
+    ("長音ハッシュタグ。#サッカー", ["#サッカー"]),
+    ("長音ハッシュタグ。#ｻｯｶｰ", ["#ｻｯｶｰ"]),
+    ("できましたよー！#日本語ハッシュタグ。", ["#日本語ハッシュタグ"]),
+    ("できましたよー！＃日本語ハッシュタグ。", ["#日本語ハッシュタグ"]),
+    ("#云々", ["#云々"]),
+    (
+        "Hashtags in #中文, #日本語, #한국말, and #русский! Try it out!",
+        ["#中文", "#日本語", "#한국말", "#русский"],
+    ),
+    (
+        "Here’s a test tweet for you: #Ateş #qrşt #ştu #ş",
+        ["#Ateş", "#qrşt", "#ştu", "#ş"],
+    ),
+    ("#mûǁae", ["#mûǁae"]),
+    ("#táim #hag̃ua", ["#táim", "#hag̃ua"]),
+    ("Arabic hashtag: #فارسی #لس_آنجلس", ["#فارسی", "#لس_آنجلس"]),
+    ("Thai hashtag: #รายละเอียด", ["#รายละเอียด"]),
+]

@@ -9,7 +9,7 @@ def test_tutorial():
 
     # download model
     from spacy.cli import download
-    
+
     download("da_core_news_sm")
 
     # load models
@@ -32,19 +32,25 @@ def test_tutorial():
     female_name_dict = female_names()
     # Augmenter that replaces names with random Danish female names. Keep the format of the name as is (force_pattern_size=False)
     # but replace the name with one of the two defined patterns
-    female_aug = create_pers_augmenter(female_name_dict, 
-                                    patterns=["fn,ln","abbpunct,ln"], 
-                                    force_pattern_size=False,
-                                    keep_name=False)
+    female_aug = create_pers_augmenter(
+        female_name_dict,
+        patterns=["fn,ln", "abbpunct,ln"],
+        force_pattern_size=False,
+        keep_name=False,
+    )
 
-    spacy_aug = score(test, 
-                    apply_fn=spacy_small,
-                    score_fn=["ents", "pos"],
-                    augmenters=[lower_aug, female_aug])
-    dacy_aug = score(test,
-                    apply_fn=dacy_small,
-                    score_fn=["ents", "pos"],
-                    augmenters=[lower_aug, female_aug])
+    spacy_aug = score(
+        test,
+        apply_fn=spacy_small,
+        score_fn=["ents", "pos"],
+        augmenters=[lower_aug, female_aug],
+    )
+    dacy_aug = score(
+        test,
+        apply_fn=dacy_small,
+        score_fn=["ents", "pos"],
+        augmenters=[lower_aug, female_aug],
+    )
 
     import pandas as pd
 
@@ -54,13 +60,17 @@ def test_tutorial():
 
     from dacy.augmenters import create_keyboard_augmenter
 
-    key_05_aug = create_keyboard_augmenter(doc_level=1, char_level=0.05, keyboard="QWERTY_DA")
+    key_05_aug = create_keyboard_augmenter(
+        doc_level=1, char_level=0.05, keyboard="QWERTY_DA"
+    )
 
-    spacy_key = score(test, 
-                    apply_fn=spacy_small,
-                    score_fn=["ents", "pos"],
-                    augmenters=[key_05_aug],
-                    k=5)
+    spacy_key = score(
+        test,
+        apply_fn=spacy_small,
+        score_fn=["ents", "pos"],
+        augmenters=[key_05_aug],
+        k=5,
+    )
 
     print(spacy_key)
 

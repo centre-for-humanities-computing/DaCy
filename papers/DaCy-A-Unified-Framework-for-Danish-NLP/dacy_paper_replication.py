@@ -1,5 +1,3 @@
-
-
 from pathlib import Path
 
 import dacy
@@ -7,10 +5,13 @@ import pandas as pd
 import spacy
 import spacy_stanza
 import stanza
-from dacy.augmenters import (create_keyboard_augmenter, create_pers_augmenter,
-                             create_spacing_augmenter, create_æøå_augmenter)
-from dacy.datasets import (dane, danish_names, female_names, male_names,
-                           muslim_names)
+from dacy.augmenters import (
+    create_keyboard_augmenter,
+    create_pers_augmenter,
+    create_spacing_augmenter,
+    create_æøå_augmenter,
+)
+from dacy.datasets import dane, danish_names, female_names, male_names, muslim_names
 from dacy.score import n_sents_score, score
 from spacy.training.augment import create_lower_casing_augmenter, dont_augment
 
@@ -114,10 +115,10 @@ model_dict = {
     "dacy_small": "da_dacy_small_tft-0.0.0",
     "dacy_medium": "da_dacy_medium_tft-0.0.0",
     "dacy_large": "da_dacy_large_tft-0.0.0",
-    "flair" : apply_flair,
+    "flair": apply_flair,
     "polyglot": apply_polyglot,
-    "danlp_bert" : apply_danlp_bert,
-    "nerda_bert" : apply_nerda,
+    "danlp_bert": apply_danlp_bert,
+    "nerda_bert": apply_nerda,
 }
 
 # # Performance
