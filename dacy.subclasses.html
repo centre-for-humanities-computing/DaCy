@@ -10,12 +10,12 @@
   <meta property="og:description" content="dacy.subclasses.wrappers: Convenient wrapper functions for wrapping DaNLP and Huggingface models in a SpaCy text processing pipeline. dacy.subclasses.classification_transformer: Functions for wrapp..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Score" href="dacy.score.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.3.2, furo 2021.11.23"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
         <title>Subclasses - DaCy 1.2.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
     
     
 
@@ -236,8 +236,6 @@ This includes output tensor, wordpieces and more.</p></li>
 <li><p><strong>category</strong> (<em>str</em>) – The category of the output. This is the label which is used to extract from the model.
 E.g. “sentiment” would allow you to extract the sentiment from doc._.sentiment</p></li>
 <li><p><strong>labels</strong> (<em>list</em>) – The labels of the model</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em>) – Toggles the verbosity of the download. Defaults to True.</p></li>
-<li><p><strong>open_unverified_connection</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should you download from an unverified connection. Defaults to False.</p></li>
 <li><p><strong>force_extension</strong> (<em>bool</em><em>, </em><em>optional</em>) – Set the extension to the doc regardless of whether it already exists. Defaults to False.</p></li>
 </ul>
 </dd>
@@ -259,7 +257,7 @@ E.g. “sentiment” would allow you to extract the sentiment from doc._.sentime
 <p>Functions for wrapping a sequence classification transformer in a SpaCy pipeline</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="dacy.subclasses.classification_transformer.ClassificationTransformer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dacy.subclasses.classification_transformer.</span></span><span class="sig-name descname"><span class="pre">ClassificationTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">vocab:</span> <span class="pre">spacy.vocab.Vocab,</span> <span class="pre">model:</span> <span class="pre">thinc.model.Model[List[spacy.tokens.doc.Doc],</span> <span class="pre">spacy_transformers.data_classes.FullTransformerBatch],</span> <span class="pre">set_extra_annotations:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">null_annotation_setter&gt;,</span> <span class="pre">*,</span> <span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'classification_transformer',</span> <span class="pre">max_batch_items:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">4096,</span> <span class="pre">doc_extension_attribute</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dacy/subclasses/classification_transformer.html#ClassificationTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.subclasses.classification_transformer.ClassificationTransformer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dacy.subclasses.classification_transformer.</span></span><span class="sig-name descname"><span class="pre">ClassificationTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">vocab:</span> <span class="pre">spacy.vocab.Vocab,</span> <span class="pre">model:</span> <span class="pre">thinc.model.Model[typing.List[spacy.tokens.doc.Doc],</span> <span class="pre">spacy_transformers.data_classes.FullTransformerBatch],</span> <span class="pre">set_extra_annotations:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">null_annotation_setter&gt;,</span> <span class="pre">*,</span> <span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'classification_transformer',</span> <span class="pre">max_batch_items:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">4096,</span> <span class="pre">doc_extension_attribute</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dacy/subclasses/classification_transformer.html#ClassificationTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.subclasses.classification_transformer.ClassificationTransformer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spacy_transformers.pipeline_component.Transformer</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="dacy.subclasses.classification_transformer.ClassificationTransformer.from_disk">
