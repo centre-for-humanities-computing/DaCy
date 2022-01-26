@@ -1,4 +1,5 @@
 # dacy sentiment, robustness
 https://huggingface.co/spacy/da_core_news_sm/resolve/main/da_core_news_sm-any-py3-none-any.whl
 
-#
+# Robustness
+danlp==0.0.11
