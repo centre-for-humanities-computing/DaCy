@@ -28,8 +28,6 @@ def add_huggingface_model(
         category (str): The category of the output. This is the label which is used to extract from the model.
             E.g. "sentiment" would allow you to extract the sentiment from doc._.sentiment
         labels (list): The labels of the model
-        verbose (bool): Toggles the verbosity of the download. Defaults to True.
-        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
         force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
 
     Returns:
