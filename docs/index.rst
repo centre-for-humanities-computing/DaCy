@@ -96,6 +96,7 @@ The documentation is organized in three parts:
    download
    dacy.datasets
    dacy.sentiment
+   dacy.augmenters
    dacy.score
    dacy.subclasses
 
