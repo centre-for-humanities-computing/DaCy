@@ -35,7 +35,6 @@ https://www.youtube.com/watch?v=E7WQ1tdxSqI
 
 -->
 
-
 # 📰 News
 - 1.2.0 (04/11/21)
   - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface's model hub which is faster and more stable 🌟.
