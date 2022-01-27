@@ -32,4 +32,3 @@ jobs:
       # run all python script in tutorials folder
       run: |
         for f in tutorials/*.py; do python "$f"; done
-        # rm tutorials/*.py
