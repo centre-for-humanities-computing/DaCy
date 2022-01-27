@@ -144,15 +144,22 @@ data
 # project specific
 *.lock
 
-
-# other
+# mac
 .DS_store
+
+# Vs code
 .vscode
+
+# R
 dev/model_comparison/.Rproj*
+dev/model_comparison/.RData
 .Rproj.user
 .RData
 .Rhistory
-tutorials/BenchmarkFairness.ipynb
-_build/*
-dev/model_comparison/.RData
 
+# Documentation
+_build/*
+
+# tutorials:
+tutorials/BenchmarkFairness.ipynb
+tutorials/*.py

@@ -111,4 +111,6 @@ def install(package):
     import subprocess
     import sys
 
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    subprocess.check_call(
+        [sys.executable, "-m", "pip", "install", package, "--no-deps"]
+    )
