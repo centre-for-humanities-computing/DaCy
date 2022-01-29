@@ -38,7 +38,7 @@ def dane(
         Union[List[Corpus], Corpus]: Returns a SpaCy corpus or a list thereof.
 
     Example:
-        >>> import dacy
+        >>> import dacy.datasets.dane
         >>> train, dev, test = dacy.datasets.dane(splits=["train", "dev", "test"])
     """
     if open_unverified_connection:
