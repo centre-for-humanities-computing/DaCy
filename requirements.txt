@@ -11,3 +11,10 @@ flake8
 # Testing
 pytest
 pytest-cov
+
+# Documentation
+sphinx
+furo
+sphinx-copybutton
+sphinxext-opengraph
+myst-parser
