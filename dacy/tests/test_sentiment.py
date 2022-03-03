@@ -1,7 +1,5 @@
-
 import dacy
 import spacy
-
 
 
 def test_add_subjectivity():
@@ -38,7 +36,7 @@ def test_add_berttone_polarity():
 def test_add_bertemotion_laden():
     nlp = spacy.blank("da")
     nlp.add_pipe("emotionally_laden")
-    doc = nlp('Der er et træ i haven')
+    doc = nlp("Der er et træ i haven")
     assert doc._.emotionally_laden == "no emotion"
 
 
