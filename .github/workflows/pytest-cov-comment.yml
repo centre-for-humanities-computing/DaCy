@@ -42,7 +42,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Pytest coverage comment
       id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.1.21
+      uses: MishaKav/pytest-coverage-comment@v1.1.23
       with:
         pytest-coverage-path: ./dev/pytest-coverage/pytest-coverage.txt
 
