@@ -6,7 +6,7 @@ wasabi>= 0.8.2,< 0.10.0
 tqdm>=4.61.2,<4.62.0
 
 # Style
-black==22.3.0
+black
 flake8
 
 # Testing
