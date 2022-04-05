@@ -6,8 +6,8 @@ wasabi>= 0.8.2,< 0.10.0
 tqdm>=4.61.2,<4.62.0
 
 # Style
-black
-flake8 
+black==22.3.0
+flake8
 
 # Testing
 pytest
@@ -19,3 +19,4 @@ furo
 sphinx-copybutton
 sphinxext-opengraph
 myst-parser
+
