@@ -3,6 +3,8 @@ name: CI Pytest
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   pytest:
@@ -47,6 +49,7 @@ jobs:
         pytest-coverage-path: ./dev/pytest-coverage/pytest-coverage.txt
 
     - name: Check the output coverage
+      if: ${{ github.event_name == 'push' }}
       run: |
         echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
         echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
