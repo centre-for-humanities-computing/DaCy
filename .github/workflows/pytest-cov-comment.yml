@@ -33,7 +33,7 @@ jobs:
     - name: Run and write pytest
       run: |
         echo "[run]\nomit =\n\tdacy/tests/*\n\tdacy/sentiment/vaderSentiment_da.py" > .coveragerc
-        python -m  pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing
+        pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing
 
 
   pytest-coverage:
@@ -52,7 +52,8 @@ jobs:
     - name: Run and write pytest
       run: |
         echo "[run]\nomit =\n\tdacy/tests/*\n\tdacy/sentiment/vaderSentiment_da.py" > .coveragerc
-        python -m  pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
+        set -o pipefail
+        pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
     - name: Pytest coverage comment
       id: coverage-comment
       uses: MishaKav/pytest-coverage-comment@v1.1.25
