@@ -32,8 +32,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        echo "[run]\nomit =\n\tdacy/tests/*\n\tdacy/sentiment/vaderSentiment_da.py" > .coveragerc
-        pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing
+        pytest --cov=dacy --cov-report term-missing
 
 
   pytest-coverage:
@@ -51,14 +50,14 @@ jobs:
         pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        echo "[run]\nomit =\n\tdacy/tests/*\n\tdacy/sentiment/vaderSentiment_da.py" > .coveragerc
         set -o pipefail
-        pytest --cov=dacy --cov-config=.coveragerc --cov-report term-missing | tee pytest-coverage.txt
+        pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
     - name: Pytest coverage comment
       id: coverage-comment
       uses: MishaKav/pytest-coverage-comment@v1.1.25
       with:
         pytest-coverage-path: ./pytest-coverage.txt
+        github-token: ${{ secrets.SPHINX_DOCUMENTATION }}
 
     - name: Check the output coverage
       if: ${{ github.event_name == 'push' }}
@@ -66,7 +65,7 @@ jobs:
         echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
         echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
     - name: Create the Badge
-      uses: schneegans/dynamic-badges-action@v1.2.0
+      uses: schneegans/dynamic-badges-action@v1.3.0
       with:
         auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
         gistID: af8637d94475ea8bcb6b6a03c4fbcd3e
