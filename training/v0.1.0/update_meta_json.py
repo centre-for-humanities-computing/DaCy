@@ -1,5 +1,4 @@
-"""
-This is a utility script for updating the spacy meta.json
+"""This is a utility script for updating the spacy meta.json.
 
 Sample call
 python --meta meta.json --augment metrics/dane_augmented_best_dacy_small_trf-0.1.0.json --
@@ -156,7 +155,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--meta", type=str, help="the meta file you wish to update", required=True
+        "--meta",
+        type=str,
+        help="the meta file you wish to update",
+        required=True,
     )
     parser.add_argument(
         "--augment",

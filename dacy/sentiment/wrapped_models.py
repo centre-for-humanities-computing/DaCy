@@ -141,7 +141,7 @@ def make_emotion_transformer(
     if not Doc.has_extension("emotionally_laden"):
         warn(
             "The 'emotion' component assumes the 'emotionally_laden' extension is set."
-            + " To set it you can run  nlp.add_pipe('emotionally_laden')"
+            + " To set it you can run  nlp.add_pipe('emotionally_laden')",
         )
 
     # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden

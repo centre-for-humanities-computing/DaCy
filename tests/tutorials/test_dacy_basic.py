@@ -11,7 +11,7 @@ def test_tutorial():
     # Models can also be loaded using the "small", "medium" or "large" shorthand
 
     doc = nlp(
-        "DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering bygget i SpaCy ."
+        "DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering bygget i SpaCy .",
     )
 
     for entity in doc.ents:

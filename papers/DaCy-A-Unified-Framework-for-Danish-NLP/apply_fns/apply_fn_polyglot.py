@@ -1,15 +1,13 @@
 ### pip install polyglot morfessor==2.0.6 pycld2==0.41 pyicu
 ### polyglot download pos2.da
 
+from polyglot.tag import NEChunker, POSTagger
+from polyglot.text import Text, WordList
+from spacy.lang.da import Danish
 from spacy.tokens import Doc
 from spacy.training import Example
-from spacy.lang.da import Danish
 
-from polyglot.text import Text
-from polyglot.tag import NEChunker, POSTagger
-from polyglot.text import WordList
-
-from .apply_fn_utils import add_iob, no_misc_getter, apply_on_multiple_examples
+from .apply_fn_utils import add_iob, apply_on_multiple_examples, no_misc_getter
 
 ne_chunker = NEChunker(lang="da")
 pos_tagger = POSTagger(lang="da")
@@ -22,7 +20,8 @@ def __apply_polyglot(example: Example, use_spacy: bool = False) -> Example:
     # tokenization
     if use_spacy:
         words = WordList(
-            [t.text for t in nlp_da(example.reference.text)], language="da"
+            [t.text for t in nlp_da(example.reference.text)],
+            language="da",
         )
     else:
         text = Text(example.reference.text, hint_language_code="da")
@@ -55,10 +54,14 @@ if __name__ == "__main__":
 
     tok_scores = Scorer.score_tokenization(examples)
     ent_scores = Scorer.score_spans(
-        examples=examples, attr="ents", getter=no_misc_getter
+        examples=examples,
+        attr="ents",
+        getter=no_misc_getter,
     )
     ent_scores_spacy = Scorer.score_spans(
-        examples=examples_spacy, attr="ents", getter=no_misc_getter
+        examples=examples_spacy,
+        attr="ents",
+        getter=no_misc_getter,
     )
     pos_scores = Scorer.score_token_attr(examples, "tag")
 

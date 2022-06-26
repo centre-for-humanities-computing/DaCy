@@ -1,8 +1,8 @@
-from dacy.augmenters.keyboard import Keyboard, qwerty_da_array
-from dacy.augmenters import create_keyboard_augmenter
-
 from spacy.lang.da import Danish
 from spacy.training import Example
+
+from dacy.augmenters import create_keyboard_augmenter
+from dacy.augmenters.keyboard import Keyboard, qwerty_da_array
 
 
 def test_Keyboard():
@@ -12,7 +12,7 @@ def test_Keyboard():
     assert kb.is_shifted("q") is False
     assert kb.euclidian_distance("q", "a") <= 1
     assert len(set(kb.all_keys())) > 28 * 2
-    assert "w" in kb.get_neighboors("q")
+    assert "w" in kb.get_neighbours("q")
     kb.create_distance_dict()
 
 

@@ -1,13 +1,12 @@
 ### pip install daluke==0.0.5
 from typing import Iterable, List
 
-from spacy.tokens import Span, Doc
-from spacy.training import Example
-from spacy.lang.da import Danish
-
 from daluke import AutoNERDaLUKE, predict_ner
+from spacy.lang.da import Danish
+from spacy.tokens import Doc, Span
+from spacy.training import Example
 
-from .apply_fn_utils import apply_on_multiple_examples, add_iob, no_misc_getter
+from .apply_fn_utils import add_iob, apply_on_multiple_examples, no_misc_getter
 
 # This also downloads daluke model (first time)
 daluke = AutoNERDaLUKE()
@@ -16,7 +15,9 @@ nlp_da = Danish()
 
 
 def apply_daluke(
-    examples: Iterable[Example], use_spacy: bool = True, batch_size: int = 16
+    examples: Iterable[Example],
+    use_spacy: bool = True,
+    batch_size: int = 16,
 ) -> List[Example]:
     docs_y, sentences = list(), list()
     for example in examples:
@@ -31,7 +32,9 @@ def apply_daluke(
     # NER using daluke
     # join `should` not give size issues, as this string is again crudely split in DaLUKE API
     predictions = predict_ner(
-        [" ".join(sent) for sent in sentences], daluke, batch_size=batch_size
+        [" ".join(sent) for sent in sentences],
+        daluke,
+        batch_size=batch_size,
     )
     out_examples = list()
     for doc_y, pred, words in zip(docs_y, predictions, sentences):
@@ -54,7 +57,9 @@ if __name__ == "__main__":
 
     tok_scores = Scorer.score_tokenization(examples)
     ent_scores = Scorer.score_spans(
-        examples=examples, attr="ents", getter=no_misc_getter
+        examples=examples,
+        attr="ents",
+        getter=no_misc_getter,
     )
     pos_scores = Scorer.score_token_attr(examples, "tag")
 

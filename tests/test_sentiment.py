@@ -1,5 +1,6 @@
-import dacy
 import spacy
+
+import dacy
 
 
 def test_add_subjectivity():
@@ -54,16 +55,18 @@ def test_add_davader():
     except OSError:
         print(
             "Downloading language model for the spaCy tokenization\n"
-            "(don't worry, this will only happen once)"
+            "(don't worry, this will only happen once)",
         )
         from spacy.cli import download
 
         download("da_core_news_sm")
     nlp = spacy.load("da_core_news_sm")
 
-    from spacy.tokens import Doc
-    from dacy.sentiment import da_vader_getter
     from functools import partial
+
+    from spacy.tokens import Doc
+
+    from dacy.sentiment import da_vader_getter
 
     for func in [da_vader_getter, partial(da_vader_getter, lemmatization=False)]:
         Doc.set_extension("vader_da", getter=func, force=True)

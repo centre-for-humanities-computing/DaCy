@@ -1,28 +1,27 @@
-"""python -m spacy train config.cfg --code functions.py
-"""
+"""python -m spacy train config.cfg --code functions.py."""
 
 import sys
 from typing import Callable, Iterable, Iterator
+
 import spacy
 
 sys.path.append("../..")
-
-from dacy.augmenters import (
-    create_keyboard_augmenter,
-    create_pers_augmenter,
-    create_char_swap_augmenter,
-    create_æøå_augmenter,
-)
-
-from dacy.datasets.names import load_names
 
 from spacy.language import Language
 from spacy.training import Example
 from spacy.training.augment import create_lower_casing_augmenter
 
+from dacy.augmenters import (
+    create_char_swap_augmenter,
+    create_keyboard_augmenter,
+    create_pers_augmenter,
+    create_æøå_augmenter,
+)
+from dacy.datasets.names import load_names
+
 
 def combine_augmenters(
-    augmenters: Iterable[Callable[[Language, Example], Iterator[Example]]]
+    augmenters: Iterable[Callable[[Language, Example], Iterator[Example]]],
 ) -> Callable[[Language, Example], Iterator[Example]]:
     """Combines a series og spaCy style augmenters.
 

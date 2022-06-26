@@ -1,6 +1,8 @@
-import dacy
+from typing import Callable, Iterator, List
+
 from spacy.training import Example
-from typing import List, Callable, Iterator
+
+import dacy
 
 
 def test_tutorial():
@@ -9,11 +11,12 @@ def test_tutorial():
 
     nlp = dacy.load("da_dacy_small_tft-0.0.0")
     doc = nlp(
-        "Peter Schmeichel mener også, at det danske landshold anno 2021 tilhører verdenstoppen og kan vinde den kommende kamp mod England."
+        "Peter Schmeichel mener også, at det danske landshold anno 2021 tilhører verdenstoppen og kan vinde den kommende kamp mod England.",
     )
     example = doc_to_example(doc)
 
     from spacy.training.augment import create_lower_casing_augmenter
+
     from dacy.augmenters import (
         create_keyboard_augmenter,
         create_pers_augmenter,
@@ -23,10 +26,14 @@ def test_tutorial():
 
     lower_aug = create_lower_casing_augmenter(level=1)
     keyboard_05 = create_keyboard_augmenter(
-        doc_level=1, char_level=0.05, keyboard="QWERTY_DA"
+        doc_level=1,
+        char_level=0.05,
+        keyboard="QWERTY_DA",
     )
     keyboard_15 = create_keyboard_augmenter(
-        doc_level=1, char_level=0.15, keyboard="QWERTY_DA"
+        doc_level=1,
+        char_level=0.15,
+        keyboard="QWERTY_DA",
     )
     space_aug = create_spacing_augmenter(doc_level=1, spacing_level=0.4)
 
@@ -45,7 +52,7 @@ def test_tutorial():
     print(danish_names()["last_name"][0:5])
 
     def augment_texts(texts: List[str], augmenter: Callable) -> Iterator[Example]:
-        """Takes a list of strings and yields augmented examples"""
+        """Takes a list of strings and yields augmented examples."""
         docs = nlp.pipe(texts)
         for doc in docs:
             ex = Example(doc, doc)
@@ -66,7 +73,10 @@ def test_tutorial():
     # to first character + ".") separeated by ",". If keep_name=True, the augmenter will not change names, but if force_pattern_size
     # is True it will make them fit the length and potentially abbreviate names.
     pers_aug = create_pers_augmenter(
-        dk_name_dict, force_pattern_size=True, keep_name=False, patterns=["fn,ln"]
+        dk_name_dict,
+        force_pattern_size=True,
+        keep_name=False,
+        patterns=["fn,ln"],
     )
     augmented_docs = augment_texts(texts, pers_aug)
     for d in augmented_docs:
@@ -74,7 +84,10 @@ def test_tutorial():
 
     # Here's an example with keep_name=True and force_pattern_size=False which simply abbreviates first names
     abb_aug = create_pers_augmenter(
-        dk_name_dict, force_pattern_size=False, keep_name=True, patterns=["abbpunct"]
+        dk_name_dict,
+        force_pattern_size=False,
+        keep_name=True,
+        patterns=["abbpunct"],
     )
     augmented_docs = augment_texts(texts, abb_aug)
     for d in augmented_docs:

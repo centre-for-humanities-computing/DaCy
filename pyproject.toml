@@ -1,0 +1,84 @@
+[tool.poetry]
+name = "dacy"
+version = "1.5.0"
+description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
+authors = ["KennethEnevoldsen <kennethcenevolsen@gmail.com>"]
+license = "Apache-2.0"
+homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
+repository = "https://github.com/centre-for-humanities-computing/DaCy"
+documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+keywords = [
+    "nlp",
+    "danish",
+    "spacy-universe",
+]
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+spacy-wrap = "^1.0.2"
+spacy = "^3.3.1"
+pandas = "^1.4.3"
+wasabi = "^0.9.1"
+tqdm = "^4.64.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+Sphinx = ">=4.5.0,<5.1.0"
+pre-commit = "^2.19.0"
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+furo = "^2022.6.21"
+sphinxext-opengraph = "^0.6.3"
+sphinx-copybutton = "^0.5.0"
+myst-parser = "^0.18.0"
+docformatter = "^1.4"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.coverage.run]
+omit = [
+    "**/tests/*",
+    "**/_vendorized/*",
+    "**/about.py",
+]
+
+exclude_lines = [
+    "pragma: no cover",
+    # Don't complain about missing debug-only code:
+    "def __unicode__",
+    "def __repr__",
+    "if self.debug",
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+
+[tool.semantic_release]
+version_variable = [
+    "pyproject.toml:version"
+]
+
+[project.scripts]
+emotion_transformer = "dacy.sentiment.wrapped_model:make_emotion_transformer"
+hate_speech_transformer = "dacy.hate_speech.wrapped_model:make_offensive_transformer"

@@ -1,14 +1,10 @@
-from typing import List
-from spacy.tokens import Doc, Span
+from typing import Dict, List, Optional, Tuple, Union
 
-
-from typing import Dict, Optional, Tuple, List, Union
-from spacy.tokens import Doc, Span, Token
-from spacy.matcher import PhraseMatcher
-from spacy.language import Language
-from spacy.util import filter_spans
 from emoji import UNICODE_EMOJI
-
+from spacy.language import Language
+from spacy.matcher import PhraseMatcher
+from spacy.tokens import Doc, Span, Token
+from spacy.util import filter_spans
 
 # Make sure multi-character emoji don't contain whitespace
 EMOJI = {e.replace(" ", ""): t for e, t in UNICODE_EMOJI.items()}
@@ -32,7 +28,8 @@ def create_twitter(
 
 
 class Twitter:
-    """spaCy pipeline component for added hashtags, mentions and urls to `Doc`objects.
+    """spaCy pipeline component for added hashtags, mentions and urls to
+    `Doc`objects.
 
     Examples:
         >>> import spacy
@@ -70,17 +67,18 @@ class Twitter:
         force_extension: bool = True,
     ) -> None:
         """Initialise the pipeline component.
-        nlp (Language): The shared nlp object. Used to initialise the matcher
-            with the shared `Vocab`, and create `Doc` match patterns.
-        attrs (tuple): Attributes to set on the ._ property. Defaults to
-            ('has_emoji', 'is_emoji', 'emoji_desc', 'emoji').
-        pattern_id (unicode): ID of match pattern, defaults to 'EMOJI'. Can be
-            changed to avoid ID clashes.
-        merge_spans (bool): Merge spans containing multi-character emoji. Will
-            only merge combined emoji resulting in one icon, not sequences.
-        lookup (dict): Optional lookup table that maps emoji unicode strings
-            to custom descriptions, e.g. translations or other annotations.
-        RETURNS (callable): A spaCy pipeline component.
+
+        nlp (Language): The shared nlp object. Used to initialise the
+        matcher     with the shared `Vocab`, and create `Doc` match
+        patterns. attrs (tuple): Attributes to set on the ._ property.
+        Defaults to     ('has_emoji', 'is_emoji', 'emoji_desc',
+        'emoji'). pattern_id (unicode): ID of match pattern, defaults to
+        'EMOJI'. Can be     changed to avoid ID clashes. merge_spans
+        (bool): Merge spans containing multi-character emoji. Will
+        only merge combined emoji resulting in one icon, not sequences.
+        lookup (dict): Optional lookup table that maps emoji unicode
+        strings     to custom descriptions, e.g. translations or other
+        annotations. RETURNS (callable): A spaCy pipeline component.
         """
         self._has_emoji, self._is_emoji, self._emoji_desc, self._emoji = attrs
         self.merge_spans = merge_spans
@@ -92,18 +90,23 @@ class Twitter:
         Doc.set_extension(self._has_emoji, getter=self.has_emoji, force=force_extension)
         Doc.set_extension(self._emoji, getter=self.iter_emoji, force=force_extension)
         Span.set_extension(
-            self._has_emoji, getter=self.has_emoji, force=force_extension
+            self._has_emoji,
+            getter=self.has_emoji,
+            force=force_extension,
         )
         Span.set_extension(self._emoji, getter=self.iter_emoji, force=force_extension)
         Token.set_extension(self._is_emoji, default=False, force=force_extension)
         Token.set_extension(
-            self._emoji_desc, getter=self.get_emoji_desc, force=force_extension
+            self._emoji_desc,
+            getter=self.get_emoji_desc,
+            force=force_extension,
         )
 
     def __call__(self, doc: Doc) -> Doc:
         """Apply the pipeline component to a `Doc` object.
-        doc (Doc): The `Doc` returned by the previous pipeline component.
-        RETURNS (Doc): The modified `Doc` object.
+
+        doc (Doc): The `Doc` returned by the previous pipeline
+        component. RETURNS (Doc): The modified `Doc` object.
         """
         spans = self.matcher(doc, as_spans=True)
         for span in spans:
@@ -139,8 +142,7 @@ class Twitter:
 
 
 def hashtag_getter(doc: Doc) -> List[str]:
-    """
-    Extract hashtags from text
+    """Extract hashtags from text.
 
     Args:
         doc (Doc): A SpaCy document
@@ -608,7 +610,7 @@ for i, line in enumerate(lines):
                 "text": lines[i + 1][13:-1],
                 "expected": lines[i + 2][17:-1],
                 "hashtags": match,
-            }
+            },
         )
 
 

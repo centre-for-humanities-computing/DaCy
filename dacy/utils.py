@@ -8,7 +8,7 @@ def softmax(x):
 
 
 def flatten_dict(d: dict, sep: str = "_") -> dict:
-    """flattens a nested dictionary
+    """flattens a nested dictionary.
 
     Args:
         d (dict): The nested dictionary to be flattened. Keys are assumed to be strings.

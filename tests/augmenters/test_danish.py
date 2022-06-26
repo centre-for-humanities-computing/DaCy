@@ -1,7 +1,7 @@
-from dacy.augmenters.danish import create_æøå_augmenter
-
 from spacy.lang.da import Danish
 from spacy.training import Example
+
+from dacy.augmenters.danish import create_æøå_augmenter
 
 
 def test_create_æøå_augmenter():

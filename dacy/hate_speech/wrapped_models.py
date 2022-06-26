@@ -83,7 +83,7 @@ def make_offensive_transformer(
     if not Doc.has_extension("is_offensive"):
         warn(
             "The component assumes the 'is_offensive' extension is set."
-            + " To set it you can run  nlp.add_pipe('hatespeech_detection')"
+            + " To set it you can run  nlp.add_pipe('hatespeech_detection')",
         )
 
     # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden

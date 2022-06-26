@@ -1,6 +1,4 @@
-"""
-Functions for downloading DaCy models.
-"""
+"""Functions for downloading DaCy models."""
 import os
 import shutil
 from pathlib import Path
@@ -8,7 +6,6 @@ from typing import Optional
 
 from tqdm import tqdm
 from wasabi import msg
-
 
 DEFAULT_CACHE_DIR = os.getenv("DACY_CACHE_DIR", os.path.join(str(Path.home()), ".dacy"))
 
@@ -23,8 +20,7 @@ models_url = {
 
 
 def models() -> list:
-    """
-    Returns a list of valid DaCy models
+    """Returns a list of valid DaCy models.
 
     Returns:
         list: list of valid DaCy models
@@ -38,8 +34,7 @@ def download_model(
     force: bool = False,
     verbose: bool = True,
 ) -> str:
-    """
-    Downloads and install a specified DaCy pipeline.
+    """Downloads and install a specified DaCy pipeline.
 
     Args:
         model (str): string indicating DaCy model, use dacy.models() to get a list of models
@@ -58,7 +53,7 @@ def download_model(
 
     if model not in models_url:
         raise ValueError(
-            "The model is not available in DaCy. Please use dacy.models() to see a list of all models"
+            "The model is not available in DaCy. Please use dacy.models() to see a list of all models",
         )
 
     if int(model.split("-")[-1].split(".")[1]) < 1:  # model v. 0.0.0
@@ -79,7 +74,7 @@ def download_model(
         os.remove(dl_path)
         if verbose is True:
             msg.info(
-                f"\Model successfully downloaded, you can now load it using dacy.load({model})"
+                rf"\Model successfully downloaded, you can now load it using dacy.load({model})",
             )
         return path
     else:
@@ -102,7 +97,10 @@ def download_url(url: str, output_path: str) -> None:
     import urllib.request
 
     with DownloadProgressBar(
-        unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
+        unit="B",
+        unit_scale=True,
+        miniters=1,
+        desc=url.split("/")[-1],
     ) as t:
         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
@@ -112,5 +110,5 @@ def install(package):
     import sys
 
     subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", package, "--no-deps"]
+        [sys.executable, "-m", "pip", "install", package, "--no-deps"],
     )

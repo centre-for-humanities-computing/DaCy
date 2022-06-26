@@ -1,10 +1,8 @@
-import dacy
-
-from spacy.training import Corpus
 from spacy.lang.da import Danish
-from spacy.training import Example
+from spacy.training import Corpus, Example
 
-from dacy.datasets import dane, muslim_names, female_names, male_names
+import dacy
+from dacy.datasets import dane, female_names, male_names, muslim_names
 
 test = dane(splits=["test"])
 

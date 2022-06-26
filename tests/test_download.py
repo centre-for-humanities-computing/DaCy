@@ -1,9 +1,8 @@
 import urllib
-import os
 
-from dacy.download import models_url, download_model
-from dacy.load import load
 import dacy
+from dacy.download import download_model, models_url
+from dacy.load import load
 
 
 def test_urls():

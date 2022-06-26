@@ -1,12 +1,12 @@
 # pip install flair==0.4.5
 
 from typing import Iterable, List
-from spacy.tokens import Doc
-from spacy.training import Example
-from spacy.lang.da import Danish
 
 from danlp.models import load_flair_ner_model, load_flair_pos_model
 from flair.data import Sentence, Token
+from spacy.lang.da import Danish
+from spacy.tokens import Doc
+from spacy.training import Example
 
 tagger_ner = load_flair_ner_model()
 tagger_pos = load_flair_pos_model()
@@ -65,15 +65,22 @@ if __name__ == "__main__":
     displacy.render(examples[5].x, style="ent")
 
     from spacy.scorer import Scorer
+
     from .apply_fn_utils import no_misc_getter
 
     tok_scores = Scorer.score_tokenization(examples)
 
     ent_scores = Scorer.score_spans(
-        examples=examples, attr="ents", allow_overlap=True, getter=no_misc_getter
+        examples=examples,
+        attr="ents",
+        allow_overlap=True,
+        getter=no_misc_getter,
     )
     ent_scores_spacy = Scorer.score_spans(
-        examples=examples_spacy, attr="ents", allow_overlap=True, getter=no_misc_getter
+        examples=examples_spacy,
+        attr="ents",
+        allow_overlap=True,
+        getter=no_misc_getter,
     )
 
     pos_scores = Scorer.score_token_attr(examples, "tag")

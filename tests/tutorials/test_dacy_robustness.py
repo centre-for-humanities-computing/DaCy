@@ -1,5 +1,6 @@
-import dacy
 import spacy
+
+import dacy
 from dacy.datasets import dane
 
 
@@ -24,9 +25,10 @@ def test_tutorial():
     print(spacy_baseline)
     print(dacy_baseline)
 
+    from spacy.training.augment import create_lower_casing_augmenter
+
     from dacy.augmenters import create_pers_augmenter
     from dacy.datasets import female_names
-    from spacy.training.augment import create_lower_casing_augmenter
 
     lower_aug = create_lower_casing_augmenter(level=1)
     female_name_dict = female_names()
@@ -61,7 +63,9 @@ def test_tutorial():
     from dacy.augmenters import create_keyboard_augmenter
 
     key_05_aug = create_keyboard_augmenter(
-        doc_level=1, char_level=0.05, keyboard="QWERTY_DA"
+        doc_level=1,
+        char_level=0.05,
+        keyboard="QWERTY_DA",
     )
 
     spacy_key = score(
