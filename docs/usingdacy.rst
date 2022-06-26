@@ -73,7 +73,7 @@ We can also plot these using:
    For more on named entity recognition see SpaCy's `documentation <https://spacy.io/usage/linguistic-features#named-entities>`__.
 
 
-.. image:: ../img/ner.png
+.. image:: _static/ner.png
   :width: 800
   :alt: Named entity recognition using DaCy
 
@@ -121,7 +121,7 @@ You can see the dependency tree using:
    displacy.render(doc)
 
 
-.. image:: ../img/dep_parse.png
+.. image:: _static/dep_parse.png
   :width: 800
   :alt: Dependency parsing using DaCy
 
