@@ -60,7 +60,7 @@ DEFAULT_CONFIG = Config().from_str(DEFAULT_CONFIG_STR)
 
 
 Danish.factory(
-    "hatespeech_detection",
+    "dacy.hatespeech_detection",
     default_config=DEFAULT_CONFIG["hatespeech_detection"],
 )(make_classification_transformer)
 
@@ -83,7 +83,7 @@ def make_offensive_transformer(
     if not Doc.has_extension("is_offensive"):
         warn(
             "The component assumes the 'is_offensive' extension is set."
-            + " To set it you can run  nlp.add_pipe('hatespeech_detection')",
+            + " To set it you can run  nlp.add_pipe('dacy.hatespeech_detection')",
         )
 
     # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden

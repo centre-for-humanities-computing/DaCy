@@ -107,24 +107,24 @@ DEFAULT_CONFIG = Config().from_str(DEFAULT_CONFIG_STR)
 
 
 Danish.factory(
-    "subjectivity",
+    "dacy.subjectivity",
     default_config=DEFAULT_CONFIG["subjectivity"],
 )(make_classification_transformer)
 
 
 Danish.factory(
-    "polarity",
+    "dacy.polarity",
     default_config=DEFAULT_CONFIG["polarity"],
 )(make_classification_transformer)
 
 Danish.factory(
-    "emotionally_laden",
+    "dacy.emotionally_laden",
     default_config=DEFAULT_CONFIG["emotionally_laden"],
 )(make_classification_transformer)
 
 
 @Danish.factory(
-    "emotion",
+    "dacy.emotion",
     default_config=DEFAULT_CONFIG["emotion"],
 )
 def make_emotion_transformer(
@@ -141,7 +141,7 @@ def make_emotion_transformer(
     if not Doc.has_extension("emotionally_laden"):
         warn(
             "The 'emotion' component assumes the 'emotionally_laden' extension is set."
-            + " To set it you can run  nlp.add_pipe('emotionally_laden')",
+            + " To set it you can run  nlp.add_pipe('dacy.emotionally_laden')",
         )
 
     # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden
