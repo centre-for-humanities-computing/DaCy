@@ -46,6 +46,7 @@ sphinxext-opengraph = "^0.6.3"
 sphinx-copybutton = "^0.5.0"
 myst-parser = "^0.18.0"
 docformatter = "^1.4"
+ipykernel = "^6.15.0"
 
 
 [build-system]
