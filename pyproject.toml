@@ -80,5 +80,5 @@ version_variable = [
 ]
 
 [project.scripts]
-emotion_transformer = "dacy.sentiment.wrapped_model:make_emotion_transformer"
-hate_speech_transformer = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
+emotion = "dacy.sentiment.wrapped_model:make_emotion_transformer"
+hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
