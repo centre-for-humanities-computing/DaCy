@@ -35,7 +35,7 @@ stride = 96
 [hatespeech_classification]
 max_batch_items = 4096
 doc_extension_trf_data = "is_offensive_trf_data"
-doc_extension_prediction = "is_offensive"
+doc_extension_prediction = "hate_speech_type"
 labels = ["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]
 
 [hatespeech_classification.set_extra_annotations]
@@ -66,7 +66,7 @@ Danish.factory(
 
 
 @Danish.factory(
-    "hatespeech_classification",
+    "dacy.hatespeech_classification",
     default_config=DEFAULT_CONFIG["hatespeech_classification"],
 )
 def make_offensive_transformer(
@@ -88,9 +88,9 @@ def make_offensive_transformer(
 
     # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden
     clf_mdl = ClassificationTransformer(
-        nlp.vocab,
-        model,
-        set_extra_annotations,
+        vocab=nlp.vocab,
+        model=model,
+        set_extra_annotations=set_extra_annotations,
         max_batch_items=max_batch_items,
         name=name,
         labels=labels,
