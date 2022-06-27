@@ -138,7 +138,7 @@ def make_emotion_transformer(
     labels: List[str],
 ) -> ClassificationTransformer:
 
-    if not Doc.has_extension("emotionally_laden"):
+    if not Doc.has_extension("dacy.emotionally_laden"):
         warn(
             "The 'emotion' component assumes the 'emotionally_laden' extension is set."
             + " To set it you can run  nlp.add_pipe('dacy.emotionally_laden')",
@@ -146,9 +146,9 @@ def make_emotion_transformer(
 
     # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden
     clf_mdl = ClassificationTransformer(
-        nlp.vocab,
-        model,
-        set_extra_annotations,
+        vocab=nlp.vocab,
+        model=model,
+        set_extra_annotations=set_extra_annotations,
         max_batch_items=max_batch_items,
         name=name,
         labels=labels,
@@ -157,7 +157,7 @@ def make_emotion_transformer(
     )
 
     # overwrite extension such that it return no emotion if the document does not have an emotion
-    if Doc.has_extension("emotionally_laden"):
+    if Doc.has_extension("dacy.emotionally_laden"):
 
         def label_getter(doc) -> Optional[str]:
             if doc._.emotionally_laden == "emotional":
