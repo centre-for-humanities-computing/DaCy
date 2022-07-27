@@ -49,6 +49,7 @@ sphinx-copybutton = "^0.5.0"
 myst-parser = "^0.18.0"
 docformatter = "^1.4"
 ipykernel = "^6.15.0"
+augmenty = ">=1.0.2,<1.1.0"
 
 
 [build-system]
@@ -59,8 +60,8 @@ build-backend = "poetry.core.masonry.api"
 [tool.coverage.run]
 omit = [
     "**/tests/*",
-    "**/_vendorized/*",
     "**/about.py",
+    "**/dev/*",
 ]
 
 exclude_lines = [
