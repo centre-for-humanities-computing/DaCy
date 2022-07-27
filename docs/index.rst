@@ -87,6 +87,7 @@ The documentation is organized in three parts:
 
    performance
    robustness
+   augmentation
 
 
 .. toctree::
@@ -96,7 +97,6 @@ The documentation is organized in three parts:
    download
    dacy.datasets
    dacy.sentiment
-   dacy.augmenters
    dacy.score
    dacy.subclasses
 
