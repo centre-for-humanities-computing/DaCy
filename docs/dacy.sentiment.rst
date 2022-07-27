@@ -174,8 +174,7 @@ analysis examining positive or negative words along with the dependency structur
          Both of these also come with :code:`*_prob`-suffix if you want to examine the
          probabilites of the model.
          
-         These show the probabilities of a document being positive/neutral/negative and
-         the resulting classification. Let's look at an example using the model:
+         Let's look at an example using the model:
 
          .. code-block:: python
 
