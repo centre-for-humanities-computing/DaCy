@@ -32,72 +32,12 @@ EASTER EGG:
 https://www.youtube.com/watch?v=E7WQ1tdxSqI
 -->
 
-# 📰 News
-- 2.0.0 
-  - Removed augmenters, they are now available through the external package [`augmenty`](https://kennethenevoldsen.github.io/augmenty/)
-  - Removed the rule-based sentiment pipeline instead we recommend using [`asent`](https://github.com/KennethEnevoldsen/asent)
-- 1.2.0 (04/11/21)
-  - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface's model hub which is faster and more stable 🌟.
-  - Removed the readability module, we recommend using the more extensive [textdescriptives](https://github.com/hlasse/TextDescriptives) package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
-  - Added support for configuring the default save path with the environmental variable `DACY_CACHE_DIR` thanks to a PR by [dhpullack](https://github.com/dhpollack) 🙏.
-- 1.1.0 (23/07/21)
-  - DaCy is now available on the [Huggingface model hub](https://huggingface.co/models?search=dacy) 🤗 . Including detailed performance descriptions of biases and robustness.
-  - It also got a brand new online [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.) - try it out!
-  - And more, including documentation update and prettier prints.
-- 1.0.0 (09/07/21)
-  - DaCy version 1.0.0 releases as the first version to pypi! 📦
-    - Including a series of augmenters with a few specifically designed for Danish
-    - Code for behavioural tests of NLP pipelines
-    - A new tutorial for both 📖
-    - The first paper on DaCy; check it out as a preprint and code for reproducing it [here](https://github.com/centre-for-humanities-computing/DaCy/tree/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP)! 🌟 
-  - A new beautiful hand-drawn logo 🤩
-  - A test for biases and robustness in Danish NLP pipelines 🧐
-  - DaCy is now officially supported by the [Centre for Humanities Computing](https://chcaa.io) at Aarhus University
-- 0.4.1 (03/06/21)
-  - DaCy now has a stunningly looking [documentation site](https://centre-for-humanities-computing.github.io/DaCy/) 🌟. It even has a dark mode!
-
-To see older news items check out the [website](https://centre-for-humanities-computing.github.io/DaCy/).
 
 # 🔧 Installation
 To get started using DaCy simply install it using pip by running the following line in your terminal:
 ```bash
 pip install dacy
 ```
-
-The large version of DaCy uses the sentencepiece tokenizer and protobuf for serialization, to install both of these as well, simply run:
-
-```bash
-pip install dacy[large]
-```
-
-<br /> 
-
-<details>
-  <summary>Detailed instructions</summary>
-
-  The default installation of DaCy does not install danlp as it have a lot dependencies which might collide with your packages you might wish to use. DaCy only uses danlp, for downloading its wrapped models for sentiment.
-  If you wish to install DaNLP as well simply run:
-
-  ```bash
-  pip install dacy[danlp]
-  ```
-
-
-  to install all dependencies run
-  ```bash
-  pip install dacy[all]
-  ```
-
-  ### Install from source
-  ```
-  git clone https://github.com/centre-for-humanities-computing/DaCy.git
-  cd DaCy
-  pip install .
-  ```
-
-</details>
-
-<br /> 
 
 
 # 👩‍💻 Usage
@@ -107,14 +47,15 @@ To use the model you first have to download either the small, medium, or large m
 import dacy
 for model in dacy.models():
     print(model)
-# da_dacy_small_tft-0.0.0
-# da_dacy_medium_tft-0.0.0
-# da_dacy_large_tft-0.0.0
+# ...
+# da_dacy_small_trf-0.1.0
+# da_dacy_medium_trf-0.1.0
+# da_dacy_large_trf-0.1.0
 ```
 
 To download and load a model simply execute:
 ```python
-nlp = dacy.load("da_dacy_medium_tft-0.0.0")
+nlp = dacy.load("da_dacy_medium_tfrf-0.1.0")
 # or equivalently
 nlp = dacy.load("medium")
 ```
@@ -124,8 +65,8 @@ Which will download the model to the `.dacy` directory in your home directory.
 
 To download the model to a specific directory:
 ```python
-dacy.download_model("da_dacy_medium_tft-0.0.0", your_save_path)
-nlp = dacy.load_model("da_dacy_medium_tft-0.0.0", your_save_path)
+dacy.download_model("da_dacy_medium_trf-0.1.0", your_save_path)
+nlp = dacy.load_model("da_dacy_medium_trf-0.1.0", your_save_path)
 ```
 
 For more on how to use DaCy please check out our [documentation](https://centre-for-humanities-computing.github.io/DaCy/)
