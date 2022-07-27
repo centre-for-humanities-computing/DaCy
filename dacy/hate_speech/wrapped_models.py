@@ -34,7 +34,7 @@ stride = 96
 
 [hatespeech_classification]
 max_batch_items = 4096
-doc_extension_trf_data = "is_offensive_trf_data"
+doc_extension_trf_data = "hate_speech_type_trf_data"
 doc_extension_prediction = "hate_speech_type"
 labels = ["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]
 
