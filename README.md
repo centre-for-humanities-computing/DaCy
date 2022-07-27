@@ -69,35 +69,45 @@ dacy.download_model("da_dacy_medium_trf-0.1.0", your_save_path)
 nlp = dacy.load_model("da_dacy_medium_trf-0.1.0", your_save_path)
 ```
 
-For more on how to use DaCy please check out our [documentation](https://centre-for-humanities-computing.github.io/DaCy/)
 
-# 👩‍🏫 Tutorials and documentation
+# 📖 Documentation
 
-DaCy includes detailed documentation as well as a series of Jupyter notebook tutorial. If you do not have Jupyter Notebook installed, instructions for installing and running it can be found [here]( http://jupyter.org/install). All the tutorials are located in the `tutorials` folder.
+DaCy includes detailed documentation as well as a series of Jupyter notebook tutorials.
+If you do not have Jupyter Notebook installed, instructions for installing and running
+it can be found [here]( http://jupyter.org/install). All the tutorials are located in
+the `tutorials` folder.
 
-|                                                                                                                                | Content                                                                             | Google Colab                                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [🌟 Getting Started](https://centre-for-humanities-computing.github.io/DaCy/usingdacy.html)                                     | An introduction on how to use DaCy                                                  |                                                                                                                                                                                                         |
-| [📖 Documentation](https://centre-for-humanities-computing.github.io/DaCy/)                                                     | The Documentation of DaCy                                                           |                                                                                                                                                                                                         |
-| [😡😂 Sentiment](https://github.com/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)               | A simple introduction to the new sentiment features in DaCy.                        | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb)    |
-| [🍒 Augmentation](https://github.com/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-augmentation.ipynb)          | A guide on how to augment text using the DaCy and SpaCy augmenters.                 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-augmentation.ipynb) |
+
+| Documentation              |                                                                             |
+| -------------------------- | --------------------------------------------------------------------------- |
+| 📰 **[News and changelog]** | New additions, changes and version history.                                 |
+| 🎛 **[API References]**     | The detailed reference for augmenty's API. Including function documentation |
+| 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                          |
+| 🙋 **[FAQ]**                | Frequently asked questions                                                  |
+
+| Tutorials and Guides          |                                                                                                 |
+| ----------------------------- | ----------------------------------------------------------------------------------------------- |
+| 📚 **[Getting started]**       | Guides and instructions on how to use augmenty and its features.                                |
+| 😡😂 **[Sentiment]**            | An introduction on how to perform sentiement analysis of emotion, polarity and more using DaCy. |
+| ⛑ **[Robustness and Biases]** | An examination of robustness and biases of Danish NLP models.                                   |
+| 🦾 **[Performance]**           | A detailed description of the performance of DaCy and comparison with similar Danish models     |
+
 | [⛑ Fairness and Robustness](https://github.com/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb) | A guide on how to use augmenters to measure model robustness and biases using DaCy. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb)   |
 
+[Installation]: https://centre-for-humanities-computing.github.io/DaCy/usingdacy.html
+[Getting started]: https://centre-for-humanities-computing.github.io/DaCy/usingdacy.html
+[api references]: https://centre-for-humanities-computing.github.io/DaCy/
+[Demo]: https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.
+[News and changelog]: https://centre-for-humanities-computing.github.io/DaCy/news.html
+[FAQ]: https://centre-for-humanities-computing.github.io/DaCy/faq.html
+
+[Sentiment]: https://centre-for-humanities-computing.github.io/DaCy/dacy.sentiment.html
+[Robustness and Biases]: https://centre-for-humanities-computing.github.io/DaCy/robustness.html
+[Performance]: https://centre-for-humanities-computing.github.io/DaCy/performance.html
+  |
 
 
-# 🦾 Performance and Training
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/named-entity-recognition-on-dane)](https://paperswithcode.com/sota/named-entity-recognition-on-dane?p=dacy-a-unified-framework-for-danish-nlp)
-  
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/part-of-speech-tagging-on-dane)](https://paperswithcode.com/sota/part-of-speech-tagging-on-dane?p=dacy-a-unified-framework-for-danish-nlp)
-	
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/dependency-parsing-on-dane)](https://paperswithcode.com/sota/dependency-parsing-on-dane?p=dacy-a-unified-framework-for-danish-nlp)
-
-The following table shows the performance on the DaNE test set when compared to other models. Highest scores are highlighted with **bold** and second highest is <ins>underlined</ins>. 
-
-<div align="center"><img src="img/perf.png"/></div>
-
-Stanza uses the spacy-stanza implementation. The speed on the DaNLP model is as reported by the framework, which does not utilize batch input. However, given the model size, it can be expected to reach speeds comparable to DaCy medium. Empty cells indicate that the framework does not include the specific model.
 
 <br /> 
 
@@ -112,12 +122,23 @@ Want to learn more about how DaCy initially came to be, check out this [blog pos
 
 <br /> 
 
-## Robustness and Biases
-DaCy compares the performance of Danish language processing pipeline under a large variaty of augmentations to test the robustness and biases hereof. To find out more please check the [website](https://centre-for-humanities-computing.github.io/DaCy/robustness.html).
 
-# 🤔 Issues and Usage Q&A
+## 💬 Where to ask questions
+To ask report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues).
+Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Otherwise, please use the discussion Forums.
 
-To ask report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues). Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum.  Otherwise, please use the [discussion Forums](https://github.com/centre-for-humanities-computing/DaCy/discussions).
+| Type                           |                        |
+| ------------------------------ | ---------------------- |
+| 🚨 **Bug Reports**              | [GitHub Issue Tracker] |
+| 🎁 **Feature Requests & Ideas** | [GitHub Issue Tracker] |
+| 👩‍💻 **Usage Questions**          | [GitHub Discussions]   |
+| 🗯 **General Discussion**       | [GitHub Discussions]   |
+
+[github issue tracker]: https://github.com/centre-for-humanities-computing/DaCy/issues
+[github discussions]: https://github.com/centre-for-humanities-computing/DaCy/discussions
+
+
+
 
 
 
