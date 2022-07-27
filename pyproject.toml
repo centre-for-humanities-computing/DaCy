@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dacy"
-version = "1.5.0"
+version = "2.0.0"
 description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
 authors = ["KennethEnevoldsen <kennethcenevolsen@gmail.com>"]
 license = "Apache-2.0"
@@ -29,11 +29,13 @@ keywords = [
 ]
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-spacy-wrap = "^1.0.2"
-spacy = "^3.3.1"
-pandas = "^1.4.3"
-wasabi = "^0.9.1"
-tqdm = "^4.64.0"
+spacy-wrap = ">=1.0.2,<1.1.0"
+spacy = ">=3.2.0,<3.3.0"
+pandas = ">=1.0.0,<2.0.0"
+wasabi = ">=0.8.2,<0.10.0"
+tqdm = "^4.61.2"
+sentencepiece = ">=0.1.96,<0.2.0"
+protobuf = ">=3.17.3,<3.18.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
