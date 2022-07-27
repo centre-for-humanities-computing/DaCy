@@ -28,7 +28,7 @@ jobs:
       with:
         python-version: 3.8
         cache: 'poetry'
-    - name: Install dependen    - name: Install dependencies
+    - name: Install dependencies
       run: |
         poetry install
     - name: Run and write pytest
