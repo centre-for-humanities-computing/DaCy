@@ -20,44 +20,29 @@ The documentation is organized in three parts:
 - **Package References** contains the documentation of each public class and function.
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Getting Started
+   :maxdepth: 12
+   :hidden:
 
    installation
-   usingdacy
+   using_dacy
+   performance
    news
    faq
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Performance
-
-   performance
-   robustness
-   augmentation
-
-
-.. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Package References
+   :hidden:
 
-   download
+   dacy.download
    dacy.datasets
-   dacy.sentiment
-   dacy.hate_speech
    dacy.score
-   dacy.subclasses
-
 
 
 .. toctree::
-  GitHub Repository <https://github.com/centre-for-humanities-computing/DaCy>
+   :hidden:
+
+   GitHub Repository <https://github.com/centre-for-humanities-computing/DaCy>
 
    
 
-
-Indices and search
-==================
-
-* :ref:`genindex`
-* :ref:`search`

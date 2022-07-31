@@ -15,16 +15,16 @@ of hate speech.
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
 | Name                                  | Creator  | Domain   | Output Type                                                                | Model                          |
 +=======================================+==========+==========+============================================================================+================================+
-| code:`dacy.hatespeech_detection`      | `DaNLP`_ | Facebook | `["not offensive", "offensive"]`                                           | `Ælæctra`_                    |
+| code:`dacy.hatespeech_detection`      | `DaNLP`_ | Facebook | `["not offensive", "offensive"]`                                           | `Ælæctra`_                     |
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
-| code:`dacy.hatespeech_classification` | `DaNLP`_ | Facebook | `["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]` | `Danish BERT by Certainly.io`_ |
+| code:`dacy.hatespeech_classification` | `DaNLP`_ | Facebook | `["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]`   | `Danish BERT by Certainly.io`_ |
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
 
 .. _DaNLP: https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md
 .. _Danish BERT by Certainly.io: https://huggingface.co/Maltehb/danish-bert-botxo
 .. _Ælæctra: https://huggingface.co/Maltehb/aelaectra-danish-electra-small-cased 
 
-.. admonition::
+.. admonition:: Other models for Hate Speech detection
    
    There exist others models for Danish hate-speech detection. We have chosen the BERT
    offensive model as it obtains a reasonable trade-off between good

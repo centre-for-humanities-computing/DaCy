@@ -80,31 +80,22 @@ the `tutorials` folder.
 
 | Documentation              |                                                                             |
 | -------------------------- | --------------------------------------------------------------------------- |
+| 📚 **[Getting started]**       | Guides and instructions on how to use DaCy and its features.                                |
+| 🦾 **[Performance]**           | A detailed description of the performance of DaCy and comparison with similar Danish models     |
+| 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                          |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
 | 🎛 **[API References]**     | The detailed reference for augmenty's API. Including function documentation |
-| 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                          |
 | 🙋 **[FAQ]**                | Frequently asked questions                                                  |
 
-| Tutorials and Guides          |                                                                                                 |
-| ----------------------------- | ----------------------------------------------------------------------------------------------- |
-| 📚 **[Getting started]**       | Guides and instructions on how to use augmenty and its features.                                |
-| 😡😂 **[Sentiment]**            | An introduction on how to perform sentiement analysis of emotion, polarity and more using DaCy. |
-| ⛑ **[Robustness and Biases]** | An examination of robustness and biases of Danish NLP models.                                   |
-| 🦾 **[Performance]**           | A detailed description of the performance of DaCy and comparison with similar Danish models     |
 
-| [⛑ Fairness and Robustness](https://github.com/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb) | A guide on how to use augmenters to measure model robustness and biases using DaCy. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb)   |
-
-[Installation]: https://centre-for-humanities-computing.github.io/DaCy/usingdacy.html
-[Getting started]: https://centre-for-humanities-computing.github.io/DaCy/usingdacy.html
+[Installation]: https://centre-for-humanities-computing.github.io/DaCy/installation.html
+[Getting started]: https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html
 [api references]: https://centre-for-humanities-computing.github.io/DaCy/
 [Demo]: https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.
 [News and changelog]: https://centre-for-humanities-computing.github.io/DaCy/news.html
 [FAQ]: https://centre-for-humanities-computing.github.io/DaCy/faq.html
-
-[Sentiment]: https://centre-for-humanities-computing.github.io/DaCy/dacy.sentiment.html
-[Robustness and Biases]: https://centre-for-humanities-computing.github.io/DaCy/robustness.html
 [Performance]: https://centre-for-humanities-computing.github.io/DaCy/performance.html
-  |
+
 
 
 

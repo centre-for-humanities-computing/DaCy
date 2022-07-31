@@ -1,6 +1,7 @@
 Augmentation
 --------------------
 
+
 Augmentation is an important tool for getting more out of your tagged data by allowing
 you to introduce non-meaningful variation into a text. This can for instance include
 replacing a name with a another name or adding spelling errors.
@@ -16,4 +17,8 @@ names. For Danish models we examine this further under
 
     DaCy augmenters now have a new home. They are now included in 
     `augmenty <https://github.com/kennethenevoldsen/augmenty>`__. Augmenty offers
-    a wider range of augmenters and is jointly developed with DaCy.
+    a wider range of augmenters and is jointly developed with DaCy. For a guide on how
+    to use Augmenty check out their
+    `getting started guide <https://kennethenevoldsen.github.io/augmenty/tutorials/introduction.html>`__
+
+

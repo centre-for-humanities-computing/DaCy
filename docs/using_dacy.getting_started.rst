@@ -1,5 +1,11 @@
-Using DaCy
+Getting Started
 ==================
+
+.. |colab_tut| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :width: 140pt
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/dacy-basic.ipynb
+
+|colab_tut|
 
 To use the model you first have to download either the small, medium or large model. To see a list
 of all available models:
@@ -9,19 +15,20 @@ of all available models:
    import dacy
    for model in dacy.models():
       print(model)
-   # da_dacy_small_tft-0.0.0
-   # da_dacy_medium_tft-0.0.0
-   # da_dacy_large_tft-0.0.0
+   # ...
+   # da_dacy_small_trf-0.1.0
+   # da_dacy_medium_trf-0.1.0
+   # da_dacy_large_trf-0.1.0
 
 .. note::
    The name of the indicated language (:code:`da`), framework (:code:`dacy`), model size (e.g.
-   :code:`small`), model type (:code:`tft`),and model version (:code:`0.0.0`)
+   :code:`small`), model type (:code:`trf`),and model version (:code:`0.1.0`)
 
 From here we can now download a model using:
 
 .. code-block:: python
 
-   nlp = dacy.load("da_dacy_medium_tft-0.0.0")
+   nlp = dacy.load("da_dacy_medium_trf-0.1.0")
    # or equivalently
    nlp = dacy.load("medium")
 
@@ -32,9 +39,9 @@ the model to a specific directory:
 .. code-block:: python
 
    # Just download
-   dacy.download_model("da_dacy_medium_tft-0.0.0", your_save_path)
+   dacy.download_model("da_dacy_medium_trf-0.1.0", your_save_path)
    # Download and load
-   nlp = dacy.load("da_dacy_medium_tft-0.0.0", your_save_path)
+   nlp = dacy.load("da_dacy_medium_trf-0.1.0", your_save_path)
 
 Using this we can now apply DaCy to text with conventional SpaCy syntax:
 
@@ -45,11 +52,11 @@ Using this we can now apply DaCy to text with conventional SpaCy syntax:
 .. seealso::
 
    DaCy is built using SpaCy, hence you will be able to find a lot of the required documentation for
-   using the pipeline in their very well written documentation on their `website <https://spacy.io>`__
+   using the pipeline in their very well written `documentation <https://spacy.io>`__.
 
 Tagging named entities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-A named entity is a “real-world object” that’s assigned a name – for example, a person, a country, a product or a book title. 
+A named entity is a “real-world object” that's assigned a name - for example, a person, a country, a product or a book title. 
 DaCy can recognize organizations, persons, and location, as well as other miscellaneous entities.
 
 .. code-block:: python
@@ -131,37 +138,3 @@ You can see the dependency tree using:
    For more on dependency parsing with DaCy, especially on how to navigate the tree, see SpaCy's `documentation <https://spacy.io/usage/linguistic-features#dependency-parse>`__.
 
 
-
-More guides and tutorials
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. |colab_sent| image:: https://colab.research.google.com/assets/colab-badge.svg
-   :width: 100pt
-   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-sentiment.ipynb
-
-.. |colab_augm| image:: https://colab.research.google.com/assets/colab-badge.svg
-   :width: 100pt
-   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-augmentation.ipynb
-
-.. |colab_fair| image:: https://colab.research.google.com/assets/colab-badge.svg
-   :width: 100pt
-   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb
-
-.. |colab_clf| image:: https://colab.research.google.com/assets/colab-badge.svg
-   :width: 100pt
-   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-wrapping-a-classification-transformer.ipynb
-
-DaCy also includes a couple of additional tutorials which are available as a notebook on Google's Colab.
-
-+--------------+---------------------------------------------------------------------------+
-| Google Colab | Content                                                                   |
-+==============+===========================================================================+
-| |colab_sent| |  A simple introduction to the new sentiment features in DaCy.             | 
-+--------------+---------------------------------------------------------------------------+
-| |colab_augm| |  A guide on how to augment text using the DaCy augmenters.                | 
-+--------------+---------------------------------------------------------------------------+
-| |colab_fair| |  A guide on how to use augmenters to measure model robustness and biases. | 
-+--------------+---------------------------------------------------------------------------+
-| |colab_clf|  | A guide on how to wrap an already fine-tuned transformer and              |
-|              | add it to your SpaCy pipeline using DaCy helper functions.                |
-+--------------+---------------------------------------------------------------------------+

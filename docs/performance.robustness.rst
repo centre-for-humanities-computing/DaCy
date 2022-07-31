@@ -62,7 +62,7 @@ bold and second best are underlined. The "*" denotes that the result is signific
 from baseline using a significance threshold of 0.05 with Bonferroni correction for multiple comparisons.
 Values in parentheses denote the standard deviation. 
 
-.. image:: ../img/ner_robustness.png
+.. image:: _static/ner_robustness.png
   :width: 1000
   :alt: NER performance of Danish NLP pipelines
 
@@ -93,7 +93,7 @@ Part-of-speech tagging
 In the following table we see the accuracy of Danish NLP pipeline on part-of-speech tagging.
 
 
-.. image:: ../img/pos_robustness.png
+.. image:: _static/pos_robustness.png
   :width: 1000
   :alt: POS performance of Danish NLP pipelines
 
@@ -116,19 +116,24 @@ Dependency parsing
 
 In the following table we see the LAS score of Danish models for dependency parsing.
 
-.. image:: ../img/dep_robustness.png
+.. image:: _static/dep_robustness.png
   :width: 1000
   :alt: Dependency parsing performance of Danish NLP pipelines
 
-.. .. raw:: html
-
-..    <iframe src="_static/table_dep.html" height="550px" width="100%" frameBorder="0"></iframe>
-
-.. .. raw:: html
-..    :file: _static/table_dep.html
-
-.. .. image:: ../img/dep_robustness.png
-..   :width: 800
-..   :alt: Dependency parsing performance of Danish NLP pipelines
 
 
+Besides the above tutorials, DaCy also contains a few Google Colab tutorials:
+
+
+.. |colab_fair| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :width: 100pt
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb
+
+
+
+.. seealso:: 
+
+   Want to do the analysis yourself? Well DaCy includes functions for evaluating the
+   robustness of its own and others pipelines as well as a
+   `guide <https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb>`__
+   on how to use these.
