@@ -6,7 +6,6 @@
 [![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/centre-for-humanities-computing/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
 [![license](https://img.shields.io/github/license/centre-for-humanities-computing/DaCy.svg?color=blue)](https://github.com/centre-for-humanities-computing/DaCy/blob/main/LICENSE)
-[![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![github actions pytest](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/centre-for-humanities-computing/Dacy/actions)
 [![github actions docs](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/documentation.yml/badge.svg)](https://centre-for-humanities-computing.github.io/DaCy/)
 <!-- 
