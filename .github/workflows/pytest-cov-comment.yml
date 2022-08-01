@@ -9,7 +9,6 @@ on:
 jobs:
   pytest:
     runs-on: ${{ matrix.os }}
-
     strategy:
         matrix:
             os: [macos-latest, windows-latest, ubuntu-latest]
@@ -17,9 +16,7 @@ jobs:
             exclude:
               - os: ubuntu-latest
                 python-version: '3.9'
-
     steps:
-
     - uses: actions/checkout@v3
     - name: Install poetry
       run: pipx install poetry
@@ -34,7 +31,6 @@ jobs:
     - name: Run and write pytest
       run: |
         pytest --cov=dacy --cov-report term-missing
-
 
   pytest-coverage:
     runs-on: ubuntu-latest
@@ -51,11 +47,10 @@ jobs:
       run: |
         poetry install
     - name: Run and write pytest
-   - name: Run and write pytest
       run: |
         set -o pipefail
         poetry run pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
-     - name: Pytest coverage comment
+    - name: Pytest coverage comment
       id: coverage-comment
       uses: MishaKav/pytest-coverage-comment@v1.1.28
       with:
