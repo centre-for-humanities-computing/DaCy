@@ -104,7 +104,7 @@ jobs:
     - name: Run and write pytest
       run: |
         set -o pipefail
-        pytest -n 2 --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
+        poetry run pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
     
     ### Create cov comment
     - name: Pytest coverage comment
