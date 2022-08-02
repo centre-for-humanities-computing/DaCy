@@ -63,7 +63,7 @@ jobs:
         source $VENV
     - name: Run and write pytest
       run: |
-        portry run pytest --cov=dacy --cov-report term-missing
+        poetry run pytest --cov=dacy --cov-report term-missing
 
   pytest-coverage:
     runs-on: ubuntu-latest
