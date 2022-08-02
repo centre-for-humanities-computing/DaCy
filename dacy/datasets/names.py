@@ -44,7 +44,7 @@ def load_names(
     if ethnicity is not None:
         names = names.loc[names["ethnicity"] == ethnicity]
 
-    last_names = names.loc[names["first_name"] == False]
+    last_names = names.loc[names["first_name"] == False]  # noqa
     if gender is not None:
         names = names.groupby(["name", "gender", "first_name"]).agg({"count": "sum"})
         # Change: groupby state_office and divide by sum
@@ -54,7 +54,7 @@ def load_names(
             (names["gender"] == gender) & (names["count"] >= min_prop_gender)
         ]
 
-    first_names = names.loc[names["first_name"] == True]
+    first_names = names.loc[names["first_name"] == True]  # noqa
     return {
         "first_name": first_names.name.tolist(),
         "last_name": last_names.name.tolist(),

@@ -38,7 +38,7 @@ def dep_getter(token, attr):
     return dep
 
 
-def score(
+def score(  # noqa
     corpus: Corpus,
     apply_fn: Callable[[Iterable[Example], list[Example]]] | Language,
     score_fn: list[Callable[[Iterable[Example]], dict] | str] = [
@@ -163,5 +163,5 @@ def score(
 
     for i, aug in enumerate(augmenters):
         scores_ = __score(aug)
-        scores = pd.concat([scores, scores_]) if i != 0 else scores_
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # noqa
     return scores
