@@ -99,10 +99,10 @@ jobs:
     - name: Source .venv
       run: |
         source $VENV
-    - name: Run and write pytest
-      run: |
         echo $(which python)
         echo $(poetry show pytest)
+    - name: Run and write pytest
+      run: |
         set -o pipefail
         pytest -n 2 --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
     
