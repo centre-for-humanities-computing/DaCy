@@ -17,6 +17,8 @@ def test_dane():
     examples = list(test(nlp))  # check if it read as intended
     assert isinstance(examples[0], Example)
 
+    all_ = dacy.datasets.dane(splits=["all"])
+
 
 def test_names():
     for names in [muslim_names(), female_names(), male_names()]:

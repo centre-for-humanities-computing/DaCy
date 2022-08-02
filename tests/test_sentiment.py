@@ -43,6 +43,7 @@ def test_add_bertemotion_laden():
 
 def test_add_bertemotion_emo():
     nlp = spacy.blank("da")
+    nlp.add_pipe("dacy.emotionally_laden")
     nlp.add_pipe("dacy.emotion")
     doc = nlp("Har i set at Tesla har landet en raket på månen? Det er vildt!!")
     assert doc._.emotion == "overasket/målløs"

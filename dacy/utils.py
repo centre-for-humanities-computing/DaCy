@@ -1,12 +1,6 @@
 from collections.abc import MutableMapping
 
 
-def softmax(x):
-    import numpy as np
-
-    return np.exp(x) / sum(np.exp(x))
-
-
 def flatten_dict(d: dict, sep: str = "_") -> dict:
     """flattens a nested dictionary.
 
