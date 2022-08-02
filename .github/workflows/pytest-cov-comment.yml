@@ -54,16 +54,12 @@ jobs:
       run: poetry install
 
     ### Run tests
-    - name: Parralelise pytest
-      run: |
-        echo -e "[pytest]\naddopts='-n 2'" > pytest.ini
-        cat pytest.ini
     - name: Source .venv
       run: |
         source $VENV
     - name: Run and write pytest
       run: |
-        poetry run pytest --cov=dacy --cov-report term-missing
+        poetry run pytest -n 2 --cov=dacy --cov-report term-missing
 
   pytest-coverage:
     runs-on: ubuntu-latest
@@ -100,17 +96,13 @@ jobs:
       run: poetry install
 
     ### Run tests
-    - name: Parralelise pytest
-      run: |
-        echo -e "[pytest]\naddopts='-n 2'" > pytest.ini
-        cat pytest.ini
     - name: Source .venv
       run: |
         source $VENV
     - name: Run and write pytest
       run: |
         set -o pipefail
-        poetry run pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
+        poetry run pytest -n 2 --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
     
     ### Create cov comment
     - name: Pytest coverage comment
