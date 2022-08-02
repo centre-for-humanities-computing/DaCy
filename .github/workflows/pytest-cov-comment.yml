@@ -59,7 +59,7 @@ jobs:
         source $VENV
     - name: Run and write pytest
       run: |
-        poetry run pytest -n 2 --cov=dacy --cov-report term-missing
+        pytest -n 2 --cov=dacy --cov-report term-missing
 
   pytest-coverage:
     runs-on: ubuntu-latest
@@ -102,7 +102,7 @@ jobs:
     - name: Run and write pytest
       run: |
         set -o pipefail
-        poetry run pytest -n 2 --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
+        pytest -n 2 --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
     
     ### Create cov comment
     - name: Pytest coverage comment
