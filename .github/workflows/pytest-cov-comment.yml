@@ -101,7 +101,8 @@ jobs:
         source $VENV
     - name: Run and write pytest
       run: |
-        poetry show pytest
+        echo $(which python)
+        echo $(poetry show pytest)
         set -o pipefail
         pytest -n 2 --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
     
