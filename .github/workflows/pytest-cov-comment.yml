@@ -96,7 +96,11 @@ jobs:
       run: poetry install
 
     ### Run tests
-    - name: Source .venv
+    - name: Activate virtual environment (Ubuntu, MacOS)
+      if: matrix.os != 'windows-latest'
+        activate $VENV
+    - name: Activate virtual environment (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
         source $VENV
         echo $(which python)
