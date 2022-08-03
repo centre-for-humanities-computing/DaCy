@@ -54,9 +54,18 @@ jobs:
       run: poetry install
 
     ### Run tests
-    - name: Source .venv
+    - name: Activate virtual environment (Linux, MacOS)
+      if: matrix.os != 'windows-latest'
       run: |
         source $VENV
+        echo $(which python)
+        echo $(poetry show pytest)
+      if: matrix.os != 'windows-latest'
+    - name: Activate virtual environment (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        activate $VENV
+
     - name: Run and write pytest
       run: |
         poetry run pytest --cov=dacy --cov-report term-missing
@@ -97,11 +106,6 @@ jobs:
 
     ### Run tests
     - name: Activate virtual environment (Ubuntu, MacOS)
-      if: matrix.os != 'windows-latest'
-      run: |
-        activate $VENV
-    - name: Activate virtual environment (Windows)
-      if: matrix.os == 'windows-latest'
       run: |
         source $VENV
         echo $(which python)
