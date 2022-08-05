@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Enevoldsen"
+  given-names: "Kenneth"
+  orcid: "https://orcid.org/0000-0001-8733-0966"
+- family-names: "Hansen"
+  given-names: "Lasse"
+  orcid: "https://orcid.org/0000-0003-1113-4779"
+- family-names: "Nielbo"
+  given-names: "Kristoffer L."
+  orcid: "https://orcid.org/0000-0002-5116-5070"
+title: "DaCy: A Unified Framework for Danish NLP"
+version: 1.5.0
+date-released: 2021-02-25
+url: "https://github.com/centre-for-humanities-computing/DaCy"

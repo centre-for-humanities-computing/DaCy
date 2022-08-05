@@ -1,10 +1,8 @@
-"""
-This includes the DaNE dataset wrapped and read in as a SpaCy corpus.
-"""
+"""This includes the DaNE dataset wrapped and read in as a SpaCy corpus."""
 
 import os
-from pathlib import Path
 import shutil
+from pathlib import Path
 from typing import List, Optional, Union
 
 from spacy.training import Corpus
@@ -21,8 +19,7 @@ def dane(
     open_unverified_connection: bool = False,
     **kwargs,
 ) -> Union[List[Corpus], Corpus]:
-    """
-    Reads the DaNE dataset as a spacy Corpus.
+    """Reads the DaNE dataset as a spacy Corpus.
 
     Args:
         save_path (str, optional): Path to the DaNE dataset If it does not contain the dataset it
@@ -80,7 +77,7 @@ def dane(
         shutil.copyfile(wpath, cpath)
         # convert to spacy
         os.system(
-            f"python -m spacy convert {cpath} {save_path} --converter conllu --merge-subtokens -n {n_sents}"
+            f"python -m spacy convert {cpath} {save_path} --converter conllu --merge-subtokens -n {n_sents}",
         )
         os.remove(cpath)
 

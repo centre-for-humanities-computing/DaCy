@@ -1,22 +1,24 @@
-from dacy.augmenters.keyboard import Keyboard
 import random
 from functools import partial
-from typing import Dict, Iterable, Iterator, Callable, Union, List
+from typing import Callable, Dict, Iterable, Iterator, List, Union
 
 import spacy
 from spacy.language import Language
 from spacy.training import Example
 
-from .utils import make_text_from_orth
+from dacy.augmenters.keyboard import Keyboard
 
 from .keyboard import KEYBOARDS, Keyboard
+from .utils import make_text_from_orth
 
 
 @spacy.registry.augmenters("synonym_augmenter.v1")
 def create_synonym_augmenter(
-    level: float, synonyms: dict
+    level: float,
+    synonyms: dict,
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Creates an augmenter swaps a token with its synonym based on a dictionary
+    """Creates an augmenter swaps a token with its synonym based on a
+    dictionary.
 
     Args:
         level (float): Probability to replace token given that it is in synonym dictionary.
@@ -51,7 +53,8 @@ def synonym_augmenter(
 
 @spacy.registry.augmenters("token_swap_augmenter.v1")
 def create_token_swap_augmenter(
-    level: float, respect_spans: bool = True
+    level: float,
+    respect_spans: bool = True,
 ) -> Callable[[Language, Example], Iterator[Example]]:
     """Creates an augmenter that randomly swaps two neighbouring tokens.
 

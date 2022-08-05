@@ -1,10 +1,12 @@
 from pathlib import Path
 
-import dacy
 import pandas as pd
 import spacy
 import spacy_stanza
 import stanza
+from spacy.training.augment import create_lower_casing_augmenter, dont_augment
+
+import dacy
 from dacy.augmenters import (
     create_keyboard_augmenter,
     create_pers_augmenter,
@@ -13,7 +15,6 @@ from dacy.augmenters import (
 )
 from dacy.datasets import dane, danish_names, female_names, male_names, muslim_names
 from dacy.score import n_sents_score, score
-from spacy.training.augment import create_lower_casing_augmenter, dont_augment
 
 from .apply_fns.apply_fn_danlp import apply_danlp_bert
 from .apply_fns.apply_fn_flair import apply_flair
@@ -61,19 +62,28 @@ m_aug = create_pers_augmenter(
     patterns=["fn", "fn,ln", "fn,ln,ln"],
 )
 punct_aug = create_pers_augmenter(
-    muslim_name_dict, force_pattern_size=False, keep_name=True, patterns=["abbpunct"]
+    muslim_name_dict,
+    force_pattern_size=False,
+    keep_name=True,
+    patterns=["abbpunct"],
 )
 
 
 # randomly change 5%/15% of characters to a neighbouring key
 keyboard_aug_02 = create_keyboard_augmenter(
-    doc_level=1, char_level=0.02, keyboard="QWERTY_DA"
+    doc_level=1,
+    char_level=0.02,
+    keyboard="QWERTY_DA",
 )
 keyboard_aug_05 = create_keyboard_augmenter(
-    doc_level=1, char_level=0.05, keyboard="QWERTY_DA"
+    doc_level=1,
+    char_level=0.05,
+    keyboard="QWERTY_DA",
 )
 keyboard_aug_15 = create_keyboard_augmenter(
-    doc_level=1, char_level=0.15, keyboard="QWERTY_DA"
+    doc_level=1,
+    char_level=0.15,
+    keyboard="QWERTY_DA",
 )
 
 # Change æ=ae, ø=oe, å=aa

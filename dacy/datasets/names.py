@@ -1,9 +1,8 @@
-"""
-Helper functions for loading name dictionaries for person augmentation.
-"""
+"""Helper functions for loading name dictionaries for person augmentation."""
 
 import os
 from typing import Dict, List, Optional
+
 import pandas as pd
 
 
@@ -13,9 +12,9 @@ def load_names(
     gender: Optional[str] = None,
     min_prop_gender: float = 0,
 ) -> Dict[str, List[str]]:
-    """
-    Loads the names lookup table. Danish are from Danmarks statistik (2021).
-    Muslim names are from Meldgaard (2005), https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
+    """Loads the names lookup table. Danish are from Danmarks statistik (2021).
+    Muslim names are from Meldgaard (2005),
+    https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
 
     Args:
         min_count (int, optional): Minimum number of occurences of the name for it to be included.
@@ -33,7 +32,9 @@ def load_names(
         Dict[str, List[str]]: A dictionary of Muslim names containing the keys "first_name" and "last_name".
     """
     path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "lookup_tables", "names.csv"
+        os.path.dirname(os.path.abspath(__file__)),
+        "lookup_tables",
+        "names.csv",
     )
     names = pd.read_csv(path)
 
@@ -43,7 +44,7 @@ def load_names(
     if ethnicity is not None:
         names = names.loc[names["ethnicity"] == ethnicity]
 
-    last_names = names.loc[names["first_name"] == False]
+    last_names = names.loc[names["first_name"] == False]  # noqa
     if gender is not None:
         names = names.groupby(["name", "gender", "first_name"]).agg({"count": "sum"})
         # Change: groupby state_office and divide by sum
@@ -53,7 +54,7 @@ def load_names(
             (names["gender"] == gender) & (names["count"] >= min_prop_gender)
         ]
 
-    first_names = names.loc[names["first_name"] == True]
+    first_names = names.loc[names["first_name"] == True]  # noqa
     return {
         "first_name": first_names.name.tolist(),
         "last_name": last_names.name.tolist(),

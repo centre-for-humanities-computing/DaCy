@@ -6,17 +6,6 @@ To get started using DaCy simply install it using pip by running the following l
 
    pip install dacy
 
-
-Using DaCy Large
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The large version of DaCy uses the sentencepiece tokenizer and protobuf for serialization, to install both of these run:
-
-.. code-block::
-   pip install dacy[large]
-
-
-
 Installing from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -1,6 +1,6 @@
 from typing import Callable, Iterable, List
 
-from spacy.tokens import Span, Doc
+from spacy.tokens import Doc, Span
 from spacy.training import Example
 
 
@@ -13,7 +13,7 @@ def no_misc_getter(doc, attr):
 
 
 def add_iob(doc: Doc, iob: List[str]) -> Doc:
-    """Add iob tags to Doc
+    """Add iob tags to Doc.
 
     Args:
         doc (Doc): A SpaCy doc

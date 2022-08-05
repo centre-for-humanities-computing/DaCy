@@ -1,15 +1,14 @@
 ### DaNLP's BERT model requires transformers==3.5.1 (install with pip install transformers==3.5.1 --no-deps)
 
-from spacy.tokens import Span, Doc
-from spacy.training import Example
-from spacy.lang.da import Danish
-
-from danlp.models import load_bert_ner_model
-
-from .apply_fn_utils import apply_on_multiple_examples, add_iob, no_misc_getter
-
 # to download the danlp and nerda you will have to set up a certificate:
 import ssl
+
+from danlp.models import load_bert_ner_model
+from spacy.lang.da import Danish
+from spacy.tokens import Doc, Span
+from spacy.training import Example
+
+from .apply_fn_utils import add_iob, apply_on_multiple_examples, no_misc_getter
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -42,7 +41,9 @@ if __name__ == "__main__":
 
     tok_scores = Scorer.score_tokenization(examples)
     ent_scores = Scorer.score_spans(
-        examples=examples, attr="ents", getter=no_misc_getter
+        examples=examples,
+        attr="ents",
+        getter=no_misc_getter,
     )
     pos_scores = Scorer.score_token_attr(examples, "tag")
 

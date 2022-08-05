@@ -1,13 +1,12 @@
-"""
-Contains functions for testing the performance of models on varying input length.
-"""
+"""Contains functions for testing the performance of models on varying input
+length."""
 from typing import Callable, List, Union
 
 import pandas as pd
+from wasabi import msg
 
 from ..datasets import dane
 from .score import score
-from wasabi import msg
 
 
 def n_sents_score(
@@ -19,7 +18,8 @@ def n_sents_score(
     verbose: bool = True,
     **kwargs,
 ) -> pd.DataFrame:
-    """scores the performance of a given model on examples of a given number of sentences.
+    """scores the performance of a given model on examples of a given number of
+    sentences.
 
     Args:
         n_sents (Union[int, List[int]]): Number of sentences which the performance should be applied to.
@@ -41,12 +41,10 @@ def n_sents_score(
     if isinstance(n_sents, int):
         n_sents = [n_sents]
 
-    k = kwargs["k"] if "k" in kwargs else 1
-
     for i, n in enumerate(n_sents):
         if verbose is True:
             msg.info(f"Calculating score using {n} sentences")
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)
-        scores = pd.concat([scores, scores_]) if i != 0 else scores_
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # noqa
     return scores

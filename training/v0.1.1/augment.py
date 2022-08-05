@@ -1,30 +1,25 @@
-"""
-This is a utility script for applying the augmentation to the DaNE test set and including the metrics in the performance scores.
-"""
+"""This is a utility script for applying the augmentation to the DaNE test set
+and including the metrics in the performance scores."""
 
 import json
-
 import sys
 
 sys.path.append("../..")  # import dacy
 
 import spacy
+from spacy.scorer import Scorer
+from spacy.training.augment import create_lower_casing_augmenter, dont_augment
+from wasabi import msg
+
 from dacy.augmenters import (
+    create_char_swap_augmenter,
     create_keyboard_augmenter,
     create_pers_augmenter,
     create_spacing_augmenter,
     create_æøå_augmenter,
-    create_char_swap_augmenter,
 )
-
-
 from dacy.datasets import dane, danish_names, female_names, male_names, muslim_names
 from dacy.score import n_sents_score, score
-
-from spacy.training.augment import create_lower_casing_augmenter, dont_augment
-from spacy.scorer import Scorer
-
-from wasabi import msg
 
 dk_name_dict = danish_names()
 muslim_name_dict = muslim_names()
@@ -56,17 +51,26 @@ m_aug = create_pers_augmenter(
     patterns=["fn", "fn,ln", "fn,ln,ln"],
 )
 punct_aug = create_pers_augmenter(
-    muslim_name_dict, force_pattern_size=False, keep_name=True, patterns=["abbpunct"]
+    muslim_name_dict,
+    force_pattern_size=False,
+    keep_name=True,
+    patterns=["abbpunct"],
 )
 
 keyboard_aug_02 = create_keyboard_augmenter(
-    doc_level=1, char_level=0.02, keyboard="QWERTY_DA"
+    doc_level=1,
+    char_level=0.02,
+    keyboard="QWERTY_DA",
 )
 keyboard_aug_05 = create_keyboard_augmenter(
-    doc_level=1, char_level=0.05, keyboard="QWERTY_DA"
+    doc_level=1,
+    char_level=0.05,
+    keyboard="QWERTY_DA",
 )
 keyboard_aug_15 = create_keyboard_augmenter(
-    doc_level=1, char_level=0.15, keyboard="QWERTY_DA"
+    doc_level=1,
+    char_level=0.15,
+    keyboard="QWERTY_DA",
 )
 
 swap_aug2 = create_char_swap_augmenter(doc_level=1, char_level=0.02)
@@ -222,7 +226,10 @@ def main(model, output):
         nam = f"Input size augmentation {n} sentences"
         msg.info(f"Running augmenter: {nam}")
         scores_ = n_sents_score(
-            n_sents=n, apply_fn=nlp, score_fn=[scorer.score], nlp=nlp
+            n_sents=n,
+            apply_fn=nlp,
+            score_fn=[scorer.score],
+            nlp=nlp,
         )
         m_d = scores_[scores_.columns].mean().to_dict()
         s_d = scores_[scores_.columns].std().to_dict()
@@ -240,10 +247,16 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--model", type=str, help="the model to evaluate", required=True
+        "--model",
+        type=str,
+        help="the model to evaluate",
+        required=True,
     )
     parser.add_argument(
-        "--output", type=str, help="the json output filename", required=True
+        "--output",
+        type=str,
+        help="the json output filename",
+        required=True,
     )
 
     args = parser.parse_args()

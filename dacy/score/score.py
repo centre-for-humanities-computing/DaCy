@@ -1,24 +1,22 @@
-"""
-This includes function for scoring models applied to a SpaCy corpus.
-"""
+"""This includes function for scoring models applied to a SpaCy corpus."""
 from __future__ import annotations
 
-from time import time
 from copy import copy
 from functools import partial
-from typing import Callable, Dict, Iterable, List, Optional, Union
+from time import time
+from typing import Callable, Iterable
 
 import pandas as pd
 from spacy.language import Language
 from spacy.scorer import Scorer
-from spacy.training import Corpus, Example, dont_augment
 from spacy.tokens import Doc, Span
+from spacy.training import Corpus, Example, dont_augment
 
 from ..utils import flatten_dict
 
 
 def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
-    """A utility getter for scoring entities without including MISC
+    """A utility getter for scoring entities without including MISC.
 
     Args:
         doc (Doc): a SpaCy Doc
@@ -40,21 +38,22 @@ def dep_getter(token, attr):
     return dep
 
 
-def score(
+def score(  # noqa
     corpus: Corpus,
-    apply_fn: Union[Callable[[Iterable[Example], List[Example]]], Language],
-    score_fn: List[Union[Callable[[Iterable[Example]], dict], str]] = [
+    apply_fn: Callable[[Iterable[Example], list[Example]]] | Language,
+    score_fn: list[Callable[[Iterable[Example]], dict] | str] = [
         "token",
         "pos",
         "ents",
         "dep",
     ],
-    augmenters: List[Callable[[Language, Example], Iterable[Example]]] = [],
+    augmenters: list[Callable[[Language, Example], Iterable[Example]]] = [],
     k: int = 1,
-    nlp: Optional[Language] = None,
+    nlp: Language | None = None,
     **kwargs,
 ) -> pd.DataFrame:
-    """scores a models performance on a given corpus with potentially augmentations applied to it.
+    """scores a models performance on a given corpus with potentially
+    augmentations applied to it.
 
     Args:
         corpus (Corpus): A spacy Corpus
@@ -108,7 +107,9 @@ def score(
     def ents_scorer(examples):
         scores = Scorer.score_spans(examples, attr="ents")
         scores_no_misc = Scorer.score_spans(
-            examples, attr="ents", getter=no_misc_getter
+            examples,
+            attr="ents",
+            getter=no_misc_getter,
         )
         scores["ents_excl_MISC"] = {
             k: scores_no_misc[k] for k in ["ents_p", "ents_r", "ents_f"]
@@ -162,5 +163,5 @@ def score(
 
     for i, aug in enumerate(augmenters):
         scores_ = __score(aug)
-        scores = pd.concat([scores, scores_]) if i != 0 else scores_
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # noqa
     return scores
