@@ -35,7 +35,7 @@ pandas = ">=1.0.0,<2.0.0"
 wasabi = ">=0.8.2,<0.10.0"
 tqdm = "^4.61.2"
 sentencepiece = ">=0.1.96,<0.2.0"
-protobuf = ">=3.17.3,<3.18.0"
+protobuf = ">=3.17.3,<4.22.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
