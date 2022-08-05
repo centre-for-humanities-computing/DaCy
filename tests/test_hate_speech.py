@@ -18,6 +18,7 @@ def test_add_hate_speech_detection():
 
 def test_add_bertemotion_emo():
     nlp = spacy.blank("da")
+    nlp.add_pipe("dacy.hatespeech_detection")
     nlp.add_pipe("dacy.hatespeech_classification")
     doc = nlp("senile gamle idiot")
     assert doc._.hate_speech_type == "sprogbrug"
