@@ -1,7 +1,7 @@
 News and Changelog
 ---------------------------------
 
-.. |spandaur| image:: https://github.com/centre-for-humanities-computing/DaCy/raw/main/docs/_static/docs/_static/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png
+.. |spandaur| image:: https://github.com/centre-for-humanities-computing/DaCy/blob/main/docs/_static/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png?raw=true
    :width: 120pt
 
 
