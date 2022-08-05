@@ -286,10 +286,19 @@ Usage
          # visualize model prediction
          asent.visualize(doc, style="prediction")
 
+      .. image:: _static/asent_prediction.png
+         :width: 300
+         :alt: Visualization of model prediction using Asent
+
       .. code-block:: python
 
          # visualize the analysis performed by the model:
          asent.visualize(doc, style="analysis")
+
+      .. image:: _static/asent_analysis.png
+         :width: 800
+         :alt: Visualization of model analysis using Asent 
+
 
       .. seealso::
 

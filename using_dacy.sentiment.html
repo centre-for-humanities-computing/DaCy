@@ -301,8 +301,8 @@ analysis examining positive or negative words along with the dependency structur
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="1efb202a-3e35-4c80-b1df-cbb6f8820f93" name="f86d9004-6ce3-429a-a388-6065a5214140" type="radio">
-</input><label class="sd-tab-label" for="1efb202a-3e35-4c80-b1df-cbb6f8820f93">
+<input checked="checked" id="4db5df21-4622-4e64-a7df-c1d6d9108785" name="6096b37f-b3f8-4154-bc29-09369a0e9dfb" type="radio">
+</input><label class="sd-tab-label" for="4db5df21-4622-4e64-a7df-c1d6d9108785">
 Neural Models</label><div class="sd-tab-content docutils">
 <p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/sentiment-neural.ipynb"><img alt="colab_tut_neural" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>DaCy currently does not include its own tools for sentiment extraction, but a couple of good tools already exists. DaCy providers wrappers for these to use them in the spaCy/DaCy framework. This allows you to get all of the best models in one place.</p>
@@ -448,8 +448,8 @@ probabilites of the model.</p>
 </div>
 </div>
 </details></div>
-<input id="73887246-bc7c-4112-abc6-1418c4d0588c" name="f86d9004-6ce3-429a-a388-6065a5214140" type="radio">
-</input><label class="sd-tab-label" for="73887246-bc7c-4112-abc6-1418c4d0588c">
+<input id="42ca893a-8d8d-46e4-9547-908136141aef" name="6096b37f-b3f8-4154-bc29-09369a0e9dfb" type="radio">
+</input><label class="sd-tab-label" for="42ca893a-8d8d-46e4-9547-908136141aef">
 Rule-based Models</label><div class="sd-tab-content docutils">
 <p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/sentiment-rule-based.ipynb"><img alt="colab_tut_rule" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>if you wish to perform rule-based sentiment analysis using DaCy we recommend using
@@ -508,10 +508,12 @@ accounting for the negation <em>“ikke”</em> (not) it becomes negative. Furth
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;prediction&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="_images/asent_prediction.png"><img alt="Visualization of model prediction using Asent" src="_images/asent_prediction.png" style="width: 300px;" /></a>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># visualize the analysis performed by the model:</span>
 <span class="n">asent</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;analysis&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="_images/asent_analysis.png"><img alt="Visualization of model analysis using Asent" src="_images/asent_analysis.png" style="width: 800px;" /></a>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Looking for the rule-based component <code class="code docutils literal notranslate"><span class="pre">dacy.sentiment.getters.da_vader_getter</span></code>?
