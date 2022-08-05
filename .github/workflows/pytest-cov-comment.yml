@@ -60,7 +60,6 @@ jobs:
         source $VENV
         echo $(which python)
         echo $(poetry show pytest)
-      if: matrix.os != 'windows-latest'
     - name: Activate virtual environment (Windows)
       if: matrix.os == 'windows-latest'
       run: |
