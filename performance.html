@@ -1,23 +1,24 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-<meta property="og:title" content="General performance" />
+<meta property="og:title" content="Performance" />
   
 <meta property="og:type" content="website" />
   
 <meta property="og:url" content="performance.html" />
   
-<meta property="og:description" content="In the paper DaCy: A Unified Framework for Danish NLP we compare DaCy’s models with other Danish language processing pipelines. This page represents only parts of the paper. For a more comprehensiv..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Robustness and Biases" href="robustness.html" /><link rel="prev" title="Using DaCy" href="usingdacy.html" />
+<meta property="og:description" content="DaCy is evaulate contains performance metrics for State of the Art Comparison- State-of-the-Art., Robustness and Biases- Named entity recognition, Part-of-speech tagging, Dependency parsing.." />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="State of the Art Comparison" href="performance.general.html" /><link rel="prev" title="Augmentation" href="using_dacy.augmentation.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>General performance - DaCy 1.3.1 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+        <title>Performance - DaCy 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -33,16 +34,16 @@
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
@@ -138,7 +139,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 1.3.1 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -149,7 +150,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -172,24 +173,28 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingdacy.html">Using DaCy</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="using_dacy.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.hate_speech.html">Hate Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.augmentation.html">Augmentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Performance</span></p>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">General performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="robustness.html">Robustness and Biases</a></li>
+</li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Performance</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.robustness.html">Robustness and Biases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Package References</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dacy.download.html">Downloading and Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.sentiment.html">Sentiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.augmenters.html">Augmenters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dacy.score.html">Score</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.subclasses.html">Subclasses</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy">GitHub Repository</a></li>
@@ -211,7 +216,17 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/DaCy/edit/main/docs/performance.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -219,41 +234,29 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="general-performance">
-<h1>General performance<a class="headerlink" href="#general-performance" title="Permalink to this headline">#</a></h1>
-<p>In the paper <a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/blob/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP/readme.md">DaCy: A Unified Framework for Danish NLP</a>
-we compare DaCy’s models with other Danish language processing pipelines. This page represents only parts of the paper. For a more comprehensive evaluation we recommend reading the paper.</p>
-<p>The table below shows the performance of Danish language processing pipelines scored on the DaNE test set, including part-of-speech tagging (POS),
-named entity recognition (NER) and dependency parsing.
-The best scores in each category are highlighted with bold and the second best is underlined.
-Empty cells indicate that the framework does not include the specific model.</p>
-<a class="reference internal image-reference" href="_images/perf.png"><img alt="Performance of Danish NLP pipelines" src="_images/perf.png" style="width: 1000px;"/></a>
-<p>The speed of the DaNLP model is as reported by the framework, which does not utilize batch input.
-However, given the model size, it can be expected to reach speeds comparable to DaCy medium.</p>
-<div class="note admonition">
-<p class="admonition-title">What is LAS and UAS?</p>
-<p>Unlabelled attachment score (UAS) denotes the percentage of words that get assigned the correct head,
-while labelled attachment score (LAS) is the percentage of words that get assigned the correct head and label.
-For more information, read the following <a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/14.pdf">chapter</a>
-by Jurafsky and Martin.</p>
+          <section id="performance">
+<h1>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h1>
+<p>DaCy is evaulate contains performance metrics for</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.general.html#state-of-the-art">State-of-the-Art</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performance.robustness.html">Robustness and Biases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.robustness.html#named-entity-recognition">Named entity recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.robustness.html#part-of-speech-tagging">Part-of-speech tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.robustness.html#dependency-parsing">Dependency parsing</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>From the table we see that DaCy large obtains state-of-the-art on all tasks, most notably on NER
-and dependency parsing. DaCy medium is a good alternative especially when running on CPU, where SpaCy large might also be considered.
-If you are only interested in NER, and POS, Flair is also a viable option for CPU usage.</p>
-<section id="measuring-performance">
-<h2>Measuring performance<a class="headerlink" href="#measuring-performance" title="Permalink to this headline">#</a></h2>
-<p>Typically when measuring performance on these benchmark there is a tendency to feed the model the gold standard tokens.
-While this allows for easier comparisons of modules and architectures, it inflates the performance metrics. Further, it does not proberly reflect what you are really interested in:
-the performance you can expect when you apply the model. Therefore, we measure the performance using the models own tokenizer or SpaCy’s tokenizer if it performs better.
-Polyglot and Stanza performed better with their own tokenizers while the remaining models performed best with SpaCy’s.</p>
-<p>Benchmark performance only scratches the surface though, so be sure to check out the more nuanced section on model <a class="reference external" href="https://centre-for-humanities-computing.github.io/DaCy/robustness.html">robustness and biases</a>.</p>
-</section>
 </section>
 
         </article>
@@ -261,23 +264,23 @@ Polyglot and Stanza performed better with their own tokenizers while the remaini
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="robustness.html">
+          <a class="next-page" href="performance.general.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Robustness and Biases</div>
+                <div class="title">State of the Art Comparison</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="usingdacy.html">
+          <a class="prev-page" href="using_dacy.augmentation.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Using DaCy</div>
+                <div class="title">Augmentation</div>
                 
               </div>
             </a>
@@ -294,6 +297,11 @@ Polyglot and Stanza performed better with their own tokenizers while the remaini
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/DaCy" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -301,27 +309,8 @@ Polyglot and Stanza performed better with their own tokenizers while the remaini
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            Contents
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">General performance</a><ul>
-<li><a class="reference internal" href="#measuring-performance">Measuring performance</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
@@ -329,9 +318,11 @@ Polyglot and Stanza performed better with their own tokenizers while the remaini
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>
