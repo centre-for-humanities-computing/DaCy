@@ -63,7 +63,7 @@ jobs:
     - name: Activate virtual environment (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        activate $VENV
+        poetry shell
 
     - name: Run and write pytest
       run: |
