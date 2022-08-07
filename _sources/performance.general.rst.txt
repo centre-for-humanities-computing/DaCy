@@ -52,19 +52,19 @@ language processing landscape for Danish NLP it isn't continually updated. Thus 
 three badges denotes the current ranking of DaCy.
 
 .. |ner| image:: https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/named-entity-recognition-on-dane
-    :width: 140pt
+    :width: 160pt
     :target: https://paperswithcode.com/sota/named-entity-recognition-on-dane?p=dacy-a-unified-framework-for-danish-nlp
 
 |ner|
 
 .. |pos| image:: https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/part-of-speech-tagging-on-dane
-    :width: 140pt
+    :width: 160pt
     :target: https://paperswithcode.com/sota/part-of-speech-tagging-on-dane?p=dacy-a-unified-framework-for-danish-nlp
 
 |pos|
 
 .. |dep| image:: https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/dependency-parsing-on-dane
-    :width: 140pt
+    :width: 160pt
     :target: https://paperswithcode.com/sota/dependency-parsing-on-dane?p=dacy-a-unified-framework-for-danish-nlp
 
 |dep|
