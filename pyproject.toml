@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dacy"
-version = "2.0.0"
+version = "2.0.1"
 description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
 authors = ["KennethEnevoldsen <kennethcenevolsen@gmail.com>"]
 license = "Apache-2.0"
