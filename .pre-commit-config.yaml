@@ -1,4 +1,5 @@
 default_stages: [commit, push]
+fail_fast: false
 
 repos:
   - repo: https://github.com/pycqa/isort
