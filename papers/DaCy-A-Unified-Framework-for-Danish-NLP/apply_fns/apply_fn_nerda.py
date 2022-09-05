@@ -18,7 +18,6 @@ nlp_da = Danish()
 
 
 def apply_nerda(examples: Iterable[Example], use_spacy: bool = True) -> List[Example]:
-
     sentences = []
     docs_y = []
     for example in examples:
