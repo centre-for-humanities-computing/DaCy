@@ -86,7 +86,8 @@ def make_offensive_transformer(
             + " To set it you can run  nlp.add_pipe('dacy.hatespeech_detection')",
         )
 
-    # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden
+    # TODO: Add a conditional forward such that the model isn't run is document is not
+    # emotionally laden
     clf_mdl = ClassificationTransformer(
         vocab=nlp.vocab,
         model=model,
@@ -98,7 +99,8 @@ def make_offensive_transformer(
         doc_extension_prediction=doc_extension_prediction,
     )
 
-    # overwrite extension such that it return not offensive if the document is not offensive
+    # overwrite extension such that it return not offensive if the document is not
+    # offensive
     if Doc.has_extension("is_offensive"):
 
         def label_getter(doc) -> Optional[str]:

@@ -16,9 +16,12 @@ def load(
     not downloaded it will also download the model.
 
     Args:
-        model (str): the model you wish to load. To see available model see dacy.models()
-        path (str, optional): The path to the downloaded model. Defaults to None which corresponds to the path optained using dacy.where_is_my_dacy().
-        force_redownload (bool, optional): Should the model be redownloaded even if already downloaded? Default to False.
+        model (str): the model you wish to load. To see available model see
+            dacy.models()
+        path (str, optional): The path to the downloaded model. Defaults to None which
+            corresponds to the path optained using dacy.where_is_my_dacy().
+        force_redownload (bool, optional): Should the model be redownloaded even if
+            already downloaded? Default to False.
 
     Returns:
         Language: a SpaCy text-preprocessing pipeline
@@ -44,7 +47,8 @@ def where_is_my_dacy(verbose: bool = True) -> str:
     `DACY_CACHE_DIR`.
 
     Args:
-        verbose (bool, optional): Toggles the verbosity of the function. Defaults to True.
+        verbose (bool, optional): Toggles the verbosity of the function. Defaults to
+            True.
 
     Returns:
         str: path to the location of DaCy models
@@ -55,8 +59,10 @@ def where_is_my_dacy(verbose: bool = True) -> str:
     """
     if verbose is True:
         msg.info(
-            "DaCy pipelines above and including version 0.1.0 are installed as a python module and are thus located in your python environment under the respective names. \
-                To get a list of installed models use spacy.util.get_installed_models()",
+            "DaCy pipelines above and including version 0.1.0 are installed as a "
+            + "python module and are thus located in your python environment under "
+            + "the respective names. To get a list of installed models use "
+            + "spacy.util.get_installed_models()",
         )
     return DEFAULT_CACHE_DIR
 

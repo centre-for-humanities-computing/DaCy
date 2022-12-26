@@ -10,12 +10,12 @@ from wasabi import msg
 DEFAULT_CACHE_DIR = os.getenv("DACY_CACHE_DIR", os.path.join(str(Path.home()), ".dacy"))
 
 models_url = {
-    "da_dacy_small_tft-0.0.0": "https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download",
-    "da_dacy_medium_tft-0.0.0": "https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download",
-    "da_dacy_large_tft-0.0.0": "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download",
-    "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl",
-    "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl",
-    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",
+    "da_dacy_small_tft-0.0.0": "https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download",  # noqa: E501
+    "da_dacy_medium_tft-0.0.0": "https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download",  # noqa: E501
+    "da_dacy_large_tft-0.0.0": "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download",  # noqa: E501
+    "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl",  # noqa: E501
+    "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl",  # noqa: E501
+    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",  # noqa: E501
 }
 
 
@@ -65,9 +65,14 @@ def download_model(
     """Downloads and install a specified DaCy pipeline.
 
     Args:
-        model (str): string indicating DaCy model, use dacy.models() to get a list of models
-        save_path (str, optional): The path you want to save your model to. Is only used for DaCy models of v0.0.0 as later models are installed as modules to allow for better versioning. Defaults to None denoting the default cache directory. This can be found using using dacy.where_is_my_dacy().
-        force (bool, optional): Should it download the model regardless of it already being present? Defaults to False.
+        model (str): string indicating DaCy model, use dacy.models() to get a list of
+            models
+        save_path (str, optional): The path you want to save your model to. Is only used
+            for DaCy models of v0.0.0 as later models are installed as modules to allow
+            for better versioning. Defaults to None denoting the default cache
+            directory. This can be found using using dacy.where_is_my_dacy().
+        force (bool, optional): Should it download the model regardless of it already
+            being present? Defaults to False.
         verbose (bool): Toggles the verbosity of the function. Defaults to True.
 
     Returns:
@@ -81,7 +86,8 @@ def download_model(
 
     if model not in models_url:
         raise ValueError(
-            "The model is not available in DaCy. Please use dacy.models() to see a list of all models",
+            "The model is not available in DaCy. Please use dacy.models() to see a"
+            + " list of all models",
         )
 
     if int(model.split("-")[-1].split(".")[1]) < 1:  # model v. 0.0.0
@@ -102,7 +108,8 @@ def download_model(
         os.remove(dl_path)
         if verbose is True:
             msg.info(
-                rf"\Model successfully downloaded, you can now load it using dacy.load({model})",
+                r"\Model successfully downloaded, you can now load it using dacy. "
+                + f"load({model})",
             )
         return path
     else:

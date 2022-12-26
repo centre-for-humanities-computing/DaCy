@@ -30,7 +30,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
           pip install ".[tutorials,tests]"
 
       - name: Run and write pytest
@@ -41,8 +40,8 @@ jobs:
       - name: Convert and run notebooks
         shell: bash
         run: |
-          jupyter nbconvert --to python ./docs/tutorials/*.ipynb
-          for f in docs/tutorials/*.py; do python "$f"; done
+          jupyter nbconvert --to python ./tutorials/*.ipynb
+          for f in tutorials/*.py; do python "$f"; done
 
       # if it is run on ubuntu-latest, python 3.9, then create the badge
       - name: Pytest coverage comment

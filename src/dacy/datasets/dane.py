@@ -22,14 +22,20 @@ def dane(
     """Reads the DaNE dataset as a spacy Corpus.
 
     Args:
-        save_path (str, optional): Path to the DaNE dataset If it does not contain the dataset it
-            is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.
-        splits (List[str], optional): Which splits of the dataset should be returned. Possible options include "train", "dev", "test", "all".
-            Defaults to ["train", "dev", "test"].
-        redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.
-        n_sents (int, optional): Number of sentences per document. Only applied if the dataset is downloaded. Defaults to 1.
-        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.
-        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.
+        save_path (str, optional): Path to the DaNE dataset If it does not contain the
+            dataset it is downloaded to the folder. Defaults to None corresponding to
+            dacy.where_is_my_dacy() in the datasets subfolder.
+        splits (List[str], optional): Which splits of the dataset should be returned.
+            Possible options include "train", "dev", "test", "all". Defaults to
+            ["train", "dev", "test"].
+        redownload (bool, optional): Should the dataset be redownloaded. Defaults to
+            False.
+        n_sents (int, optional): Number of sentences per document. Only applied if the
+            dataset is downloaded. Defaults to 1.
+        open_unverified_connection (bool, optional): Should you download from an
+            unverified connection. Defaults to False.
+        force_extension (bool, optional): Set the extension to the doc regardless of
+            whether it already exists. Defaults to False.
 
     Returns:
         Union[List[Corpus], Corpus]: Returns a SpaCy corpus or a list thereof.
@@ -77,7 +83,8 @@ def dane(
         shutil.copyfile(wpath, cpath)
         # convert to spacy
         os.system(
-            f"python -m spacy convert {cpath} {save_path} --converter conllu --merge-subtokens -n {n_sents}",
+            f"python -m spacy convert {cpath} {save_path} --converter conllu "
+            + f"--merge-subtokens -n {n_sents}",
         )
         os.remove(cpath)
 

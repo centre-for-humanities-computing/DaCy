@@ -22,15 +22,23 @@ def n_sents_score(
     sentences.
 
     Args:
-        n_sents (Union[int, List[int]]): Number of sentences which the performance should be applied to.
-        apply_fn (Callable):  A wrapper function for the model you wish to score. The model should take in a spacy Example and output a tagged version of it.
-        dataset (str, optional): Which dataset should this be applied to. Possible options include "dane". Defaults to "dane".
-        split (str, optional): Which splits of the dataset should be used. Possible options include "train", "dev", "test", "all".
-            Defaults to "test".
-        score_fn (List[Union[str, Callable]], optional): A scoring function which takes in a list of examples and return a dictionary of the form {"score_name": score}.
-            Four potiential strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring the performance of pos-tags.
-            "token" for measuring the performance of tokenization. "nlp" for measuring the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents"].
-        verbose (bool, optional): Toggles the verbosity of the function. Defualts to True
+        n_sents (Union[int, List[int]]): Number of sentences which the performance
+            should be applied to.
+        apply_fn (Callable):  A wrapper function for the model you wish to score. The
+            model should take in a spacy Example and output a tagged version of it.
+        dataset (str, optional): Which dataset should this be applied to. Possible
+            options include "dane". Defaults to "dane".
+        split (str, optional): Which splits of the dataset should be used. Possible
+            options include "train", "dev", "test", "all". Defaults to "test".
+        score_fn (List[Union[str, Callable]], optional): A scoring function which takes
+            in a list of examples and return a dictionary of the form {"score_name":
+            score}. Four potiential strings are valid. "ents" for measuring the
+            performance of entity spans. "pos" for measuring the performance of
+            pos-tags. "token" for measuring the performance of tokenization. "nlp" for
+            measuring the performance of all components in the specified nlp pipeline.
+            Defaults to ["token", "pos", "ents"].
+        verbose (bool, optional): Toggles the verbosity of the function. Defualts to
+            True
         kwargs (dict): arguments to be passed to dataset or the score function.
 
     Returns:

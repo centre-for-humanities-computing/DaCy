@@ -57,21 +57,27 @@ def score(  # noqa
 
     Args:
         corpus (Corpus): A spacy Corpus
-        apply_fn (Union[Callable, Language]): A wrapper function for the model you wish to score. The model should
-            take in a list of spacy Examples (Iterable[Example]) and output a tagged version of it (Iterable[Example]).
-            A SpaCy pipeline (Language) can be provided as is.
-        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A scoring function which takes in a list of
-            examples (Iterable[Example]) and return a dictionary of performance scores. Four potiential
-            strings are valid. "ents" for measuring the performance of entity spans. "pos" for measuring
-            the performance of fine-grained (tag_acc), and coarse-grained (pos_acc) pos-tags. "token" for measuring
-            the performance of tokenization. "dep" for measuring the performance of dependency parsing. "nlp" for measuring
-            the performance of all components in the specified nlp pipeline. Defaults to ["token", "pos", "ents", "dep"].
-        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A spaCy style augmenters
-            which should be applied to the corpus or a list thereof. defaults to [], indicating no augmenters.
-        k (int, optional): Number of times it should run the augmentation and test the performance on
-            the corpus. Defaults to 1.
-        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty
-            Danish pipeline. Defaults to None. Used for loading the calling the corpus.
+        apply_fn (Union[Callable, Language]): A wrapper function for the model you wish
+            to score. The model should take in a list of spacy Examples
+            (Iterable[Example]) and output a tagged version of it (Iterable[Example]). A
+            SpaCy pipeline (Language) can be provided as is.
+        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A
+            scoring function which takes in a list of examples (Iterable[Example]) and
+            return a dictionary of performance scores. Four potiential strings are
+            valid. "ents" for measuring the performance of entity spans. "pos" for
+            measuring the performance of fine-grained (tag_acc), and coarse-grained
+            (pos_acc) pos-tags. "token" for measuring the performance of tokenization.
+            "dep" for measuring the performance of dependency parsing. "nlp" for
+            measuring the performance of all components in the specified nlp pipeline.
+            Defaults to ["token", "pos", "ents", "dep"].
+        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A
+            spaCy style augmenters which should be applied to the corpus or a list
+            thereof. defaults to [], indicating no augmenters.
+        k (int, optional): Number of times it should run the augmentation and test the
+            performance on the corpus. Defaults to 1.
+        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will
+            use an empty Danish pipeline. Defaults to None. Used for loading the calling
+            the corpus.
 
     Returns:
         pandas.DataFrame: returns a pandas dataframe containing the performance metrics.
@@ -81,7 +87,8 @@ def score(  # noqa
         >>> from dacy.datasets import dane
         >>> test = dane(splits=["test")
         >>> nlp = dacy.load("da_dacy_small_tft-0.0.0")
-        >>> scores = score(test, augmenter=[create_lower_casing_augmenter(0.5)], apply_fn = nlp)
+        >>> scores = score(test, augmenter=[create_lower_casing_augmenter(0.5)],
+        >>>                apply_fn = nlp)
     """
     if callable(augmenters):
         augmenters = [augmenters]
