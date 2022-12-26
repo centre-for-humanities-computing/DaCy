@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><!-- Generated with Sphinx 5.0.2 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-5.3.0, furo 2022.06.21"/>
         <title>dacy.datasets.dane - DaCy 2.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -159,7 +159,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -247,14 +247,20 @@
     <span class="sd">&quot;&quot;&quot;Reads the DaNE dataset as a spacy Corpus.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        save_path (str, optional): Path to the DaNE dataset If it does not contain the dataset it</span>
-<span class="sd">            is downloaded to the folder. Defaults to None corresponding to dacy.where_is_my_dacy() in the datasets subfolder.</span>
-<span class="sd">        splits (List[str], optional): Which splits of the dataset should be returned. Possible options include &quot;train&quot;, &quot;dev&quot;, &quot;test&quot;, &quot;all&quot;.</span>
-<span class="sd">            Defaults to [&quot;train&quot;, &quot;dev&quot;, &quot;test&quot;].</span>
-<span class="sd">        redownload (bool, optional): Should the dataset be redownloaded. Defaults to False.</span>
-<span class="sd">        n_sents (int, optional): Number of sentences per document. Only applied if the dataset is downloaded. Defaults to 1.</span>
-<span class="sd">        open_unverified_connection (bool, optional): Should you download from an unverified connection. Defaults to False.</span>
-<span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of whether it already exists. Defaults to False.</span>
+<span class="sd">        save_path (str, optional): Path to the DaNE dataset If it does not contain the</span>
+<span class="sd">            dataset it is downloaded to the folder. Defaults to None corresponding to</span>
+<span class="sd">            dacy.where_is_my_dacy() in the datasets subfolder.</span>
+<span class="sd">        splits (List[str], optional): Which splits of the dataset should be returned.</span>
+<span class="sd">            Possible options include &quot;train&quot;, &quot;dev&quot;, &quot;test&quot;, &quot;all&quot;. Defaults to</span>
+<span class="sd">            [&quot;train&quot;, &quot;dev&quot;, &quot;test&quot;].</span>
+<span class="sd">        redownload (bool, optional): Should the dataset be redownloaded. Defaults to</span>
+<span class="sd">            False.</span>
+<span class="sd">        n_sents (int, optional): Number of sentences per document. Only applied if the</span>
+<span class="sd">            dataset is downloaded. Defaults to 1.</span>
+<span class="sd">        open_unverified_connection (bool, optional): Should you download from an</span>
+<span class="sd">            unverified connection. Defaults to False.</span>
+<span class="sd">        force_extension (bool, optional): Set the extension to the doc regardless of</span>
+<span class="sd">            whether it already exists. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Union[List[Corpus], Corpus]: Returns a SpaCy corpus or a list thereof.</span>
@@ -302,7 +308,8 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">wpath</span><span class="p">,</span> <span class="n">cpath</span><span class="p">)</span>
         <span class="c1"># convert to spacy</span>
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;python -m spacy convert </span><span class="si">{</span><span class="n">cpath</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2"> --converter conllu --merge-subtokens -n </span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;python -m spacy convert </span><span class="si">{</span><span class="n">cpath</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2"> --converter conllu &quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;--merge-subtokens -n </span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cpath</span><span class="p">)</span>
 
@@ -365,6 +372,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>

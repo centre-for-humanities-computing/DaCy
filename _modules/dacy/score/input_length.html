@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><!-- Generated with Sphinx 5.0.2 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-5.3.0, furo 2022.06.21"/>
         <title>dacy.score.input_length - DaCy 2.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -159,7 +159,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -247,15 +247,23 @@
 <span class="sd">    sentences.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        n_sents (Union[int, List[int]]): Number of sentences which the performance should be applied to.</span>
-<span class="sd">        apply_fn (Callable):  A wrapper function for the model you wish to score. The model should take in a spacy Example and output a tagged version of it.</span>
-<span class="sd">        dataset (str, optional): Which dataset should this be applied to. Possible options include &quot;dane&quot;. Defaults to &quot;dane&quot;.</span>
-<span class="sd">        split (str, optional): Which splits of the dataset should be used. Possible options include &quot;train&quot;, &quot;dev&quot;, &quot;test&quot;, &quot;all&quot;.</span>
-<span class="sd">            Defaults to &quot;test&quot;.</span>
-<span class="sd">        score_fn (List[Union[str, Callable]], optional): A scoring function which takes in a list of examples and return a dictionary of the form {&quot;score_name&quot;: score}.</span>
-<span class="sd">            Four potiential strings are valid. &quot;ents&quot; for measuring the performance of entity spans. &quot;pos&quot; for measuring the performance of pos-tags.</span>
-<span class="sd">            &quot;token&quot; for measuring the performance of tokenization. &quot;nlp&quot; for measuring the performance of all components in the specified nlp pipeline. Defaults to [&quot;token&quot;, &quot;pos&quot;, &quot;ents&quot;].</span>
-<span class="sd">        verbose (bool, optional): Toggles the verbosity of the function. Defualts to True</span>
+<span class="sd">        n_sents (Union[int, List[int]]): Number of sentences which the performance</span>
+<span class="sd">            should be applied to.</span>
+<span class="sd">        apply_fn (Callable):  A wrapper function for the model you wish to score. The</span>
+<span class="sd">            model should take in a spacy Example and output a tagged version of it.</span>
+<span class="sd">        dataset (str, optional): Which dataset should this be applied to. Possible</span>
+<span class="sd">            options include &quot;dane&quot;. Defaults to &quot;dane&quot;.</span>
+<span class="sd">        split (str, optional): Which splits of the dataset should be used. Possible</span>
+<span class="sd">            options include &quot;train&quot;, &quot;dev&quot;, &quot;test&quot;, &quot;all&quot;. Defaults to &quot;test&quot;.</span>
+<span class="sd">        score_fn (List[Union[str, Callable]], optional): A scoring function which takes</span>
+<span class="sd">            in a list of examples and return a dictionary of the form {&quot;score_name&quot;:</span>
+<span class="sd">            score}. Four potiential strings are valid. &quot;ents&quot; for measuring the</span>
+<span class="sd">            performance of entity spans. &quot;pos&quot; for measuring the performance of</span>
+<span class="sd">            pos-tags. &quot;token&quot; for measuring the performance of tokenization. &quot;nlp&quot; for</span>
+<span class="sd">            measuring the performance of all components in the specified nlp pipeline.</span>
+<span class="sd">            Defaults to [&quot;token&quot;, &quot;pos&quot;, &quot;ents&quot;].</span>
+<span class="sd">        verbose (bool, optional): Toggles the verbosity of the function. Defualts to</span>
+<span class="sd">            True</span>
 <span class="sd">        kwargs (dict): arguments to be passed to dataset or the score function.</span>
 
 <span class="sd">    Returns:</span>
@@ -317,6 +325,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>

@@ -13,10 +13,10 @@
 <meta property="og:description" content="dacy.score.score:(Beta) This includes function for scoring models applied to a SpaCy corpus. dacy.score.input_length:(Beta) Contains functions for testing the performance of models on varying input..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Datasets" href="dacy.datasets.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 5.0.2 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-5.3.0, furo 2022.06.21"/>
         <title>Score - DaCy 2.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -168,7 +168,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -272,21 +272,27 @@ augmentations applied to it.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>corpus</strong> (<em>Corpus</em>) – A spacy Corpus</p></li>
-<li><p><strong>apply_fn</strong> (<em>Union</em><em>[</em><em>Callable</em><em>, </em><em>Language</em><em>]</em>) – A wrapper function for the model you wish to score. The model should
-take in a list of spacy Examples (Iterable[Example]) and output a tagged version of it (Iterable[Example]).
-A SpaCy pipeline (Language) can be provided as is.</p></li>
-<li><p><strong>score_fn</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>, </em><em>dict</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A scoring function which takes in a list of
-examples (Iterable[Example]) and return a dictionary of performance scores. Four potiential
-strings are valid. “ents” for measuring the performance of entity spans. “pos” for measuring
-the performance of fine-grained (tag_acc), and coarse-grained (pos_acc) pos-tags. “token” for measuring
-the performance of tokenization. “dep” for measuring the performance of dependency parsing. “nlp” for measuring
-the performance of all components in the specified nlp pipeline. Defaults to [“token”, “pos”, “ents”, “dep”].</p></li>
-<li><p><strong>augmenters</strong> (<em>List</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Language</em><em>, </em><em>Example</em><em>]</em><em>, </em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A spaCy style augmenters
-which should be applied to the corpus or a list thereof. defaults to [], indicating no augmenters.</p></li>
-<li><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times it should run the augmentation and test the performance on
-the corpus. Defaults to 1.</p></li>
-<li><p><strong>nlp</strong> (<em>Optional</em><em>[</em><em>Language</em><em>]</em><em>, </em><em>optional</em>) – A spacy processing pipeline. If None it will use an empty
-Danish pipeline. Defaults to None. Used for loading the calling the corpus.</p></li>
+<li><p><strong>apply_fn</strong> (<em>Union</em><em>[</em><em>Callable</em><em>, </em><em>Language</em><em>]</em>) – A wrapper function for the model you wish
+to score. The model should take in a list of spacy Examples
+(Iterable[Example]) and output a tagged version of it (Iterable[Example]). A
+SpaCy pipeline (Language) can be provided as is.</p></li>
+<li><p><strong>score_fn</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>, </em><em>dict</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A
+scoring function which takes in a list of examples (Iterable[Example]) and
+return a dictionary of performance scores. Four potiential strings are
+valid. “ents” for measuring the performance of entity spans. “pos” for
+measuring the performance of fine-grained (tag_acc), and coarse-grained
+(pos_acc) pos-tags. “token” for measuring the performance of tokenization.
+“dep” for measuring the performance of dependency parsing. “nlp” for
+measuring the performance of all components in the specified nlp pipeline.
+Defaults to [“token”, “pos”, “ents”, “dep”].</p></li>
+<li><p><strong>augmenters</strong> (<em>List</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Language</em><em>, </em><em>Example</em><em>]</em><em>, </em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A
+spaCy style augmenters which should be applied to the corpus or a list
+thereof. defaults to [], indicating no augmenters.</p></li>
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times it should run the augmentation and test the
+performance on the corpus. Defaults to 1.</p></li>
+<li><p><strong>nlp</strong> (<em>Optional</em><em>[</em><em>Language</em><em>]</em><em>, </em><em>optional</em>) – A spacy processing pipeline. If None it will
+use an empty Danish pipeline. Defaults to None. Used for loading the calling
+the corpus.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -301,7 +307,8 @@ Danish pipeline. Defaults to None. Used for loading the calling the corpus.</p><
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="kn">import</span> <span class="n">dane</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test</span> <span class="o">=</span> <span class="n">dane</span><span class="p">(</span><span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_small_tft-0.0.0&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">augmenter</span><span class="o">=</span><span class="p">[</span><span class="n">create_lower_casing_augmenter</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)],</span> <span class="n">apply_fn</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">augmenter</span><span class="o">=</span><span class="p">[</span><span class="n">create_lower_casing_augmenter</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)],</span>
+<span class="gp">&gt;&gt;&gt; </span>               <span class="n">apply_fn</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -320,15 +327,23 @@ sentences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_sents</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Number of sentences which the performance should be applied to.</p></li>
-<li><p><strong>apply_fn</strong> (<em>Callable</em>) – A wrapper function for the model you wish to score. The model should take in a spacy Example and output a tagged version of it.</p></li>
-<li><p><strong>dataset</strong> (<em>str</em><em>, </em><em>optional</em>) – Which dataset should this be applied to. Possible options include “dane”. Defaults to “dane”.</p></li>
-<li><p><strong>split</strong> (<em>str</em><em>, </em><em>optional</em>) – Which splits of the dataset should be used. Possible options include “train”, “dev”, “test”, “all”.
-Defaults to “test”.</p></li>
-<li><p><strong>score_fn</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A scoring function which takes in a list of examples and return a dictionary of the form {“score_name”: score}.
-Four potiential strings are valid. “ents” for measuring the performance of entity spans. “pos” for measuring the performance of pos-tags.
-“token” for measuring the performance of tokenization. “nlp” for measuring the performance of all components in the specified nlp pipeline. Defaults to [“token”, “pos”, “ents”].</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Toggles the verbosity of the function. Defualts to True</p></li>
+<li><p><strong>n_sents</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Number of sentences which the performance
+should be applied to.</p></li>
+<li><p><strong>apply_fn</strong> (<em>Callable</em>) – A wrapper function for the model you wish to score. The
+model should take in a spacy Example and output a tagged version of it.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em><em>, </em><em>optional</em>) – Which dataset should this be applied to. Possible
+options include “dane”. Defaults to “dane”.</p></li>
+<li><p><strong>split</strong> (<em>str</em><em>, </em><em>optional</em>) – Which splits of the dataset should be used. Possible
+options include “train”, “dev”, “test”, “all”. Defaults to “test”.</p></li>
+<li><p><strong>score_fn</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A scoring function which takes
+in a list of examples and return a dictionary of the form {“score_name”:
+score}. Four potiential strings are valid. “ents” for measuring the
+performance of entity spans. “pos” for measuring the performance of
+pos-tags. “token” for measuring the performance of tokenization. “nlp” for
+measuring the performance of all components in the specified nlp pipeline.
+Defaults to [“token”, “pos”, “ents”].</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Toggles the verbosity of the function. Defualts to
+True</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – arguments to be passed to dataset or the score function.</p></li>
 </ul>
 </dd>
@@ -351,7 +366,7 @@ Four potiential strings are valid. “ents” for measuring the performance of e
         <div class="related-pages">
           
           <a class="prev-page" href="dacy.datasets.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -392,15 +407,22 @@ Four potiential strings are valid. “ents” for measuring the performance of e
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            On this page
+            Contents
           </span>
         </div>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Score</a><ul>
-<li><a class="reference internal" href="#dacy-score-score">dacy.score.score</a></li>
-<li><a class="reference internal" href="#dacy-score-input-length">dacy.score.input_length</a></li>
+<li><a class="reference internal" href="#dacy-score-score">dacy.score.score</a><ul>
+<li><a class="reference internal" href="#dacy.score.score.no_misc_getter"><code class="docutils literal notranslate"><span class="pre">no_misc_getter()</span></code></a></li>
+<li><a class="reference internal" href="#dacy.score.score.score"><code class="docutils literal notranslate"><span class="pre">score()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dacy-score-input-length">dacy.score.input_length</a><ul>
+<li><a class="reference internal" href="#dacy.score.input_length.n_sents_score"><code class="docutils literal notranslate"><span class="pre">n_sents_score()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -417,6 +439,7 @@ Four potiential strings are valid. “ents” for measuring the performance of e
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

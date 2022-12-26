@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><!-- Generated with Sphinx 5.0.2 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-5.3.0, furo 2022.06.21"/>
         <title>dacy.datasets.names - DaCy 2.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -159,7 +159,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -242,19 +242,21 @@
 <span class="sd">    https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        min_count (int, optional): Minimum number of occurences of the name for it to be included.</span>
-<span class="sd">            Defaults to 0.</span>
-<span class="sd">        ethnicity (Optional[str], optional): Which ethnicity should be included. None indicate all is</span>
-<span class="sd">            included. Options include &quot;muslim&quot;, &quot;danish&quot;. Defaults to None.</span>
-<span class="sd">        gender (Optional[str], optional): Which gender should be included. None indicate all is included.</span>
-<span class="sd">            Options include &quot;male&quot;, &quot;female&quot;. Defaults to None.</span>
-<span class="sd">        min_prop_gender (float): minimum probability of a name being a given gender. The probability of a</span>
-<span class="sd">            given name being a</span>
-<span class="sd">            specific gender is based on the proportion of people with the given name of that gender. Only</span>
-<span class="sd">            used when gender is set. Defaults to 0.</span>
+<span class="sd">        min_count (int, optional): Minimum number of occurences of the name for it to</span>
+<span class="sd">            be included. Defaults to 0.</span>
+<span class="sd">        ethnicity (Optional[str], optional): Which ethnicity should be included. None</span>
+<span class="sd">            indicate all is included. Options include &quot;muslim&quot;, &quot;danish&quot;. Defaults to</span>
+<span class="sd">            None.</span>
+<span class="sd">        gender (Optional[str], optional): Which gender should be included. None indicate</span>
+<span class="sd">            all is included. Options include &quot;male&quot;, &quot;female&quot;. Defaults to None.</span>
+<span class="sd">        min_prop_gender (float): minimum probability of a name being a given gender.</span>
+<span class="sd">            The probability of a given name being a specific gender is based on the</span>
+<span class="sd">            proportion of people with the given name of that gender. Only used when</span>
+<span class="sd">            gender is set. Defaults to 0.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str, List[str]]: A dictionary of Muslim names containing the keys &quot;first_name&quot; and &quot;last_name&quot;.</span>
+<span class="sd">        Dict[str, List[str]]: A dictionary of Muslim names containing the keys</span>
+<span class="sd">            &quot;first_name&quot; and &quot;last_name&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span>
@@ -290,7 +292,8 @@
     <span class="sd">&quot;&quot;&quot;Returns a dictionary of Muslim names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        dict: A dictionary of Muslim names containing the keys &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Meldgaard (2005),</span>
+<span class="sd">        Dict[str, List[str]]: A dictionary of Muslim names containing the keys</span>
+<span class="sd">            &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Meldgaard (2005),</span>
 <span class="sd">            https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.</span>
 
 <span class="sd">    Example:</span>
@@ -306,7 +309,9 @@
     <span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        dict: A dictionary of Danish names containing the keys &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
+<span class="sd">        Dict[str, List[str]]: A dictionary of Danish names containing the keys</span>
+<span class="sd">        &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Danmarks statistik</span>
+<span class="sd">        (2021).</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; from dacy.datasets import danish_names</span>
@@ -321,7 +326,8 @@
     <span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish female names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        dict: A dictionary of names containing the keys &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
+<span class="sd">        Dict[str, List[str]]: A dictionary of names containing the keys &quot;first_name&quot;</span>
+<span class="sd">            and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; from dacy.datasets import female_names</span>
@@ -336,7 +342,8 @@
     <span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish male names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        dict: A dictionary of names containing the keys &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
+<span class="sd">        Dict[str, List[str]]: A dictionary of names containing the keys &quot;first_name&quot;</span>
+<span class="sd">            and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; from dacy.datasets import male_names</span>
@@ -389,6 +396,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>

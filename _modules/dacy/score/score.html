@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><!-- Generated with Sphinx 5.0.2 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/><meta name="generator" content="sphinx-5.3.0, furo 2022.06.21"/>
         <title>dacy.score.score - DaCy 2.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -159,7 +159,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -282,21 +282,27 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        corpus (Corpus): A spacy Corpus</span>
-<span class="sd">        apply_fn (Union[Callable, Language]): A wrapper function for the model you wish to score. The model should</span>
-<span class="sd">            take in a list of spacy Examples (Iterable[Example]) and output a tagged version of it (Iterable[Example]).</span>
-<span class="sd">            A SpaCy pipeline (Language) can be provided as is.</span>
-<span class="sd">        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A scoring function which takes in a list of</span>
-<span class="sd">            examples (Iterable[Example]) and return a dictionary of performance scores. Four potiential</span>
-<span class="sd">            strings are valid. &quot;ents&quot; for measuring the performance of entity spans. &quot;pos&quot; for measuring</span>
-<span class="sd">            the performance of fine-grained (tag_acc), and coarse-grained (pos_acc) pos-tags. &quot;token&quot; for measuring</span>
-<span class="sd">            the performance of tokenization. &quot;dep&quot; for measuring the performance of dependency parsing. &quot;nlp&quot; for measuring</span>
-<span class="sd">            the performance of all components in the specified nlp pipeline. Defaults to [&quot;token&quot;, &quot;pos&quot;, &quot;ents&quot;, &quot;dep&quot;].</span>
-<span class="sd">        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A spaCy style augmenters</span>
-<span class="sd">            which should be applied to the corpus or a list thereof. defaults to [], indicating no augmenters.</span>
-<span class="sd">        k (int, optional): Number of times it should run the augmentation and test the performance on</span>
-<span class="sd">            the corpus. Defaults to 1.</span>
-<span class="sd">        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will use an empty</span>
-<span class="sd">            Danish pipeline. Defaults to None. Used for loading the calling the corpus.</span>
+<span class="sd">        apply_fn (Union[Callable, Language]): A wrapper function for the model you wish</span>
+<span class="sd">            to score. The model should take in a list of spacy Examples</span>
+<span class="sd">            (Iterable[Example]) and output a tagged version of it (Iterable[Example]). A</span>
+<span class="sd">            SpaCy pipeline (Language) can be provided as is.</span>
+<span class="sd">        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A</span>
+<span class="sd">            scoring function which takes in a list of examples (Iterable[Example]) and</span>
+<span class="sd">            return a dictionary of performance scores. Four potiential strings are</span>
+<span class="sd">            valid. &quot;ents&quot; for measuring the performance of entity spans. &quot;pos&quot; for</span>
+<span class="sd">            measuring the performance of fine-grained (tag_acc), and coarse-grained</span>
+<span class="sd">            (pos_acc) pos-tags. &quot;token&quot; for measuring the performance of tokenization.</span>
+<span class="sd">            &quot;dep&quot; for measuring the performance of dependency parsing. &quot;nlp&quot; for</span>
+<span class="sd">            measuring the performance of all components in the specified nlp pipeline.</span>
+<span class="sd">            Defaults to [&quot;token&quot;, &quot;pos&quot;, &quot;ents&quot;, &quot;dep&quot;].</span>
+<span class="sd">        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A</span>
+<span class="sd">            spaCy style augmenters which should be applied to the corpus or a list</span>
+<span class="sd">            thereof. defaults to [], indicating no augmenters.</span>
+<span class="sd">        k (int, optional): Number of times it should run the augmentation and test the</span>
+<span class="sd">            performance on the corpus. Defaults to 1.</span>
+<span class="sd">        nlp (Optional[Language], optional): A spacy processing pipeline. If None it will</span>
+<span class="sd">            use an empty Danish pipeline. Defaults to None. Used for loading the calling</span>
+<span class="sd">            the corpus.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        pandas.DataFrame: returns a pandas dataframe containing the performance metrics.</span>
@@ -306,7 +312,8 @@
 <span class="sd">        &gt;&gt;&gt; from dacy.datasets import dane</span>
 <span class="sd">        &gt;&gt;&gt; test = dane(splits=[&quot;test&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; nlp = dacy.load(&quot;da_dacy_small_tft-0.0.0&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; scores = score(test, augmenter=[create_lower_casing_augmenter(0.5)], apply_fn = nlp)</span>
+<span class="sd">        &gt;&gt;&gt; scores = score(test, augmenter=[create_lower_casing_augmenter(0.5)],</span>
+<span class="sd">        &gt;&gt;&gt;                apply_fn = nlp)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">augmenters</span><span class="p">):</span>
         <span class="n">augmenters</span> <span class="o">=</span> <span class="p">[</span><span class="n">augmenters</span><span class="p">]</span>
@@ -434,6 +441,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
