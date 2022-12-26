@@ -12,3 +12,11 @@ updates:
       - dependency-type: "all"
     commit-message:
       prefix: ":arrow_up:"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: ":arrow_up:"
