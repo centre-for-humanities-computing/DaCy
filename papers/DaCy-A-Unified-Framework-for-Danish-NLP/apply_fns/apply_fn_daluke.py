@@ -3,10 +3,10 @@ from typing import Iterable, List
 
 from daluke import AutoNERDaLUKE, predict_ner
 from spacy.lang.da import Danish
-from spacy.tokens import Doc, Span
+from spacy.tokens import Doc
 from spacy.training import Example
 
-from .apply_fn_utils import add_iob, apply_on_multiple_examples, no_misc_getter
+from .apply_fn_utils import add_iob, no_misc_getter
 
 # This also downloads daluke model (first time)
 daluke = AutoNERDaLUKE()

@@ -7,6 +7,22 @@ python --meta meta.json --augment metrics/dane_augmented_best_dacy_small_trf-0.1
 import json
 
 
+def create_description():
+    from augment import augmenters
+
+    describtion = """
+<details>
+
+<summary> Description of Augmenters </summary>
+
+    """
+    describtion
+    for aug, nam, k, desc in augmenters:
+        describtion += f"\n\n**{nam}:**\n{desc}"
+    describtion += "\n </details> \n <br /> \n"
+    return describtion
+
+
 def main(meta_json, meta_augment_json, size, decimals=3):
     with open(meta_json) as f:
         meta = json.load(f)
@@ -132,22 +148,6 @@ Stochastic augmentations are augmentation which are repeated mulitple times to e
 
     with open(f"template_meta_{size}.json", "w") as f:
         json.dump(meta, f)
-
-
-def create_description():
-    from augment import augmenters
-
-    describtion = """
-<details>
-
-<summary> Description of Augmenters </summary>
-
-    """
-    describtion
-    for aug, nam, k, desc in augmenters:
-        describtion += f"\n\n**{nam}:**\n{desc}"
-    describtion += "\n </details> \n <br /> \n"
-    return describtion
 
 
 if __name__ == "__main__":
