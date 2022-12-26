@@ -17,19 +17,21 @@ def load_names(
     https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
 
     Args:
-        min_count (int, optional): Minimum number of occurences of the name for it to be included.
-            Defaults to 0.
-        ethnicity (Optional[str], optional): Which ethnicity should be included. None indicate all is
-            included. Options include "muslim", "danish". Defaults to None.
-        gender (Optional[str], optional): Which gender should be included. None indicate all is included.
-            Options include "male", "female". Defaults to None.
-        min_prop_gender (float): minimum probability of a name being a given gender. The probability of a
-            given name being a
-            specific gender is based on the proportion of people with the given name of that gender. Only
-            used when gender is set. Defaults to 0.
+        min_count (int, optional): Minimum number of occurences of the name for it to
+            be included. Defaults to 0.
+        ethnicity (Optional[str], optional): Which ethnicity should be included. None
+            indicate all is included. Options include "muslim", "danish". Defaults to
+            None.
+        gender (Optional[str], optional): Which gender should be included. None indicate
+            all is included. Options include "male", "female". Defaults to None.
+        min_prop_gender (float): minimum probability of a name being a given gender.
+            The probability of a given name being a specific gender is based on the
+            proportion of people with the given name of that gender. Only used when
+            gender is set. Defaults to 0.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of Muslim names containing the keys "first_name" and "last_name".
+        Dict[str, List[str]]: A dictionary of Muslim names containing the keys
+            "first_name" and "last_name".
     """
     path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
@@ -65,7 +67,8 @@ def muslim_names() -> Dict[str, List[str]]:
     """Returns a dictionary of Muslim names.
 
     Returns:
-        dict: A dictionary of Muslim names containing the keys "first_name" and "last_name". The list is derived from Meldgaard (2005),
+        Dict[str, List[str]]: A dictionary of Muslim names containing the keys
+            "first_name" and "last_name". The list is derived from Meldgaard (2005),
             https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
 
     Example:
@@ -81,7 +84,9 @@ def danish_names() -> Dict[str, List[str]]:
     """Returns a dictionary of Danish names.
 
     Returns:
-        dict: A dictionary of Danish names containing the keys "first_name" and "last_name". The list is derived from Danmarks statistik (2021).
+        Dict[str, List[str]]: A dictionary of Danish names containing the keys
+        "first_name" and "last_name". The list is derived from Danmarks statistik
+        (2021).
 
     Example:
         >>> from dacy.datasets import danish_names
@@ -96,7 +101,8 @@ def female_names() -> Dict[str, List[str]]:
     """Returns a dictionary of Danish female names.
 
     Returns:
-        dict: A dictionary of names containing the keys "first_name" and "last_name". The list is derived from Danmarks statistik (2021).
+        Dict[str, List[str]]: A dictionary of names containing the keys "first_name"
+            and "last_name". The list is derived from Danmarks statistik (2021).
 
     Example:
         >>> from dacy.datasets import female_names
@@ -111,7 +117,8 @@ def male_names() -> Dict[str, List[str]]:
     """Returns a dictionary of Danish male names.
 
     Returns:
-        dict: A dictionary of names containing the keys "first_name" and "last_name". The list is derived from Danmarks statistik (2021).
+        Dict[str, List[str]]: A dictionary of names containing the keys "first_name"
+            and "last_name". The list is derived from Danmarks statistik (2021).
 
     Example:
         >>> from dacy.datasets import male_names

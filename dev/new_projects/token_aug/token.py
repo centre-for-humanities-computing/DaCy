@@ -12,24 +12,6 @@ from .keyboard import KEYBOARDS, Keyboard
 from .utils import make_text_from_orth
 
 
-@spacy.registry.augmenters("synonym_augmenter.v1")
-def create_synonym_augmenter(
-    level: float,
-    synonyms: dict,
-) -> Callable[[Language, Example], Iterator[Example]]:
-    """Creates an augmenter swaps a token with its synonym based on a
-    dictionary.
-
-    Args:
-        level (float): Probability to replace token given that it is in synonym dictionary.
-        synonyms (dict): a dictionary of words and a list of their synonyms
-
-    Returns:
-        Callable[[Language, Example], Iterator[Example]]: The augmenter function.
-    """
-    return partial(synonym_augmenter, level=level, synonyms=synonyms)
-
-
 # TODO check if pos tags is available for synonyms repl
 
 
@@ -51,22 +33,22 @@ def synonym_augmenter(
     yield example.from_dict(doc, example_dict)
 
 
-@spacy.registry.augmenters("token_swap_augmenter.v1")
-def create_token_swap_augmenter(
+@spacy.registry.augmenters("synonym_augmenter.v1")
+def create_synonym_augmenter(
     level: float,
-    respect_spans: bool = True,
+    synonyms: dict,
 ) -> Callable[[Language, Example], Iterator[Example]]:
-    """Creates an augmenter that randomly swaps two neighbouring tokens.
+    """Creates an augmenter swaps a token with its synonym based on a
+    dictionary.
 
     Args:
-        level (float): The probability to swap two tokens.
-        respect_spans (bool): Should the pipeline respect spans? Defaults to True. In which
-        case it will not swap a token inside a span with a token outside the span.
+        level (float): Probability to replace token given that it is in synonym dictionary.
+        synonyms (dict): a dictionary of words and a list of their synonyms
 
     Returns:
         Callable[[Language, Example], Iterator[Example]]: The augmenter function.
     """
-    return partial(token_swap_augmenter, level=level)
+    return partial(synonym_augmenter, level=level, synonyms=synonyms)
 
 
 def token_swap_augmenter(
@@ -95,3 +77,21 @@ def token_swap_augmenter(
     text = make_text_from_orth(example_dict)
     doc = nlp.make_doc(text)
     yield example.from_dict(doc, example_dict)
+
+
+@spacy.registry.augmenters("token_swap_augmenter.v1")
+def create_token_swap_augmenter(
+    level: float,
+    respect_spans: bool = True,
+) -> Callable[[Language, Example], Iterator[Example]]:
+    """Creates an augmenter that randomly swaps two neighbouring tokens.
+
+    Args:
+        level (float): The probability to swap two tokens.
+        respect_spans (bool): Should the pipeline respect spans? Defaults to True. In which
+        case it will not swap a token inside a span with a token outside the span.
+
+    Returns:
+        Callable[[Language, Example], Iterator[Example]]: The augmenter function.
+    """
+    return partial(token_swap_augmenter, level=level)

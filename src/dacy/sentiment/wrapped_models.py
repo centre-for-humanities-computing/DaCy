@@ -82,7 +82,9 @@ stride = 96
 max_batch_items = 4096
 doc_extension_trf_data = "emotion_trf_data"
 doc_extension_prediction = "emotion"
-labels = ["glæde/sindsro", "tillid/accept", "forventning/interrese", "overasket/målløs", "vrede/irritation", "foragt/modvilje", "sorg/trist", "frygt/bekymret"]
+labels = ["glæde/sindsro", "tillid/accept", "forventning/interrese",
+"overasket/målløs", "vrede/irritation", "foragt/modvilje", "sorg/trist", 
+"frygt/bekymret"]
 
 
 [emotion.set_extra_annotations]
@@ -101,7 +103,6 @@ grad_scaler_config = {}
 window = 128
 stride = 96
 """
-
 
 DEFAULT_CONFIG = Config().from_str(DEFAULT_CONFIG_STR)
 
@@ -144,7 +145,8 @@ def make_emotion_transformer(
             + " To set it you can run  nlp.add_pipe('dacy.emotionally_laden')",
         )
 
-    # TODO: Add a conditional forward such that the model isn't run is document is not emotionally laden
+    # TODO: Add a conditional forward such that the model isn't run is document is not
+    # emotionally laden
     clf_mdl = ClassificationTransformer(
         vocab=nlp.vocab,
         model=model,
@@ -156,7 +158,8 @@ def make_emotion_transformer(
         doc_extension_prediction=doc_extension_prediction,
     )
 
-    # overwrite extension such that it return no emotion if the document does not have an emotion
+    # overwrite extension such that it return no emotion if the document does not have
+    # an emotion
     if Doc.has_extension("dacy.emotionally_laden"):
 
         def label_getter(doc) -> Optional[str]:
