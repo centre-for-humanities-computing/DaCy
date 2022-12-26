@@ -28,34 +28,6 @@ def models() -> list:
     return list(models_url.keys())
 
 
-class DownloadProgressBar(tqdm):
-    def update_to(self, b: int = 1, bsize: int = 1, tsize=None) -> None:
-        if tsize is not None:
-            self.total = tsize
-        self.update(b * bsize - self.n)
-
-
-def download_url(url: str, output_path: str) -> None:
-    import urllib.request
-
-    with DownloadProgressBar(
-        unit="B",
-        unit_scale=True,
-        miniters=1,
-        desc=url.split("/")[-1],
-    ) as t:
-        urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
-
-
-def install(package):
-    import subprocess
-    import sys
-
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", package, "--no-deps"],
-    )
-
-
 def download_model(
     model: str,
     save_path: Optional[str] = None,
@@ -112,3 +84,31 @@ def download_model(
         if mdl not in get_installed_models():
             install(models_url[model])
         return mdl
+
+
+class DownloadProgressBar(tqdm):
+    def update_to(self, b: int = 1, bsize: int = 1, tsize=None) -> None:
+        if tsize is not None:
+            self.total = tsize
+        self.update(b * bsize - self.n)
+
+
+def download_url(url: str, output_path: str) -> None:
+    import urllib.request
+
+    with DownloadProgressBar(
+        unit="B",
+        unit_scale=True,
+        miniters=1,
+        desc=url.split("/")[-1],
+    ) as t:
+        urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
+
+
+def install(package):
+    import subprocess
+    import sys
+
+    subprocess.check_call(
+        [sys.executable, "-m", "pip", "install", package, "--no-deps"],
+    )
