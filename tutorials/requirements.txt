@@ -1,0 +1,7 @@
+# sentiment analysis
+asent>=0.4.2,<0.7.0
+
+# dacy robustness
+https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.2.0/da_core_news_sm-3.2.0-py3-none-any.whl
+augmenty>=1.0.2,<1.1.0
+NERDA==1.0.0

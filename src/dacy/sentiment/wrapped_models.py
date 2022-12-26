@@ -82,9 +82,7 @@ stride = 96
 max_batch_items = 4096
 doc_extension_trf_data = "emotion_trf_data"
 doc_extension_prediction = "emotion"
-labels = ["glæde/sindsro", "tillid/accept", "forventning/interrese",
-"overasket/målløs", "vrede/irritation", "foragt/modvilje", "sorg/trist", 
-"frygt/bekymret"]
+labels = ["glæde/sindsro", "tillid/accept", "forventning/interrese", "overasket/målløs", "vrede/irritation", "foragt/modvilje", "sorg/trist", "frygt/bekymret"]
 
 
 [emotion.set_extra_annotations]
@@ -102,7 +100,7 @@ grad_scaler_config = {}
 @span_getters = "spacy-transformers.strided_spans.v1"
 window = 128
 stride = 96
-"""
+"""  # noqa: E501
 
 DEFAULT_CONFIG = Config().from_str(DEFAULT_CONFIG_STR)
 
