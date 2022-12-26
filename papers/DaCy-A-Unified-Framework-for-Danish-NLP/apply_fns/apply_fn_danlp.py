@@ -5,6 +5,7 @@ import ssl
 
 from danlp.models import load_bert_ner_model
 from spacy.lang.da import Danish
+from spacy.tokens import Doc, Span
 from spacy.training import Example
 
 from .apply_fn_utils import add_iob, apply_on_multiple_examples, no_misc_getter
