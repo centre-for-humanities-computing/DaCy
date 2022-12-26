@@ -1,14 +1,12 @@
 import random
 from functools import partial
-from typing import Callable, Dict, Iterable, Iterator, List, Union
+from typing import Callable, Iterator
 
 import spacy
 from spacy.language import Language
 from spacy.training import Example
 
-from dacy.augmenters.keyboard import Keyboard
 
-from .keyboard import KEYBOARDS, Keyboard
 from .utils import make_text_from_orth
 
 
