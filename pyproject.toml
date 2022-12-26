@@ -55,7 +55,7 @@ style = [
     "pre-commit>=2.19.0,<2.20.0",
 ]
 tests = [
-    "pytest>=7.1.2,<7.2.0",
+    "pytest>=7.1.2,<7.3.0",
     "pytest-cov>=3.0.0,<3.0.1",
 ]
 docs = [
