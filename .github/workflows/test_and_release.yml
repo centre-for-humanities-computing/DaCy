@@ -37,12 +37,17 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pytest --cov=textdescriptives --cov-report term-missing | tee pytest-coverage.txt
+          pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
+
+
+      - name: Install dependencies for notebooks
+        shell: bash
+        run: |
+          pip install ".[tutorials]"
 
       - name: Convert and run notebooks
         shell: bash
         run: |
-          pip install ".[tutorials]"
           jupyter nbconvert --to python ./tutorials/*.ipynb
           for f in tutorials/*.py; do python "$f"; done
 
