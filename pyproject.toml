@@ -25,6 +25,8 @@ keywords = [
     "spacy-universe",
 ]
 
+[tool.setuptools.package-data]
+dacy = ["src/dacy/datasets/lookup_tables/names.csv"]
 
 dependencies = [
     "spacy-wrap>=1.0.2,<1.1.0",
