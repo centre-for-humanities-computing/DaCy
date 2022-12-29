@@ -66,6 +66,19 @@ docs = [
     "ipykernel>=6.15.0,<6.16.0",
     "sphinx_design>=0.2.0,<0.3.0",
 ]
+tutorials = [
+    # to run notebooks
+    "jupyter",
+    # sentiment analysis
+    "asent>=0.4.2,<0.7.0",
+    "augmenty>=1.0.2,<1.1.0",
+    # dacy robustness
+    # the @ allows installing using a link
+    "da-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.2.0/da_core_news_sm-3.2.0-py3-none-any.whl",
+    "NERDA==1.0.0",
+]
+
+
 
 [build-system]
 requires = ["setuptools"]
