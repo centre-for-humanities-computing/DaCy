@@ -25,9 +25,6 @@ keywords = [
     "spacy-universe",
 ]
 
-[tool.setuptools.package-data]
-dacy = ["src/dacy/datasets/lookup_tables/names.csv"]
-
 dependencies = [
     "spacy-wrap>=1.0.2,<1.1.0",
     "spacy>=3.2.0,<3.3.0",
@@ -37,6 +34,9 @@ dependencies = [
     "sentencepiece>=0.1.96,<0.2.0",
     "protobuf>=3.17.3,<3.18.0"
 ]
+
+[tool.setuptools.package-data]
+dacy = ["src/dacy/datasets/lookup_tables/names.csv"]
 
 [project.readme]
 file = "README.md"
