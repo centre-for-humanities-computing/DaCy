@@ -26,6 +26,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
+          cache-dependency-path: "**/pyproject.toml"
 
       - name: Install dependencies
         shell: bash
@@ -38,7 +39,6 @@ jobs:
         run: |
           set -o pipefail
           pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
-
 
       - name: Install dependencies for notebooks
         shell: bash
