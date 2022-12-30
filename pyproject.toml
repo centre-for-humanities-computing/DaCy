@@ -80,7 +80,7 @@ tutorials = [
     "da-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.2.0/da_core_news_sm-3.2.0-py3-none-any.whl",
     "NERDA==1.0.0",
     # missing dependency for NERDA
-    "sklearn",
+    "scikit-learn",
 ]
 
 
