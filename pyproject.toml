@@ -36,8 +36,10 @@ dependencies = [
 ]
 
 [tool.setuptools.package-data]
-dacy = ["src/dacy/datasets/lookup_tables/names.csv"]
+"*" = ["*.csv"]
 
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [project.readme]
 file = "README.md"
