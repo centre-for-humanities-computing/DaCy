@@ -38,14 +38,15 @@ dependencies = [
 [tool.setuptools.package-data]
 dacy = ["src/dacy/datasets/lookup_tables/names.csv"]
 
+
 [project.readme]
 file = "README.md"
 content-type = "text/markdown"
 
 [project.urls]
-homepage = "https://example.com"
-documentation = "https://readthedocs.org"
-repository = "https://github.com"
+homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
+documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
+repository = "https://github.com/centre-for-humanities-computing/DaCy"
 
 [project.optional-dependencies]
 style = [
