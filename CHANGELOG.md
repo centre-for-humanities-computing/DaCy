@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.4 (2023-01-02)
+### Fix
+* Token name ([`3231282`](https://github.com/centre-for-humanities-computing/DaCy/commit/3231282eea2dd571c7ef98f808afd5d65ec56c7d))
+
 ## v2.0.3 (2023-01-02)
 ### Fix
 * Semantic relase ([`91c7a80`](https://github.com/centre-for-humanities-computing/DaCy/commit/91c7a80dbf74d3b3f66d8a33b16cdfb06f252933))
