@@ -125,7 +125,10 @@ exclude_lines = [
 version_variable = [
     "pyproject.toml:version"
 ]
+branch = "main"
 upload_to_pypi = true
+upload_to_release = true
+
 
 [tool.ruff]
 exclude = [".venv",
