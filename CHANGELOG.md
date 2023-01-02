@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.2.3 (2023-01-02)
+### Fix
+* Added built system to pyproject.toml ([`a26c62b`](https://github.com/centre-for-humanities-computing/DaCy/commit/a26c62b0d399e66238737a24284fd5d726b2ff88))
+
 ## v2.2.2 (2023-01-02)
 ### Fix
 * Config for pyproject.toml ([`a04fa86`](https://github.com/centre-for-humanities-computing/DaCy/commit/a04fa864bad2a5d53df472e9281f13f1dd12391e))
