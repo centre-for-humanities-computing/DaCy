@@ -1,3 +1,4 @@
+"""About file for DaCy."""
 import pkg_resources
 
 __version__ = pkg_resources.get_distribution("dacy").version
