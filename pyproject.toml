@@ -2,8 +2,10 @@
 name = "dacy"
 version = "2.0.1"
 description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
+
 authors = [{name = "Kenneth Enevoldsen", email = "kennethcenevolsen@gmail.com"}, 
            {name = "Lasse Hansen"}]
+
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -19,12 +21,12 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
+
 keywords = [
     "nlp",
     "danish",
     "spacy-universe",
 ]
-
 
 dependencies = [
     "spacy-wrap>=1.0.2,<1.1.0",
@@ -36,14 +38,20 @@ dependencies = [
     "protobuf>=3.17.3,<3.18.0"
 ]
 
+requires-python = ">=3.7"
+
+[project.urls]
+homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
+documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
+repository = "https://github.com/centre-for-humanities-computing/DaCy"
+
+[project.license]
+file = "LICENSE"
+name = "Apache License 2.0"
+
 [project.readme]
 file = "README.md"
 content-type = "text/markdown"
-
-[project.urls]
-homepage = "https://example.com"
-documentation = "https://readthedocs.org"
-repository = "https://github.com"
 
 [project.optional-dependencies]
 style = [
@@ -64,6 +72,29 @@ docs = [
     "ipykernel>=6.15.0,<6.16.0",
     "sphinx_design>=0.2.0,<0.3.0",
 ]
+tutorials = [
+    # to run notebooks
+    "jupyter",
+    # sentiment analysis
+    "asent>=0.4.2,<0.7.0",
+    "augmenty>=1.0.2,<1.1.0",
+    # dacy robustness
+    # the @ allows installing using a link
+    "da-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.2.0/da_core_news_sm-3.2.0-py3-none-any.whl",
+    "NERDA==1.0.0",
+    # missing dependency for NERDA
+    "scikit-learn",
+]
+
+[project.scripts]
+emotion = "dacy.sentiment.wrapped_model:make_emotion_transformer"
+hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
+
+[tool.setuptools.package-data]
+"*" = ["*.csv"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [build-system]
 requires = ["setuptools"]
@@ -94,6 +125,7 @@ exclude_lines = [
 version_variable = [
     "pyproject.toml:version"
 ]
+upload_to_pypi = true
 
 [tool.ruff]
 exclude = [".venv",
@@ -106,8 +138,3 @@ exclude = [".venv",
     "training/v0.1.1/**",
     "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
 ]
-
-
-[project.scripts]
-emotion = "dacy.sentiment.wrapped_model:make_emotion_transformer"
-hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
