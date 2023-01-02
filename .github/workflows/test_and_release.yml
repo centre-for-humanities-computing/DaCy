@@ -41,11 +41,15 @@ jobs:
           pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
 
       - name: Install dependencies for notebooks
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+        # to save time and also to avoid dependency conflicts of NERDA==1.0.0
         shell: bash
         run: |
           pip install ".[tutorials]"
 
       - name: Convert and run notebooks
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+        # to save time and also to avoid dependency conflicts of NERDA==1.0.0
         shell: bash
         run: |
           jupyter nbconvert --to python ./tutorials/*.ipynb
@@ -53,7 +57,9 @@ jobs:
 
       # if it is run on ubuntu-latest, python 3.9, then create the badge
       - name: Pytest coverage comment
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+        if:
+          ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+          # to save time and also to avoid dependency conflicts of NERDA==1.0.0
         id: coverage-comment
         uses: MishaKav/pytest-coverage-comment@v1.1.39
         with:
