@@ -83,7 +83,7 @@ the `tutorials` folder.
 | 🦾 **[Performance]**           | A detailed description of the performance of DaCy and comparison with similar Danish models     |
 | 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                          |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
-| 🎛 **[API References]**     | The detailed reference for augmenty's API. Including function documentation |
+| 🎛 **[API References]**     | The detailed reference for DaCy's API. Including function documentation |
 | 🙋 **[FAQ]**                | Frequently asked questions                                                  |
 
 
