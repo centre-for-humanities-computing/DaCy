@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.2.2 (2023-01-02)
+### Fix
+* Config for pyproject.toml ([`a04fa86`](https://github.com/centre-for-humanities-computing/DaCy/commit/a04fa864bad2a5d53df472e9281f13f1dd12391e))
+
 ## v2.2.1 (2023-01-02)
 ### Fix
 * Semantic release ([`120d0ce`](https://github.com/centre-for-humanities-computing/DaCy/commit/120d0ce8b03a01568368f6df517d255dfb1ae0d8))
