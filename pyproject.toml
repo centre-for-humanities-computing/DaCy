@@ -90,6 +90,11 @@ tutorials = [
 emotion = "dacy.sentiment.wrapped_model:make_emotion_transformer"
 hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
 
+[build-system]
+requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+
 [tool.setuptools.package-data]
 "*" = ["*.csv"]
 
