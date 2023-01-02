@@ -96,10 +96,6 @@ hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_trans
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
-
 [tool.coverage.run]
 omit = [
     "**/tests/*",
