@@ -5,24 +5,13 @@
 [![pip downloads](https://img.shields.io/pypi/dm/dacy.svg)](https://pypi.org/project/dacy/)
 [![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/centre-for-humanities-computing/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
-[![license](https://img.shields.io/github/license/centre-for-humanities-computing/DaCy.svg?color=blue)](https://github.com/centre-for-humanities-computing/DaCy/blob/main/LICENSE)
-[![github actions pytest](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/test_and_release/badge.svg)](https://github.com/centre-for-humanities-computing/Dacy/actions)
+[![github actions pytest](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/tests.yml/badge.svg)](https://github.com/centre-for-humanities-computing/Dacy/actions)
 [![github actions docs](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/documentation.yml/badge.svg)](https://centre-for-humanities-computing.github.io/DaCy/)
 <!-- 
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
 -->
-[![CodeFactor](https://www.codefactor.io/repository/github/centre-for-humanities-computing/dacy/badge)](https://www.codefactor.io/repository/github/centre-for-humanities-computing/dacy)
 [![Demo](https://img.shields.io/badge/Try%20the-Demo-important)](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.)
 
-
-
-<!-- 
-[![Known Vulnerabilities](https://snyk.io/test/github/KennethEnevoldsen/DaCy/badge.svg)](https://snyk.io/test/github/KennethEnevoldsen/DaCy)
-<a href="https://doi.org/10.21105/joss.03153"><img alt="JOSS paper" src="https://joss.theoj.org/papers/10.21105/joss.03153/status.svg"></a>
-<img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/trunajod">
-[![Github All Releases](https://img.shields.io/github/downloads/centre-for-humanities-computing/dacy/total.svg)]()
-
--->
 
 DaCy is a Danish natural language preprocessing framework made with SpaCy. Its largest pipeline has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish. Feel free to try out the [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.). This repository contains material for using DaCy, reproducing the results and guides on usage of the package. Furthermore, it also contains behavioural tests for biases and robustness of Danish NLP pipelines.
 
@@ -77,14 +66,14 @@ it can be found [here]( http://jupyter.org/install). All the tutorials are locat
 the `tutorials` folder.
 
 
-| Documentation              |                                                                             |
-| -------------------------- | --------------------------------------------------------------------------- |
-| 📚 **[Getting started]**       | Guides and instructions on how to use DaCy and its features.                                |
-| 🦾 **[Performance]**           | A detailed description of the performance of DaCy and comparison with similar Danish models     |
-| 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                          |
-| 📰 **[News and changelog]** | New additions, changes and version history.                                 |
-| 🎛 **[API References]**     | The detailed reference for DaCy's API. Including function documentation |
-| 🙋 **[FAQ]**                | Frequently asked questions                                                  |
+| Documentation              |                                                                                             |
+| -------------------------- | ------------------------------------------------------------------------------------------- |
+| 📚 **[Getting started]**    | Guides and instructions on how to use DaCy and its features.                                |
+| 🦾 **[Performance]**        | A detailed description of the performance of DaCy and comparison with similar Danish models |
+| 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                                          |
+| 📰 **[News and changelog]** | New additions, changes and version history.                                                 |
+| 🎛 **[API References]**     | The detailed reference for DaCy's API. Including function documentation                     |
+| 🙋 **[FAQ]**                | Frequently asked questions                                                                  |
 
 
 [Installation]: https://centre-for-humanities-computing.github.io/DaCy/installation.html
