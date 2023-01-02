@@ -6,7 +6,7 @@
 [![python version](https://img.shields.io/badge/Python-%3E=3.7-blue)](https://github.com/centre-for-humanities-computing/DaCy)
 [![Code style: black](https://img.shields.io/badge/Code%20Style-Black-black)](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
 [![license](https://img.shields.io/github/license/centre-for-humanities-computing/DaCy.svg?color=blue)](https://github.com/centre-for-humanities-computing/DaCy/blob/main/LICENSE)
-[![github actions pytest](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/centre-for-humanities-computing/Dacy/actions)
+[![github actions pytest](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/test_and_release/badge.svg)](https://github.com/centre-for-humanities-computing/Dacy/actions)
 [![github actions docs](https://github.com/centre-for-humanities-computing/DaCy/actions/workflows/documentation.yml/badge.svg)](https://centre-for-humanities-computing.github.io/DaCy/)
 <!-- 
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/KennethEnevoldsen/af8637d94475ea8bcb6b6a03c4fbcd3e/raw/badge-dacy-pytest-coverage.json)
