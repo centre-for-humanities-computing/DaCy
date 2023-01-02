@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.7 (2023-01-02)
+
+
 ## v2.0.6 (2023-01-02)
 ### Fix
 * Semantic versioning ([`34ca73c`](https://github.com/centre-for-humanities-computing/DaCy/commit/34ca73c0092c8c394a5a1916084fb822e48bbdf4))
