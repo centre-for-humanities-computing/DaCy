@@ -118,13 +118,11 @@ exclude_lines = [
 ]
 
 [tool.semantic_release]
+branch = "main"
+build_command = "python setup.py sdist bdist_wheel"
 version_variable = [
     "pyproject.toml:version"
 ]
-branch = "main"
-upload_to_pypi = true
-upload_to_release = true
-build_command = "python setup.py sdist bdist_wheel"
 
 
 [tool.ruff]
