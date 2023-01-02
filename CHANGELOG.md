@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.3 (2023-01-02)
+### Fix
+* Semantic relase ([`91c7a80`](https://github.com/centre-for-humanities-computing/DaCy/commit/91c7a80dbf74d3b3f66d8a33b16cdfb06f252933))
+
+### Documentation
+* Updated github action badge ([`20b6bc9`](https://github.com/centre-for-humanities-computing/DaCy/commit/20b6bc9ca481232220e9b6b2d35683d17bb51889))
+
 ## v2.0.2 (2023-01-02)
 ### Fix
 * Fixed parsing error of config str ([`c9ce75b`](https://github.com/centre-for-humanities-computing/DaCy/commit/c9ce75bc4db3cde60f127b463ea6b6bdc1507bf4))
