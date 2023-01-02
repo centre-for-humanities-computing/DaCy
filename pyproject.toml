@@ -80,7 +80,6 @@ tutorials = [
     "augmenty>=1.0.2,<1.1.0",
     # dacy robustness
     # the @ allows installing using a link
-    "da-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.2.0/da_core_news_sm-3.2.0-py3-none-any.whl",
     "NERDA==1.0.0",
     # missing dependency for NERDA
     "scikit-learn",
@@ -91,7 +90,7 @@ emotion = "dacy.sentiment.wrapped_model:make_emotion_transformer"
 hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
 
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 
@@ -124,7 +123,7 @@ exclude_lines = [
 
 [tool.semantic_release]
 branch = "main"
-build_command = "python setup.py sdist bdist_wheel"
+build_command = "python -m build"
 version_variable = [
     "pyproject.toml:version"
 ]
