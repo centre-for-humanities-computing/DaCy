@@ -144,7 +144,6 @@ def score(  # noqa
     }
 
     def __score(augmenter):
-
         corpus_ = copy(corpus)
         corpus_.augmenter = augmenter
         scores_ls = []
