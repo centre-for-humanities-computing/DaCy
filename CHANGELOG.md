@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.5 (2023-01-02)
+### Fix
+* Semantic release ([`64b0013`](https://github.com/centre-for-humanities-computing/DaCy/commit/64b00130501264215bab54f4e71affc4d6fd7671))
+
+### Documentation
+* Remove unused badges ([`8eff788`](https://github.com/centre-for-humanities-computing/DaCy/commit/8eff7889b4e2cc6e390e596be457e82e8f43afab))
+
 ## v2.0.4 (2023-01-02)
 ### Fix
 * Token name ([`3231282`](https://github.com/centre-for-humanities-computing/DaCy/commit/3231282eea2dd571c7ef98f808afd5d65ec56c7d))
