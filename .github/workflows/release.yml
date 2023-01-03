@@ -9,7 +9,7 @@ on:
   # uncomment the following to only release on a successful workflow run
   # this is recommended as it will only release if the tests pass
   # this however cause you to test twice which might be not be ideal
-  # if you oncomment this 
+  # if you oncomment this
   # workflow_run:
   #   workflows: ["Tests"]
   #   types:
@@ -27,7 +27,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       # Checkout action is required for token to persist
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.RELEASE }}
