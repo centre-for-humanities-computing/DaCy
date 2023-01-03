@@ -15,9 +15,9 @@ of hate speech.
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
 | Name                                  | Creator  | Domain   | Output Type                                                                | Model                          |
 +=======================================+==========+==========+============================================================================+================================+
-| code:`dacy.hatespeech_detection`      | `DaNLP`_ | Facebook | `["not offensive", "offensive"]`                                           | `Ælæctra`_                     |
+| code:`dacy/hatespeech_detection`      | `DaNLP`_ | Facebook | `["not offensive", "offensive"]`                                           | `Ælæctra`_                     |
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
-| code:`dacy.hatespeech_classification` | `DaNLP`_ | Facebook | `["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]`   | `Danish BERT by Certainly.io`_ |
+| code:`dacy/hatespeech_classification` | `DaNLP`_ | Facebook | `["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]`   | `Danish BERT by Certainly.io`_ |
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
 
 .. _DaNLP: https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md
@@ -53,8 +53,8 @@ To add the emotion models to your pipeline simply run:
    nlp = spacy.blank("da") # create an empty pipeline
 
    # add the hate speech models
-   nlp.add_pipe("dacy.hatespeech_detection")
-   nlp.add_pipe("dacy.hatespeech_classification")
+   nlp.add_pipe("dacy/hatespeech_detection")
+   nlp.add_pipe("dacy/hatespeech_classification")
 
 This wil set the two extensions to the Doc object, :code:`is_offensive` and :code:`hate_speech_type`.
 These shows whether a text is emotionally laden and what emotion it contains.
