@@ -261,13 +261,13 @@ of hate speech.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>code:<cite>dacy.hatespeech_detection</cite></p></td>
+<tr class="row-even"><td><p>code:<cite>dacy/hatespeech_detection</cite></p></td>
 <td><p><a class="reference external" href="https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md">DaNLP</a></p></td>
 <td><p>Facebook</p></td>
 <td><p><cite>[“not offensive”, “offensive”]</cite></p></td>
 <td><p><a class="reference external" href="https://huggingface.co/Maltehb/aelaectra-danish-electra-small-cased">Ælæctra</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>code:<cite>dacy.hatespeech_classification</cite></p></td>
+<tr class="row-odd"><td><p>code:<cite>dacy/hatespeech_classification</cite></p></td>
 <td><p><a class="reference external" href="https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md">DaNLP</a></p></td>
 <td><p>Facebook</p></td>
 <td><p><cite>[“særlig opmærksomhed”, “personangreb”, “sprogbrug”, “spam &amp; indhold”]</cite></p></td>
@@ -296,8 +296,8 @@ and includes a classification for classifying the type of hate-speech. The other
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span> <span class="c1"># create an empty pipeline</span>
 
 <span class="c1"># add the hate speech models</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy.hatespeech_detection&quot;</span><span class="p">)</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy.hatespeech_classification&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/hatespeech_detection&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/hatespeech_classification&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This wil set the two extensions to the Doc object, <code class="code docutils literal notranslate"><span class="pre">is_offensive</span></code> and <code class="code docutils literal notranslate"><span class="pre">hate_speech_type</span></code>.

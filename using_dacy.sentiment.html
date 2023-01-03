@@ -270,19 +270,19 @@ analysis examining positive or negative words along with the dependency structur
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><cite>dacy.subjectivity</cite></p></td>
+<tr class="row-even"><td><p><cite>dacy/subjectivity</cite></p></td>
 <td><p><a class="reference external" href="https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md">DaNLP</a></p></td>
 <td><p>Europarl and Twitter</p></td>
 <td><p><cite>[“objective”, “subjective”]</cite></p></td>
 <td><p>Neural (<a class="reference external" href="https://huggingface.co/Maltehb/danish-bert-botxo">Danish BERT by Certainly.io</a>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>dacy.polarity</cite></p></td>
+<tr class="row-odd"><td><p><cite>dacy/polarity</cite></p></td>
 <td><p><a class="reference external" href="https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md">DaNLP</a></p></td>
 <td><p>Europarl and Twitter</p></td>
 <td><p>[‘postive’, ‘neutral’, ‘negative’]`</p></td>
 <td><p>Neural (<a class="reference external" href="https://huggingface.co/Maltehb/danish-bert-botxo">Danish BERT by Certainly.io</a>)</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>dacy.emotion</cite></p></td>
+<tr class="row-even"><td><p><cite>dacy/emotion</cite></p></td>
 <td><p><a class="reference external" href="https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md">DaNLP</a></p></td>
 <td><p>Social Media</p></td>
 <td><p><cite>[“Emotional”, “No emotion”] and [“Glæde/Sindsro”, “Tillid/Accept”, … ]</cite></p></td>
@@ -301,8 +301,8 @@ analysis examining positive or negative words along with the dependency structur
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="1028382c-497a-42d3-8833-26904fbccec2" name="5a764d8b-f755-47fa-8cbe-902d372b2915" type="radio">
-</input><label class="sd-tab-label" for="1028382c-497a-42d3-8833-26904fbccec2">
+<input checked="checked" id="cd968fac-b282-4e90-be7c-d214e2a3efa9" name="4e6775f2-5e34-4a90-89bf-efcf6398f512" type="radio">
+</input><label class="sd-tab-label" for="cd968fac-b282-4e90-be7c-d214e2a3efa9">
 Neural Models</label><div class="sd-tab-content docutils">
 <p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/sentiment-neural.ipynb"><img alt="colab_tut_neural" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>DaCy currently does not include its own tools for sentiment extraction, but a couple of good tools already exists. DaCy providers wrappers for these to use them in the spaCy/DaCy framework. This allows you to get all of the best models in one place.</p>
@@ -361,10 +361,10 @@ This model classifies the polarity of a text, i.e. whether it is positve,
 negative or neutral.</p>
 <p class="sd-card-text">To add the polarity model to your pipeline simply run:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span> <span class="c1"># an empty spacy pipeline</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy.polarity&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/polarity&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sd-card-text">This will add the <code class="code docutils literal notranslate"><span class="pre">dacy.polarity</span></code> component to your pipeline, which adds
+<p class="sd-card-text">This will add the <code class="code docutils literal notranslate"><span class="pre">dacy/polarity</span></code> component to your pipeline, which adds
 two extensions to the Doc object,:code:<cite>polarity_prob</cite> and <code class="code docutils literal notranslate"><span class="pre">polarity</span></code>.
 These show the probabilities of a document being positive/neutral/negative and
 the resulting classification. Let’s look at an example using the model:</p>
@@ -413,8 +413,8 @@ which emotion it is out of the following emotions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span> <span class="c1"># create an empty pipeline</span>
 
 <span class="c1"># add the emotion compenents to the pipeline</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy.emotionally_laden&quot;</span><span class="p">)</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy.emotion&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/emotionally_laden&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/emotion&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sd-card-text">This wil set the two extensions to the Doc object, <code class="code docutils literal notranslate"><span class="pre">laden</span></code> and <code class="code docutils literal notranslate"><span class="pre">emotion</span></code>.
@@ -448,8 +448,8 @@ probabilites of the model.</p>
 </div>
 </div>
 </details></div>
-<input id="18639cb5-be90-40dd-af80-1fbf64a41a8e" name="5a764d8b-f755-47fa-8cbe-902d372b2915" type="radio">
-</input><label class="sd-tab-label" for="18639cb5-be90-40dd-af80-1fbf64a41a8e">
+<input id="2e9e191e-9bd2-457b-b23f-e9371e3d2e2f" name="4e6775f2-5e34-4a90-89bf-efcf6398f512" type="radio">
+</input><label class="sd-tab-label" for="2e9e191e-9bd2-457b-b23f-e9371e3d2e2f">
 Rule-based Models</label><div class="sd-tab-content docutils">
 <p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/sentiment-rule-based.ipynb"><img alt="colab_tut_rule" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>if you wish to perform rule-based sentiment analysis using DaCy we recommend using
