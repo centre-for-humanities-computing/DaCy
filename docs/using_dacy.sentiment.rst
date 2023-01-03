@@ -29,11 +29,11 @@ analysis examining positive or negative words along with the dependency structur
 +---------------------+-----------+-----------------------------+-----------------------------------------------------------------------------+-----------------------------------------+
 | Name                | Reference | Domain                      | Output Type                                                                 | Model Type                              |
 +=====================+===========+=============================+=============================================================================+=========================================+
-| `dacy.subjectivity` | `DaNLP`_  | Europarl and Twitter        | `["objective", "subjective"]`                                               | Neural (`Danish BERT by Certainly.io`_) |
+| `dacy/subjectivity` | `DaNLP`_  | Europarl and Twitter        | `["objective", "subjective"]`                                               | Neural (`Danish BERT by Certainly.io`_) |
 +---------------------+-----------+-----------------------------+-----------------------------------------------------------------------------+-----------------------------------------+
-| `dacy.polarity`     | `DaNLP`_  | Europarl and Twitter        | ['postive', 'neutral', 'negative']`                                         | Neural (`Danish BERT by Certainly.io`_) |
+| `dacy/polarity`     | `DaNLP`_  | Europarl and Twitter        | ['postive', 'neutral', 'negative']`                                         | Neural (`Danish BERT by Certainly.io`_) |
 +---------------------+-----------+-----------------------------+-----------------------------------------------------------------------------+-----------------------------------------+
-| `dacy.emotion`      | `DaNLP`_  | Social Media                | `["Emotional", "No emotion"] and ["Glæde/Sindsro", "Tillid/Accept", ... ]`  | Neural (`Danish BERT by Certainly.io`_) |
+| `dacy/emotion`      | `DaNLP`_  | Social Media                | `["Emotional", "No emotion"] and ["Glæde/Sindsro", "Tillid/Accept", ... ]`  | Neural (`Danish BERT by Certainly.io`_) |
 +---------------------+-----------+-----------------------------+-----------------------------------------------------------------------------+-----------------------------------------+
 | `asent_da_v1`       | `Asent`_  | Microblogs and Social media | `Polarity score (continuous)`                                               | Rule-based                              |
 +---------------------+-----------+-----------------------------+-----------------------------------------------------------------------------+-----------------------------------------+
@@ -120,9 +120,9 @@ Usage
          .. code-block:: python
 
             nlp = spacy.blank("da") # an empty spacy pipeline
-            nlp.add_pipe("dacy.polarity")
+            nlp.add_pipe("dacy/polarity")
 
-         This will add the :code:`dacy.polarity` component to your pipeline, which adds
+         This will add the :code:`dacy/polarity` component to your pipeline, which adds
          two extensions to the Doc object,:code:`polarity_prob` and :code:`polarity`.
          These show the probabilities of a document being positive/neutral/negative and
          the resulting classification. Let's look at an example using the model:
@@ -170,8 +170,8 @@ Usage
             nlp = spacy.blank("da") # create an empty pipeline
 
             # add the emotion compenents to the pipeline
-            nlp.add_pipe("dacy.emotionally_laden")
-            nlp.add_pipe("dacy.emotion")
+            nlp.add_pipe("dacy/emotionally_laden")
+            nlp.add_pipe("dacy/emotion")
 
          This wil set the two extensions to the Doc object, :code:`laden` and :code:`emotion`.
          These shows whether a text is emotionally laden and what emotion it contains.

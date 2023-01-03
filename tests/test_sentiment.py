@@ -5,7 +5,7 @@ import dacy  # noqa
 
 def test_add_subjectivity():
     nlp = spacy.blank("da")
-    nlp.add_pipe("dacy.subjectivity")
+    nlp.add_pipe("dacy/subjectivity")
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
         "Jeg tror alligevel, det bliver godt",
@@ -22,7 +22,7 @@ def test_add_subjectivity():
 
 def test_add_berttone_polarity():
     nlp = spacy.blank("da")
-    nlp.add_pipe("dacy.polarity")
+    nlp.add_pipe("dacy/polarity")
 
     texts = [
         "Analysen viser, at økonomien bliver forfærdelig dårlig",
@@ -36,14 +36,14 @@ def test_add_berttone_polarity():
 
 def test_add_bertemotion_laden():
     nlp = spacy.blank("da")
-    nlp.add_pipe("dacy.emotionally_laden")
+    nlp.add_pipe("dacy/emotionally_laden")
     doc = nlp("Der er et træ i haven")
     assert doc._.emotionally_laden == "no emotion"
 
 
 def test_add_bertemotion_emo():
     nlp = spacy.blank("da")
-    nlp.add_pipe("dacy.emotionally_laden")
-    nlp.add_pipe("dacy.emotion")
+    nlp.add_pipe("dacy/emotionally_laden")
+    nlp.add_pipe("dacy/emotion")
     doc = nlp("Har i set at Tesla har landet en raket på månen? Det er vildt!!")
     assert doc._.emotion == "overasket/målløs"
