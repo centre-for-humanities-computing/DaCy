@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.2.4 (2023-01-03)
+### Fix
+* Test semantic release ([`9458053`](https://github.com/centre-for-humanities-computing/DaCy/commit/9458053d51a00b50988c2a1c6d826a5965d0d9f3))
+
 ## v2.2.3 (2023-01-02)
 ### Fix
 * Added built system to pyproject.toml ([`a26c62b`](https://github.com/centre-for-humanities-computing/DaCy/commit/a26c62b0d399e66238737a24284fd5d726b2ff88))
