@@ -1,9 +1,12 @@
 name: Release
 on:
-  workflow_run:
-    workflows: ["Tests"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+  # workflow_run:
+  #   workflows: ["Tests"]
+  #   types:
+  #     - completed
 
 jobs:
   release:
@@ -11,7 +14,8 @@ jobs:
     concurrency: release
 
     # if the workflow run was successful and the branch is main
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       # Checkout action is required for token to persist
       - uses: actions/checkout@v2
