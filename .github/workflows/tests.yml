@@ -5,6 +5,7 @@ on:
   pull_request:
     branches: [main]
 
+
 jobs:
   pytest-and-notebooks:
     runs-on: ${{ matrix.os }}
