@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: |
           pip install ".[tutorials]"
-          pip install https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.2.0/da_core_news_sm-3.2.0-py3-none-any.whl
+          pip install -r ./tutorials/requirements.txt
 
       - name: Convert and run notebooks
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
