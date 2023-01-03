@@ -20,7 +20,7 @@ labels = ["not offensive", "offensive"]
 
 [hatespeech_detection.model]
 @architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "DaNLP/da-bert-hatespeech-detection"
+name = "alexandrainst/da-bert-hatespeech-detection"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -43,7 +43,7 @@ labels = ["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"
 
 [hatespeech_classification.model]
 @architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "DaNLP/da-bert-hatespeech-classification"
+name = "alexandrainst/da-bert-hatespeech-classification"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false

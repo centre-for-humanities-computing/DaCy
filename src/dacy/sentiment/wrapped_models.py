@@ -20,7 +20,7 @@ labels = ["objective", "subjective"]
 
 [subjectivity.model]
 @architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "DaNLP/da-bert-tone-subjective-objective"
+name = "alexandrainst/da-bert-tone-subjective-objective"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -43,7 +43,7 @@ labels =["positive", "neutral", "negative"]
 
 [polarity.model]
 @architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "DaNLP/da-bert-tone-sentiment-polarity"
+name = "alexandrainst/da-bert-tone-sentiment-polarity"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -66,7 +66,7 @@ labels = ["emotional", "no emotion"]
 
 [emotionally_laden.model]
 @architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "DaNLP/da-bert-emotion-binary"
+name = "alexandrainst/da-bert-emotion-binary"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -90,7 +90,7 @@ labels = ["glæde/sindsro", "tillid/accept", "forventning/interrese", "overasket
 
 [emotion.model]
 @architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "DaNLP/da-bert-emotion-classification"
+name = "alexandrainst/da-bert-emotion-classification"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
