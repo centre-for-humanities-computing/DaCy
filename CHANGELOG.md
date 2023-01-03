@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.2.7 (2023-01-03)
+### Fix
+* Semantic release ([`1b35ee4`](https://github.com/centre-for-humanities-computing/DaCy/commit/1b35ee40ccac2138417d3ddc78298bc98fd6e734))
+
 ## v2.2.6 (2023-01-03)
 ### Fix
 * Semantic release ([`78cfb0e`](https://github.com/centre-for-humanities-computing/DaCy/commit/78cfb0e07f49c53c674dec469c20575aae00cf71))
