@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.2.8 (2023-01-03)
+### Fix
+* Cleaning up ci for final test of semantic release ([`9ac1320`](https://github.com/centre-for-humanities-computing/DaCy/commit/9ac13204e1f545c2cf213c0b9805f44f6c661c83))
+
 ## v2.2.7 (2023-01-03)
 ### Fix
 * Semantic release ([`1b35ee4`](https://github.com/centre-for-humanities-computing/DaCy/commit/1b35ee40ccac2138417d3ddc78298bc98fd6e734))
