@@ -6,66 +6,6 @@
 ### Fix
 * Update huggingface name for wrapped models ([`cbb3f3b`](https://github.com/centre-for-humanities-computing/DaCy/commit/cbb3f3b53454ecb660044037ed1854c278047055))
 
-## v2.2.8 (2023-01-03)
-### Fix
-* Cleaning up ci for final test of semantic release ([`9ac1320`](https://github.com/centre-for-humanities-computing/DaCy/commit/9ac13204e1f545c2cf213c0b9805f44f6c661c83))
-
-## v2.2.7 (2023-01-03)
-### Fix
-* Semantic release ([`1b35ee4`](https://github.com/centre-for-humanities-computing/DaCy/commit/1b35ee40ccac2138417d3ddc78298bc98fd6e734))
-
-## v2.2.6 (2023-01-03)
-### Fix
-* Semantic release ([`78cfb0e`](https://github.com/centre-for-humanities-computing/DaCy/commit/78cfb0e07f49c53c674dec469c20575aae00cf71))
-
-## v2.2.5 (2023-01-03)
-### Fix
-* Semantic release ([`94d7ba4`](https://github.com/centre-for-humanities-computing/DaCy/commit/94d7ba49d24fbd373271489e80839514e9c060fe))
-
-## v2.2.4 (2023-01-03)
-### Fix
-* Test semantic release ([`9458053`](https://github.com/centre-for-humanities-computing/DaCy/commit/9458053d51a00b50988c2a1c6d826a5965d0d9f3))
-
-## v2.2.3 (2023-01-02)
-### Fix
-* Added built system to pyproject.toml ([`a26c62b`](https://github.com/centre-for-humanities-computing/DaCy/commit/a26c62b0d399e66238737a24284fd5d726b2ff88))
-
-## v2.2.2 (2023-01-02)
-### Fix
-* Config for pyproject.toml ([`a04fa86`](https://github.com/centre-for-humanities-computing/DaCy/commit/a04fa864bad2a5d53df472e9281f13f1dd12391e))
-
-## v2.2.1 (2023-01-02)
-### Fix
-* Semantic release ([`120d0ce`](https://github.com/centre-for-humanities-computing/DaCy/commit/120d0ce8b03a01568368f6df517d255dfb1ae0d8))
-
-## v2.2.0 (2023-01-02)
-
-
-## v2.1.0 (2023-01-02)
-
-
-## v2.0.7 (2023-01-02)
-
-
-## v2.0.6 (2023-01-02)
-### Fix
-* Semantic versioning ([`34ca73c`](https://github.com/centre-for-humanities-computing/DaCy/commit/34ca73c0092c8c394a5a1916084fb822e48bbdf4))
-
-## v2.0.5 (2023-01-02)
-### Fix
-* Semantic release ([`64b0013`](https://github.com/centre-for-humanities-computing/DaCy/commit/64b00130501264215bab54f4e71affc4d6fd7671))
-
-### Documentation
-* Remove unused badges ([`8eff788`](https://github.com/centre-for-humanities-computing/DaCy/commit/8eff7889b4e2cc6e390e596be457e82e8f43afab))
-
-## v2.0.4 (2023-01-02)
-### Fix
-* Token name ([`3231282`](https://github.com/centre-for-humanities-computing/DaCy/commit/3231282eea2dd571c7ef98f808afd5d65ec56c7d))
-
-## v2.0.3 (2023-01-02)
-### Fix
-* Semantic relase ([`91c7a80`](https://github.com/centre-for-humanities-computing/DaCy/commit/91c7a80dbf74d3b3f66d8a33b16cdfb06f252933))
-
 ### Documentation
 * Updated github action badge ([`20b6bc9`](https://github.com/centre-for-humanities-computing/DaCy/commit/20b6bc9ca481232220e9b6b2d35683d17bb51889))
 
