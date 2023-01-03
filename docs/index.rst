@@ -7,7 +7,7 @@ DaCy
 DaCy is a Danish text processing pipeline built using SpaCy. At the time of writing,
 it has achieved State-of-the-Art performance on part-of-speech (POS) tagging, 
 named-entity recognition (NER) and Dependency parsing for Danish. For an continually
-updated benchmarkcheck out section on
+updated benchmark check out section on
 `state-of-art <https://centre-for-humanities-computing.github.io/DaCy/docs/_build/html/performance.general.html#state-of-the-art>`__.
 
 This website contains the documentation for DaCy as well as an introduction to how to
