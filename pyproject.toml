@@ -29,7 +29,7 @@ keywords = [
 ]
 
 dependencies = [
-    "spacy-wrap>=1.0.2,<1.1.0",
+    "spacy-wrap>=1.2.1,<1.3.0",
     "spacy>=3.2.0,<3.5.0",
     "pandas>=1.0.0,<2.0.0",
     "wasabi>=0.8.2,<0.11.0",
@@ -38,7 +38,7 @@ dependencies = [
     "protobuf>=3.17.3,<3.18.0"
 ]
 
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 
 [project.urls]
 homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
@@ -85,9 +85,11 @@ tutorials = [
     "scikit-learn",
 ]
 
-[project.scripts]
-emotion = "dacy.sentiment.wrapped_model:make_emotion_transformer"
-hatespeech_classification = "dacy.hate_speech.wrapped_model:make_offensive_transformer"
+
+[project.entry-points.spacy_factories]
+emotion = "dacy.sentiment.wrapped_models:make_emotion_transformer"
+hatespeech_classification = "dacy.hate_speech.wrapped_models:make_offensive_transformer"
+ner = "dacy.ner.wrapped_models"
 
 [build-system]
 requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
