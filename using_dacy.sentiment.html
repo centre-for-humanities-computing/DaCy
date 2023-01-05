@@ -13,7 +13,7 @@
 <meta property="og:description" content="Sentiment analysis (or opinion mining) is a method used to determine whether text is positive, negative or neutral. Sentiment analysis is e.g. used by businesses to monitor brand and product sentim..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Hate Speech" href="using_dacy.hate_speech.html" /><link rel="prev" title="Getting Started" href="using_dacy.getting_started.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-6.0.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-6.1.0, furo 2022.06.21"/>
         <title>Sentiment Analysis - DaCy 2.2.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -177,6 +177,9 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="using_dacy.html">Using DaCy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#dependency-parsing">Dependency parsing</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Sentiment Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="using_dacy.hate_speech.html">Hate Speech</a></li>
 <li class="toctree-l2"><a class="reference internal" href="using_dacy.augmentation.html">Augmentation</a></li>
@@ -301,8 +304,8 @@ analysis examining positive or negative words along with the dependency structur
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="6c1a78bf-d36e-4dad-b5df-e0ab3c7c50da" name="700b95d2-0ff7-47ee-a907-40fcd9267761" type="radio">
-</input><label class="sd-tab-label" for="6c1a78bf-d36e-4dad-b5df-e0ab3c7c50da">
+<input checked="checked" id="e1b0749a-8b2b-4ca9-984c-e774ff6e4f36" name="32a8d881-644a-4332-a82f-80502274c59a" type="radio">
+</input><label class="sd-tab-label" for="e1b0749a-8b2b-4ca9-984c-e774ff6e4f36">
 Neural Models</label><div class="sd-tab-content docutils">
 <p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/sentiment-neural.ipynb"><img alt="colab_tut_neural" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>DaCy currently does not include its own tools for sentiment extraction, but a couple of good tools already exists. DaCy providers wrappers for these to use them in the spaCy/DaCy framework. This allows you to get all of the best models in one place.</p>
@@ -448,8 +451,8 @@ probabilites of the model.</p>
 </div>
 </div>
 </details></div>
-<input id="dc1a6298-35a7-430b-97cc-c38b03668ff5" name="700b95d2-0ff7-47ee-a907-40fcd9267761" type="radio">
-</input><label class="sd-tab-label" for="dc1a6298-35a7-430b-97cc-c38b03668ff5">
+<input id="87aef776-17a7-4b8f-adf7-8d37a62980ed" name="32a8d881-644a-4332-a82f-80502274c59a" type="radio">
+</input><label class="sd-tab-label" for="87aef776-17a7-4b8f-adf7-8d37a62980ed">
 Rule-based Models</label><div class="sd-tab-content docutils">
 <p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/master/tutorials/sentiment-rule-based.ipynb"><img alt="colab_tut_rule" src="https://colab.research.google.com/assets/colab-badge.svg" width="140pt" /></a></p>
 <p>if you wish to perform rule-based sentiment analysis using DaCy we recommend using

@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-6.0.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><meta name="generator" content="sphinx-6.1.0, furo 2022.06.21"/>
         <title>dacy.load - DaCy 2.2.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -168,6 +168,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../using_dacy.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../using_dacy.getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../using_dacy.getting_started.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../using_dacy.getting_started.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../using_dacy.getting_started.html#dependency-parsing">Dependency parsing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../using_dacy.sentiment.html">Sentiment Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../using_dacy.hate_speech.html">Hate Speech</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../using_dacy.augmentation.html">Augmentation</a></li>
@@ -236,6 +239,7 @@
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">force_download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a DaCy model as a SpaCy text processing pipeline. If the model is</span>
 <span class="sd">    not downloaded it will also download the model.</span>
@@ -247,6 +251,7 @@
 <span class="sd">            corresponds to the path optained using dacy.where_is_my_dacy().</span>
 <span class="sd">        force_redownload (bool, optional): Should the model be redownloaded even if</span>
 <span class="sd">            already downloaded? Default to False.</span>
+<span class="sd">        kwargs: additional arguments passed to spacy.load()</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Language: a SpaCy text-preprocessing pipeline</span>
@@ -263,7 +268,7 @@
         <span class="n">path</span> <span class="o">=</span> <span class="n">DEFAULT_CACHE_DIR</span>
 
     <span class="n">path</span> <span class="o">=</span> <span class="n">download_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force_download</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../dacy.download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

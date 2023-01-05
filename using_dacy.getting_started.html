@@ -13,7 +13,7 @@
 <meta property="og:description" content="colab_tut To use the model you first have to download either the small, medium or large model. To see a list of all available models: From here we can now download a model using: Which will downloa..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Sentiment Analysis" href="using_dacy.sentiment.html" /><link rel="prev" title="Using DaCy" href="using_dacy.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-6.0.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-6.1.0, furo 2022.06.21"/>
         <title>Getting Started - DaCy 2.2.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -150,7 +150,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -177,6 +177,9 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="using_dacy.html">Using DaCy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependency-parsing">Dependency parsing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="using_dacy.sentiment.html">Sentiment Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="using_dacy.hate_speech.html">Hate Speech</a></li>
 <li class="toctree-l2"><a class="reference internal" href="using_dacy.augmentation.html">Augmentation</a></li>
@@ -234,7 +237,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -283,8 +286,9 @@ the model to a specific directory:</p>
 <p>DaCy is built using SpaCy, hence you will be able to find a lot of the required documentation for
 using the pipeline in their very well written <a class="reference external" href="https://spacy.io">documentation</a>.</p>
 </div>
-<section id="tagging-named-entities">
-<h2>Tagging named entities<a class="headerlink" href="#tagging-named-entities" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="named-entity-recognition">
+<h1>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this heading">#</a></h1>
 <p>A named entity is a “real-world object” that’s assigned a name - for example, a person, a country, a product or a book title.
 DaCy can recognize organizations, persons, and location, as well as other miscellaneous entities.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
@@ -304,9 +308,31 @@ DaCy can recognize organizations, persons, and location, as well as other miscel
 <p>For more on named entity recognition see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#named-entities">documentation</a>.</p>
 </div>
 <a class="reference internal image-reference" href="_images/ner.png"><img alt="Named entity recognition using DaCy" src="_images/ner.png" style="width: 800px;" /></a>
+<p>Since its release DaCy have been outperformed by <a class="reference external" href="https://huggingface.co/saattrupdan/nbailab-base-ner-scandi">the state-of-the-art model for NER</a>
+by Dan Nielsen. To allow users to access the best model for their use-case DaCy allows you to easily
+switch the NER component to obtain a state-of-the-art model.
+To do this you can simply load the model using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the small dacy model excluding the NER component</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_small_trf-0.1.0&quot;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ner&quot;</span><span class="p">])</span>
+<span class="c1"># or use an empty spacy model if you only want to do NER</span>
+<span class="c1"># nlp = spacy.blank(&quot;da&quot;)</span>
+
+<span class="c1"># add the ner component from the state-of-the-art model</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/ner&quot;</span><span class="p">)</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Denne NER model er trænet af Dan fra Alexandra Instituttet&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+
+<span class="c1"># Dan : PER</span>
+<span class="c1"># Alexandra Instituttet : ORG</span>
+</pre></div>
+</div>
+<p>Do note that this will add an additonal model to your pipeline, which will slow down the inference speed.</p>
 </section>
-<section id="tagging-parts-of-speech">
-<h2>Tagging parts-of-speech<a class="headerlink" href="#tagging-parts-of-speech" title="Permalink to this heading">#</a></h2>
+<section id="parts-of-speech-tagging">
+<h1>Parts-of-speech Tagging<a class="headerlink" href="#parts-of-speech-tagging" title="Permalink to this heading">#</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token POS-tag&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -333,7 +359,7 @@ DaCy can recognize organizations, persons, and location, as well as other miscel
 </div>
 </section>
 <section id="dependency-parsing">
-<h2>Dependency parsing<a class="headerlink" href="#dependency-parsing" title="Permalink to this heading">#</a></h2>
+<h1>Dependency parsing<a class="headerlink" href="#dependency-parsing" title="Permalink to this heading">#</a></h1>
 <p>DaCy features a fast and accurate syntactic dependency parser. In DaCy this dependency parsing is also
 used for sentence segmentation and detecting noun chunks.</p>
 <p>You can see the dependency tree using:</p>
@@ -348,7 +374,6 @@ used for sentence segmentation and detecting noun chunks.</p>
 <p class="admonition-title">See also</p>
 <p>For more on dependency parsing with DaCy, especially on how to navigate the tree, see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#dependency-parse">documentation</a>.</p>
 </div>
-</section>
 </section>
 
         </article>
@@ -401,29 +426,8 @@ used for sentence segmentation and detecting noun chunks.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            Contents
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Getting Started</a><ul>
-<li><a class="reference internal" href="#tagging-named-entities">Tagging named entities</a></li>
-<li><a class="reference internal" href="#tagging-parts-of-speech">Tagging parts-of-speech</a></li>
-<li><a class="reference internal" href="#dependency-parsing">Dependency parsing</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
