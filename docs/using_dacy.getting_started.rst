@@ -91,6 +91,7 @@ by Dan Nielsen. To allow users to access the best model for their use-case DaCy 
 switch the NER component to obtain a state-of-the-art model.
 To do this you can simply load the model using:
 
+
 .. code-block:: python
 
    # load the small dacy model excluding the NER component
