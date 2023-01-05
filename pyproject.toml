@@ -38,7 +38,7 @@ dependencies = [
     "protobuf>=3.17.3,<3.18.0"
 ]
 
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 
 [project.urls]
 homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
