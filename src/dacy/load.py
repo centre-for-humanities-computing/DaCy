@@ -11,6 +11,7 @@ def load(
     model: str,
     path: Optional[str] = None,
     force_download: bool = False,
+    **kwargs,
 ) -> Language:
     """Load a DaCy model as a SpaCy text processing pipeline. If the model is
     not downloaded it will also download the model.
@@ -22,6 +23,7 @@ def load(
             corresponds to the path optained using dacy.where_is_my_dacy().
         force_redownload (bool, optional): Should the model be redownloaded even if
             already downloaded? Default to False.
+        kwargs: additional arguments passed to spacy.load()
 
     Returns:
         Language: a SpaCy text-preprocessing pipeline
@@ -38,7 +40,7 @@ def load(
         path = DEFAULT_CACHE_DIR
 
     path = download_model(model, path, force=force_download)
-    return spacy.load(path)
+    return spacy.load(path, **kwargs)
 
 
 def where_is_my_dacy(verbose: bool = True) -> str:
