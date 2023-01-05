@@ -1,6 +1,13 @@
 News and Changelog
 ---------------------------------
 
+**2.2.10 (05/01/23)**
+
+- Added support for spaCy 3.4.0
+  - This required the wrapped component model to change name from e.g. :code:`dacy.ner` to :code:`dacy/ner`. As the :code:`.` is no longer allowed by spaCy.
+- Added support for the state-of-the-art NER model by Dan Nielsen
+  - You can add this model to your pipeline using :code:`nlp.add_pipe("dacy/ner")`
+
 
 **2.0.0 (27/06/22): The Spandaur Update**
 
