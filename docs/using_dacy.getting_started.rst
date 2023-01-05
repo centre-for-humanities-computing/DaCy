@@ -54,8 +54,8 @@ Using this we can now apply DaCy to text with conventional SpaCy syntax:
    DaCy is built using SpaCy, hence you will be able to find a lot of the required documentation for
    using the pipeline in their very well written `documentation <https://spacy.io>`__.
 
-Tagging named entities
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Named Entity Recognition
+====================================
 A named entity is a “real-world object” that's assigned a name - for example, a person, a country, a product or a book title. 
 DaCy can recognize organizations, persons, and location, as well as other miscellaneous entities.
 
@@ -77,6 +77,7 @@ We can also plot these using:
 
 .. seealso::
 
+
    For more on named entity recognition see SpaCy's `documentation <https://spacy.io/usage/linguistic-features#named-entities>`__.
 
 
@@ -84,8 +85,35 @@ We can also plot these using:
   :width: 800
   :alt: Named entity recognition using DaCy
 
-Tagging parts-of-speech
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Since its release DaCy have been outperformed by `the state-of-the-art model for NER <https://huggingface.co/saattrupdan/nbailab-base-ner-scandi>`__
+by Dan Nielsen. To allow users to access the best model for their use-case DaCy allows you to easily
+switch the NER component to obtain a state-of-the-art model.
+To do this you can simply load the model using:
+
+.. code-block:: python
+
+   # load the small dacy model excluding the NER component
+   nlp = dacy.load("da_dacy_small_trf-0.1.0", exclude=["ner"])
+   # or use an empty spacy model if you only want to do NER
+   # nlp = spacy.blank("da")
+
+   # add the ner component from the state-of-the-art model
+   nlp.add_pipe("dacy/ner")
+
+   doc = nlp("Denne NER model er trænet af Dan fra Alexandra Instituttet")
+
+   for entity in doc.ents:
+      print(entity, ":", entity.label_)
+
+   # Dan : PER
+   # Alexandra Instituttet : ORG
+
+
+Do note that this will add an additonal model to your pipeline, which will slow down the inference speed.
+
+Parts-of-speech Tagging
+====================================
 
 .. code-block:: python
 
@@ -114,7 +142,7 @@ Tagging parts-of-speech
 
 
 Dependency parsing
-^^^^^^^^^^^^^^^^^^^^^^
+====================================
 DaCy features a fast and accurate syntactic dependency parser. In DaCy this dependency parsing is also
 used for sentence segmentation and detecting noun chunks.
 

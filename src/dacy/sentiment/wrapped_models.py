@@ -5,7 +5,10 @@ from spacy.lang.da import Danish
 from spacy.language import Language
 from spacy.tokens import Doc
 from spacy_transformers.data_classes import FullTransformerBatch
-from spacy_wrap import ClassificationTransformer, make_classification_transformer
+from spacy_wrap import (
+    SequenceClassificationTransformer,
+    make_sequence_classification_transformer,
+)
 from thinc.api import Config, Model
 
 DEFAULT_CONFIG_STR = """
@@ -19,8 +22,8 @@ labels = ["objective", "subjective"]
 @annotation_setters = "spacy-transformers.null_annotation_setter.v1"
 
 [subjectivity.model]
-@architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "alexandrainst/da-bert-tone-subjective-objective"
+@architectures = "spacy-wrap.SequenceClassificationTransformerModel.v1"
+name = "alexandrainst/da-subjectivivity-classification-base"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -42,8 +45,8 @@ labels =["positive", "neutral", "negative"]
 @annotation_setters = "spacy-transformers.null_annotation_setter.v1"
 
 [polarity.model]
-@architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "alexandrainst/da-bert-tone-sentiment-polarity"
+@architectures = "spacy-wrap.SequenceClassificationTransformerModel.v1"
+name = "alexandrainst/da-sentiment-base"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -65,8 +68,8 @@ labels = ["emotional", "no emotion"]
 @annotation_setters = "spacy-transformers.null_annotation_setter.v1"
 
 [emotionally_laden.model]
-@architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "alexandrainst/da-bert-emotion-binary"
+@architectures = "spacy-wrap.SequenceClassificationTransformerModel.v1"
+name = "alexandrainst/da-binary-emotion-classification-base"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -89,8 +92,8 @@ labels = ["glæde/sindsro", "tillid/accept", "forventning/interrese", "overasket
 @annotation_setters = "spacy-transformers.null_annotation_setter.v1"
 
 [emotion.model]
-@architectures = "spacy-wrap.ClassificationTransformerModel.v1"
-name = "alexandrainst/da-bert-emotion-classification"
+@architectures = "spacy-wrap.SequenceClassificationTransformerModel.v1"
+name = "alexandrainst/da-emotion-classification-base"
 tokenizer_config = {"use_fast": true}
 transformer_config = {}
 mixed_precision = false
@@ -108,18 +111,18 @@ DEFAULT_CONFIG = Config().from_str(DEFAULT_CONFIG_STR)
 Danish.factory(
     "dacy/subjectivity",
     default_config=DEFAULT_CONFIG["subjectivity"],
-)(make_classification_transformer)
+)(make_sequence_classification_transformer)
 
 
 Danish.factory(
     "dacy/polarity",
     default_config=DEFAULT_CONFIG["polarity"],
-)(make_classification_transformer)
+)(make_sequence_classification_transformer)
 
 Danish.factory(
     "dacy/emotionally_laden",
     default_config=DEFAULT_CONFIG["emotionally_laden"],
-)(make_classification_transformer)
+)(make_sequence_classification_transformer)
 
 
 @Danish.factory(
@@ -135,7 +138,7 @@ def make_emotion_transformer(
     doc_extension_trf_data: str,
     doc_extension_prediction: str,
     labels: List[str],
-) -> ClassificationTransformer:
+) -> SequenceClassificationTransformer:
 
     if not Doc.has_extension("dacy/emotionally_laden"):
         warn(
@@ -145,7 +148,7 @@ def make_emotion_transformer(
 
     # TODO: Add a conditional forward such that the model isn't run is document is not
     # emotionally laden
-    clf_mdl = ClassificationTransformer(
+    clf_mdl = SequenceClassificationTransformer(
         vocab=nlp.vocab,
         model=model,
         set_extra_annotations=set_extra_annotations,
@@ -154,6 +157,7 @@ def make_emotion_transformer(
         labels=labels,
         doc_extension_trf_data=doc_extension_trf_data,
         doc_extension_prediction=doc_extension_prediction,
+        assign_to_cats=True,
     )
 
     # overwrite extension such that it return no emotion if the document does not have
