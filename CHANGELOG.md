@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v2.3.0 (2023-01-05)
+### Feature
+* Added scandi-ner model to dacy ([`dc2a514`](https://github.com/centre-for-humanities-computing/DaCy/commit/dc2a51491eba86c480c000c6707e6a4c572feae5))
+* Added scandi-ner model to dacy ([`a2bec3b`](https://github.com/centre-for-humanities-computing/DaCy/commit/a2bec3bc43296aeb4b7f9059e9123ed48b18e5c2))
+
+### Documentation
+* Added news ([`f5b64da`](https://github.com/centre-for-humanities-computing/DaCy/commit/f5b64dae0925bd8d7709c29238d860f9297bf761))
+* Added news ([`ed991b8`](https://github.com/centre-for-humanities-computing/DaCy/commit/ed991b816da732e1c9bbb5aaa55175597b34fcc7))
+* Model was trained by dan nielsen ([`be4471b`](https://github.com/centre-for-humanities-computing/DaCy/commit/be4471bdcaf1ce33f51e0e4e8e4382e53a10f0ea))
+* Remove rubbish from changelog ([`35adc3b`](https://github.com/centre-for-humanities-computing/DaCy/commit/35adc3b347600104d68cd03c05b8677078cda6fc))
+* Fix minor ([`b363a4e`](https://github.com/centre-for-humanities-computing/DaCy/commit/b363a4e8cb4b7dc0b0e172b24fecde0eac675197))
+
 ## v2.2.9 (2023-01-03)
 ### Fix
 * Update huggingface name for wrapped models ([`cbb3f3b`](https://github.com/centre-for-humanities-computing/DaCy/commit/cbb3f3b53454ecb660044037ed1854c278047055))
