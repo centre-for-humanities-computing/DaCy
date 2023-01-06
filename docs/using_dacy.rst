@@ -25,9 +25,16 @@ Besides the above tutorials, DaCy also contains a few Google Colab tutorials:
    :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb
 
 
+.. |colab_textd| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :width: 100pt
+   :target: https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/textdescriptives_integration.ipynb
 
-+--------------+---------------------------------------------------------------------------+
-| Google Colab | Content                                                                   |
-+==============+===========================================================================+
-| |colab_fair| |  A guide on how to use augmenters to measure model robustness and biases. | 
-+--------------+---------------------------------------------------------------------------+
+
+
++---------------+----------------------------------------------------------------------------------------------------+
+| Google Colab  | Content                                                                                            |
++===============+====================================================================================================+
+| |colab_fair|  |  A guide on how to use augmenters to measure model robustness and biases.                          | 
++---------------+----------------------------------------------------------------------------------------------------+
+| |colab_textd| |  A guide on how to extract text statistics such as text complexity using DaCy and textdescriptives | 
++---------------+----------------------------------------------------------------------------------------------------+
