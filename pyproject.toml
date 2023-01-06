@@ -82,6 +82,9 @@ tutorials = [
     "NERDA==1.0.0",
     # missing dependency for NERDA
     "scikit-learn",
+    # for the textdescriptives tutorial
+    "textdescriptives>=2.1.0,<3.0.0",
+    "seaborn>=0.11.2,<0.13.0",
 ]
 
 
