@@ -1,6 +1,10 @@
 News and Changelog
 ---------------------------------
 
+**2.3.0 (05/01/23)**
+
+- New tutorial added for using DaCy with `textdescriptives`. You can find it [here](https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html)
+
 **2.2.10 (05/01/23)**
 
 - Added support for spaCy 3.4.0
