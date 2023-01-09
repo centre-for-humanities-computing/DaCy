@@ -1,5 +1,5 @@
-import pkg_resources
+from importlib.metadata import version
 
-__version__ = pkg_resources.get_distribution("dacy").version
+__version__ = version("dacy")
 __title__ = "dacy"
 __download_url__ = "https://github.com/centre-for-humanities-computing/DaCy"
