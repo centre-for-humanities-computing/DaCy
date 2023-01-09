@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v2.3.1 (2023-01-09)
+### Fix
+* Update about.py ([#178](https://github.com/centre-for-humanities-computing/DaCy/issues/178)) ([`e548c82`](https://github.com/centre-for-humanities-computing/DaCy/commit/e548c8218f8612173948ef2f423024ddf950109a))
+
+### Documentation
+* Fixed markdown link in .rst file ([`fe424be`](https://github.com/centre-for-humanities-computing/DaCy/commit/fe424bebdb5b92c1b9af8f9c99a5ed4e4a00f68c))
+* Added news ([`d648ac1`](https://github.com/centre-for-humanities-computing/DaCy/commit/d648ac10d139ff20fa4fe32a98acc65ec6c88ec5))
+
 ## v2.3.0 (2023-01-05)
 ### Feature
 * Added scandi-ner model to dacy ([`dc2a514`](https://github.com/centre-for-humanities-computing/DaCy/commit/dc2a51491eba86c480c000c6707e6a4c572feae5))
