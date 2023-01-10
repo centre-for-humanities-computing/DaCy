@@ -15,9 +15,9 @@ of hate speech.
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
 | Name                                  | Creator  | Domain   | Output Type                                                                | Model                          |
 +=======================================+==========+==========+============================================================================+================================+
-| code:`dacy/hatespeech_detection`      | `DaNLP`_ | Facebook | `["not offensive", "offensive"]`                                           | `Ælæctra`_                     |
+| :code:`dacy/hatespeech_detection`      | `DaNLP`_ | Facebook | `["not offensive", "offensive"]`                                           | `Ælæctra`_                     |
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
-| code:`dacy/hatespeech_classification` | `DaNLP`_ | Facebook | `["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]`   | `Danish BERT by Certainly.io`_ |
+| :code:`dacy/hatespeech_classification` | `DaNLP`_ | Facebook | `["særlig opmærksomhed", "personangreb", "sprogbrug", "spam & indhold"]`   | `Danish BERT by Certainly.io`_ |
 +---------------------------------------+----------+----------+----------------------------------------------------------------------------+--------------------------------+
 
 .. _DaNLP: https://github.com/alexandrainst/danlp/blob/master/docs/docs/tasks/sentiment_analysis.md
