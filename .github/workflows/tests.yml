@@ -62,7 +62,7 @@ jobs:
           ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
           # to save time and also to avoid dependency conflicts of NERDA==1.0.0
         id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.39
+        uses: MishaKav/pytest-coverage-comment@v1.1.44
         with:
           pytest-coverage-path: ./pytest-coverage.txt
 
