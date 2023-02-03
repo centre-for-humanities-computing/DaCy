@@ -63,7 +63,7 @@ tests = [
     "pytest-cov>=3.0.0,<3.0.1",
 ]
 docs = [
-    "Sphinx>=4.5.0,<5.1.0",
+    "Sphinx>=4.5.0,<6.2.0",
     "furo>=2022.6.21,<2022.6.30",
     "sphinxext-opengraph>=0.6.3,<0.7.0",
     "sphinx-copybutton>=0.5.0,<0.6.0",
