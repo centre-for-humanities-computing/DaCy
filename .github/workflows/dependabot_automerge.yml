@@ -16,6 +16,7 @@ jobs:
 
     steps:
       # Checkout action is required for token to persist
+      
       - name: Enable auto-merge for Dependabot PRs
         run: gh pr merge --auto --merge "$PR_URL" # Use Github CLI to merge automatically the PR
         env:
