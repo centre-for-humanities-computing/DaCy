@@ -24,7 +24,6 @@ def add_iob(doc: Doc, iob: List[str]) -> Doc:
     """
     ent = []
     for i, label in enumerate(iob):
-
         # turn OOB labels into spans
         if label == "O":
             continue

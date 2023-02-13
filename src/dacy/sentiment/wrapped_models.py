@@ -139,7 +139,6 @@ def make_emotion_transformer(
     doc_extension_prediction: str,
     labels: List[str],
 ) -> SequenceClassificationTransformer:
-
     if not Doc.has_extension("dacy/emotionally_laden"):
         warn(
             "The 'emotion' component assumes the 'emotionally_laden' extension is set."
