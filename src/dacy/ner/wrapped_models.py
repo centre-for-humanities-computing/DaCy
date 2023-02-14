@@ -9,7 +9,7 @@ doc_extension_trf_data = "tok_clf_trf_data"
 doc_extension_prediction = "tok_clf_predictions"
 predictions_to = null
 labels = null
-aggregation_strategy = "average"
+aggregation_strategy = "first"
 
 [token_classification_transformer.set_extra_annotations]
 @annotation_setters = "spacy-transformers.null_annotation_setter.v1"
