@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v2.3.2 (2023-02-14)
+### Fix
+* Allow ner model to handle long sequences ([`243867d`](https://github.com/centre-for-humanities-computing/DaCy/commit/243867daf0c873a7b59ee6d7459c4a0446332eca))
+* Update aggregation strategy to follow recommendation by the creator ([`17ed355`](https://github.com/centre-for-humanities-computing/DaCy/commit/17ed3551c1898d5c5028fce9534b0166177e6c67))
+
+### Documentation
+* Update formatting ([`38fc982`](https://github.com/centre-for-humanities-computing/DaCy/commit/38fc98238b5608486a0d816db2131ebdfd204123))
+
 ## v2.3.1 (2023-01-09)
 ### Fix
 * Update about.py ([#178](https://github.com/centre-for-humanities-computing/DaCy/issues/178)) ([`e548c82`](https://github.com/centre-for-humanities-computing/DaCy/commit/e548c8218f8612173948ef2f423024ddf950109a))
