@@ -76,7 +76,7 @@ tutorials = [
     "jupyter",
     # sentiment analysis
     "asent>=0.4.2,<0.7.0",
-    "augmenty>=1.0.2,<1.1.0",
+    "augmenty>=1.0.2,<1.4.0",
     # dacy robustness
     # the @ allows installing using a link
     "NERDA==1.0.0",
