@@ -169,7 +169,7 @@ dacy_ner/assets/*
 dacy_ner/configs/config_test.cfg
 dacy_ner/rm_later/*
 dacy_ner/requirements.txt
-dacy_ner/src/server_dependencies.sh
+dacy_ner/server_dependencies.sh
 dacy_ner/wandb/*
 dacy_ner/training/*
 dacy_ner/packages/*

@@ -30,9 +30,9 @@ directories: ["assets", "corpus", "training", "metrics", "packages"]
 
 assets:
   - dest: "assets/dansk.spacy" 
-    #url: "DANSK has not yet been released for public use"
+    # url: "DANSK has not yet been released for public use"
     # script:
-    # - "python src/fetch_assets.py"
+    # - "python fetch_assets.py"
 
 workflows:
   prepare_data:
@@ -56,14 +56,14 @@ commands:
   - name: fetch_assets
     help: "Downloads DANSK to assets/"
     script: 
-      - "python src/fetch_assets.py"
+      - "python fetch_assets.py"
     outputs:
       - "assets/dansk.spacy"
 
   - name: split_dansk
     help: "Splits DANSK into train, dev, test"
     script: 
-      - "python src/split_dansk.py"
+      - "python split_dansk.py"
     deps:
       - "assets/dansk.spacy"
     outputs:
@@ -100,7 +100,7 @@ commands:
     help: "Package the ${vars.size} trained model so it can be installed"
     script:
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --build wheel --force"
-      - "python src/update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
+      - "python update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
       - "rm packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/README.md"
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --meta-path template_meta_${vars.size}.json --build wheel --force"
       - "rm template_meta_${vars.size}.json"
@@ -173,25 +173,25 @@ commands:
     help: "Package all trained models so they may be installed"
     script:
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --build wheel --force"
-      - "python src/update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
+      - "python update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
       - "rm packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/README.md"
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --meta-path template_meta_${vars.size}.json --build wheel --force"
       - "rm template_meta_${vars.size}.json"
 
       - "python -m spacy package training/small/model-best packages --name dacy_small_DANSK_ner --version ${vars.package_version} --build wheel --force"
-      - "python src/update_meta_json.py ${vars.package_version} small packages/da_dacy_small_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
+      - "python update_meta_json.py ${vars.package_version} small packages/da_dacy_small_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
       - "rm packages/da_dacy_small_DANSK_ner-${vars.package_version}/README.md"
       - "python -m spacy package training/small/model-best packages --name dacy_small_DANSK_ner --version ${vars.package_version} --meta-path template_meta_small.json --build wheel --force"
       - "rm template_meta_small.json"
 
       - "python -m spacy package training/medium/model-best packages --name dacy_medium_DANSK_ner --version ${vars.package_version} --build wheel --force"
-      - "python src/update_meta_json.py ${vars.package_version} medium packages/da_dacy_medium_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
+      - "python update_meta_json.py ${vars.package_version} medium packages/da_dacy_medium_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
       - "rm packages/da_dacy_medium_DANSK_ner-${vars.package_version}/README.md"
       - "python -m spacy package training/medium/model-best packages --name dacy_medium_DANSK_ner --version ${vars.package_version} --meta-path template_meta_medium.json --build wheel --force"
       - "rm template_meta_medium.json"
 
       - "python -m spacy package training/large/model-best packages --name dacy_large_DANSK_ner --version ${vars.package_version} --build wheel --force"
-      - "python src/update_meta_json.py ${vars.package_version} large packages/da_dacy_large_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
+      - "python update_meta_json.py ${vars.package_version} large packages/da_dacy_large_DANSK_ner-${vars.package_version}/meta.json ${vars.no_dev_test}"
       - "rm packages/da_dacy_large_DANSK_ner-${vars.package_version}/README.md"
       - "python -m spacy package training/large/model-best packages --name dacy_large_DANSK_ner --version ${vars.package_version} --meta-path template_meta_large.json --build wheel --force"
       - "rm template_meta_large.json"
