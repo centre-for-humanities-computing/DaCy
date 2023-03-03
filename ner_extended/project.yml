@@ -23,10 +23,6 @@ vars:
 # sure that they always exist.
 directories: ["assets", "corpus", "training", "metrics", "packages"]
 
-# I changed the names of the models to "dacy_${vars.size}_DANSK_ner"
-# If bad, use replace all: "dacy_${vars.size}_DANSK_ner" with: "dacy_${vars.size}_trf"? 
-# and 
-# "dacy_large_DANSK_ner" with "dacy_large_trf"?
 
 assets:
   - dest: "assets/dansk.spacy" 
