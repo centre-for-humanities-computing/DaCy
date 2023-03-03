@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     meta["version"] = version
     if no_partitioning:
-        meta["name"] += "_no_test"
+        meta["name"] += "_no_partitioning"
     meta["email"] = "Kenneth.enevoldsen@cas.au.dk"
     meta["author"] = "Centre for Humanities Computing Aarhus"
     meta["url"] = "https://chcaa.io/#/"

@@ -32,7 +32,7 @@ def partitioning():
     random.seed(0)
     random.shuffle(dansk_docs)
 
-    # Execute split and save split files
+    # Execute split
     print("Splitting commencing ...")
     ten_percent = len(dansk_docs) // 100 * 10
     partitions = {
@@ -40,7 +40,8 @@ def partitioning():
         "dev": dansk_docs[:ten_percent],
         "test": dansk_docs[ten_percent : ten_percent * 2],
     }
-
+    
+    # Save split files and print tag counts to terminal
     for partition in partitions:
         db = DocBin()
         for doc in partitions[partition]:
