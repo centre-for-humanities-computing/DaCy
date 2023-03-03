@@ -49,7 +49,7 @@ def partitioning():
             db.add(doc)
         db.to_disk(f"corpus/{partition}.spacy")
         print(
-            f"corpus/{partition}.spacy saved successfully.\nThis new serialized DocBin contains {n_docs} documents and the following number of entity tags: {tag_counts(partitions[partition])}"
+            f"corpus/{partition}.spacy saved successfully.\nThis new serialized DocBin contains {n_docs} documents and the following number of entity tags: {tag_counts(partitions[partition])}",
         )
 
 
