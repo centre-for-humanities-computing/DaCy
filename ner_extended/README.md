@@ -1,11 +1,11 @@
 <!-- SPACY PROJECT: AUTO-GENERATED DOCS START (do not remove) -->
 
-# 🪐 spaCy Project: Train spaCy transformer for Danish
+# 🪐 spaCy Project: Train Danish DaCy NER transformer models on DANSK
 
-This project template lets you train a Named-Entity Recognition model on the DANSK dataset. It takes care of downloading the corpus and trains and evaluates the model. The template uses one of more of the transformer models which have been downloaded via Huggingface: 
+This project template lets you train a fine-grained Named-Entity Recognition model on the DANSK dataset containing 18 types annotations. It takes care of downloading the corpus as well as training, evaluating, packaging and releasing the model. The template uses one of more of the transformer models which have been downloaded via Huggingface: 
   - "jonfd/electra-small-nordic"
   - "NbAiLab/nb-roberta-base-scandi", 
-  - "KennethEnevoldsen/dfm-bert-large-v1-2048bsz-1Msteps"ßß
+  - "KennethEnevoldsen/dfm-bert-large-v1-2048bsz-1Msteps"
   
 You can run from yaml file using spacy project run WORKFLOW/COMMAND
 
@@ -46,6 +46,7 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
+| `prepare_data` | `fetch_assets` &rarr; `split_dansk` |
 | `train_eval_pack_publ` | `train` &rarr; `evaluate` &rarr; `package` &rarr; `publish` |
 | `all_models_train_eval_pack_publ` | `train_all_models` &rarr; `evaluate_all_models` &rarr; `package_all_models` &rarr; `publish_all_models` |
 
@@ -57,6 +58,6 @@ in the project directory.
 
 | File | Source | Description |
 | --- | --- | --- |
-| [`assets/`](assets/) | Local |  |
+| [`assets/dansk.spacy`](assets/dansk.spacy) | Local | The full to-be-published DANSK dataset |
 
 <!-- SPACY PROJECT: AUTO-GENERATED DOCS END (do not remove) -->

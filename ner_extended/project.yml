@@ -30,6 +30,7 @@ directories: ["assets", "corpus", "training", "metrics", "packages"]
 
 assets:
   - dest: "assets/dansk.spacy" 
+    description: "The full to-be-published DANSK dataset"
     # url: "DANSK has not yet been released for public use"
     # script:
     # - "python fetch_assets.py"
