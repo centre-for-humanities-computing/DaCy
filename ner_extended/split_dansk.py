@@ -40,7 +40,7 @@ def partitioning():
         "dev": dansk_docs[:ten_percent],
         "test": dansk_docs[ten_percent : ten_percent * 2],
     }
-    
+
     # Save split files and print tag counts to terminal
     for partition in partitions:
         db = DocBin()
@@ -48,7 +48,7 @@ def partitioning():
             db.add(doc)
         db.to_disk(f"corpus/{partition}.spacy")
         print(
-            f"corpus/{partition}.spacy saved successfully.\nThis new serialized DocBin contains the following number of entity tags: {tag_counts(partitions[partition])}"
+            f"corpus/{partition}.spacy saved successfully.\nThis new serialized DocBin contains the following number of entity tags: {tag_counts(partitions[partition])}",
         )
 
 
