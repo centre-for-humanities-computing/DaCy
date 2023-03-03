@@ -164,14 +164,14 @@ _build/*
 tutorials/BenchmarkFairness.ipynb
 tutorials/*.py
 
-# dacy_ner
-dacy_ner/assets/*
-dacy_ner/configs/config_test.cfg
-dacy_ner/rm_later/*
-dacy_ner/requirements.txt
-dacy_ner/server_dependencies.sh
-dacy_ner/wandb/*
-dacy_ner/training/*
-dacy_ner/packages/*
-dacy_ner/project.lock
-dacy_ner/corpus/*
+# ner_extended
+ner_extended/assets/*
+ner_extended/configs/config_test.cfg
+ner_extended/rm_later/*
+ner_extended/requirements.txt
+ner_extended/server_dependencies.sh
+ner_extended/wandb/*
+ner_extended/training/*
+ner_extended/packages/*
+ner_extended/project.lock
+ner_extended/corpus/*
