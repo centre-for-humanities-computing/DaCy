@@ -12,3 +12,4 @@ pip install huggingface==0.0.1 # no version works
 pip install spacy-huggingface-hub==0.0.8 #no version works
 pip install wandb==0.13.9 # no version works
 wandb login
+huggingface-cli login
