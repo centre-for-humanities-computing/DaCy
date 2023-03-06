@@ -69,7 +69,7 @@ commands:
     script: 
       - "bash preprocessing.sh"
       - "python fetch_assets.py"
-      - "deactivate"
+      
     outputs:
       - "assets/dansk.spacy"
 
@@ -78,7 +78,7 @@ commands:
     script: 
       - "bash preprocessing.sh"
       - "python split_dansk.py"
-      - "deactivate"
+      
     deps:
       - "assets/dansk.spacy"
     outputs:
@@ -92,7 +92,7 @@ commands:
       - "bash train.sh"
       - "mkdir -p training/${vars.size}"
       - "python -m spacy train configs/config_${vars.size}.cfg --output training/${vars.size} --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
-      - "deactivate"
+      
     deps:
       - "corpus/train.spacy"
       - "corpus/dev.spacy"
@@ -106,7 +106,7 @@ commands:
       - "bash train.sh"
       - "python -m spacy evaluate ./training/${vars.size}/model-last corpus/test.spacy --output ./metrics/last_dacy_${vars.size}_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/${vars.size}/model-best corpus/test.spacy --output ./metrics/best_dacy_${vars.size}_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      - "deactivate"
+      
     deps:
       - "training/${vars.size}/model-last"
       - "training/${vars.size}/model-best"
@@ -124,7 +124,7 @@ commands:
       - "rm packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/README.md"
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --meta-path template_meta_${vars.size}.json --build wheel --force"
       - "rm template_meta_${vars.size}.json"
-      - "deactivate"
+      
     deps:
       - "training/${vars.size}/model-best"
 
@@ -133,7 +133,7 @@ commands:
     script:
       - "bash packaging.sh"
       - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
-      - "deactivate"
+      
     deps:
       - "packages/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}-py3-none-any.whl"
 
@@ -151,7 +151,7 @@ commands:
       - "mkdir -p training/large"
       - "python -m spacy train configs/config_large.cfg --output training/large --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
 
-      - "deactivate"
+      
     deps:
       - "corpus/train.spacy"
       - "corpus/dev.spacy"
@@ -177,7 +177,7 @@ commands:
       - "python -m spacy evaluate ./training/large/model-last corpus/test.spacy --output ./metrics/last_dacy_large_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/large/model-best corpus/test.spacy --output ./metrics/last_dacy_large_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
 
-      - "deactivate"
+      
     deps:
       - "training/small/model-last"
       - "training/small/model-best"
@@ -228,7 +228,7 @@ commands:
       - "python -m spacy package training/large/model-best packages --name dacy_large_DANSK_ner --version ${vars.package_version} --meta-path template_meta_large.json --build wheel --force"
       - "rm template_meta_large.json"
 
-      - "deactivate"
+      
     deps:
       - "training/small/model-best"
 
@@ -247,7 +247,7 @@ commands:
 
       - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_large_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_large_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
 
-      - "deactivate"
+      
     deps:
       - "packages/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}-py3-none-any.whl"
 
