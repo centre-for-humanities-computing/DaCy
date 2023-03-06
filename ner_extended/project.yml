@@ -65,7 +65,7 @@ commands:
       - "requirements_packaging_env.txt"
       
   - name: fetch_assets
-    help: "Downloads DANSK to assets/"
+    help: "Downloads DANSK to assets/ Remember to activate the right environment (preprocessing_env)."
     script: 
       - "source preprocessing.sh"
       - "python fetch_assets.py"
@@ -74,9 +74,8 @@ commands:
       - "assets/dansk.spacy"
 
   - name: split_dansk
-    help: "Splits DANSK into train, dev, test"
+    help: "Splits DANSK into train, dev, test. Remember to activate the right environment (preprocessing_env)."
     script: 
-      - "source preprocessing.sh"
       - "python split_dansk.py"
       
     deps:
@@ -87,9 +86,8 @@ commands:
       - "corpus/test.spacy"
 
   - name: train
-    help: "Trains ${vars.size} DaCy model"
+    help: "Trains ${vars.size} DaCy model. Remember to activate the right environment (training_env)."
     script:
-      - "source train.sh"
       - "mkdir -p training/${vars.size}"
       - "python -m spacy train configs/config_${vars.size}.cfg --output training/${vars.size} --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
       
@@ -101,9 +99,8 @@ commands:
       - "training/${vars.size}/model-last"
     
   - name: evaluate
-    help: "Evaluate the ${vars.size} model on the test.spacy and save the metrics"
+    help: "Evaluate the ${vars.size} model on the test.spacy and save the metrics. Remember to activate the right environment (training_env)."
     script:
-      - "source train.sh"
       - "python -m spacy evaluate ./training/${vars.size}/model-last corpus/test.spacy --output ./metrics/last_dacy_${vars.size}_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/${vars.size}/model-best corpus/test.spacy --output ./metrics/best_dacy_${vars.size}_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       
@@ -116,9 +113,8 @@ commands:
       - "./metrics/best_dacy_${vars.size}_DANSK_ner-${vars.package_version}.json"
 
   - name: package
-    help: "Package the ${vars.size} trained model so it can be installed"
+    help: "Package the ${vars.size} trained model so it can be installed. Remember to activate the right environment (preprocessing_env)."
     script:
-      - "source packaging.sh"
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --build wheel --force"
       - "python update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/meta.json ${vars.no_partitioning}"
       - "rm packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/README.md"
@@ -129,19 +125,16 @@ commands:
       - "training/${vars.size}/model-best"
 
   - name: publish
-    help: "Publish ${vars.size} package to huggingface model hub."
+    help: "Publish ${vars.size} package to huggingface model hub. Remember to activate the right environment (preprocessing_env)."
     script:
-      - "source packaging.sh"
       - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
       
     deps:
       - "packages/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}-py3-none-any.whl"
 
   - name: train_all_models
-    help: "Trains DaCy models of small, medium and large"
+    help: "Trains DaCy models of small, medium and large. Remember to activate the right environment (training_env)."
     script:
-      - "source train.sh"
-
       - "mkdir -p training/small"
       - "python -m spacy train configs/config_small.cfg --output training/small --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
       
@@ -151,7 +144,6 @@ commands:
       - "mkdir -p training/large"
       - "python -m spacy train configs/config_large.cfg --output training/large --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
 
-      
     deps:
       - "corpus/train.spacy"
       - "corpus/dev.spacy"
@@ -164,10 +156,8 @@ commands:
       - "training/large/model-last"
 
   - name: evaluate_all_models
-    help: "Evaluate all models on the test.spacy and save the metrics"
+    help: "Evaluate all models on the test.spacy and save the metrics. Remember to activate the right environment (training_env)."
     script:
-      - "source train.sh"
-
       - "python -m spacy evaluate ./training/small/model-last corpus/test.spacy --output ./metrics/last_dacy_small_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/small/model-best corpus/test.spacy --output ./metrics/last_dacy_small_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       
@@ -200,10 +190,8 @@ commands:
       - "./metrics/best_dacy_large_DANSK_ner-${vars.package_version}.json"
 
   - name: package_all_models
-    help: "Package all trained models so they may be installed"
+    help: "Package all trained models so they may be installed. Remember to activate the right environment (preprocessing_env)."
     script:
-      - "source packaging.sh"
-
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_DANSK_ner --version ${vars.package_version} --build wheel --force"
       - "python update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/meta.json ${vars.no_partitioning}"
       - "rm packages/da_dacy_${vars.size}_DANSK_ner-${vars.package_version}/README.md"
@@ -237,10 +225,8 @@ commands:
       - "training/large/model-best"
 
   - name: publish_all_models
-    help: "Publish all model packages to huggingface model hub."
+    help: "Publish all model packages to huggingface model hub. Remember to activate the right environment (preprocessing_env)."
     script:
-      - "source packaging.sh"
-
       - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
 
       - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_medium_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_medium_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
