@@ -167,9 +167,9 @@ tutorials/*.py
 # ner_extended
 ner_extended/assets/*
 ner_extended/rm_later/*
-ner_extended/server_dependencies.sh
 ner_extended/wandb/*
 ner_extended/training/*
 ner_extended/packages/*
 ner_extended/project.lock
 ner_extended/corpus/*
+ner_extended/environments/*
