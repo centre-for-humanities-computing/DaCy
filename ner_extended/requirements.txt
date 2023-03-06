@@ -1,10 +1,9 @@
-wheel==0.38.4 # no version works
+wheel==0.38.4 
 numpy==1.23.3
-spacy==3.5.0 # no version works
-#spacy-transformers # below version has dependency of transformers that matches the dependency of spacy-huggingface-hub
-spacy-transformers==1.1.2
-torch==1.13.1 # no version works
-spacy[cuda101] # no idea about version? but version from 30 Jan 2023 works
-huggingface==0.0.1 # no version works
-spacy-huggingface-hub==0.0.8 #no version works
-wandb==0.13.9 # no version works
+spacy==3.5.0 
+spacy-transformers==1.1.2 # matches the dependency of spacy-huggingface-hub
+torch==1.13.1
+spacy[cuda101] # version from 30 Jan 2023 works
+huggingface==0.0.1
+spacy-huggingface-hub==0.0.8
+wandb==0.13.9
