@@ -40,7 +40,6 @@ if __name__ == "__main__":
     meta["author"] = "Centre for Humanities Computing Aarhus"
     meta["url"] = "https://chcaa.io/#/"
     meta["license"] = "apache-2.0"
-    meta["requirements"] = ["spacy-transformers>=1.0.3,<1.1.0"]
     meta["sources"] = [
         {
             "name": "DANSK - Danish Annotations for NLP Specific TasKs",
