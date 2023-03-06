@@ -12,7 +12,7 @@ description: >
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
   lang: "da"
-  size: "large"
+  size: "test"
   no_partitioning: 0
   package_version: "0.1.0"
   gpu_id: -1
