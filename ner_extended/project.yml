@@ -31,6 +31,25 @@ assets:
     # script:
     # - "python fetch_assets.py"
 
+
+workflows:
+  prepare_data:
+    - fetch_assets
+    - split_dansk
+
+  train_eval_pack_publ:
+    - train
+    - evaluate
+    - package
+    - publish
+
+  all_models_train_eval_pack_publ:
+    - train_all_models
+    - evaluate_all_models
+    - package_all_models
+    - publish_all_models
+
+
 workflows:
   prepare_data:
     - fetch_assets
