@@ -12,10 +12,10 @@ description: >
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
   lang: "da"
-  size: "test"
+  size: "small"
   no_partitioning: 0
   package_version: "0.1.0"
-  gpu_id: -1
+  gpu_id: 0
   #spacy_version: ">=3.1.0"
   #organization: "chcaa"
 
@@ -54,15 +54,6 @@ commands:
     help: "Installs dependencies and drivers for NVIDIA GPU"
     script:
       - "bash server_dependencies.sh"
-
-  - name: setup_envs
-    help: "Sets up environments and installs dependencies"
-    script:
-      - "bash create_environments.sh"
-    deps:
-      - "requirements_preprocessing_env.txt"
-      - "requirements_training_env.txt"
-      - "requirements_packaging_env.txt"
       
   - name: fetch_assets
     help: "Downloads DANSK to assets/ Remember to activate the right environment (preprocessing_env)."
