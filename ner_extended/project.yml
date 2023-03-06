@@ -9,6 +9,7 @@ description: >
       
     You can run from yaml file using
     spacy project run WORKFLOW/COMMAND
+
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
   lang: "da"
@@ -50,25 +51,13 @@ workflows:
     - publish_all_models
 
 
-workflows:
-  prepare_data:
-    - fetch_assets
-    - split_dansk
-
-  train_eval_pack_publ:
-    - train
-    - evaluate
-    - package
-    - publish
-
-  all_models_train_eval_pack_publ:
-    - train_all_models
-    - evaluate_all_models
-    - package_all_models
-    - publish_all_models
-
-
 commands:
+  - name: login
+    help: "Login for wandb and huggingface-cli"
+    script:
+      - "wandb login"
+      - "huggingface-cli login"
+
   - name: setup_gpu
     help: "Installs dependencies and drivers for NVIDIA GPU"
     script:
@@ -225,7 +214,6 @@ commands:
       - "python -m spacy package training/large/model-best packages --name dacy_large_DANSK_ner --version ${vars.package_version} --meta-path template_meta_large.json --build wheel --force"
       - "rm template_meta_large.json"
 
-      
     deps:
       - "training/small/model-best"
 
