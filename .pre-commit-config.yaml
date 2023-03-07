@@ -33,9 +33,8 @@ repos:
     rev: v0.0.254
     hooks:
       - id: ruff
-        args: ["--force-exclude"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    -   id: check-toml
+      - id: check-toml
