@@ -173,3 +173,4 @@ ner_extended/packages/*
 ner_extended/project.lock
 ner_extended/corpus/*
 ner_extended/environments/*
+ner_extended/metrics/*

@@ -94,7 +94,9 @@ the `tutorials` folder.
 <details>
   <summary> Training and reproduction </summary>
 
-the folder `training` contains a SpaCy project which will allow for reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information, please see the training [readme](training/readme.md).
+The folder `training` contains a SpaCy project which will allow for reproduction of the results. This folder also includes the evaluation metrics on DaNE and scripts for downloading the required data. For more information, please see the training [readme](training/readme.md).
+
+Similarly, the folder `ner_extended`contains a spaCy project which will allow for reproduction of the results and models with fine-grained NER, using the DANSK dataset annotations. More information available in the [readme](ner_extended/README.md).
 
 Want to learn more about how DaCy initially came to be, check out this [blog post](https://www.kennethenevoldsen.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 
