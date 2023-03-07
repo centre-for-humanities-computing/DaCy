@@ -14,10 +14,10 @@ def main(version, size, meta_json_path, no_partitioning):
             "license": "CC BY 4.0",
         },
         "medium": {
-            "name": "NbAiLab/nb-roberta-base-scandi",
-            "author": "Nasjonalbiblioteket AI Lab",
-            "url": "https://huggingface.co/NbAiLab/nb-roberta-base-scandinavian",
-            "license": "CC BY 4.0",
+            "name": "vesteinn/DanskBERT",
+            "author": "Vésteinn Snæbjarnarson",
+            "url": "https://huggingface.co/vesteinn/DanskBERT",
+            "license": "agpl-3.0",
         },
         "large": {
             "name": "chcaa/dfm-encoder-large-v1",
