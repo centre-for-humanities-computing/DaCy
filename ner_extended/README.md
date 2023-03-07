@@ -64,7 +64,7 @@ in the project directory.
 
 <!-- SPACY PROJECT: AUTO-GENERATED DOCS END (do not remove) -->
 
-### 🗂 Data split
+### 📜 Data split
 
 The DANSK dataset split for this project contains following elements:
 
@@ -74,7 +74,7 @@ The DANSK dataset split for this project contains following elements:
 | [`corpus/dev.spacy`](corpus/dev.spacy) | Local | The dev partition of the full DANSK dataset |
 | [`corpus/test.spacy`](corpus/test.spacy) | Local | The testing partition of the full DANSK dataset |
 
-The distribution of Documents and entities can be seen below:
+The distribution of documents and entities for the partitions can be seen in the table below:
 
 |                   	| **Full** 	|    **Train**   	|    **Dev**    	|   **Test**   	|
 |:-----------------:	|:--------:	|:--------------:	|:-------------:	|:------------:	|
