@@ -1,11 +1,7 @@
 import json, sys
 
-if __name__ == "__main__":
-    version = str(sys.argv[1])
-    size = str(sys.argv[2])
-    meta_json_path = str(sys.argv[3])
-    no_partitioning = bool(sys.argv[4])
 
+def main(version, size, meta_json_path, no_partitioning):
     print(f"Updating {meta_json_path} with relevant information from the config ...")
     with open(meta_json_path) as f:
         meta = json.load(f)
@@ -24,9 +20,9 @@ if __name__ == "__main__":
             "license": "CC BY 4.0",
         },
         "large": {
-            "name": "KennethEnevoldsen/dfm-bert-large-v1-2048bsz-1Msteps",
-            "author": "Kenneth Enevoldsen",
-            "url": "",
+            "name": "chcaa/dfm-encoder-large-v1",
+            "author": "CHCAA",
+            "url": "https://huggingface.co/chcaa/dfm-encoder-large-v1",
             "license": "CC BY 4.0",
         },
         "test": {"test": "test"},
@@ -65,6 +61,10 @@ DaCy also contains guides on usage of the package as well as behavioural test fo
     with open(f"template_meta_{size}.json", "w") as f:
         json.dump(meta, f)
 
-    # with open(meta_json_path, "w") as out_file:
-    #     json.dump(meta, out_file)
-    #     print(f"{meta_json_path} has been updated")
+
+if __name__ == "__main__":
+    version = str(sys.argv[1])
+    size = str(sys.argv[2])
+    meta_json_path = str(sys.argv[3])
+    no_partitioning = bool(sys.argv[4])
+    main(version, size, meta_json_path, no_partitioning)

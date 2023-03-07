@@ -1,3 +1,9 @@
+# Setup for initial training of models for Virtual Machine
+# System: image based on Cuda + Jupyter on Ubuntu v. 20.04
+# GPU: uc-t4-1 / uc-t4gpu
+# Access: UCloud, Aalborg University 
+
+
 # upgrade system
 sudo apt full-upgrade -y
 sudo apt update -y

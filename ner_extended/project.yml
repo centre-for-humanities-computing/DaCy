@@ -17,8 +17,7 @@ vars:
   no_partitioning: 0
   package_version: "0.1.0"
   gpu_id: 0
-  #spacy_version: ">=3.1.0"
-  #organization: "chcaa"
+  organization: "chcaa"
 
 # These are the directories that the project needs. The project CLI will make
 # sure that they always exist.
@@ -61,7 +60,7 @@ commands:
   - name: setup_gpu
     help: "Installs dependencies and drivers for NVIDIA GPU"
     script:
-      - "bash server_dependencies.sh"
+      - "bash server_setup.sh"
       
   - name: fetch_assets
     help: "Downloads DANSK to assets/ "
@@ -131,7 +130,7 @@ commands:
       - "packages/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_DANSK_ner-${vars.package_version}-py3-none-any.whl"
 
   - name: train_all_models
-    help: "Trains DaCy models of small, medium and large. "
+    help: "Trains DaCy models of small, medium and large."
     script:
       - "mkdir -p training/small"
       - "python -m spacy train configs/config_small.cfg --output training/small --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
@@ -222,13 +221,13 @@ commands:
       - "training/large/model-best"
 
   - name: publish_all_models
-    help: "Publish all model packages to huggingface model hub. "
+    help: "Publish all model packages to huggingface model hub."
     script:
-      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_small_DANSK_ner-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
 
-      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_medium_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_medium_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_medium_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_medium_DANSK_ner-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
 
-      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_large_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_large_DANSK_ner-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_large_DANSK_ner-${vars.package_version}/dist/${vars.lang}_dacy_large_DANSK_ner-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
 
       
     deps:
