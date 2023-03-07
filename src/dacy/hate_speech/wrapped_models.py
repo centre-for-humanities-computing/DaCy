@@ -82,7 +82,6 @@ def make_offensive_transformer(
     doc_extension_prediction: str,
     labels: List[str],
 ) -> SequenceClassificationTransformer:
-
     if not Doc.has_extension("is_offensive"):
         warn(
             "The component assumes the 'is_offensive' extension is set."
