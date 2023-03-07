@@ -113,6 +113,60 @@ To do this you can simply load the model using:
 
 Do note that this will add an additonal model to your pipeline, which will slow down the inference speed.
 
+Fine-grained NER
+########################################
+
+DaCy also features models with a more fine-grained Named Entity Recognition component, allowing the detection of 18 classes namely the following Named Entities:
+
+|              |                                                      |
+| ------------ | ---------------------------------------------------- |
+| PERSON       | People, including fictional                          |
+| NORP         | Nationalities or religious or political groups       |
+| FACILITY     | Building, airports, highways, bridges, etc.          |
+| ORGANIZATION | Companies, agencies, institutions, etc.              |
+| GPE__________| Countries, cities, states.                           |
+| LOCATION     | Non-GPE locations, mountain ranges, bodies of water  |
+| PRODUCT      | Vehicles, weapons, foods, etc. (not services)        |
+| EVENT        | Named hurricanes, battles, wars, sports events, etc. |
+| WORK OF ART  | Titles of books, songs, etc.                         |
+| LAW          | Named documents made into laws                       |
+| LANGUAGE     | Any named language                                   |
+
+As well as annotation for the following concepts:
+
+|          |                                             |
+| -------- | ------------------------------------------- |
+| DATE     | Absolute or relative dates or periods       |
+| TIME     | Times smaller than a day                    |
+| PERCENT  | Percentage (including *"%"*)                |
+| MONEY    | Monetary values, including unit             |
+| QUANTITY | Measurements, as of weight or distance      |
+| ORDINAL  | "first", "second"                           |
+| CARDINAL | Numerals that do no fall under another type |
+
+The fine-grained NER component may be utilized in an existing pipeline in the following fashion:
+
+.. code-block:: python
+
+   # load the small dacy model excluding the NER component
+   nlp = dacy.load("da_dacy_small_trf-0.1.0", exclude=["ner"])
+   # or use an empty spacy model if you only want to do NER
+   # nlp = spacy.blank("da")
+
+   # add the ner component from the state-of-the-art model
+   nlp.add_pipe("dacy/ner-small-fine-grained")
+
+   doc = nlp("Denne model og 3 andre blev trænet klokken d. 7. marts af Center for Humantities Computing i Aarhus kommune")
+
+   for entity in doc.ents:
+      print(entity, ":", entity.label_)
+
+   # 3: CARDINAL
+   # 7. marts : DATE
+   # Center for Humantities Computing : ORGANIZATION
+   # Aarhus kommune : GPE
+
+
 Parts-of-speech Tagging
 ====================================
 
