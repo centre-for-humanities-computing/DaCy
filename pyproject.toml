@@ -30,7 +30,7 @@ keywords = [
 
 dependencies = [
     "spacy-wrap>=1.4.1,<1.5.0",
-    "spacy>=3.2.0,<3.5.0",
+    "spacy>=3.2.0,<3.6.0",
     "pandas>=1.0.0,<2.0.0",
     "wasabi>=0.8.2,<0.11.0",
     "tqdm>=4.42.1,<4.65.0",
@@ -75,8 +75,8 @@ tutorials = [
     # to run notebooks
     "jupyter",
     # sentiment analysis
-    "asent>=0.4.2,<0.7.0",
-    "augmenty>=1.0.2,<1.1.0",
+    "asent>=0.4.2,<0.8.0",
+    "augmenty>=1.0.2,<1.4.0",
     # for the textdescriptives tutorial
     "textdescriptives>=2.1.0,<3.0.0",
     "seaborn>=0.11.2,<0.13.0",
