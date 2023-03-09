@@ -40,9 +40,9 @@ def main(version, size, meta_json_path, no_partitioning):
     meta["sources"] = [
         {
             "name": "DANSK - Danish Annotations for NLP Specific TasKs",
-            "url": "",
-            "license": "",
-            "author": "",
+            "url": "https://huggingface.co/datasets/chcaa/DANSK",
+            "license": "Creative Commons Attribution Share Alike 4.0 International",
+            "author": "chcaa",
         },
         model,
     ]
