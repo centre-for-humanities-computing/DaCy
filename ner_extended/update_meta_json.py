@@ -29,7 +29,7 @@ def main(version, size, meta_json_path, no_partitioning):
     }
     model = mdl_used[size]
 
-    # meta["datasets"] = "chcaa/DANSK"
+    meta["datasets"] = "chcaa/DANSK"
     meta["version"] = version
     if no_partitioning:
         meta["name"] += "_no_partitioning"
