@@ -5,7 +5,7 @@ description: >
     The template uses one of more of the transformer models which have been downloaded via Huggingface: 
       - "jonfd/electra-small-nordic" - small,
       - "NbAiLab/nb-roberta-base-scandi" - medium,
-      - "KennethEnevoldsen/dfm-bert-large-v1-2048bsz-1Msteps" - large
+      - "chcaa/dfm-encoder-large-v1" - large
       
     You can run from yaml file using
     spacy project run WORKFLOW/COMMAND
