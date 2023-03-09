@@ -44,7 +44,7 @@ for model in dacy.models():
 
 To download and load a model simply execute:
 ```python
-nlp = dacy.load("da_dacy_medium_tfrf-0.1.0")
+nlp = dacy.load("da_dacy_medium_trf-0.1.0")
 # or equivalently
 nlp = dacy.load("medium")
 ```
