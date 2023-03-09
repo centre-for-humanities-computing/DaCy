@@ -11,7 +11,7 @@ def fetch_dansk():
         datasets = load_dataset("chcaa/DANSK")
     except FileNotFoundError:
         print(
-            "\nERROR: DANSK has yet to publically released. Write the authors for a request of early read access. Shutting down.\n"
+            "\nERROR: DANSK has yet to publically released. Write the authors for a request of early read access. Shutting down.\n",
         )
         raise
 
