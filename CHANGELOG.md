@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.0 (2023-03-09)
+### Feature
+* Updated spacy dependencies to include 3.5.0 ([`cd016e2`](https://github.com/centre-for-humanities-computing/DaCy/commit/cd016e2179c4c3073718f99301499001e0ff2af7))
+
+### Documentation
+* Update augmenty dependency for docs ([`ce0e7d6`](https://github.com/centre-for-humanities-computing/DaCy/commit/ce0e7d626006d849d97a5a78d0f4505c6c260f15))
+* Remove NERDA from tests it is no longer maintained. ([`cc1d8e8`](https://github.com/centre-for-humanities-computing/DaCy/commit/cc1d8e82d756f0fd56c6d94ec92c87510810e2e2))
+
 ## v2.3.2 (2023-02-14)
 ### Fix
 * Allow ner model to handle long sequences ([`243867d`](https://github.com/centre-for-humanities-computing/DaCy/commit/243867daf0c873a7b59ee6d7459c4a0446332eca))
