@@ -144,13 +144,13 @@ commands:
     help: "Evaluate all models on the test.spacy and save the metrics. "
     script:
       - "python -m spacy evaluate ./training/small/model-last corpus/test.spacy --output ./metrics/last_dacy_small_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      - "python -m spacy evaluate ./training/small/model-best corpus/test.spacy --output ./metrics/last_dacy_small_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/small/model-best corpus/test.spacy --output ./metrics/best_dacy_small_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       
       - "python -m spacy evaluate ./training/medium/model-last corpus/test.spacy --output ./metrics/last_dacy_medium_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      - "python -m spacy evaluate ./training/medium/model-best corpus/test.spacy --output ./metrics/last_dacy_medium_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/medium/model-best corpus/test.spacy --output ./metrics/best_dacy_medium_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       
       - "python -m spacy evaluate ./training/large/model-last corpus/test.spacy --output ./metrics/last_dacy_large_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      - "python -m spacy evaluate ./training/large/model-best corpus/test.spacy --output ./metrics/last_dacy_large_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/large/model-best corpus/test.spacy --output ./metrics/best_dacy_large_DANSK_ner-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
 
       
     deps:
