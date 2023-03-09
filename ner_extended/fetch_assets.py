@@ -14,7 +14,7 @@ def fetch_dansk():
         #     "\nERROR: DANSK has yet to publically released. Write the authors for a request of early read access. Shutting down.\n",
         # )
         raise FileNotFoundError(
-            "DANSK has yet to publically released. Write the authors for a request of early read access. \n\nShutting down."
+            "DANSK has yet to publically released. Write the authors for a request of early read access. \n\nShutting down.",
         )
 
     nlp = spacy.blank("da")
