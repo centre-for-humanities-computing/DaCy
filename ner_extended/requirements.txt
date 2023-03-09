@@ -1,3 +1,4 @@
+datasets==2.10.1
 wheel==0.38.4 
 numpy==1.23.3
 spacy==3.5.0 
