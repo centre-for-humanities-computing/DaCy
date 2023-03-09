@@ -10,10 +10,12 @@ def fetch_dansk():
     try:
         datasets = load_dataset("chcaa/DANSK")
     except FileNotFoundError:
-        print(
-            "\nERROR: DANSK has yet to publically released. Write the authors for a request of early read access. Shutting down.\n",
+        # print(
+        #     "\nERROR: DANSK has yet to publically released. Write the authors for a request of early read access. Shutting down.\n",
+        # )
+        raise FileNotFoundError(
+            "DANSK has yet to publically released. Write the authors for a request of early read access. \n\nShutting down."
         )
-        raise
 
     nlp = spacy.blank("da")
     partitions = ["train", "dev", "test"]
