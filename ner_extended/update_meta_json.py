@@ -51,7 +51,7 @@ def main(version, size, meta_json_path, no_partitioning):
     ] = f"""
 <a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="https://centre-for-humanities-computing.github.io/DaCy/_static/icon.png" width="175" height="175" align="right" /></a>
 
-# DaCy_{size}_DANSK_ner
+# DaCy_{size}_ner_fine_grained
 
 DaCy is a Danish language processing framework with state-of-the-art pipelines as well as functionality for analyzing Danish pipelines.
 At the time of publishing this model, also included in DaCy encorporates the only models for fine-grained NER using DANSK dataset - a dataset containing 18 annotation types in the same format as Ontonotes.
