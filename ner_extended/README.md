@@ -5,7 +5,7 @@
 This project template lets you train a fine-grained Named-Entity Recognition model on the DANSK dataset containing 18 types annotations. It takes care of downloading the corpus as well as training, evaluating, packaging and releasing the model. The template uses one of more of the transformer models which have been downloaded via Huggingface: 
   - "jonfd/electra-small-nordic" - small,
   - "NbAiLab/nb-roberta-base-scandi" - medium,
-  - "KennethEnevoldsen/dfm-bert-large-v1-2048bsz-1Msteps" - large
+  - "chcaa/dfm-encoder-large-v1" - large
   
 You can run from yaml file using spacy project run WORKFLOW/COMMAND
 
@@ -26,8 +26,7 @@ Commands are only re-run if their inputs have changed.
 | --- | --- |
 | `login` | Login for wandb and huggingface-cli |
 | `setup_gpu` | Installs dependencies and drivers for NVIDIA GPU |
-| `fetch_assets` | Downloads DANSK to assets/  |
-| `split_dansk` | Splits DANSK into train, dev, test.  |
+| `fetch_assets` | Downloads DANSK to assets/ |
 | `train` | Trains small DaCy model.  |
 | `evaluate` | Evaluate the small model on the test.spacy and save the metrics.  |
 | `package` | Package the small trained model so it can be installed.  |
@@ -48,7 +47,7 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `prepare_data` | `fetch_assets` &rarr; `split_dansk` |
+| `prepare_data` | `fetch_assets` |
 | `train_eval_pack_publ` | `train` &rarr; `evaluate` &rarr; `package` &rarr; `publish` |
 | `all_models_train_eval_pack_publ` | `train_all_models` &rarr; `evaluate_all_models` &rarr; `package_all_models` &rarr; `publish_all_models` |
 
