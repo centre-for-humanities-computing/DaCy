@@ -4,7 +4,6 @@ from datasets import load_dataset
 
 
 def fetch_dansk():
-
     # Download the datasetdict from the HuggingFace Hub
     try:
         datasets = load_dataset("chcaa/DANSK")

@@ -3,22 +3,21 @@ from spacy.tokens import DocBin
 
 
 def merge_datasets(no_partitioning, nlp_vocab):
-
     datasets_docs = {"train": [], "dev": [], "test": []}
     partitions = ["train", "dev", "test"]
 
     if not no_partitioning:
         print(
-            "no-dev-test set to 0: Merging DANSK and DaNE in train.spacy, dev.spacy, test.spacy"
+            "no-dev-test set to 0: Merging DANSK and DaNE in train.spacy, dev.spacy, test.spacy",
         )
         for p in partitions:
             dansk_docs = list(
-                DocBin().from_disk(f"corpus/dansk_{p}.spacy").get_docs(nlp_vocab)
+                DocBin().from_disk(f"corpus/dansk_{p}.spacy").get_docs(nlp_vocab),
             )
             datasets_docs[f"{p}"].extend(dansk_docs)
 
             dane_docs = list(
-                DocBin().from_disk(f"corpus/dane_{p}.spacy").get_docs(nlp_vocab)
+                DocBin().from_disk(f"corpus/dane_{p}.spacy").get_docs(nlp_vocab),
             )
             datasets_docs[f"{p}"].extend(dane_docs)
 
@@ -30,16 +29,16 @@ def merge_datasets(no_partitioning, nlp_vocab):
 
     else:
         print(
-            "no-dev-test set to 1: Merging DANSK and DaNE in train.spacy - excluding dev and test sets"
+            "no-dev-test set to 1: Merging DANSK and DaNE in train.spacy - excluding dev and test sets",
         )
         for p in partitions:
             dansk_docs = list(
-                DocBin().from_disk(f"corpus/dansk_{p}.spacy").get_docs(nlp_vocab)
+                DocBin().from_disk(f"corpus/dansk_{p}.spacy").get_docs(nlp_vocab),
             )
             datasets_docs["train"].extend(dansk_docs)
 
             dane_docs = list(
-                DocBin().from_disk(f"corpus/dane_{p}.spacy").get_docs(nlp_vocab)
+                DocBin().from_disk(f"corpus/dane_{p}.spacy").get_docs(nlp_vocab),
             )
             datasets_docs["train"].extend(dane_docs)
 
