@@ -1,6 +1,0 @@
-#numpy==1.23.3
-spacy-huggingface-hub>=0.0.8, <0.1.0
-spacy>=3.5.0, <3.6.0
-wheel>=0.38.0, <0.39.0
-#spacy-lookups-data>=1.0.3
-#spacy-transformers==1.1.2
