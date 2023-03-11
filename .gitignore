@@ -165,12 +165,12 @@ tutorials/BenchmarkFairness.ipynb
 tutorials/*.py
 
 # ner_extended
-ner_extended/assets/*
-ner_extended/rm_later/*
-ner_extended/wandb/*
-ner_extended/training/*
-ner_extended/packages/*
-ner_extended/project.lock
-ner_extended/corpus/*
-ner_extended/environments/*
-ner_extended/metrics/*
+training/ner_fine_grained/assets/*
+training/ner_fine_grained/rm_later/*
+training/ner_fine_grained/wandb/*
+training/ner_fine_grained/training/*
+training/ner_fine_grained/packages/*
+training/ner_fine_grained/project.lock
+training/ner_fine_grained/corpus/*
+training/ner_fine_grained/environments/*
+training/ner_fine_grained/metrics/*
