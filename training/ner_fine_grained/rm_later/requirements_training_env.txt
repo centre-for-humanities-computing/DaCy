@@ -1,0 +1,4 @@
+numpy==1.23.3
+wandb>=0.13.7, <0.14
+spacy>=3.5.0, <3.6.0
+spacy-transformers==1.1.2

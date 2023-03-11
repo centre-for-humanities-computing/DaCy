@@ -4,17 +4,13 @@ from datasets import load_dataset
 
 
 def fetch_dansk():
-    # DANSK has yet to publically released. Write the authors for a request of early read access.
 
     # Download the datasetdict from the HuggingFace Hub
     try:
         datasets = load_dataset("chcaa/DANSK")
     except FileNotFoundError:
-        # print(
-        #     "\nERROR: DANSK has yet to publically released. Write the authors for a request of early read access. Shutting down.\n",
-        # )
         raise FileNotFoundError(
-            "DANSK has yet to publically released. Write the authors for a request of early read access. \n\nShutting down.",
+            "DANSK is not available. It might be due to either HuggingFace being down on the dataset not yet being publically released.",
         )
 
     nlp = spacy.blank("da")

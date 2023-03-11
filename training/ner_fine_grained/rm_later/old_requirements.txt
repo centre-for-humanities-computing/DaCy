@@ -1,0 +1,28 @@
+wheel==0.38.4
+numpy==1.23.3
+spacy==3.5.0
+#spacy-transformers
+spacy-transformers==1.1.2 # newer versions not functioning on ucloud with these dependencies and transitive dependencies
+torch==1.13.1
+spacy[cuda101] # version number unclear, but version from 30 Jan 2023 is working
+huggingface==0.0.1
+spacy-huggingface-hub==0.0.8
+wandb==0.13.9
+spacy-lookups-data==1.0.3
+augmenty==1.3.1
+
+# pip install wheel==0.38.4
+# pip install numpy==1.23.3
+# pip install spacy==3.5.0
+# #pip install # spacy-transformers
+# pip install spacy-transformers==1.1.2 pip install newer versions not functioning on ucloud with these dependencies and transitive dependencies
+# pip install torch==1.13.1
+# pip install spacy[cuda101]version number unclear, but version from 30 Jan 2023 is working
+# pip install huggingface==0.0.1
+# pip install spacy-huggingface-hub==0.0.8
+# pip install wandb==0.13.9
+# pip install spacy-lookups-data==1.0.3
+# pip install augmenty==1.3.1
+
+
+

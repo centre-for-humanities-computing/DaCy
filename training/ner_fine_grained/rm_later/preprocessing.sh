@@ -1,0 +1,2 @@
+deactivate
+source environments/preprocessing_env/bin/activate
