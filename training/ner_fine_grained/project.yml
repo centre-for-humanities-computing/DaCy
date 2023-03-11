@@ -65,6 +65,9 @@ commands:
     help: "Downloads DANSK to assets/"
     script: 
       - "python fetch_assets.py"
+      - "rm -rf assets/downloads"
+      - "rm -rf assets/chcaa___parquet"
+      - "rm -rf assets/assets_chcaa*"
     outputs:
       - "assets/train.spacy"
       - "assets/dev.spacy"
