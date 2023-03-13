@@ -13,9 +13,12 @@ models_url = {
     "da_dacy_small_tft-0.0.0": "https://sciencedata.dk//shared/d845d4fef9ea165ee7bd6dd954b95de2?download",  # noqa: E501
     "da_dacy_medium_tft-0.0.0": "https://sciencedata.dk//shared/c205edf59195583122d7213a3c26c077?download",  # noqa: E501
     "da_dacy_large_tft-0.0.0": "https://sciencedata.dk//shared/0da7cb975b245d9e6574458c7c89dfd9?download",  # noqa: E501
-    "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl",  # noqa: E501
-    "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl",  # noqa: E501
-    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",  # noqa: E501
+    "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/a3da03433d42538fca37847e3c73503d8e029088/da_dacy_small_trf-any-py3-none-any.whl" # noqa: E501
+    "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/61a54ab9e9ab437f5c603c023d4238ecc5bb8eb5/da_dacy_medium_trf-any-py3-none-any.whl" # noqa: E501
+    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/5cfbb2bccf8e9509126e32fa3c537cc3c062aec2/da_dacy_large_trf-any-py3-none-any.whl" # noqa: E501
+    "da_dacy_small_trf-latest": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl",  # noqa: E501
+    "da_dacy_medium_trf-latest": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/main/da_dacy_medium_trf-any-py3-none-any.whl",  # noqa: E501
+    "da_dacy_large_trf-latest": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/main/da_dacy_large_trf-any-py3-none-any.whl",  # noqa: E501
 }
 
 
@@ -66,7 +69,7 @@ def download_model(
 
     Args:
         model (str): string indicating DaCy model, use dacy.models() to get a list of
-            models
+            models.
         save_path (str, optional): The path you want to save your model to. Is only used
             for DaCy models of v0.0.0 as later models are installed as modules to allow
             for better versioning. Defaults to None denoting the default cache
@@ -79,10 +82,10 @@ def download_model(
         a string of the model location
 
     Example:
-        >>> download_model(model="da_dacy_medium_tft-0.0.0")
+        >>> download_model(model="da_dacy_medium_trf-0.1.0")
     """
     if model in {"small", "medium", "large"}:
-        model = f"da_dacy_{model}_trf-0.1.0"
+        model = f"da_dacy_{model}_trf-latest"
 
     if model not in models_url:
         raise ValueError(
