@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.1 (2023-03-14)
+### Fix
+* Formatting erro in model urls ([`0478965`](https://github.com/centre-for-humanities-computing/DaCy/commit/04789655654dedae3f6e61a884fa084fe546f429))
+
 ## v2.4.0 (2023-03-09)
 ### Feature
 * Updated spacy dependencies to include 3.5.0 ([`cd016e2`](https://github.com/centre-for-humanities-computing/DaCy/commit/cd016e2179c4c3073718f99301499001e0ff2af7))
