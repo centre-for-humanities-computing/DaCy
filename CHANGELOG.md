@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.2 (2023-03-15)
+### Fix
+* Checking to find the latest model ([`50d3d5c`](https://github.com/centre-for-humanities-computing/DaCy/commit/50d3d5c420861af3746b42a80f6a2054c8840cdd))
+
 ## v2.4.1 (2023-03-14)
 ### Fix
 * Formatting erro in model urls ([`0478965`](https://github.com/centre-for-humanities-computing/DaCy/commit/04789655654dedae3f6e61a884fa084fe546f429))

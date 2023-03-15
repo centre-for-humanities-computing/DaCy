@@ -1,6 +1,6 @@
 [project]
 name = "dacy"
-version = "2.4.1"
+version = "2.4.2"
 description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
 
 authors = [{name = "Kenneth Enevoldsen", email = "kennethcenevolsen@gmail.com"}, 
