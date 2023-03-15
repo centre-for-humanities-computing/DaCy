@@ -93,7 +93,8 @@ def download_model(
             + " list of all models",
         )
 
-    if int(model.split("-")[-1].split(".")[1]) < 1:  # model v. 0.0.0
+    version = model.split("-")[-1]
+    if version == "0.0.0":
         if save_path is None:
             save_path = DEFAULT_CACHE_DIR
 
