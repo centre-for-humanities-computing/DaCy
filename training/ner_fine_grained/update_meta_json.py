@@ -1,4 +1,5 @@
-import json, sys
+import json
+import sys
 
 """This is a utility script for updating the spacy meta.json.
 
@@ -53,8 +54,9 @@ def main(version, size, meta_json_path, no_partitioning):
         },
         model,
     ]
+    # fmt: off
     meta[
-        "description"
+        "description"  
     ] = f"""
 <a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="https://centre-for-humanities-computing.github.io/DaCy/_static/icon.png" width="175" height="175" align="right" /></a>
 
@@ -68,6 +70,7 @@ DaCy also contains guides on usage of the package as well as behavioural test fo
 
 For information about the use of this model as well as guides to its use, please refer to [DaCys documentation](https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html).
     """
+    # fmt: on
     with open(f"template_meta_{size}.json", "w") as f:
         json.dump(meta, f)
 

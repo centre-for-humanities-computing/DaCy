@@ -9,7 +9,7 @@ def fetch_dansk():
         datasets = load_dataset("chcaa/DANSK", cache_dir="assets")
     except FileNotFoundError:
         raise FileNotFoundError(
-            "DANSK is not available. It might be due to either HuggingFace being down on the dataset not yet being publically released.",
+            "DANSK is not available. Check that HuggingFace is up and running, and that the dataset has been publically released.",  # noqa: E501
         )
 
     nlp = spacy.blank("da")
