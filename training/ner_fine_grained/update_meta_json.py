@@ -1,5 +1,12 @@
 import json, sys
 
+"""This is a utility script for updating the spacy meta.json.
+
+The script may be used by following the packaging call in the project.yml.
+Sample call:
+python -m spacy project run package --
+"""
+
 
 def main(version, size, meta_json_path, no_partitioning):
     print(f"Updating {meta_json_path} with relevant information from the config ...")
