@@ -24,7 +24,7 @@ jobs:
           pip install ".[docs]"
 
       - name: Build and Commit
-        uses: sphinx-notes/pages@2.1
+        uses: sphinx-notes/pages@3.0
         with:
           documentation_path: docs
 
