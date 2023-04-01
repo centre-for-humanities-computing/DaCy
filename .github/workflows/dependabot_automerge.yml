@@ -25,6 +25,6 @@ jobs:
 
       - name: Auto approve dependabot PRs
         if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'pre-commit-ci[bot]' }}
-        uses: hmarr/auto-approve-action@v3.1.0
+        uses: hmarr/auto-approve-action@v3.2.1
         with:
           github-token: ${{ secrets.AUTOMERGE_TOKEN }}
