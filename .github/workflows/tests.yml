@@ -45,13 +45,21 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
+      - name: Install dependencies (Unix)
         shell: bash
+        if: matrix.os != 'windows-latest'
         run: |
           python -m venv .venv
-          # print files in .venv
-          ls -la .venv
           source .venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -e .[tests]
+
+      - name: Install dependencies (Windows)
+        shell: bash
+        if: matrix.os == 'windows-latest'
+        run: |
+          python -m venv .venv
+          source .venv/Scripts/activate
           python -m pip install --upgrade pip
           pip install -e .[tests]
 
