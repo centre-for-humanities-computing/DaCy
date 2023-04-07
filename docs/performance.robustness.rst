@@ -135,5 +135,5 @@ Besides the above tutorials, DaCy also contains a few Google Colab tutorials:
 
    Want to do the analysis yourself? Well DaCy includes functions for evaluating the
    robustness of its own and others pipelines as well as a
-   `guide <https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb>`__
+   `guide <https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/docs/tutorials/robustness.ipynb>`__
    on how to use these.

@@ -16,8 +16,8 @@ If you do not wish to use invoke you can simply delete this file.
 """
 
 
+import platform
 import re
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -296,10 +296,10 @@ def docs(c: Context, view: bool = False, view_only: bool = False):
     if not view_only:
         echo_header(f"{Emo.DO} Building docs")
         c.run("sphinx-build -b html docs docs/_build/html")
-    if view:
+    if view or view_only:
         echo_header(f"{Emo.EXAMINE} open docs in browser")
         # check the OS and open the docs in the browser
-        if sys.platform.system() == "Windows":
+        if platform.system() == "Windows":
             c.run("start docs/_build/html/index.html")
         else:
             c.run("open docs/_build/html/index.html")

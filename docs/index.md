@@ -20,18 +20,21 @@ get started using DaCy and its various features.
 :class-container: tuto-section-2
 ```{grid-item-card} 🔧 Installation
 :link: installation
+:link-type: doc
 
 Installation instructions on how to install this package
 ```
 
 ```{grid-item-card} 👩‍💻 Tutorials
 :link: tutorials
+:link-type: doc
 
 Tutorials to get you started uisng this package
 ```
 
 ```{grid-item-card} 📚 FAQ
-:link: tutorials
+:link: faq
+:link-type: doc
 
 Frequently asked questions and answers
 ```
@@ -74,16 +77,20 @@ If you would like to contribute to this package, please read the contributing gu
 
 installation
 tutorials
+adv_tutorials
+performance
+news
 faq
 ```
+
 
 ```{toctree}
 :caption: API
 :hidden:
 
-dacy.download
-dacy.datasets
-dacy.score
+api/dacy.download
+api/dacy.datasets
+api/dacy.score
 ```
 
 ```{toctree}

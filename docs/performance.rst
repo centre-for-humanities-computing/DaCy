@@ -8,3 +8,4 @@ DaCy is evaulate contains performance metrics for
 
   performance.general
   performance.robustness
+  tutorials/robustness
