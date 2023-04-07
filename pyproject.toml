@@ -11,6 +11,7 @@ authors = [
   {name = "Lasse Hansen"},
   {name = "Emil Jessen"}
 ]
+
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",

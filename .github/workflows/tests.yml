@@ -62,7 +62,6 @@ jobs:
       - name: Test report on failures
         uses: EnricoMi/publish-unit-test-result-action@v2
         id: test_report_with_annotations
-        # only run on ubuntu 3.9
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' && github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && (success() || failure()) }} # Do not run for dependabot, run whether tests failed or succeeded
         with:
           comment_mode: "failures"
