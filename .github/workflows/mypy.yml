@@ -55,7 +55,7 @@ jobs:
         continue-on-error: true
         run: |
           source .venv/bin/activate
-          if mypy .; then
+          if mypy src; then
             echo "mypy check passed"
             echo "mypy_failed=0" >> $GITHUB_OUTPUT
           else

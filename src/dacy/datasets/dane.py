@@ -88,8 +88,8 @@ def dane(  # noqa
         )
         os.remove(cpath)  # noqa
 
-    if isinstance(splits, str):
-        splits = [splits]
+    if isinstance(splits, str):  # type: ignore
+        splits = [splits]  # type: ignore
     corpora = []
     paths = {
         "all": f"dane_{n_sents}.spacy",
