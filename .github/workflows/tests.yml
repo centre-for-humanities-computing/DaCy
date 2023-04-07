@@ -53,6 +53,8 @@ jobs:
           source .venv/bin/activate
           python -m pip install --upgrade pip
           pip install -e .[tests]
+          # assign variables to be used in later steps
+          echo "venv_path=$(pwd)/.venv" >> $GITHUB_ENV
 
       - name: Install dependencies (Windows)
         shell: bash
@@ -62,11 +64,15 @@ jobs:
           source .venv/Scripts/activate
           python -m pip install --upgrade pip
           pip install -e .[tests]
+          # assign variables to be used in later steps
+          echo "venv_path=$(pwd)/.venv" >> $GITHUB_ENV
 
       - name: Run and write pytest
         shell: bash
         run: |
-          source .venv/bin/activate
+          # use system dependent venv variable
+          echo $GITHUB_ENV
+          source $GITHUB_ENV
           pytest --durations=0 -n 2 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
 
       - name: Test report on failures
