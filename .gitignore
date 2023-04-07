@@ -174,3 +174,4 @@ training/ner_fine_grained/project.lock
 training/ner_fine_grained/corpus/*
 training/ner_fine_grained/environments/*
 training/ner_fine_grained/metrics/*
+docs/performance.fine_grained_ner.rst
