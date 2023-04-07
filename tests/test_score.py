@@ -1,15 +1,14 @@
 import pandas as pd
-from spacy.lang.da import Danish
-from spacy.training.augment import create_lower_casing_augmenter
-
 from dacy.datasets import dane
 from dacy.score import n_sents_score, score
+from spacy.lang.da import Danish
+from spacy.training.augment import create_lower_casing_augmenter
 
 
 def test_score():
     nlp = Danish()
 
-    def apply_model(examples):
+    def apply_model(examples):  # noqa: ANN001
         e = []
         for example in examples:
             example.predicted = nlp(example.predicted.text)
@@ -43,7 +42,7 @@ def test_score():
 def test_n_sents_score():
     nlp = Danish()
 
-    def apply_model(examples):
+    def apply_model(examples):  # noqa: ANN001
         e = []
         for example in examples:
             example.predicted = nlp(example.predicted.text)

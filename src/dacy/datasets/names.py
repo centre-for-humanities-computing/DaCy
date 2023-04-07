@@ -33,8 +33,8 @@ def load_names(
         Dict[str, List[str]]: A dictionary of Muslim names containing the keys
             "first_name" and "last_name".
     """
-    path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
+    path = os.path.join(  # noqa
+        os.path.dirname(os.path.abspath(__file__)),  # noqa
         "lookup_tables",
         "names.csv",
     )

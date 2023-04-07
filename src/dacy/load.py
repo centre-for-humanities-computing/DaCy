@@ -7,11 +7,11 @@ from wasabi import msg
 from .download import DEFAULT_CACHE_DIR, download_model, models_url
 
 
-def load(
+def load(  # noqa
     model: str,
     path: Optional[str] = None,
     force_download: bool = False,
-    **kwargs,
+    **kwargs,  # noqa
 ) -> Language:
     """Load a DaCy model as a SpaCy text processing pipeline. If the model is
     not downloaded it will also download the model.

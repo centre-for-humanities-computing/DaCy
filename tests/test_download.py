@@ -12,15 +12,15 @@ def test_urls():
         f = urllib.request.urlopen(req)
         assert f.status == 200
 
-    for m in [
-        "da_dacy_small_tft-0.0.0",
-        "da_dacy_medium_tft-0.0.0",
-        "da_dacy_large_tft-0.0.0",
-    ]:
-        print("\t Status:", f.status)
-        size = int(f.headers["Content-Length"]) / 1e6
-        assert size > 20
-        print("\t File Size:", round(size), "mb")
+        if m in [
+            "da_dacy_small_tft-0.0.0",
+            "da_dacy_medium_tft-0.0.0",
+            "da_dacy_large_tft-0.0.0",
+        ]:
+            print("\t Status:", f.status)
+            size = int(f.headers["Content-Length"]) / 1e6
+            assert size > 20
+            print("\t File Size:", round(size), "mb")
 
 
 def test_load():
@@ -41,7 +41,7 @@ def test_where_is_my_dacy():
 def test_download_model_error():
     download_model(model="da_dacy_medium_tft-0.0.0", force=True)
     # this just tests if it fails when needed.
-    try:
+    try:  # noqa
         download_model(model="not a dacy model")
     except ValueError:
         pass

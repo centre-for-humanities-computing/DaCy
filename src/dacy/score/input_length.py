@@ -14,9 +14,9 @@ def n_sents_score(
     apply_fn: Callable,
     dataset: str = "dane",
     split: str = "test",
-    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],
+    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa
     verbose: bool = True,
-    **kwargs,
+    **kwargs,  # noqa
 ) -> pd.DataFrame:
     """scores the performance of a given model on examples of a given number of
     sentences.
