@@ -155,8 +155,13 @@ The fine-grained NER component may be utilized in an existing pipeline in the fo
    # or use an empty spacy model if you only want to do NER
    # nlp = spacy.blank("da")
 
-   # add the ner component from the state-of-the-art model
-   nlp.add_pipe("dacy/ner-small-fine-grained")
+   # add the ner component from the state-of-the-art fine-grained model
+   nlp_ner = dacy.load("dacy/ner-small-fine-grained")
+   nlp.add_pipe(factory_name="transformer", name="ner-transformer", source=nlp_ner)
+   
+   # if the existing pipeline includes a transformer pipe, make sure that is listens to the correct component. otherwise this step may be omitted
+   comp.tok2vec.layers[0].layers[0].upstream_name = "ner-transformer"
+   nlp._link_components() # unsure if this is needed?
 
    doc = nlp("Denne model og 3 andre blev trænet d. 7. marts af Center for Humantities Computing i Aarhus kommune")
 
