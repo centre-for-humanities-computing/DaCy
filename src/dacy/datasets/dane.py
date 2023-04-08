@@ -1,7 +1,8 @@
 """This includes the DaNE dataset wrapped and read in as a SpaCy corpus."""
 
-import os
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 from typing import List, Optional, Union
 
@@ -50,22 +51,17 @@ def dane(  # noqa
         ssl._create_default_https_context = ssl._create_unverified_context
 
     if save_path is None:
-        save_path_ = os.path.join(DEFAULT_CACHE_DIR, "datasets")  # noqa
+        save_path_ = Path(DEFAULT_CACHE_DIR) / "datasets"
     else:
         save_path_ = save_path
-    save_path = os.path.join(save_path_, "dane")  # noqa
+    save_path = save_path_ / "dane"
 
-    if (
-        (not os.path.isdir(save_path))  # noqa
-        or ("dane" not in os.listdir(save_path_))
-        or (redownload is True)
-    ):
-        Path(save_path).mkdir(parents=True, exist_ok=True)
-
-        dl_path = os.path.join(save_path, "dane.zip")  # noqa
+    if redownload is True or (not save_path.exists()):
+        save_path.mkdir(parents=True, exist_ok=True)
+        dl_path = save_path / "dane.zip"
         download_url(DATASETS["dane"], dl_path)
         shutil.unpack_archive(dl_path, save_path)
-        os.remove(dl_path)  # noqa
+        dl_path.unlink()
 
     wpaths = [
         "dane_train.conllu",
@@ -74,20 +70,32 @@ def dane(  # noqa
         "dane.conllu",
     ]
 
-    for wpath in wpaths:
-        wpath = os.path.join(save_path, wpath)  # noqa
-        cpath = wpath[:-7] + f"_{n_sents}"
-        if os.path.isfile(cpath + ".spacy"):  # noqa
+    for _wpath in wpaths:
+        wpath = save_path / _wpath
+        cpath = save_path / (wpath.stem + f"_{n_sents}")
+
+        if cpath.with_suffix(".spacy").is_file():
             continue
-        cpath += ".conllu"
+        cpath = cpath.with_suffix(".conllu")
         shutil.copyfile(wpath, cpath)
         # convert to spacy
-        os.system(
-            f"python -m spacy convert {cpath} {save_path} --converter conllu "
-            + f"--merge-subtokens -n {n_sents}",
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "spacy",
+                "convert",
+                cpath,
+                save_path,
+                "--converter",
+                "conllu",
+                "--merge-subtokens",
+                "-n",
+                str(n_sents),
+            ],
+            check=True,
         )
-        os.remove(cpath)  # noqa
-
+        cpath.unlink()
     if isinstance(splits, str):  # type: ignore
         splits = [splits]  # type: ignore
     corpora = []
@@ -99,7 +107,7 @@ def dane(  # noqa
     }
 
     for split in splits:
-        corpora.append(Corpus(os.path.join(save_path, paths[split])))  # noqa
+        corpora.append(Corpus(save_path / paths[split]))
     if len(corpora) == 1:
         return corpora[0]
     return corpora

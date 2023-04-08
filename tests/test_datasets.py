@@ -3,8 +3,6 @@ from dacy.datasets import dane, female_names, male_names, muslim_names
 from spacy.lang.da import Danish
 from spacy.training import Corpus, Example
 
-test = dane(splits=["test"])
-
 
 def test_dane():
     train, dev, test = dane(open_unverified_connection=True)
