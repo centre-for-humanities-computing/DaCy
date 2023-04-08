@@ -3,6 +3,7 @@
 import shutil
 import subprocess
 import sys
+from os import PathLike
 from pathlib import Path
 from typing import List, Optional, Union
 
@@ -13,7 +14,7 @@ from .constants import DATASETS
 
 
 def dane(  # noqa
-    save_path: Optional[str] = None,
+    save_path: Optional[PathLike] = None,
     splits: List[str] = ["train", "dev", "test"],  # noqa
     redownload: bool = False,
     n_sents: int = 1,
@@ -53,13 +54,13 @@ def dane(  # noqa
     if save_path is None:
         save_path_ = Path(DEFAULT_CACHE_DIR) / "datasets"
     else:
-        save_path_ = save_path
+        save_path_ = Path(save_path)
     save_path = save_path_ / "dane"
 
     if redownload is True or (not save_path.exists()):
         save_path.mkdir(parents=True, exist_ok=True)
         dl_path = save_path / "dane.zip"
-        download_url(DATASETS["dane"], dl_path)
+        download_url(DATASETS["dane"], str(dl_path))
         shutil.unpack_archive(dl_path, save_path)
         dl_path.unlink()
 
@@ -86,7 +87,7 @@ def dane(  # noqa
                 "spacy",
                 "convert",
                 cpath,
-                save_path,
+                save_path,  # type: ignore
                 "--converter",
                 "conllu",
                 "--merge-subtokens",
@@ -107,7 +108,7 @@ def dane(  # noqa
     }
 
     for split in splits:
-        corpora.append(Corpus(save_path / paths[split]))
+        corpora.append(Corpus(save_path / paths[split]))  # type: ignore
     if len(corpora) == 1:
         return corpora[0]
     return corpora
