@@ -1,0 +1,16 @@
+{
+    "_copy_without_render": [
+        "*.github"
+    ],
+    "_template": "https://github.com/MartinBernstorff/swift-python-cookiecutter",
+    "add_makefile": "y",
+    "author": "Kenneth Enevoldsen",
+    "copyright_year": "2023",
+    "email": "kennethcenevoldsen@gmail.com",
+    "friendly_name": "DaCy",
+    "github_user": "centre-for-humanities-computing",
+    "license": "MIT",
+    "package_name": "dacy",
+    "project_name": "dacy",
+    "version": "2.4.2"
+}

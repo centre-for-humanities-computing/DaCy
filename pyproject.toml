@@ -1,10 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "dacy"
 version = "2.4.2"
 description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
-
-authors = [{name = "Kenneth Enevoldsen", email = "kennethcenevolsen@gmail.com"}, 
-           {name = "Lasse Hansen"}]
+authors = [
+  {name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com"}, 
+  {name = "Lasse Hansen"},
+  {name = "Emil Jessen"}
+]
 
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -17,7 +23,6 @@ classifiers = [
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
@@ -27,7 +32,7 @@ keywords = [
     "danish",
     "spacy-universe",
 ]
-
+requires-python = ">=3.9"
 dependencies = [
     "spacy-wrap>=1.4.1,<1.5.0",
     "spacy>=3.2.0,<3.6.0",
@@ -37,43 +42,38 @@ dependencies = [
     "sentencepiece>=0.1.96,<0.2.0",
 ]
 
-requires-python = ">=3.8"
 
 [project.urls]
 homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
 documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
 repository = "https://github.com/centre-for-humanities-computing/DaCy"
-
 [project.license]
 file = "LICENSE"
 name = "Apache License 2.0"
-
-[project.readme]
-file = "README.md"
-content-type = "text/markdown"
-
 [project.optional-dependencies]
-style = [
-    "black>=22.3.0,<22.4.0",
-    "ruff>=0.0.194,<0.0.195",
-    "pre-commit>=2.19.0,<2.20.0",
+dev = [
+  "cruft",
+  "mypy",  
+  "pre-commit==2.20.0,<2.21.0",
+  "ruff==0.0.254", # important that these match the pre-commit hooks
+  "black[jupyter]==22.8.0", # important that these match the pre-commit hooks
 ]
 tests = [
-    "pytest>=7.1.2,<7.2.0",
-    "pytest-cov>=3.0.0,<3.0.1",
+  "pytest>=7.1.2,<7.3.0",
+  "pytest-cov>=3.0.0,<3.1.0",
+  "pytest-xdist>=3.0.0,<3.2.0",
+  "pytest-instafail>=0.4.2,<0.5.0",
 ]
 docs = [
-    "Sphinx>=4.5.0,<5.1.0",
-    "furo>=2022.6.21,<2022.6.30",
-    "sphinxext-opengraph>=0.6.3,<0.7.0",
-    "sphinx-copybutton>=0.5.0,<0.6.0",
-    "myst-parser>=0.18.0,<0.19.0",
-    "ipykernel>=6.15.0,<6.16.0",
-    "sphinx_design>=0.2.0,<0.3.0",
-]
-tutorials = [
-    # to run notebooks
-    "jupyter",
+    "sphinx>=5.3.0,<5.4.0",
+    "furo>=2022.12.7,< 2022.12.8",  # theme
+    "sphinx-copybutton>=0.5.1,<0.5.2",
+    "sphinxext-opengraph>=0.7.3,<0.7.4",
+    "sphinx_design>=0.3.0,<0.3.1",
+    "sphinx_togglebutton>=0.2.3,<0.4.0",
+    "myst-nb>=0.6.0,<1.17.0",  # for rendering notebooks
+    # for tutorials
+    "jupyter>=1.0.0,<1.1.0",
     # sentiment analysis
     "asent>=0.4.2,<0.8.0",
     "augmenty>=1.0.2,<1.4.0",
@@ -82,16 +82,14 @@ tutorials = [
     "seaborn>=0.11.2,<0.13.0",
 ]
 
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
 
 [project.entry-points.spacy_factories]
 emotion = "dacy.sentiment.wrapped_models:make_emotion_transformer"
 hatespeech_classification = "dacy.hate_speech.wrapped_models:make_offensive_transformer"
 ner = "dacy.ner.wrapped_models"
-
-[build-system]
-requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
-
 
 [tool.setuptools.package-data]
 "*" = ["*.csv"]
@@ -106,36 +104,109 @@ omit = [
     "**/dev/*",
 ]
 
-exclude_lines = [
-    "pragma: no cover",
-    # Don't complain about missing debug-only code:
-    "def __unicode__",
-    "def __repr__",
-    "if self.debug",
-    # Don't complain if tests don't hit defensive assertion code:
-    "raise AssertionError",
-    "raise NotImplementedError",
-    # Don't complain if non-runnable code isn't run:
-    "if 0:",
-    "if __name__ == .__main__.:",
+[tool.mypy]
+ignore_missing_imports = true
+no_implicit_optional = true
+warn_unreachable = true
+
+[tool.ruff]
+# Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
+select = [
+  "A",
+  "ANN",
+  "ARG",
+  "B",
+  "C4",
+  "COM",
+  "D417",
+  "E",
+  "ERA",
+  "F",
+  "I",
+  "ICN",
+  "NPY001",
+  "PD002",
+  "PIE",
+  "PLE",
+  "PLW",
+  "PT",
+  "UP",
+  "Q",
+  "PTH",
+  "RSE",
+  "RET",
+  "RUF",
+  "SIM",
+  "W"
 ]
+ignore = [
+  "ANN101",
+  "ANN401",
+  "E402",
+  "E501",
+  "F401",
+  "F841",
+  "RET504",
+  "ANN202",
+]
+ignore-init-module-imports = true
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+unfixable = ["ERA"]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".hg",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "venv",
+  "__init__.py",
+  ".venv",
+  ".env",
+  ".git",
+  "__pycache__",
+  "dev/**",
+  "training/v0.0.0/**",
+  "training/v0.1.0/**",
+  "training/v0.1.1/**",
+  "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
+]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+target-version = "py38"
+
+[tool.ruff.flake8-annotations]
+mypy-init-return = true
+suppress-none-returning = true
+
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
 
 [tool.semantic_release]
 branch = "main"
-build_command = "python -m pip install build; python -m build"
 version_variable = [
-    "pyproject.toml:version"
+  "pyproject.toml:version"
 ]
+upload_to_pypi = false
+upload_to_release = false
+build_command = "python -m pip install build; python -m build"
 
-
-[tool.ruff]
-exclude = [".venv",
-    ".env",
-    ".git",
-    "__pycache__",
-    "dev/**",
-    "training/v0.0.0/**",
-    "training/v0.1.0/**",
-    "training/v0.1.1/**",
-    "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
-]
+[tool.setuptools]
+include-package-data = true

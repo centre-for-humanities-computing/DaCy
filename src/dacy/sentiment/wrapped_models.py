@@ -103,7 +103,7 @@ grad_scaler_config = {}
 @span_getters = "spacy-transformers.strided_spans.v1"
 window = 128
 stride = 96
-"""  # noqa: E501
+"""
 
 DEFAULT_CONFIG = Config().from_str(DEFAULT_CONFIG_STR)
 
@@ -163,7 +163,7 @@ def make_emotion_transformer(
     # an emotion
     if Doc.has_extension("dacy/emotionally_laden"):
 
-        def label_getter(doc) -> Optional[str]:
+        def label_getter(doc) -> Optional[str]:  # noqa: ANN001
             if doc._.emotionally_laden == "emotional":
                 prob = getattr(doc._, f"{doc_extension_prediction}_prob")
                 if prob["prob"] is not None:

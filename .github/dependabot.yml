@@ -2,21 +2,15 @@
 # Docs: https://docs.github.com/en/github/administering-a-repository/keeping-your-dependencies-updated-automatically
 
 version: 2
-
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
+  - package-ecosystem: "pip" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: "monthly"
-    allow:
-      - dependency-type: "all"
+      interval: "weekly"
+      day: "monday"
+      time: "13:00"
+      timezone: "Europe/Copenhagen"
+    open-pull-requests-limit: 20
     commit-message:
-      prefix: ":arrow_up:"
-  # - package-ecosystem: "github-actions"
-  #   directory: "/"
-  #   schedule:
-  #     interval: "monthly"
-  #   allow:
-  #     - dependency-type: "all"
-  #   commit-message:
-  #     prefix: ":arrow_up:"
+      prefix: "deps:"
+      include: "scope"

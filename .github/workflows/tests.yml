@@ -1,3 +1,7 @@
+# This workflow will install Python dependencies, run pytests and run notebooks
+# then it will in python 3.9 (ubuntu-latest) create a badge with the coverage
+# and add it to the PR. This badge will be updated if the PR is updated.
+
 name: Tests
 on:
   push:
@@ -6,82 +10,78 @@ on:
     branches: [main]
 
 jobs:
-  pytest-and-notebooks:
+  pytest:
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.9", "3.8"]
+        python-version: ["3.9", "3.10"]
 
     # This allows a subsequently queued workflow run to interrupt previous runs
     concurrency:
-      group: "${{ github.workflow }} - ${{ matrix.python-version}} - ${{ matrix.os }} @ ${{ github.ref }}"
+      group: "${{ github.workflow }}-${{ matrix.python-version}}-${{ matrix.os }} @ ${{ github.ref }}"
       cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache venv
+        uses: actions/cache@v3.2.6
+        id: cache_venv
+        with:
+          path: |
+            .venv
+          key: ${{ runner.os }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+
       - name: Set up Python
         uses: actions/setup-python@v4
+        id: setup_python
+        if: steps.cache_venv.outputs.cache-hit != 'true'
         with:
           python-version: ${{ matrix.python-version }}
-          cache: "pip"
-          cache-dependency-path: "**/pyproject.toml"
 
       - name: Install dependencies
         shell: bash
         run: |
+          python -m venv .venv
+          if [ "${{ matrix.os }}" == "windows-latest" ]; then
+            source .venv/Scripts/activate
+          else
+            source .venv/bin/activate
+          fi
           python -m pip install --upgrade pip
-          pip install ".[tests]"
+          pip install -e .[tests]
 
       - name: Run and write pytest
         shell: bash
         run: |
-          set -o pipefail
-          pytest --cov=dacy --cov-report term-missing | tee pytest-coverage.txt
+          if [ "${{ matrix.os }}" == "windows-latest" ]; then
+            source .venv/Scripts/activate
+          else
+            source .venv/bin/activate
+          fi
+          pytest --durations=0 -n 2 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
 
-      - name: Install dependencies for notebooks
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        # to save time and also to avoid dependency conflicts of NERDA==1.0.0
-        shell: bash
-        run: |
-          pip install ".[tutorials]"
-          pip install -r ./tutorials/requirements.txt
+      - name: Test report on failures
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        id: test_report_with_annotations
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' && github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && (success() || failure()) }} # Do not run for dependabot, run whether tests failed or succeeded
+        with:
+          comment_mode: "failures"
+          files: |
+            pytest.xml
 
-      - name: Convert and run notebooks
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        # to save time and also to avoid dependency conflicts of NERDA==1.0.0
-        shell: bash
-        run: |
-          jupyter nbconvert --to python ./tutorials/*.ipynb
-          for f in tutorials/*.py; do python "$f"; done
-
-      # if it is run on ubuntu-latest, python 3.9, then create the badge
       - name: Pytest coverage comment
-        if:
-          ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-          # to save time and also to avoid dependency conflicts of NERDA==1.0.0
         id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.43
+        uses: MishaKav/pytest-coverage-comment@main
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' &&  github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && (success() || failure()) }}
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-
-      - name: Check the output coverage
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        shell: bash
-        run: |
-          echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
-          echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
-
-      # and if it is a push to main then create the badge
-      - name: Create the Badge
-        if: ${{ github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
-          gistID: af8637d94475ea8bcb6b6a03c4fbcd3e
-          filename: badge-dacy-pytest-coverage.json
-          label: Coverage
-          message: ${{ steps.coverage-comment.outputs.coverage }}
-          color: ${{ steps.coverage-comment.outputs.color }}
-          namedLogo: python
+          create-new-comment: false
+          report-only-changed-files: true
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: ./pytest.xml

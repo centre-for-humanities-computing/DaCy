@@ -16,7 +16,7 @@ def flatten_dict(d: dict, sep: str = "_") -> dict:
         {'a': 1, 'c_a': 2, 'c_b_x': 5, 'd': [1, 2, 3], 'c_b_y': 10}
     """
 
-    def __inner_flatten(d, parent_key, sep):
+    def __inner_flatten(d, parent_key, sep):  # noqa: ANN001
         items = []
         for k, v in d.items():
             new_key = parent_key + sep + k if parent_key else k

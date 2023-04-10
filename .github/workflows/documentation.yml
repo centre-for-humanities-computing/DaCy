@@ -1,3 +1,4 @@
+# creates the documentation on pushes it to the gh-pages branch
 name: Documentation
 
 on:
@@ -10,7 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     concurrency: documentation
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -21,6 +21,7 @@ jobs:
         shell: bash
         run: |
           python -m pip install --upgrade pip
+          pip install -r docs/requirements.txt
           pip install ".[docs]"
 
       - name: Build and Commit
@@ -32,5 +33,5 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ secrets.SPHINX_DOCUMENTATION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages

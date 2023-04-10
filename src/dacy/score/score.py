@@ -32,7 +32,7 @@ def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
         yield span
 
 
-def dep_getter(token, attr):
+def dep_getter(token, attr):  # noqa
     dep = getattr(token, attr)
     dep = token.vocab.strings.as_string(dep).lower()
     return dep
@@ -40,17 +40,17 @@ def dep_getter(token, attr):
 
 def score(  # noqa
     corpus: Corpus,
-    apply_fn: Callable[[Iterable[Example], list[Example]]] | Language,
-    score_fn: list[Callable[[Iterable[Example]], dict] | str] = [
+    apply_fn: Callable[[Iterable[Example], list[Example]]] | Language,  # type: ignore
+    score_fn: list[Callable[[Iterable[Example]], dict] | str] = [  # noqa
         "token",
         "pos",
         "ents",
         "dep",
     ],
-    augmenters: list[Callable[[Language, Example], Iterable[Example]]] = [],
+    augmenters: list[Callable[[Language, Example], Iterable[Example]]] = [],  # noqa
     k: int = 1,
     nlp: Language | None = None,
-    **kwargs,
+    **kwargs,  # noqa
 ) -> pd.DataFrame:
     """scores a models performance on a given corpus with potentially
     augmentations applied to it.
@@ -95,7 +95,7 @@ def score(  # noqa
     if len(augmenters) == 0:
         augmenters = [dont_augment]
 
-    def __apply_nlp(examples):
+    def __apply_nlp(examples):  # noqa: ANN001
         examples = ((e.x.text, e.y) for e in examples)
         doc_tuples = nlp_.pipe(examples, as_tuples=True)
         return [Example(x, y) for x, y in doc_tuples]
@@ -111,7 +111,7 @@ def score(  # noqa
 
     scorer = Scorer(nlp)
 
-    def ents_scorer(examples):
+    def ents_scorer(examples):  # noqa: ANN001
         scores = Scorer.score_spans(examples, attr="ents")
         scores_no_misc = Scorer.score_spans(
             examples,
@@ -123,7 +123,7 @@ def score(  # noqa
         }
         return scores
 
-    def pos_scorer(examples):
+    def pos_scorer(examples):  # noqa: ANN001
         scores = Scorer.score_token_attr(examples, attr="pos")
         scores_ = Scorer.score_token_attr(examples, attr="tag")
         for k in scores_:
@@ -143,24 +143,24 @@ def score(  # noqa
         ),
     }
 
-    def __score(augmenter):
+    def __score(augmenter):  # noqa: ANN001
         corpus_ = copy(corpus)
         corpus_.augmenter = augmenter
         scores_ls = []
-        for i in range(k):
+        for _i in range(k):
             s = time()
             examples = apply_fn(corpus_(nlp))
             speed = time() - s
             scores = {"wall_time": speed}
             for fn in score_fn:
                 if isinstance(fn, str):
-                    fn = def_scorers[fn]
+                    fn = def_scorers[fn]  # noqa
                 scores.update(fn(examples))
             scores = flatten_dict(scores)
             scores_ls.append(scores)
 
         # and collapse list to dict
-        for key in scores.keys():
+        for key in scores:
             scores[key] = [s[key] if key in s else None for s in scores_ls]
 
         scores["k"] = list(range(k))
@@ -169,5 +169,5 @@ def score(  # noqa
 
     for i, aug in enumerate(augmenters):
         scores_ = __score(aug)
-        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # noqa
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # type: ignore  # noqa
     return scores
