@@ -1,0 +1,739 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Getting started" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="tutorials/basic.html" />
+<meta property="og:site_name" content="DaCy" />
+<meta property="og:description" content="Open In Colab DaCy is built on SpaCy and uses the same pipeline structure. This means that if you are familiar with SpaCy using DaCy should be easy. It also allows you to use other SpaCy models and..." />
+<meta name="description" content="Open In Colab DaCy is built on SpaCy and uses the same pipeline structure. This means that if you are familiar with SpaCy using DaCy should be easy. It also allows you to use other SpaCy models and..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Sentiment Analysis" href="sentiment.html" /><link rel="prev" title="Using DaCy" href="../tutorials.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Getting started - DaCy</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">DaCy</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">DaCy</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Using DaCy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependency-parsing">Dependency Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sentence-segmentation">Sentence Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#noun-chunks">Noun Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#subjectivity">Subjectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#polarity">Polarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#emotion">Emotion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hate-speech.html">Hate Speech</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../performance.general.html">State of the Art Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robustness.html">Evaluating Robustness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/dacy.download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/dacy.score.html">Score</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy/changelog.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/tutorials/basic.ipynb" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/KennethEnevoldsen/DaCy/blob/master/docs/tutorials/basic.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>DaCy is built on <a class="reference external" href="https://spacy.io/">SpaCy</a> and uses the same pipeline structure. This means that if you are familiar with SpaCy
+using DaCy should be easy. It also allows you to use other SpaCy models and components with DaCy.
+Don’t worry if you are not familiar with SpaCy using DaCy is still easy.</p>
+<p>Before we start we assume you have installed DaCy and SpaCy if not please check out the <a class="reference external" href="https://centre-for-humanities-computing.github.io/DaCy/installation.html">installation</a> page.</p>
+<p>To use the model you first have to download either the small, medium or large model. To see a list
+of all available models:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">dacy</span><span class="o">.</span><span class="n">models</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>da_dacy_small_trf-0.1.0
+da_dacy_medium_trf-0.1.0
+da_dacy_large_trf-0.1.0
+small
+medium
+large
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The name of the indicated language (<code class="docutils literal notranslate"><span class="pre">da</span></code>), framework (<code class="docutils literal notranslate"><span class="pre">dacy</span></code>), model size (e.g.
+<code class="docutils literal notranslate"><span class="pre">small</span></code>), model type (<code class="docutils literal notranslate"><span class="pre">trf</span></code>), and model version (e.g. <code class="docutils literal notranslate"><span class="pre">0.1.0</span></code>). Using a larger model
+size will increase the accuracy of the model, but also increase the memory and
+time needed to run the model.</p>
+</div>
+<p>From here we can now download a model using:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_small_trf-latest&quot;</span><span class="p">)</span>
+<span class="c1"># or equivalently</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_small_trf-latest&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># or equivalently</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/dacy/load.py:37,</span> in <span class="ni">load</span><span class="nt">(model, force, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Load a DaCy model as a SpaCy text processing pipeline. If the model is</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span><span class="sd">     not downloaded it will also download the model.</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span><span class="sd">         &gt;&gt;&gt; dacy.load(&quot;medium&quot;)</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">37</span>     <span class="n">path</span> <span class="o">=</span> <span class="n">download_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>     <span class="k">return</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/dacy/download.py:84,</span> in <span class="ni">download_model</span><span class="nt">(model, force)</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="n">model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;da_dacy_</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">_trf-0.1.0&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">models_url</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">84</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="s2">&quot;The model is not available in DaCy. Please use dacy.models() to see a&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>         <span class="o">+</span> <span class="s2">&quot; list of all models&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="n">mdl_version</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="kn">from</span> <span class="nn">spacy.util</span> <span class="kn">import</span> <span class="n">get_installed_models</span>
+
+<span class="ne">ValueError</span>: The model is not available in DaCy. Please use dacy.models() to see a list of all models
+</pre></div>
+</div>
+</div>
+</div>
+<p>Which will download the model and install the model. If the model is already downloaded the model will just be loaded in. Once loaded, DaCy works exactly like any other SpaCy model.</p>
+<p>Using this we can now apply DaCy to text with conventional SpaCy syntax where we pass the text through all the components of the <code class="docutils literal notranslate"><span class="pre">nlp</span></code> pipeline.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>DaCy is built using SpaCy, hence you will be able to find a lot of the required documentation for
+using the pipeline in their very well written <a class="reference external" href="https://spacy.io">documentation</a>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span>
+    <span class="s2">&quot;DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering.&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="named-entity-recognition">
+<h1>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this heading">#</a></h1>
+<p>Named Entity Recognition (NER)is the task of identifying named entities in a text. A named entity is a “real-world object” that’s assigned a name - for example, a person, a country, a product or a book title.
+DaCy can recognize organizations, persons, and location, as well as other miscellaneous entities.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DaCy : PER
+dansk : MISC
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also plot these using:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+
+<span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    DaCy
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ er en hurtig og effektiv pipeline til 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    dansk
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MISC</span>
+</mark>
+ sprogprocessering.</div></span></div></div>
+</div>
+<p>While at the time of its release DaCy achieved state-of-the-art performance it has since been outperformed by the <a class="reference external" href="https://huggingface.co/saattrupdan/nbailab-base-ner-scandi">NER model</a> by Dan Nielsen. To allow users to access the best model for their use-case DaCy allows you to easily
+switch the NER component to obtain a state-of-the-art model.</p>
+<p>To do this you can simply load the model using:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the small dacy model excluding the NER component</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_small_trf-latest&quot;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ner&quot;</span><span class="p">])</span>
+<span class="c1"># or use an empty spacy model if you only want to do NER</span>
+<span class="c1"># nlp = spacy.blank(&quot;da&quot;)</span>
+
+<span class="c1"># add the ner component from the state-of-the-art model</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/ner&quot;</span><span class="p">)</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Denne NER model er trænet af Dan fra Alexandra Instituttet&quot;</span><span class="p">)</span>
+
+<span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Collecting da-dacy-small-trf==any
+  Downloading https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl (57.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">57.5/57.5 MB</span> <span class=" -Color -Color-Red">5.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>00:0100:01
+?25h
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Denne 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    NER
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MISC</span>
+</mark>
+ model er trænet af 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Dan
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PER</span>
+</mark>
+ fra 
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Alexandra Instituttet
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+</div></span></div></div>
+</div>
+</section>
+<section id="parts-of-speech-tagging">
+<h1>Parts-of-speech Tagging<a class="headerlink" href="#parts-of-speech-tagging" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">Part-of-speech tagging</a> (POS) is the task of assigning a part of speech to each word in a text. The part of speech is the grammatical role of a word in a sentence. For example, the word “run” is a verb, and the word “book” is a noun.</p>
+<p>After tokenization, DaCy can parse and tag a given Doc. This is where the trained pipeline and its statistical models come in, which enable spaCy to make predictions of which tag or label most likely applies in this context. A trained component includes data that is produced by showing a system enough examples for it to make predictions that generalize across the language – for example, a word following “the” in English is most likely a noun.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token POS-tag&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token POS-tag
+Denne: DET
+NER: PROPN
+model: NOUN
+er: AUX
+trænet: VERB
+af: ADP
+Dan: PROPN
+fra: ADP
+Alexandra: PROPN
+Instituttet: NOUN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For more on Part-of-speech tagging see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#pos-tagging">documentation</a>.</p>
+</div>
+</section>
+<section id="dependency-parsing">
+<h1>Dependency Parsing<a class="headerlink" href="#dependency-parsing" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Dependency_grammar">Dependency parsing</a> is the task of assigning syntactic dependencies between tokens, i.e. identifying the head word of a phrase and the relation between the head and the word. For example, in the sentence “The quick brown fox jumps over the lazy dog”, the word “jumps” is the head of the phrase “quick brown fox”, and the relation between them is “nsubj” (nominal subject).</p>
+<p>DaCy features a fast and accurate syntactic dependency parser. In DaCy this dependency parsing is also
+used for sentence segmentation and detecting noun chunks.</p>
+<p>You can see the dependency tree using:</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For more on Dependency parsing see SpaCy’s <a class="reference external" href="https://spacy.io/usage/linguistic-features#dependency-parse">documentation</a>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;DaCy er en effektiv pipeline til dansk fritekst.&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+
+<span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/au561649/.virtualenvs/dacy/lib/python3.10/site-packages/spacy/pipeline/attributeruler.py:150: UserWarning: [W036] The component &#39;matcher&#39; does not have any patterns defined.
+  matches = self.matcher(doc, allow_missing=True, as_spans=False)
+</pre></div>
+</div>
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="da" id="67c30109c3ae47cd88e952118a35dce3-0" class="displacy" width="1450" height="487.0" direction="ltr" style="max-width: none; height: 487.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="50">DaCy</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">PROPN</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="225">er</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="225">AUX</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="400">en</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="400">DET</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="575">effektiv</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="575">ADJ</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="750">pipeline</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="750">NOUN</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="925">til</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="925">ADP</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="1100">dansk</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1100">ADJ</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="397.0">
+    <tspan class="displacy-word" fill="currentColor" x="1275">fritekst.</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="1275">NOUN</tspan>
+</text>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-0" stroke-width="2px" d="M70,352.0 C70,2.0 750.0,2.0 750.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M70,354.0 L62,342.0 78,342.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-1" stroke-width="2px" d="M245,352.0 C245,89.5 745.0,89.5 745.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cop</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M245,354.0 L237,342.0 253,342.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-2" stroke-width="2px" d="M420,352.0 C420,177.0 740.0,177.0 740.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">det</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M420,354.0 L412,342.0 428,342.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-3" stroke-width="2px" d="M595,352.0 C595,264.5 735.0,264.5 735.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">amod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M595,354.0 L587,342.0 603,342.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-4" stroke-width="2px" d="M945,352.0 C945,177.0 1265.0,177.0 1265.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">case</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M945,354.0 L937,342.0 953,342.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-5" stroke-width="2px" d="M1120,352.0 C1120,264.5 1260.0,264.5 1260.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">amod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M1120,354.0 L1112,342.0 1128,342.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-67c30109c3ae47cd88e952118a35dce3-0-6" stroke-width="2px" d="M770,352.0 C770,89.5 1270.0,89.5 1270.0,352.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-67c30109c3ae47cd88e952118a35dce3-0-6" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nmod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M1270.0,354.0 L1278.0,342.0 1262.0,342.0" fill="currentColor"/>
+</g>
+</svg></span></div></div>
+</div>
+</section>
+<section id="sentence-segmentation">
+<h1>Sentence Segmentation<a class="headerlink" href="#sentence-segmentation" title="Permalink to this heading">#</a></h1>
+<p>Sentence segmentation is the task of splitting a text into sentences. In DaCy this is done using the dependency parser. This makes it very accurate and allows for the detection of sentences that are not separated by a punctuations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Sætnings segmentering er en vigtig del af sprogprocessering - Det kan bl.a. benyttes til at opdele lange tekster i mindre bidder uden at miste meningen i hvert sætning.&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sætnings segmentering er en vigtig del af sprogprocessering
+- Det kan bl.a. benyttes til at opdele lange tekster i mindre bidder uden at miste meningen i hvert sætning.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="noun-chunks">
+<h1>Noun Chunks<a class="headerlink" href="#noun-chunks" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Noun_phrase">Noun chunks</a> are “base noun phrases” – flat phrases that have a noun as their head. For example, “the big yellow taxi” and “the quick brown fox” are noun chunks. Noun chunks are “noun-like” words, such as a noun, a pronoun, a proper noun, or a noun phrase, that function as the head of a noun phrase.</p>
+<p>Noun chunks are for example used for information extraction, and for finding subjects and objects of verbs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering.&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nc</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">noun_chunks</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DaCy
+en hurtig og effektiv pipeline
+dansk sprogprocessering
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lemmatization">
+<h1>Lemmatization<a class="headerlink" href="#lemmatization" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Lemmatisation">Lemmatization</a> is the task of grouping together the inflected forms of a word so they can be analysed as a single item. For example, the verb “to run” has the base form “run”, and the verb “ran” has the base form “run”.</p>
+<p>Lemmatization is for example used for text normalization before training a machine learning model to reduce the number of unique tokens in the training data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Normalisering af tekst kan være en god idé.&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normalisering Normalisering
+af af
+tekst tekst
+kan kunne
+være være
+en en
+god god
+idé idé
+. .
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="sentiment.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Sentiment Analysis</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../tutorials.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Using DaCy</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Kenneth Enevoldsen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/dacy" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    </body>
+</html>

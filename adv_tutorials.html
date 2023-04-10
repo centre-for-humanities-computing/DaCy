@@ -2,23 +2,22 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-<meta property="og:title" content="Using DaCy" />
-  
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Advanced Tutorials" />
 <meta property="og:type" content="website" />
-  
-<meta property="og:url" content="using_dacy.html" />
-  
-<meta property="og:description" content="DaCy includes a series of tutorials on how to get started using DaCy as well how to use DaCy for sentiment analysis and Hate speech Analysis and more. If you are unfamiliar with DaCy/spaCy we recom..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Getting Started" href="using_dacy.getting_started.html" /><link rel="prev" title="Installation" href="installation.html" />
+<meta property="og:url" content="adv_tutorials.html" />
+<meta property="og:site_name" content="DaCy" />
+<meta property="og:description" content="DaCy includes a series of slightly more advanced tutorials. These tutorials are meant to show how to use DaCy for more advanced tasks such using for evaluation or integrating DaCy it with other lib..." />
+<meta name="description" content="DaCy includes a series of slightly more advanced tutorials. These tutorials are meant to show how to use DaCy for more advanced tasks such using for evaluation or integrating DaCy it with other lib..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Evaluating Robustness" href="tutorials/robustness.html" /><link rel="prev" title="Hate Speech" href="tutorials/hate-speech.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-6.1.3, furo 2022.06.21"/>
-        <title>Using DaCy - DaCy 2.4.2 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Advanced Tutorials - DaCy</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -26,24 +25,24 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #ff5454;
   --color-brand-content: #ff7575;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
@@ -139,7 +138,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 2.4.2 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -150,7 +149,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -166,41 +165,57 @@
     <img class="sidebar-logo only-dark" src="_static/icon_dark.png" alt="Dark Logo"/>
   </div>
   
+  <span class="sidebar-brand-text">DaCy</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Using DaCy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#named-entity-recognition">Named Entity Recognition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#dependency-parsing">Dependency parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.sentiment.html">Sentiment Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.hate_speech.html">Hate Speech</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.augmentation.html">Augmentation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#dependency-parsing">Dependency Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#sentence-segmentation">Sentence Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#noun-chunks">Noun Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#subjectivity">Subjectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#polarity">Polarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#emotion">Emotion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/hate-speech.html">Hate Speech</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Advanced Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dacy.download.html">Downloading and Loading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.score.html">Score</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.score.html">Score</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy/changelog.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
 </ul>
 
 </div>
@@ -221,7 +236,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/DaCy/edit/main/docs/using_dacy.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/adv_tutorials.md" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -237,56 +252,35 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="using-dacy">
-<h1>Using DaCy<a class="headerlink" href="#using-dacy" title="Permalink to this heading">#</a></h1>
-<p>DaCy includes a series of tutorials on how to get started using DaCy as well how to use
-DaCy for sentiment analysis and Hate speech Analysis and more. If you are unfamiliar with
-DaCy/spaCy we recommend starting with the first guide.</p>
+          <section id="advanced-tutorials">
+<h1>Advanced Tutorials<a class="headerlink" href="#advanced-tutorials" title="Permalink to this heading">#</a></h1>
+<p>DaCy includes a series of slightly more advanced tutorials. These tutorials are meant to show
+how to use DaCy for more advanced tasks such using for evaluation or integrating DaCy it with other libraries.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.getting_started.html#named-entity-recognition">Named Entity Recognition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.getting_started.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.getting_started.html#dependency-parsing">Dependency parsing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.sentiment.html">Sentiment Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.sentiment.html#overview-of-models">Overview of Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.sentiment.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html#installing-packages">Installing packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html#loading-models-and-data">Loading models and data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html#estimating-performance">Estimating performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/robustness.html#estimating-robustness-and-biases">Estimating robustness and biases</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.hate_speech.html">Hate Speech</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.hate_speech.html#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="using_dacy.augmentation.html">Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/textdescriptives.html">Extracting Metrics from text using TextDescriptives</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/textdescriptives.html#data">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/textdescriptives.html#adding-textdescriptives-components-to-dacy">Adding TextDescriptives components to DaCy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/textdescriptives.html#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+</ul>
+</li>
 </ul>
 </div>
-<section id="additional-guides">
-<h2>Additional Guides<a class="headerlink" href="#additional-guides" title="Permalink to this heading">#</a></h2>
-<p>Besides the above tutorials, DaCy also contains a few Google Colab tutorials:</p>
-<div class="table-wrapper docutils container">
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Google Colab</p></th>
-<th class="head"><p>Content</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/tutorials/dacy-robustness.ipynb"><img alt="colab_fair" src="https://colab.research.google.com/assets/colab-badge.svg" width="100pt" /></a></p></td>
-<td><p>A guide on how to use augmenters to measure model robustness and biases.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/textdescriptives_integration.ipynb"><img alt="colab_textd" src="https://colab.research.google.com/assets/colab-badge.svg" width="100pt" /></a></p></td>
-<td><p>A guide on how to extract text statistics such as text complexity using DaCy and textdescriptives</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 </section>
 
         </article>
@@ -294,23 +288,23 @@ DaCy/spaCy we recommend starting with the first guide.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="using_dacy.getting_started.html">
+          <a class="next-page" href="tutorials/robustness.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Getting Started</div>
+                <div class="title">Evaluating Robustness</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="installation.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+          <a class="prev-page" href="tutorials/hate-speech.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Installation</div>
+                <div class="title">Hate Speech</div>
                 
               </div>
             </a>
@@ -318,7 +312,7 @@ DaCy/spaCy we recommend starting with the first guide.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 
+                Copyright &#169; 2023, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -327,7 +321,7 @@ DaCy/spaCy we recommend starting with the first guide.</p>
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/DaCy" aria-label="GitHub">
+              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/dacy" aria-label="GitHub">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>
@@ -339,27 +333,8 @@ DaCy/spaCy we recommend starting with the first guide.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            Contents
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Using DaCy</a><ul>
-<li><a class="reference internal" href="#additional-guides">Additional Guides</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -2,23 +2,22 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-<meta property="og:title" content="Frequently Asked Questions" />
-  
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="FAQ" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="faq.html" />
-  
-<meta property="og:description" content="How do I test the code and run the test suite?: This package comes with test suite to ensure functionality of the package. To run the tests, you should clone the repository, then install the packag..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Downloading and Loading" href="dacy.download.html" /><link rel="prev" title="News and Changelog" href="news.html" />
+<meta property="og:site_name" content="DaCy" />
+<meta property="og:description" content="How do I test the code?: This package comes with a test suite implemented using [pytest]. In order to run the tests, you have to clone the repository and install the package. This will also install..." />
+<meta name="description" content="How do I test the code?: This package comes with a test suite implemented using [pytest]. In order to run the tests, you have to clone the repository and install the package. This will also install..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Downloading and Loading" href="api/dacy.download.html" /><link rel="prev" title="News and Changelog" href="news.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><meta name="generator" content="sphinx-6.1.3, furo 2022.06.21"/>
-        <title>Frequently Asked Questions - DaCy 2.4.2 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>FAQ - DaCy</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -26,24 +25,24 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #ff5454;
   --color-brand-content: #ff7575;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
@@ -139,7 +138,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">DaCy 2.4.2 documentation</div></a>
+      <a href="index.html"><div class="brand">DaCy</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -166,41 +165,57 @@
     <img class="sidebar-logo only-dark" src="_static/icon_dark.png" alt="Dark Logo"/>
   </div>
   
+  <span class="sidebar-brand-text">DaCy</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="using_dacy.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#named-entity-recognition">Named Entity Recognition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.getting_started.html#dependency-parsing">Dependency parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.sentiment.html">Sentiment Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.hate_speech.html">Hate Speech</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using_dacy.augmentation.html">Augmentation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#dependency-parsing">Dependency Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#sentence-segmentation">Sentence Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#noun-chunks">Noun Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#subjectivity">Subjectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#polarity">Polarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#emotion">Emotion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/hate-speech.html">Hate Speech</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Frequently Asked Questions</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">FAQ</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dacy.download.html">Downloading and Loading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.datasets.html">Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dacy.score.html">Score</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.score.html">Score</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy/changelog.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
 </ul>
 
 </div>
@@ -221,7 +236,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/DaCy/edit/main/docs/faq.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/faq.md" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -243,47 +258,44 @@
           </label>
         </div>
         <article role="main">
-          <section id="frequently-asked-questions">
-<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h1>
-<section id="how-do-i-test-the-code-and-run-the-test-suite">
-<h2>How do I test the code and run the test suite?<a class="headerlink" href="#how-do-i-test-the-code-and-run-the-test-suite" title="Permalink to this heading">#</a></h2>
-<p>This package comes with test suite to ensure functionality of the package.
-To run the tests, you should clone the repository, then install the package using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">style</span><span class="p">,</span><span class="n">tests</span><span class="p">]</span>
+          <section id="faq">
+<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this heading">#</a></h1>
+<section id="how-do-i-test-the-code">
+<h2>How do I test the code?<a class="headerlink" href="#how-do-i-test-the-code" title="Permalink to this heading">#</a></h2>
+<p>This package comes with a test suite implemented using [pytest].
+In order to run the tests, you have to clone the repository and install the package.
+This will also install the required tests dependencies
+and test utilities defined in the extras_require section of the :code:<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/centre-for-humanities-computing/dacy
+
+<span class="c1"># install package and test dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[tests]&quot;</span>
+
+<span class="c1"># run all tests</span>
+python<span class="w"> </span>-m<span class="w"> </span>pytest
 </pre></div>
 </div>
-<p>This will install the required dependencies for running test as well as packages for linting. These are specified in the <code class="code docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.
-Following this installation you can run the test suite using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span>
-</pre></div>
-</div>
-<p>which will run all the test in the <code class="code docutils literal notranslate"><span class="pre">tests</span></code> folder.</p>
+<p>which will run all the test in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> folder.</p>
 <p>Specific tests can be run using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">desired_test</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/desired_test.py
 </pre></div>
 </div>
 <p>If you want to check code coverage you can run the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span><span class="o">=.</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>src
 </pre></div>
 </div>
 </section>
-<section id="does-this-package-run-on-x">
-<h2>Does this package run on X?<a class="headerlink" href="#does-this-package-run-on-x" title="Permalink to this heading">#</a></h2>
-<p>This package is intended to run on all major OS, this includes Windows (latest version), MacOS (latest) and the latest version of Linux (Ubuntu).
-Similarly it also tested on python 3.7, 3.8, and 3.9.
-Please note these are only the systems this package is being actively tested on, if you run on a similar system (e.g. an earlier version of Linux) DaCy
-will likely run there as well, if not please create an issue.</p>
-</section>
 <section id="how-is-the-documentation-generated">
 <h2>How is the documentation generated?<a class="headerlink" href="#how-is-the-documentation-generated" title="Permalink to this heading">#</a></h2>
-<p>This package uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a> to generate documentation. It uses the <a class="reference external" href="https://github.com/pradyunsg/furo">Furo</a> theme with custom styling.</p>
+<p>This package use <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a> to generate documentation. It uses the <a class="reference external" href="https://github.com/pradyunsg/furo">Furo</a> theme with
+custom styling.</p>
 <p>To make the documentation you can run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># install sphinx, themes and extensions</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;.[docs]&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install sphinx, themes and extensions</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
 
 <span class="c1"># generate html from documentations</span>
-
-<span class="n">make</span> <span class="o">-</span><span class="n">C</span> <span class="n">docs</span> <span class="n">html</span>
+sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>docs<span class="w"> </span>docs/_build/html
 </pre></div>
 </div>
 </section>
@@ -317,17 +329,17 @@ will likely run there as well, if not please create an issue.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="dacy.download.html">
+          <a class="next-page" href="api/dacy.download.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
                 <div class="title">Downloading and Loading</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="news.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -341,7 +353,7 @@ will likely run there as well, if not please create an issue.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 
+                Copyright &#169; 2023, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -350,7 +362,7 @@ will likely run there as well, if not please create an issue.</p>
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/DaCy" aria-label="GitHub">
+              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/dacy" aria-label="GitHub">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>
@@ -368,15 +380,14 @@ will likely run there as well, if not please create an issue.</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
-<li><a class="reference internal" href="#how-do-i-test-the-code-and-run-the-test-suite">How do I test the code and run the test suite?</a></li>
-<li><a class="reference internal" href="#does-this-package-run-on-x">Does this package run on X?</a></li>
+<li><a class="reference internal" href="#">FAQ</a><ul>
+<li><a class="reference internal" href="#how-do-i-test-the-code">How do I test the code?</a></li>
 <li><a class="reference internal" href="#how-is-the-documentation-generated">How is the documentation generated?</a></li>
 <li><a class="reference internal" href="#how-do-i-cite-this-work">How do I cite this work?</a></li>
 </ul>

@@ -1,0 +1,1425 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Extracting Metrics from text using TextDescriptives" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="tutorials/textdescriptives.html" />
+<meta property="og:site_name" content="DaCy" />
+<meta property="og:description" content="DaCy allows you to use other packages in the spaCy universe as you normally would - just powered by the DaCy models. The following tutorial shows you how to use DaCy and TextDescriptives to extract..." />
+<meta name="description" content="DaCy allows you to use other packages in the spaCy universe as you normally would - just powered by the DaCy models. The following tutorial shows you how to use DaCy and TextDescriptives to extract..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Performance" href="../performance.html" /><link rel="prev" title="Evaluating Robustness" href="robustness.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>Extracting Metrics from text using TextDescriptives - DaCy</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">DaCy</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">DaCy</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#dependency-parsing">Dependency Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#sentence-segmentation">Sentence Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#noun-chunks">Noun Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#subjectivity">Subjectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#polarity">Polarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#emotion">Emotion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hate-speech.html">Hate Speech</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../adv_tutorials.html">Advanced Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Extracting Metrics from text using TextDescriptives</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../performance.general.html">State of the Art Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robustness.html">Evaluating Robustness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/dacy.download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/dacy.score.html">Score</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy/changelog.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/tutorials/textdescriptives.ipynb" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="extracting-metrics-from-text-using-textdescriptives">
+<h1>Extracting Metrics from text using TextDescriptives<a class="headerlink" href="#extracting-metrics-from-text-using-textdescriptives" title="Permalink to this heading">#</a></h1>
+<a target="_blank" href="https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/textdescriptives_integration.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+<p>DaCy allows you to use other packages in the spaCy universe as you normally would - just powered by the DaCy models.</p>
+<p>The following tutorial shows you how to use DaCy and <a class="reference external" href="https://github.com/HLasse/TextDescriptives/">TextDescriptives</a> to extract a variety of metrics from text. For more information on the metrics that can be extracted, see the <a class="reference external" href="https://hlasse.github.io/TextDescriptives/index.html">TextDescriptives documentation</a>.</p>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>In this tutorial we’ll use TextDescriptives and DaCy, to get a quick overview of the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection">SMS Spam Collection Data Set</a>.
+The dataset contains 5572 SMS messages categorized as ham or spam.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The estute among you will have noticed that this dataset is not Danish. This tutorial simply want to show how to use DaCy and TextDescriptives together and
+hopefully inspire you to use the tools on your own (Danish) data.</p>
+</div>
+<p>To start, let’s load a dataset and get a bit familiar with it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_sms_data</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ham     4825
+spam     747
+Name: label, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-textdescriptives-components-to-dacy">
+<h2>Adding TextDescriptives components to DaCy<a class="headerlink" href="#adding-textdescriptives-components-to-dacy" title="Permalink to this heading">#</a></h2>
+<p>Adding TextDescriptives components to a DaCy pipeline, follows exactly the same procedure as for any spaCy model. Let’s add the <code class="docutils literal notranslate"><span class="pre">readability</span></code> and <code class="docutils literal notranslate"><span class="pre">dependency_distance</span></code> components. <code class="docutils literal notranslate"><span class="pre">Readability</span></code> is a component that calculates readability metrics, and <code class="docutils literal notranslate"><span class="pre">dependency_distance</span></code> is a component that calculates the average dependency distance between words in a sentence. This can be seen a measure of sentence complexity.</p>
+<p>Because we are using a DaCy model, the <code class="docutils literal notranslate"><span class="pre">dependency_distance</span></code> component will use the dependency parser from DaCy for its calculations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_medium_trf-0.1.0&quot;</span><span class="p">)</span>
+
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting da-dacy-medium-trf==any
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/61a54ab9e9ab437f5c603c023d4238ecc5bb8eb5/da_dacy_medium_trf-any-py3-none-any.whl (417.8 MB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/417.8 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.0/417.8 MB</span> <span class=" -Color -Color-Red">88.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+     ╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">6.6/417.8 MB</span> <span class=" -Color -Color-Red">95.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+     ╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">10.0/417.8 MB</span> <span class=" -Color -Color-Red">94.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+     ━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">13.8/417.8 MB</span> <span class=" -Color -Color-Red">104.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">19.4/417.8 MB</span> <span class=" -Color -Color-Red">109.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">23.6/417.8 MB</span> <span class=" -Color -Color-Red">117.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">28.2/417.8 MB</span> <span class=" -Color -Color-Red">119.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">31.5/417.8 MB</span> <span class=" -Color -Color-Red">112.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">35.0/417.8 MB</span> <span class=" -Color -Color-Red">102.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">38.3/417.8 MB</span> <span class=" -Color -Color-Red">91.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+     ━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">41.8/417.8 MB</span> <span class=" -Color -Color-Red">95.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/417.8 MB</span> <span class=" -Color -Color-Red">91.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+     ━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">48.5/417.8 MB</span> <span class=" -Color -Color-Red">91.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+     ━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">52.3/417.8 MB</span> <span class=" -Color -Color-Red">98.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">56.4/417.8 MB</span> <span class=" -Color -Color-Red">107.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">60.7/417.8 MB</span> <span class=" -Color -Color-Red">114.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+     ━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">65.0/417.8 MB</span> <span class=" -Color -Color-Red">119.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">69.2/417.8 MB</span> <span class=" -Color -Color-Red">117.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">73.6/417.8 MB</span> <span class=" -Color -Color-Red">117.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">77.8/417.8 MB</span> <span class=" -Color -Color-Red">118.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">82.2/417.8 MB</span> <span class=" -Color -Color-Red">120.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">86.7/417.8 MB</span> <span class=" -Color -Color-Red">121.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">91.4/417.8 MB</span> <span class=" -Color -Color-Red">123.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">95.9/417.8 MB</span> <span class=" -Color -Color-Red">124.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">99.9/417.8 MB</span> <span class=" -Color -Color-Red">117.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">103.7/417.8 MB</span> <span class=" -Color -Color-Red">109.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">107.2/417.8 MB</span> <span class=" -Color -Color-Red">104.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">111.0/417.8 MB</span> <span class=" -Color -Color-Red">103.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">114.3/417.8 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">118.6/417.8 MB</span> <span class=" -Color -Color-Red">106.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">122.6/417.8 MB</span> <span class=" -Color -Color-Red">112.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">126.8/417.8 MB</span> <span class=" -Color -Color-Red">114.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">131.4/417.8 MB</span> <span class=" -Color -Color-Red">115.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">135.6/417.8 MB</span> <span class=" -Color -Color-Red">116.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">139.6/417.8 MB</span> <span class=" -Color -Color-Red">112.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">144.2/417.8 MB</span> <span class=" -Color -Color-Red">115.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">148.7/417.8 MB</span> <span class=" -Color -Color-Red">122.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">153.0/417.8 MB</span> <span class=" -Color -Color-Red">120.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">156.7/417.8 MB</span> <span class=" -Color -Color-Red">111.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.3/417.8 MB</span> <span class=" -Color -Color-Red">114.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">166.0/417.8 MB</span> <span class=" -Color -Color-Red">125.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">170.1/417.8 MB</span> <span class=" -Color -Color-Red">123.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">174.6/417.8 MB</span> <span class=" -Color -Color-Red">121.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">179.1/417.8 MB</span> <span class=" -Color -Color-Red">123.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">183.7/417.8 MB</span> <span class=" -Color -Color-Red">124.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">187.9/417.8 MB</span> <span class=" -Color -Color-Red">121.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">192.0/417.8 MB</span> <span class=" -Color -Color-Red">117.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">195.5/417.8 MB</span> <span class=" -Color -Color-Red">108.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">199.5/417.8 MB</span> <span class=" -Color -Color-Red">107.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">203.9/417.8 MB</span> <span class=" -Color -Color-Red">111.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">208.1/417.8 MB</span> <span class=" -Color -Color-Red">116.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">211.8/417.8 MB</span> <span class=" -Color -Color-Red">109.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">215.4/417.8 MB</span> <span class=" -Color -Color-Red">104.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">218.7/417.8 MB</span> <span class=" -Color -Color-Red">98.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+     ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">222.4/417.8 MB</span> <span class=" -Color -Color-Red">98.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">225.9/417.8 MB</span> <span class=" -Color -Color-Red">98.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">229.3/417.8 MB</span> <span class=" -Color -Color-Red">98.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">233.5/417.8 MB</span> <span class=" -Color -Color-Red">103.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">237.8/417.8 MB</span> <span class=" -Color -Color-Red">112.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">241.7/417.8 MB</span> <span class=" -Color -Color-Red">113.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">245.9/417.8 MB</span> <span class=" -Color -Color-Red">111.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">249.9/417.8 MB</span> <span class=" -Color -Color-Red">110.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">253.8/417.8 MB</span> <span class=" -Color -Color-Red">110.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">257.4/417.8 MB</span> <span class=" -Color -Color-Red">105.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━ <span class=" -Color -Color-Green">261.3/417.8 MB</span> <span class=" -Color -Color-Red">104.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━ <span class=" -Color -Color-Green">265.2/417.8 MB</span> <span class=" -Color -Color-Red">107.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━ <span class=" -Color -Color-Green">269.1/417.8 MB</span> <span class=" -Color -Color-Red">106.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">272.6/417.8 MB</span> <span class=" -Color -Color-Red">102.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">276.4/417.8 MB</span> <span class=" -Color -Color-Red">100.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">279.6/417.8 MB</span> <span class=" -Color -Color-Red">97.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━ <span class=" -Color -Color-Green">283.6/417.8 MB</span> <span class=" -Color -Color-Red">105.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━ <span class=" -Color -Color-Green">287.4/417.8 MB</span> <span class=" -Color -Color-Red">105.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━ <span class=" -Color -Color-Green">291.5/417.8 MB</span> <span class=" -Color -Color-Red">112.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━ <span class=" -Color -Color-Green">295.6/417.8 MB</span> <span class=" -Color -Color-Red">109.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━ <span class=" -Color -Color-Green">299.7/417.8 MB</span> <span class=" -Color -Color-Red">111.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━ <span class=" -Color -Color-Green">303.7/417.8 MB</span> <span class=" -Color -Color-Red">114.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━ <span class=" -Color -Color-Green">307.9/417.8 MB</span> <span class=" -Color -Color-Red">114.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━ <span class=" -Color -Color-Green">312.0/417.8 MB</span> <span class=" -Color -Color-Red">115.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━ <span class=" -Color -Color-Green">316.7/417.8 MB</span> <span class=" -Color -Color-Red">122.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━ <span class=" -Color -Color-Green">321.3/417.8 MB</span> <span class=" -Color -Color-Red">126.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━ <span class=" -Color -Color-Green">325.8/417.8 MB</span> <span class=" -Color -Color-Red">124.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━ <span class=" -Color -Color-Green">329.5/417.8 MB</span> <span class=" -Color -Color-Red">115.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━ <span class=" -Color -Color-Green">333.3/417.8 MB</span> <span class=" -Color -Color-Red">108.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━ <span class=" -Color -Color-Green">337.4/417.8 MB</span> <span class=" -Color -Color-Red">108.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━ <span class=" -Color -Color-Green">341.4/417.8 MB</span> <span class=" -Color -Color-Red">109.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━ <span class=" -Color -Color-Green">345.5/417.8 MB</span> <span class=" -Color -Color-Red">112.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━ <span class=" -Color -Color-Green">349.1/417.8 MB</span> <span class=" -Color -Color-Red">107.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ <span class=" -Color -Color-Green">353.3/417.8 MB</span> <span class=" -Color -Color-Red">113.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━ <span class=" -Color -Color-Green">357.3/417.8 MB</span> <span class=" -Color -Color-Red">113.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━ <span class=" -Color -Color-Green">360.9/417.8 MB</span> <span class=" -Color -Color-Red">109.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━ <span class=" -Color -Color-Green">364.1/417.8 MB</span> <span class=" -Color -Color-Red">100.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━ <span class=" -Color -Color-Green">367.7/417.8 MB</span> <span class=" -Color -Color-Red">99.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━ <span class=" -Color -Color-Green">371.8/417.8 MB</span> <span class=" -Color -Color-Red">103.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━ <span class=" -Color -Color-Green">375.9/417.8 MB</span> <span class=" -Color -Color-Red">110.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━ <span class=" -Color -Color-Green">380.1/417.8 MB</span> <span class=" -Color -Color-Red">114.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━ <span class=" -Color -Color-Green">384.2/417.8 MB</span> <span class=" -Color -Color-Red">114.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━ <span class=" -Color -Color-Green">388.5/417.8 MB</span> <span class=" -Color -Color-Red">116.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━ <span class=" -Color -Color-Green">392.9/417.8 MB</span> <span class=" -Color -Color-Red">118.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━ <span class=" -Color -Color-Green">397.1/417.8 MB</span> <span class=" -Color -Color-Red">118.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━ <span class=" -Color -Color-Green">401.1/417.8 MB</span> <span class=" -Color -Color-Red">111.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━ <span class=" -Color -Color-Green">405.5/417.8 MB</span> <span class=" -Color -Color-Red">109.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺ <span class=" -Color -Color-Green">409.8/417.8 MB</span> <span class=" -Color -Color-Red">117.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">414.6/417.8 MB</span> <span class=" -Color -Color-Red">122.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">120.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">417.8/417.8 MB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: da-dacy-medium-trf
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed da-dacy-medium-trf-0.1.0
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:887: UserWarning: [W095] Model &#39;da_dacy_medium_trf&#39; (0.1.0) was trained with spaCy v3.1 and may not be 100% compatible with the current version (3.5.1). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
+  warnings.warn(warn_msg)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy_transformers/pipeline_component.py:402: UserWarning: Automatically converting a transformer component from spacy-transformers v1.0 to v1.1+. If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spacy-transformers version. For more details and available updates, run: python -m spacy validate
+  warnings.warn(warn_msg)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f530c3ca4a0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>From now on, whenever we pass a document through the pipeline (<code class="docutils literal notranslate"><span class="pre">nlp</span></code>), TextDescriptives will add readability and dependency distance metrics to the document.</p>
+<p>Let’s load the data and pass it through the pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to speed things up (especially on cpu) let&#39;s subsample the data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="c1"># extract the metrics as a dataframe</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/pipeline/attributeruler.py:150: UserWarning: [W036] The component &#39;matcher&#39; does not have any patterns defined.
+  matches = self.matcher(doc, allow_missing=True, as_spans=False)
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># extract the metrics as a dataframe</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:107,</span> in <span class="ni">extract_df</span><span class="nt">(docs, metrics, include_text)</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span> <span class="k">def</span> <span class="nf">extract_df</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="n">metrics</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="n">include_text</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">91</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Extract calculated metrics from a spaCy Doc object or a generator of Docs</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span><span class="sd">     from nlp.pipe to a Pandas DataFrame.</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span><span class="sd">         pd.DataFrame: DataFrame with a row for each doc and column for each metric.</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">107</span>     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">include_text</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:52,</span> in <span class="ni">extract_dict</span><span class="nt">(docs, metrics, include_text)</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Extract calculated metrics from a spaCy Doc or an iterable of Docs to a</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span><span class="sd"> list of dictionaries.</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span><span class="sd">     List[Dict[str, Any]]: List of dictionaries for each Doc with extracted metrics.</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="k">return</span> <span class="p">[</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">include_text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="c1"># extract textdescriptive metrics from the list of spacy Language factory</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="n">valid_metrics</span> <span class="o">=</span> <span class="n">get_valid_metrics</span><span class="p">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:52,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Extract calculated metrics from a spaCy Doc or an iterable of Docs to a</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span><span class="sd"> list of dictionaries.</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span><span class="sd">     List[Dict[str, Any]]: List of dictionaries for each Doc with extracted metrics.</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="k">return</span> <span class="p">[</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">include_text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="c1"># extract textdescriptive metrics from the list of spacy Language factory</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="n">valid_metrics</span> <span class="o">=</span> <span class="n">get_valid_metrics</span><span class="p">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/language.py:1574,</span> in <span class="ni">Language.pipe</span><span class="nt">(self, texts, as_tuples, batch_size, disable, component_cfg, n_process)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1572</span>     <span class="k">for</span> <span class="n">pipe</span> <span class="ow">in</span> <span class="n">pipes</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1573</span>         <span class="n">docs</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1574</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1575</span>     <span class="k">yield</span> <span class="n">doc</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1680,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1678</span>     <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1679</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1680</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1681</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1682</span>         <span class="n">doc</span> <span class="o">=</span> <span class="n">proc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1680,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1678</span>     <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1679</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1680</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1681</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1682</span>         <span class="n">doc</span> <span class="o">=</span> <span class="n">proc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1680,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1678</span>     <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1679</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1680</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1681</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1682</span>         <span class="n">doc</span> <span class="o">=</span> <span class="n">proc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1670,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;PipeCallable&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1673</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/transition_parser.pyx:233,</span> in <span class="ni">pipe</span><span class="nt">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1617,</span> in <span class="ni">minibatch</span><span class="nt">(items, size)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1615</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1616</span>     <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">size_</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1617</span>     <span class="n">batch</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1618</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span>         <span class="k">break</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1670,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;PipeCallable&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1673</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/pipe.pyx:53,</span> in <span class="ni">pipe</span><span class="nt">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1670,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;PipeCallable&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1673</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/pipe.pyx:53,</span> in <span class="ni">pipe</span><span class="nt">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1670,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;PipeCallable&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1673</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/transition_parser.pyx:233,</span> in <span class="ni">pipe</span><span class="nt">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1617,</span> in <span class="ni">minibatch</span><span class="nt">(items, size)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1615</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1616</span>     <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">size_</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1617</span>     <span class="n">batch</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1618</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span>         <span class="k">break</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1670,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;PipeCallable&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1673</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/trainable_pipe.pyx:73,</span> in <span class="ni">pipe</span><span class="nt">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1617,</span> in <span class="ni">minibatch</span><span class="nt">(items, size)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1615</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1616</span>     <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">size_</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1617</span>     <span class="n">batch</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1618</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span>         <span class="k">break</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1670,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;PipeCallable&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1670</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1673</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy_transformers/pipeline_component.py:212,</span> in <span class="ni">Transformer.pipe</span><span class="nt">(self, stream, batch_size)</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span> <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">batch_by_length</span><span class="p">(</span><span class="n">outer_batch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;max_batch_items&quot;</span><span class="p">]):</span>
+<span class="g g-Whitespace">    </span><span class="mi">211</span>     <span class="n">subbatch</span> <span class="o">=</span> <span class="p">[</span><span class="n">outer_batch</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">212</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_annotations</span><span class="p">(</span><span class="n">subbatch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">subbatch</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">yield from</span> <span class="n">outer_batch</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy_transformers/pipeline_component.py:229,</span> in <span class="ni">Transformer.predict</span><span class="nt">(self, docs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="n">activations</span> <span class="o">=</span> <span class="n">FullTransformerBatch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">229</span>     <span class="n">activations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">230</span> <span class="k">return</span> <span class="n">activations</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:315,</span> in <span class="ni">Model.predict</span><span class="nt">(self, X)</span>
+<span class="g g-Whitespace">    </span><span class="mi">311</span> <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutT</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function with `is_train=False`, and return</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span><span class="sd">     only the output, instead of the `(output, callback)` tuple.</span>
+<span class="g g-Whitespace">    </span><span class="mi">314</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">315</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy_transformers/layers/transformer_model.py:199,</span> in <span class="ni">forward</span><span class="nt">(model, docs, is_train)</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span>     <span class="n">align</span> <span class="o">=</span> <span class="n">get_alignment</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">194</span>         <span class="n">flat_spans</span><span class="p">,</span> <span class="n">wordpieces</span><span class="o">.</span><span class="n">strings</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">all_special_tokens</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span> <span class="n">wordpieces</span><span class="p">,</span> <span class="n">align</span> <span class="o">=</span> <span class="n">truncate_oversize_splits</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span>     <span class="n">wordpieces</span><span class="p">,</span> <span class="n">align</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">model_max_length</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span> <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">199</span> <span class="n">model_output</span><span class="p">,</span> <span class="n">bp_tensors</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span><span class="n">wordpieces</span><span class="p">,</span> <span class="n">is_train</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span> <span class="k">if</span> <span class="s2">&quot;logger&quot;</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="n">log_gpu_memory</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;logger&quot;</span><span class="p">],</span> <span class="s2">&quot;after forward&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/pytorchwrapper.py:219,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
+<span class="g g-Whitespace">    </span><span class="mi">216</span> <span class="n">convert_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;convert_outputs&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span> <span class="n">Xtorch</span><span class="p">,</span> <span class="n">get_dX</span> <span class="o">=</span> <span class="n">convert_inputs</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">219</span> <span class="n">Ytorch</span><span class="p">,</span> <span class="n">torch_backprop</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">shims</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">Xtorch</span><span class="p">,</span> <span class="n">is_train</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span> <span class="n">Y</span><span class="p">,</span> <span class="n">get_dYtorch</span> <span class="o">=</span> <span class="n">convert_outputs</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Ytorch</span><span class="p">),</span> <span class="n">is_train</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span> <span class="k">def</span> <span class="nf">backprop</span><span class="p">(</span><span class="n">dY</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/shims/pytorch.py:92,</span> in <span class="ni">PyTorchShim.__call__</span><span class="nt">(self, inputs, is_train)</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin_update</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">91</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">92</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/shims/pytorch.py:110,</span> in <span class="ni">PyTorchShim.predict</span><span class="nt">(self, inputs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span> <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span>     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mixed_precision</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">110</span>         <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="k">return</span> <span class="n">outputs</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1501,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1496</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1497</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1498</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1499</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1500</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1501</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1502</span> <span class="c1"># Do not call functions when jit is used</span>
+<span class="g g-Whitespace">   </span><span class="mi">1503</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:1019,</span> in <span class="ni">BertModel.forward</span><span class="nt">(self, input_ids, attention_mask, token_type_ids, position_ids, head_mask, inputs_embeds, encoder_hidden_states, encoder_attention_mask, past_key_values, use_cache, output_attentions, output_hidden_states, return_dict)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1010</span> <span class="n">head_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_head_mask</span><span class="p">(</span><span class="n">head_mask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">num_hidden_layers</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1012</span> <span class="n">embedding_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1013</span>     <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">position_ids</span><span class="o">=</span><span class="n">position_ids</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1017</span>     <span class="n">past_key_values_length</span><span class="o">=</span><span class="n">past_key_values_length</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span> <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1019</span> <span class="n">encoder_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1020</span>     <span class="n">embedding_output</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1021</span>     <span class="n">attention_mask</span><span class="o">=</span><span class="n">extended_attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">head_mask</span><span class="o">=</span><span class="n">head_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1023</span>     <span class="n">encoder_hidden_states</span><span class="o">=</span><span class="n">encoder_hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span>     <span class="n">encoder_attention_mask</span><span class="o">=</span><span class="n">encoder_extended_attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1025</span>     <span class="n">past_key_values</span><span class="o">=</span><span class="n">past_key_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1026</span>     <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1027</span>     <span class="n">output_attentions</span><span class="o">=</span><span class="n">output_attentions</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1028</span>     <span class="n">output_hidden_states</span><span class="o">=</span><span class="n">output_hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1029</span>     <span class="n">return_dict</span><span class="o">=</span><span class="n">return_dict</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1030</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1031</span> <span class="n">sequence_output</span> <span class="o">=</span> <span class="n">encoder_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1032</span> <span class="n">pooled_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pooler</span><span class="p">(</span><span class="n">sequence_output</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pooler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1501,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1496</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1497</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1498</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1499</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1500</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1501</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1502</span> <span class="c1"># Do not call functions when jit is used</span>
+<span class="g g-Whitespace">   </span><span class="mi">1503</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:609,</span> in <span class="ni">BertEncoder.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_values, use_cache, output_attentions, output_hidden_states, return_dict)</span>
+<span class="g g-Whitespace">    </span><span class="mi">600</span>     <span class="n">layer_outputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">checkpoint</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">601</span>         <span class="n">create_custom_forward</span><span class="p">(</span><span class="n">layer_module</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">602</span>         <span class="n">hidden_states</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">606</span>         <span class="n">encoder_attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">607</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">608</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">609</span>     <span class="n">layer_outputs</span> <span class="o">=</span> <span class="n">layer_module</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">610</span>         <span class="n">hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">611</span>         <span class="n">attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">612</span>         <span class="n">layer_head_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">613</span>         <span class="n">encoder_hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">614</span>         <span class="n">encoder_attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">615</span>         <span class="n">past_key_value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">616</span>         <span class="n">output_attentions</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="n">hidden_states</span> <span class="o">=</span> <span class="n">layer_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">620</span> <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1501,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1496</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1497</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1498</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1499</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1500</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1501</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1502</span> <span class="c1"># Do not call functions when jit is used</span>
+<span class="g g-Whitespace">   </span><span class="mi">1503</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:495,</span> in <span class="ni">BertLayer.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
+<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span>     <span class="n">hidden_states</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="c1"># decoder uni-directional self-attention cached key/values tuple is at positions 1,2</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span>     <span class="n">self_attn_past_key_value</span> <span class="o">=</span> <span class="n">past_key_value</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="n">past_key_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+<span class="ne">--&gt; </span><span class="mi">495</span>     <span class="n">self_attention_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attention</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span>         <span class="n">hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>         <span class="n">attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>         <span class="n">head_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span>         <span class="n">output_attentions</span><span class="o">=</span><span class="n">output_attentions</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span>         <span class="n">past_key_value</span><span class="o">=</span><span class="n">self_attn_past_key_value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">501</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="n">attention_output</span> <span class="o">=</span> <span class="n">self_attention_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>     <span class="c1"># if decoder, the last output is tuple of self-attn cache</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1501,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1496</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1497</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1498</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1499</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1500</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1501</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1502</span> <span class="c1"># Do not call functions when jit is used</span>
+<span class="g g-Whitespace">   </span><span class="mi">1503</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:425,</span> in <span class="ni">BertAttention.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
+<span class="g g-Whitespace">    </span><span class="mi">415</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">416</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span>     <span class="n">hidden_states</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">423</span>     <span class="n">output_attentions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">424</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="ne">--&gt; </span><span class="mi">425</span>     <span class="n">self_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">426</span>         <span class="n">hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">427</span>         <span class="n">attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">428</span>         <span class="n">head_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">429</span>         <span class="n">encoder_hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">430</span>         <span class="n">encoder_attention_mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">431</span>         <span class="n">past_key_value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span>         <span class="n">output_attentions</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">433</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">434</span>     <span class="n">attention_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">self_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hidden_states</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span>     <span class="n">outputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">attention_output</span><span class="p">,)</span> <span class="o">+</span> <span class="n">self_outputs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># add attentions if we output them</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1501,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1496</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1497</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1498</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1499</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1500</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1501</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1502</span> <span class="c1"># Do not call functions when jit is used</span>
+<span class="g g-Whitespace">   </span><span class="mi">1503</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:284,</span> in <span class="ni">BertSelfAttention.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
+<span class="g g-Whitespace">    </span><span class="mi">274</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">275</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>     <span class="n">hidden_states</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span>     <span class="n">output_attentions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="ne">--&gt; </span><span class="mi">284</span>     <span class="n">mixed_query_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">286</span>     <span class="c1"># If this is instantiated as a cross-attention module, the keys</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span>     <span class="c1"># and values come from an encoder; the attention mask needs to be</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>     <span class="c1"># such that the encoder&#39;s padding tokens are not attended to.</span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span>     <span class="n">is_cross_attention</span> <span class="o">=</span> <span class="n">encoder_hidden_states</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1501,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1496</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1497</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1498</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1499</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1500</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1501</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1502</span> <span class="c1"># Do not call functions when jit is used</span>
+<span class="g g-Whitespace">   </span><span class="mi">1503</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/linear.py:114,</span> in <span class="ni">Linear.forward</span><span class="nt">(self, input)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">114</span>     <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># join the metrics to the original dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>message</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
+      <th>smog</th>
+      <th>gunning_fog</th>
+      <th>automated_readability_index</th>
+      <th>coleman_liau_index</th>
+      <th>lix</th>
+      <th>rix</th>
+      <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2417</th>
+      <td>ham</td>
+      <td>Oh... Lk tt den we take e one tt ends at cine ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4746</th>
+      <td>ham</td>
+      <td>When you just put in the + sign, choose my num...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>ham</td>
+      <td>HI BABE IM AT HOME NOW WANNA DO SOMETHING? XX</td>
+      <td>85.096667</td>
+      <td>2.715</td>
+      <td>3.1291</td>
+      <td>2.133333</td>
+      <td>-1.100833</td>
+      <td>0.7</td>
+      <td>17.833333</td>
+      <td>0.666667</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.054805</td>
+      <td>1.375</td>
+      <td>1.0</td>
+      <td>0.484123</td>
+      <td>16.0</td>
+      <td>16.0</td>
+      <td>1.0</td>
+      <td>63.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>5501</th>
+      <td>spam</td>
+      <td>PRIVATE! Your 2003 Account Statement for 07808...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5313</th>
+      <td>ham</td>
+      <td>My sister going to earn more than me da.</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
+</div>
+<p>That’s it! Let’s do a bit of exploratory data analysis to get to know the data a bit more.</p>
+</section>
+<section id="exploratory-data-analysis">
+<h2>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this heading">#</a></h2>
+<p>With the metrics extracted, let’s do some quick exploratory data analysis to get a sense of the data. Let us start of by taking a look at the distribution of the readability metrics, <code class="docutils literal notranslate"><span class="pre">lix</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/c1c82f6da3b884dba894a19e0da1785074f4a2d7d86e8d6e75f6733a7bef1462.png" src="../_images/c1c82f6da3b884dba894a19e0da1785074f4a2d7d86e8d6e75f6733a7bef1462.png" />
+</div>
+</div>
+<p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># encode the label as a boolean</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ham&quot;</span>
+<span class="c1"># compute the correlation between all metrics and the label</span>
+<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">metrics_correlations</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prop_adjacent_dependency_relation_std    -0.403782
+dependency_distance_mean                  0.364726
+prop_adjacent_dependency_relation_mean    0.280266
+proportion_unique_tokens                 -0.244895
+sentence_length_median                    0.222776
+token_length_median                      -0.197070
+sentence_length_mean                      0.196973
+dependency_distance_std                  -0.178205
+sentence_length_std                      -0.170378
+syllables_per_token_mean                 -0.169208
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s some pretty high correlations! Notably we see that the mean dependency distance is correlated with <code class="docutils literal notranslate"><span class="pre">ham</span></code>. This makes sense, as the dependency distance is a measure of sentence complexity, and spam messages tend to be shorter and simpler.</p>
+<p>Let’s try to plot it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;dependency_distance_mean&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/1684616620dd870d870ace20139072845642821075dad8b7804604d5f1f2e441.png" src="../_images/1684616620dd870d870ace20139072845642821075dad8b7804604d5f1f2e441.png" />
+</div>
+</div>
+<p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/eab8970ddaa361245a49a3cdab5d9b48358b9fc051cb7b0c3e130814bfd5d582.png" src="../_images/eab8970ddaa361245a49a3cdab5d9b48358b9fc051cb7b0c3e130814bfd5d582.png" />
+</div>
+</div>
+<p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
+<p>Next steps could be continue the exploratory data analysis or to build a simple classifier using the extracted metrics.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../performance.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Performance</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="robustness.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Evaluating Robustness</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Kenneth Enevoldsen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/dacy" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Extracting Metrics from text using TextDescriptives</a><ul>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#adding-textdescriptives-components-to-dacy">Adding TextDescriptives components to DaCy</a></li>
+<li><a class="reference internal" href="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    </body>
+</html>
