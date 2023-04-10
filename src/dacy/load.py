@@ -1,5 +1,6 @@
 """Functionality for loading and locating DaCy models."""
-from typing import Any
+from pathlib import Path
+from typing import Any, Union
 
 import spacy
 from spacy.language import Language
@@ -37,7 +38,7 @@ def load(
     return spacy.load(path, **kwargs)
 
 
-def where_is_my_dacy(verbose: bool = True) -> str:
+def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:
     """Returns a path to where DaCy models are located. The default the model
     location can be configured with the environmental variable
     `DACY_CACHE_DIR`.
