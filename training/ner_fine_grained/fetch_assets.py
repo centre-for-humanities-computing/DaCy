@@ -1,6 +1,6 @@
 import spacy
-from spacy.tokens import DocBin, Doc
 from datasets import load_dataset
+from spacy.tokens import Doc, DocBin
 
 
 def fetch_dansk():
@@ -9,7 +9,7 @@ def fetch_dansk():
         datasets = load_dataset("chcaa/DANSK", cache_dir="assets")
     except FileNotFoundError:
         raise FileNotFoundError(
-            "DANSK is not available. Check that HuggingFace is up and running, and that the dataset has been publically released.",  # noqa: E501
+            "DANSK is not available. Check that HuggingFace is up and running, and that the dataset has been publically released.",
         )
 
     nlp = spacy.blank("da")

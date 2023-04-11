@@ -56,20 +56,20 @@ def main(version, size, meta_json_path, no_partitioning):
     ]
     # fmt: off
     meta[
-        "description"  
+        "description"
     ] = f"""
-<a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="https://centre-for-humanities-computing.github.io/DaCy/_static/icon.png" width="175" height="175" align="right" /></a> 
+<a href="https://github.com/centre-for-humanities-computing/Dacy"><img src="https://centre-for-humanities-computing.github.io/DaCy/_static/icon.png" width="175" height="175" align="right" /></a>
 
 # DaCy_{size}_ner_fine_grained
 
 DaCy is a Danish language processing framework with state-of-the-art pipelines as well as functionality for analyzing Danish pipelines.
-At the time of publishing this model, also included in DaCy encorporates the only models for fine-grained NER using DANSK dataset - a dataset containing 18 annotation types in the same format as Ontonotes. 
-Moreover, DaCy's largest pipeline has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish on the DaNE dataset. 
-Check out the [DaCy repository](https://github.com/centre-for-humanities-computing/DaCy) for material on how to use DaCy and reproduce the results. 
+At the time of publishing this model, also included in DaCy encorporates the only models for fine-grained NER using DANSK dataset - a dataset containing 18 annotation types in the same format as Ontonotes.
+Moreover, DaCy's largest pipeline has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish on the DaNE dataset.
+Check out the [DaCy repository](https://github.com/centre-for-humanities-computing/DaCy) for material on how to use DaCy and reproduce the results.
 DaCy also contains guides on usage of the package as well as behavioural test for biases and robustness of Danish NLP pipelines.
 
-For information about the use of this model as well as guides to its use, please refer to [DaCys documentation](https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html). 
-    """ # noqa: E501
+For information about the use of this model as well as guides to its use, please refer to [DaCys documentation](https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html).
+    """
     # fmt: on
     with open(f"template_meta_{size}.json", "w") as f:
         json.dump(meta, f)
