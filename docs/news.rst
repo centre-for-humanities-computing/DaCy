@@ -1,6 +1,10 @@
 News and Changelog
 ---------------------------------
 
+**2.5.0 (10/04/23)**
+
+- Removed support for `0.0.0` models. To use these models you will now have to use `DaCy=<2.4.3`
+
 **2.3.0 (05/01/23)**
 
 - New tutorial added for using DaCy with `textdescriptives`. You can find it `here <https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html>`__

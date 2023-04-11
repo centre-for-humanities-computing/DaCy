@@ -10,8 +10,6 @@
 * Updated docs to not include *-latest models ([`3b9c798`](https://github.com/centre-for-humanities-computing/DaCy/commit/3b9c798e794e0f42fa9990f8537c1f591c031553))
 
 ## v2.5.0 (2023-04-11)
-### Feature
-* Moved dacy to use swift template ([`189c891`](https://github.com/centre-for-humanities-computing/DaCy/commit/189c891323f1ff083d1800fc3acd435c456fd1b5))
 
 ### Fix
 * Mypy ([`3b78e18`](https://github.com/centre-for-humanities-computing/DaCy/commit/3b78e18ef93a09fe2d152a5b9790c521ecffeb02))
@@ -60,7 +58,6 @@
 ## v2.3.0 (2023-01-05)
 ### Feature
 * Added scandi-ner model to dacy ([`dc2a514`](https://github.com/centre-for-humanities-computing/DaCy/commit/dc2a51491eba86c480c000c6707e6a4c572feae5))
-* Added scandi-ner model to dacy ([`a2bec3b`](https://github.com/centre-for-humanities-computing/DaCy/commit/a2bec3bc43296aeb4b7f9059e9123ed48b18e5c2))
 
 ### Documentation
 * Added news ([`f5b64da`](https://github.com/centre-for-humanities-computing/DaCy/commit/f5b64dae0925bd8d7709c29238d860f9297bf761))
