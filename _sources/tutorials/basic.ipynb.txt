@@ -32,15 +32,15 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "da_dacy_small_tft-0.0.0\n",
-      "da_dacy_medium_tft-0.0.0\n",
-      "da_dacy_large_tft-0.0.0\n",
       "da_dacy_small_trf-0.1.0\n",
       "da_dacy_medium_trf-0.1.0\n",
       "da_dacy_large_trf-0.1.0\n",
-      "da_dacy_small_trf-latest\n",
-      "da_dacy_medium_trf-latest\n",
-      "da_dacy_large_trf-latest\n"
+      "small\n",
+      "medium\n",
+      "large\n",
+      "da_dacy_small_ner_fine_grained-0.1.0\n",
+      "da_dacy_medium_ner_fine_grained-0.1.0\n",
+      "da_dacy_large_ner_fine_grained-0.1.0\n"
      ]
     }
    ],
@@ -67,7 +67,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 2,
    "metadata": {
     "tags": [
      "hide-output"
@@ -75,22 +75,15 @@
    },
    "outputs": [
     {
-     "name": "stdout",
+     "name": "stderr",
      "output_type": "stream",
      "text": [
-      "huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...\n",
-      "To disable this warning, you can either:\n",
-      "\t- Avoid using `tokenizers` before the fork if possible\n",
-      "\t- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)\n",
-      "Collecting da-dacy-small-trf==any\n",
-      "  Downloading https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl (57.5 MB)\n",
-      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m57.5/57.5 MB\u001b[0m \u001b[31m4.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m00:01\u001b[0m00:01\u001b[0mm\n",
-      "\u001b[?25hhuggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...\n",
-      "To disable this warning, you can either:\n",
-      "\t- Avoid using `tokenizers` before the fork if possible\n",
-      "\t- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)\n",
-      "Collecting da-dacy-small-trf==any\n",
-      "  Using cached https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl (57.5 MB)\n"
+      "/Users/au561649/.virtualenvs/dacy/lib/python3.10/site-packages/spacy/util.py:887: UserWarning: [W095] Model 'da_dacy_medium_trf' (0.1.0) was trained with spaCy v3.1 and may not be 100% compatible with the current version (3.5.1). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate\n",
+      "  warnings.warn(warn_msg)\n",
+      "/Users/au561649/.virtualenvs/dacy/lib/python3.10/site-packages/spacy/util.py:887: UserWarning: [W095] Model 'da_dacy_small_trf' (0.1.0) was trained with spaCy v3.1 and may not be 100% compatible with the current version (3.5.1). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate\n",
+      "  warnings.warn(warn_msg)\n",
+      "/Users/au561649/.virtualenvs/dacy/lib/python3.10/site-packages/spacy_transformers/pipeline_component.py:402: UserWarning: Automatically converting a transformer component from spacy-transformers v1.0 to v1.1+. If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spacy-transformers version. For more details and available updates, run: python -m spacy validate\n",
+      "  warnings.warn(warn_msg)\n"
      ]
     }
    ],
@@ -117,9 +110,18 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 3,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/au561649/.virtualenvs/dacy/lib/python3.10/site-packages/spacy/pipeline/attributeruler.py:150: UserWarning: [W036] The component 'matcher' does not have any patterns defined.\n",
+      "  matches = self.matcher(doc, allow_missing=True, as_spans=False)\n"
+     ]
+    }
+   ],
    "source": [
     "doc = nlp(\n",
     "    \"DaCy er en hurtig og effektiv pipeline til dansk sprogprocessering.\"\n",
@@ -138,7 +140,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -165,16 +167,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/html": [
        "<span class=\"tex2jax_ignore\"><div class=\"entities\" style=\"line-height: 2.5; direction: ltr\">\n",
-       "<mark class=\"entity\" style=\"background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "<mark class=\"entity\" style=\"background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
        "    DaCy\n",
-       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">ORG</span>\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">PER</span>\n",
        "</mark>\n",
        " er en hurtig og effektiv pipeline til \n",
        "<mark class=\"entity\" style=\"background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
@@ -210,23 +212,9 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...\n",
-      "To disable this warning, you can either:\n",
-      "\t- Avoid using `tokenizers` before the fork if possible\n",
-      "\t- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)\n",
-      "Collecting da-dacy-small-trf==any\n",
-      "  Downloading https://huggingface.co/chcaa/da_dacy_small_trf/resolve/main/da_dacy_small_trf-any-py3-none-any.whl (57.5 MB)\n",
-      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m57.5/57.5 MB\u001b[0m \u001b[31m5.2 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m00:01\u001b[0m00:01\u001b[0m\n",
-      "\u001b[?25h"
-     ]
-    },
     {
      "data": {
       "text/html": [
@@ -284,6 +272,120 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "## Fine-grained NER\n",
+    "\n",
+    "DaCy also features models with a more fine-grained Named Entity Recognition component.\n",
+    "This has been trained on the [DANSK](https://huggingface.co/datasets/chcaa/DANSK).\n",
+    "This allows for the detection of 18 classes - namely the following Named Entities:\n",
+    "\n",
+    "|  Tag        |             Description                                         |\n",
+    "| -------- | ---------------------------------------------------- |\n",
+    "| PERSON   | People, including fictional                          |\n",
+    "| NORP     | Nationalities or religious or political groups       |\n",
+    "| FACILITY | Building, airports, highways, bridges, etc.          |\n",
+    "| ORGANIZATION | Companies, agencies, institutions, etc.              |\n",
+    "| GPE      | Countries, cities, states.                           |\n",
+    "| LOCATION | Non-GPE locations, mountain ranges, bodies of water  |\n",
+    "| PRODUCT  | Vehicles, weapons, foods, etc. (not services)        |\n",
+    "| EVENT    | Named hurricanes, battles, wars, sports events, etc. |\n",
+    "| WORK OF ART | Titles of books, songs, etc.                         |\n",
+    "| LAW      | Named documents made into laws                       |\n",
+    "| LANGUAGE | Any named language                                   |\n",
+    "\n",
+    "As well as annotation for the following concepts:\n",
+    "\n",
+    "|   Tag       |   Description                                         |\n",
+    "| -------- | ------------------------------------------- |\n",
+    "| DATE     | Absolute or relative dates or periods       |\n",
+    "| TIME     | Times smaller than a day                    |\n",
+    "| PERCENT  | Percentage (including \"*\"%)                |\n",
+    "| MONEY    | Monetary values, including unit             |\n",
+    "| QUANTITY | Measurements, as of weight or distance      |\n",
+    "| ORDINAL  | \"first\", \"second\"                           |\n",
+    "| CARDINAL | Numerals that do no fall under another type |\n",
+    "\n",
+    "The fine-grained NER component may be utilized in an existing pipeline in the following fashion:\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "tags": [
+     "hide-output"
+    ]
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<spacy.pipeline.ner.EntityRecognizer at 0x29cc06ab0>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# load the small dacy model excluding the NER component\n",
+    "nlp = dacy.load(\"small\", exclude=[\"ner\"])\n",
+    "\n",
+    "# add the ner component from the state-of-the-art fine-grained model\n",
+    "nlp.add_pipe(\"dacy/ner-fine-grained\", config={\"size\": \"small\"})\n",
+    "# or if you only want to do NER\n",
+    "# nlp = dacy.load(\"da_dacy_small_ner_fine_grained-0.1.0\")\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<span class=\"tex2jax_ignore\"><div class=\"entities\" style=\"line-height: 2.5; direction: ltr\">Denne model samt \n",
+       "<mark class=\"entity\" style=\"background: #e4e7d2; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    3\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">CARDINAL</span>\n",
+       "</mark>\n",
+       " andre blev trænet \n",
+       "<mark class=\"entity\" style=\"background: #bfe1d9; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    d. 7. marts\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">DATE</span>\n",
+       "</mark>\n",
+       " af \n",
+       "<mark class=\"entity\" style=\"background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    Center for Humantities Computing\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">ORGANIZATION</span>\n",
+       "</mark>\n",
+       " i \n",
+       "<mark class=\"entity\" style=\"background: #feca74; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;\">\n",
+       "    Aarhus kommune\n",
+       "    <span style=\"font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem\">GPE</span>\n",
+       "</mark>\n",
+       "</div></span>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "doc = nlp(\"Denne model samt 3 andre blev trænet d. 7. marts af Center for Humantities Computing i Aarhus kommune\")\n",
+    "\n",
+    "displacy.render(doc, style=\"ent\")"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "# Parts-of-speech Tagging\n",
     "[Part-of-speech tagging](https://en.wikipedia.org/wiki/Part-of-speech_tagging) (POS) is the task of assigning a part of speech to each word in a text. The part of speech is the grammatical role of a word in a sentence. For example, the word “run” is a verb, and the word “book” is a noun. \n",
     "\n",
@@ -292,7 +394,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -300,23 +402,31 @@
      "output_type": "stream",
      "text": [
       "Token POS-tag\n",
-      "Denne: DET\n",
-      "NER: PROPN\n",
-      "model: NOUN\n",
-      "er: AUX\n",
-      "trænet: VERB\n",
-      "af: ADP\n",
-      "Dan: PROPN\n",
-      "fra: ADP\n",
-      "Alexandra: PROPN\n",
-      "Instituttet: NOUN\n"
+      "Denne:\t DET\n",
+      "model:\t NOUN\n",
+      "samt:\t CCONJ\n",
+      "3:\t NUM\n",
+      "andre:\t PRON\n",
+      "blev:\t AUX\n",
+      "trænet:\t VERB\n",
+      "d.:\t DET\n",
+      "7.:\t ADJ\n",
+      "marts:\t NOUN\n",
+      "af:\t ADP\n",
+      "Center:\t NOUN\n",
+      "for:\t ADP\n",
+      "Humantities:\t PROPN\n",
+      "Computing:\t X\n",
+      "i:\t ADP\n",
+      "Aarhus:\t PROPN\n",
+      "kommune:\t NOUN\n"
      ]
     }
    ],
    "source": [
     "print(\"Token POS-tag\")\n",
     "for token in doc:\n",
-    "    print(f\"{token}: {token.pos_}\")\n",
+    "    print(f\"{token}:\\t {token.pos_}\")\n",
     "\n"
    ]
   },
@@ -350,21 +460,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "/Users/au561649/.virtualenvs/dacy/lib/python3.10/site-packages/spacy/pipeline/attributeruler.py:150: UserWarning: [W036] The component 'matcher' does not have any patterns defined.\n",
-      "  matches = self.matcher(doc, allow_missing=True, as_spans=False)\n"
-     ]
-    },
-    {
      "data": {
       "text/html": [
-       "<span class=\"tex2jax_ignore\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:lang=\"da\" id=\"67c30109c3ae47cd88e952118a35dce3-0\" class=\"displacy\" width=\"1450\" height=\"487.0\" direction=\"ltr\" style=\"max-width: none; height: 487.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr\">\n",
+       "<span class=\"tex2jax_ignore\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:lang=\"da\" id=\"f6f16117a7124226b425ab278fbb8fb2-0\" class=\"displacy\" width=\"1450\" height=\"487.0\" direction=\"ltr\" style=\"max-width: none; height: 487.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr\">\n",
        "<text class=\"displacy-token\" fill=\"currentColor\" text-anchor=\"middle\" y=\"397.0\">\n",
        "    <tspan class=\"displacy-word\" fill=\"currentColor\" x=\"50\">DaCy</tspan>\n",
        "    <tspan class=\"displacy-tag\" dy=\"2em\" fill=\"currentColor\" x=\"50\">PROPN</tspan>\n",
@@ -406,57 +508,57 @@
        "</text>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-0\" stroke-width=\"2px\" d=\"M70,352.0 C70,2.0 750.0,2.0 750.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-0\" stroke-width=\"2px\" d=\"M70,352.0 C70,2.0 750.0,2.0 750.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-0\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nsubj</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-0\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nsubj</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M70,354.0 L62,342.0 78,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-1\" stroke-width=\"2px\" d=\"M245,352.0 C245,89.5 745.0,89.5 745.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-1\" stroke-width=\"2px\" d=\"M245,352.0 C245,89.5 745.0,89.5 745.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-1\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">cop</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-1\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">cop</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M245,354.0 L237,342.0 253,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-2\" stroke-width=\"2px\" d=\"M420,352.0 C420,177.0 740.0,177.0 740.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-2\" stroke-width=\"2px\" d=\"M420,352.0 C420,177.0 740.0,177.0 740.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-2\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">det</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-2\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">det</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M420,354.0 L412,342.0 428,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-3\" stroke-width=\"2px\" d=\"M595,352.0 C595,264.5 735.0,264.5 735.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-3\" stroke-width=\"2px\" d=\"M595,352.0 C595,264.5 735.0,264.5 735.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-3\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">amod</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-3\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">amod</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M595,354.0 L587,342.0 603,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-4\" stroke-width=\"2px\" d=\"M945,352.0 C945,177.0 1265.0,177.0 1265.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-4\" stroke-width=\"2px\" d=\"M945,352.0 C945,177.0 1265.0,177.0 1265.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-4\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">case</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-4\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">case</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M945,354.0 L937,342.0 953,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-5\" stroke-width=\"2px\" d=\"M1120,352.0 C1120,264.5 1260.0,264.5 1260.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-5\" stroke-width=\"2px\" d=\"M1120,352.0 C1120,264.5 1260.0,264.5 1260.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-5\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">amod</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-5\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">amod</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M1120,354.0 L1112,342.0 1128,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
        "\n",
        "<g class=\"displacy-arrow\">\n",
-       "    <path class=\"displacy-arc\" id=\"arrow-67c30109c3ae47cd88e952118a35dce3-0-6\" stroke-width=\"2px\" d=\"M770,352.0 C770,89.5 1270.0,89.5 1270.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
+       "    <path class=\"displacy-arc\" id=\"arrow-f6f16117a7124226b425ab278fbb8fb2-0-6\" stroke-width=\"2px\" d=\"M770,352.0 C770,89.5 1270.0,89.5 1270.0,352.0\" fill=\"none\" stroke=\"currentColor\"/>\n",
        "    <text dy=\"1.25em\" style=\"font-size: 0.8em; letter-spacing: 1px\">\n",
-       "        <textPath xlink:href=\"#arrow-67c30109c3ae47cd88e952118a35dce3-0-6\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nmod</textPath>\n",
+       "        <textPath xlink:href=\"#arrow-f6f16117a7124226b425ab278fbb8fb2-0-6\" class=\"displacy-label\" startOffset=\"50%\" side=\"left\" fill=\"currentColor\" text-anchor=\"middle\">nmod</textPath>\n",
        "    </text>\n",
        "    <path class=\"displacy-arrowhead\" d=\"M1270.0,354.0 L1278.0,342.0 1262.0,342.0\" fill=\"currentColor\"/>\n",
        "</g>\n",
@@ -488,7 +590,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
@@ -520,7 +622,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
@@ -560,7 +662,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [
     {

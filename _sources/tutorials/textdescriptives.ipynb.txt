@@ -183,7 +183,7 @@
    ],
    "source": [
     "import dacy\n",
-    "nlp = dacy.load(\"medium\") # load the latest medium model\n",
+    "nlp = dacy.load(\"small\") # load the latest version of the small model\n",
     "\n",
     "nlp.add_pipe(\"textdescriptives/readability\")\n",
     "nlp.add_pipe(\"textdescriptives/dependency_distance\")"
