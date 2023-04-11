@@ -213,7 +213,11 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "hide-output"
+    ]
+   },
    "outputs": [
     {
      "data": {
@@ -250,8 +254,15 @@
     "# nlp = spacy.blank(\"da\")\n",
     "\n",
     "# add the ner component from the state-of-the-art model\n",
-    "nlp.add_pipe(\"dacy/ner\")\n",
-    "\n",
+    "nlp.add_pipe(\"dacy/ner\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "doc = nlp(\"Denne NER model er trænet af Dan fra Alexandra Instituttet\")\n",
     "\n",
     "displacy.render(doc, style=\"ent\")"
