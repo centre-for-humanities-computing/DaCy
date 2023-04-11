@@ -6,7 +6,9 @@ from dacy.load import load
 @pytest.mark.parametrize(
     "model",
     [
-        ("da_dacy_medium_trf-0.1.0"),
+        ("da_dacy_small_trf-0.1.0"),
+        ("small"),
+        ("da_dacy_small_trf-latest"),
     ],
 )
 def test_load(model: str):
