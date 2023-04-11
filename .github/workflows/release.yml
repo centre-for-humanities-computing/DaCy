@@ -19,12 +19,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
 
       - name: Python Semantic Release
         uses: relekang/python-semantic-release@v7.33.2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PAT }}
           # Remember to copy the [tool.semantic_release] section from pyproject.toml
           # as well
           # To enable pypi,
