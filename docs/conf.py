@@ -38,7 +38,7 @@ language = "en"
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # Do not execute the notebooks when building the docs (turned off by default)
-# nbsphinx_execute = "never" # noqa ERA001
+nb_execution_allow_errors = False
 
 
 # Automatically extract typehints when specified and place them in
