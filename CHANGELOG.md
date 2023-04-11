@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v2.5.1 (2023-04-11)
+### Fix
+* Removed *-latest models ([`b2964e2`](https://github.com/centre-for-humanities-computing/DaCy/commit/b2964e28881e92edfebe1bdbbcf12dd09d9d043c))
+
+### Documentation
+* Updated docs to not include *-latest models ([`3b9c798`](https://github.com/centre-for-humanities-computing/DaCy/commit/3b9c798e794e0f42fa9990f8537c1f591c031553))
+
 ## v2.5.0 (2023-04-11)
 ### Feature
 * Moved dacy to use swift template ([`189c891`](https://github.com/centre-for-humanities-computing/DaCy/commit/189c891323f1ff083d1800fc3acd435c456fd1b5))
