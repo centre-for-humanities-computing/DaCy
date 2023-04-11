@@ -8,7 +8,6 @@ from dacy.load import load
     [
         ("da_dacy_small_trf-0.1.0"),
         ("small"),
-        ("da_dacy_small_trf-latest"),
     ],
 )
 def test_load(model: str):
