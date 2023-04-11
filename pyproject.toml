@@ -36,7 +36,7 @@ requires-python = ">=3.9"
 dependencies = [
     "spacy-wrap>=1.4.1,<1.5.0",
     "spacy>=3.2.0,<3.6.0",
-    "pandas>=1.0.0,<2.1.0",
+    "pandas>=1.0.0,<2.0.0",
     "wasabi>=0.8.2,<0.11.0",
     "tqdm>=4.42.1,<4.66.0",
     "sentencepiece>=0.1.96,<0.2.0",
