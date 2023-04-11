@@ -1,4 +1,4 @@
-from typing import Callable, Literal
+from typing import Callable, Literal, Optional
 
 from spacy.lang.da import Danish
 from spacy.language import Language
@@ -9,14 +9,18 @@ import dacy
 
 @Danish.factory(
     "dacy/ner-fine-grained",
-    default_config={},
+    default_config={
+        "version": None,
+        "size": "medium",
+        "transformer_name": "ner-transformer",
+    },
 )
 def create_finegrained_ner_component(
     nlp: Language,
     name: str,
-    size: Literal["small", "medium", "large"] = "small",
-    transformer_name: str = "ner-transformer",
-    version: str = "0.1.0",
+    size: Literal["small", "medium", "large"],
+    transformer_name: str,
+    version: Optional[str],
 ) -> Callable[[Doc], Doc]:
     """Create a fine grained NER component using the dacy models.
 
@@ -25,9 +29,10 @@ def create_finegrained_ner_component(
         name: The name of the component
         size: The size of the model to use. Can be "small", "medium" or "large"
         transformer_name: The name of the transformer component which the NER moel will listen to
-        version: The version of the model to use
+        version: The version of the model to use. If None, the latest version will be used
     """
-
+    if version is None:
+        version = dacy.get_latest_version("da_dacy_{size}_ner_fine_grained")
     nlp_ner = dacy.load(f"da_dacy_{size}_ner_fine_grained-{version}")
     nlp.add_pipe(factory_name="transformer", name=transformer_name, source=nlp_ner)
     name_, component = nlp_ner.components[-1]
