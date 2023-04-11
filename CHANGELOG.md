@@ -2,6 +2,22 @@
 
 <!--next-version-placeholder-->
 
+## v2.5.0 (2023-04-11)
+### Feature
+* Moved dacy to use swift template ([`189c891`](https://github.com/centre-for-humanities-computing/DaCy/commit/189c891323f1ff083d1800fc3acd435c456fd1b5))
+
+### Fix
+* Mypy ([`3b78e18`](https://github.com/centre-for-humanities-computing/DaCy/commit/3b78e18ef93a09fe2d152a5b9790c521ecffeb02))
+* Removed support for old version 0.0.0 versions ([`17649c3`](https://github.com/centre-for-humanities-computing/DaCy/commit/17649c31fb30cd083d1864b1e9b38389bb543cfd))
+* Fixed mypy error ([`38b788a`](https://github.com/centre-for-humanities-computing/DaCy/commit/38b788a16ce9e9d4cf5033984c8331bdfbdc7f46))
+* Dane now download correctly ([`455ac20`](https://github.com/centre-for-humanities-computing/DaCy/commit/455ac201dadd7047b044cd76a98944244fdf9dd9))
+* Fix mypy ([`4dc0df0`](https://github.com/centre-for-humanities-computing/DaCy/commit/4dc0df0158679ffc66ea9dbae6fcf54576340d88))
+
+### Documentation
+* Updated cff ([`06b1878`](https://github.com/centre-for-humanities-computing/DaCy/commit/06b187864a5da1f4646645f8da92625c4cf4300c))
+* Added github stars to index ([`4229f9e`](https://github.com/centre-for-humanities-computing/DaCy/commit/4229f9eb5eff5b2e5d2e8aaa5747b5dc94ca5134))
+* Updated docs to swift template ([`966c953`](https://github.com/centre-for-humanities-computing/DaCy/commit/966c95367ea281f3c89bbad9691da51bc0413de8))
+
 ## v2.4.2 (2023-03-15)
 ### Fix
 * Checking to find the latest model ([`50d3d5c`](https://github.com/centre-for-humanities-computing/DaCy/commit/50d3d5c420861af3746b42a80f6a2054c8840cdd))
