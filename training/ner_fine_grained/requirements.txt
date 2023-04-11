@@ -1,0 +1,10 @@
+datasets==2.10.1
+wheel==0.38.4 
+numpy==1.23.3
+spacy==3.5.0 
+spacy-transformers==1.1.2 # matches the dependency of spacy-huggingface-hub
+torch==1.13.1
+spacy[cuda101] # version from 30 Jan 2023 works
+huggingface==0.0.1
+spacy-huggingface-hub==0.0.8
+wandb==0.13.9

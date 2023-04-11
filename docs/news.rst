@@ -1,6 +1,11 @@
 News and Changelog
 ---------------------------------
 
+**2.6.0 (10/04/23)**
+
+- Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩
+  - You can add these models to your pipeline using :code:`nlp.add_pipe("dacy/ner-fine-grained", config={"size": "small"})`
+
 **2.5.0 (10/04/23)**
 
 - Removed support for `0.0.0` models. To use these models you will now have to use `DaCy=<2.4.3`

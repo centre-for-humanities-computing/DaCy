@@ -1,11 +1,14 @@
 """Functions for downloading DaCy models."""
 import os
+from distutils.version import StrictVersion
 from importlib.metadata import version
 from pathlib import Path
 
 from spacy.util import get_installed_models
 from tqdm import tqdm
 
+versions = ["1.1.2", "1.0.0", "1.3.3", "1.0.12", "1.0.2"]
+versions.sort(key=StrictVersion)
 DACY_DEFAULT_PATH = Path.home() / ".dacy"
 
 DEFAULT_CACHE_DIR = os.getenv(
@@ -20,7 +23,30 @@ models_url = {
     "small": None,
     "medium": None,
     "large": None,
+    "da_dacy_small_ner_fine_grained-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_ner_fine_grained/resolve/43fedc5a1b1c1d193f461d13225f217f2ced507d/da_dacy_small_ner_fine_grained-any-py3-none-any.whl",
+    "da_dacy_medium_ner_fine_grained-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_ner_fine_grained/resolve/4bfc4397b720acdb6428d64f18e90bfd439c80fc/da_dacy_medium_ner_fine_grained-any-py3-none-any.whl",
+    "da_dacy_large_ner_fine_grained-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_ner_fine_grained/resolve/08f973a1ff57120268bf30d3b7e7c4656ed25a58/da_dacy_large_ner_fine_grained-any-py3-none-any.whl",
 }
+
+
+def get_latest_version(model: str) -> str:
+    """Returns the latest version of a DaCy model.
+
+    Args:
+        model: string indicating the model
+
+    Returns:
+        str: latest version of the model
+    """
+    if model in {"small", "medium", "large"}:
+        model = f"da_dacy_{model}_trf"
+    versions = [mdl.split("-")[-1] for mdl in models_url if "ner_fine_grained" in mdl]
+    versions = sorted(
+        versions,
+        key=lambda s: [int(u) for u in s.split(".")],
+        reverse=True,
+    )
+    return versions[0]
 
 
 def models() -> list[str]:
@@ -79,12 +105,13 @@ def download_model(
         >>> download_model(model="da_dacy_medium_trf-0.1.0")
     """
     if model in {"small", "medium", "large"}:
-        model = f"da_dacy_{model}_trf-0.1.0"
+        latest_version = get_latest_version(model)
+        model = f"da_dacy_{model}_trf-{latest_version}"
     mdl_version = model.split("-")[-1]
 
     if model not in models_url:
         raise ValueError(
-            "The model is not available in DaCy. Please use dacy.models() to see a"
+            f"The model '{model}' is not available in DaCy. Please use dacy.models() to see a"
             + " list of all models",
         )
 

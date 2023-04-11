@@ -36,7 +36,7 @@ requires-python = ">=3.9"
 dependencies = [
     "spacy-wrap>=1.4.1,<1.5.0",
     "spacy>=3.2.0,<3.6.0",
-    "pandas>=1.0.0,<2.1.0",
+    "pandas>=1.0.0,<2.0.0",
     "wasabi>=0.8.2,<0.11.0",
     "tqdm>=4.42.1,<4.66.0",
     "sentencepiece>=0.1.96,<0.2.0",
@@ -87,9 +87,10 @@ file = "README.md"
 content-type = "text/markdown"
 
 [project.entry-points.spacy_factories]
-emotion = "dacy.sentiment.wrapped_models:make_emotion_transformer"
-hatespeech_classification = "dacy.hate_speech.wrapped_models:make_offensive_transformer"
-ner = "dacy.ner.wrapped_models"
+"dacy/emotion" = "dacy.sentiment.wrapped_models:make_emotion_transformer"
+"dacy/hatespeech_classification" = "dacy.hate_speech.wrapped_models:make_offensive_transformer"
+"dacy/ner" = "dacy.ner.wrapped_models"
+"dacy/ner-fine-grained" = "dacy.ner.fine_grained"
 
 [tool.setuptools.package-data]
 "*" = ["*.csv"]
@@ -183,6 +184,7 @@ exclude = [
   "training/v0.0.0/**",
   "training/v0.1.0/**",
   "training/v0.1.1/**",
+  "training/ner_fine_grained/**",
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
 ]
 # Allow unused variables when underscore-prefixed.
