@@ -382,7 +382,7 @@ Name: label, dtype: int64
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f031422b730&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fa1ef16ee90&gt;
 </pre></div>
 </div>
 </div>
@@ -418,7 +418,7 @@ Name: label, dtype: int64
   matches = self.matcher(doc, allow_missing=True, as_spans=False)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (203 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (188 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -453,17 +453,6 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
-      <th>token_length_mean</th>
-      <th>token_length_median</th>
-      <th>token_length_std</th>
-      <th>sentence_length_mean</th>
-      <th>...</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -472,13 +461,24 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
+      <th>...</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>1523</th>
+      <th>1011</th>
       <td>ham</td>
-      <td>Yup ok thanx...</td>
+      <td>I just got home babe, are you still awake ?</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -500,9 +500,33 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>5456</th>
+      <th>931</th>
+      <td>ham</td>
+      <td>Congratulations ore mo owo re wa. Enjoy it and...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4100</th>
       <td>spam</td>
-      <td>\For the most sparkling shopping breaks from 4...</td>
+      <td>GSOH? Good with SPAM the ladies?U could b a ma...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -524,9 +548,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3701</th>
-      <td>ham</td>
-      <td>Hey loverboy! I love you !! I had to tell ... ...</td>
+      <th>1307</th>
+      <td>spam</td>
+      <td>Get 3 Lions England tone, reply lionm 4 mono o...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -548,33 +572,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2783</th>
+      <th>4984</th>
       <td>ham</td>
-      <td>Just arrived, see you in a couple days &amp;lt;3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2124</th>
-      <td>ham</td>
-      <td>Beautiful Truth against Gravity.. Read careful...</td>
+      <td>Dont let studying stress you out. L8r.</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -616,7 +616,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/58bd9209c9dd2c15db54ab23c902bf229622ff3c6b9df372be69c6cf817893f4.png" src="../_images/58bd9209c9dd2c15db54ab23c902bf229622ff3c6b9df372be69c6cf817893f4.png" />
+<img alt="../_images/db741c3c8d3d331bffa75399baefb40b005d0e30c194cc22ebb886719edc75e4.png" src="../_images/db741c3c8d3d331bffa75399baefb40b005d0e30c194cc22ebb886719edc75e4.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -631,16 +631,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                      0.467039
-syllables_per_token_median               -0.428320
-gunning_fog                               0.147187
-proportion_unique_tokens                 -0.138641
-lix                                       0.126201
-syllables_per_token_std                   0.125192
-prop_adjacent_dependency_relation_mean    0.121427
-rix                                       0.106827
-sentence_length_std                       0.104079
-token_length_median                      -0.103964
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sentence_length_mean                      0.377032
+prop_adjacent_dependency_relation_mean    0.365039
+sentence_length_median                    0.336733
+coleman_liau_index                        0.303324
+n_sentences                              -0.303204
+prop_adjacent_dependency_relation_std    -0.301824
+automated_readability_index               0.269647
+token_length_std                         -0.252630
+flesch_kincaid_grade                      0.237441
+token_length_median                       0.221911
 dtype: float64
 </pre></div>
 </div>
@@ -658,7 +658,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/aef6cd2beee12ed617fdd8397c9c9a44d55da070c5747ba2359d01f495740f74.png" src="../_images/aef6cd2beee12ed617fdd8397c9c9a44d55da070c5747ba2359d01f495740f74.png" />
+<img alt="../_images/64ddb8499f4649fc1d240107a068807337ea24aeb85fb77f326087fba9258da6.png" src="../_images/64ddb8499f4649fc1d240107a068807337ea24aeb85fb77f326087fba9258da6.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -672,7 +672,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/a0bd6e505c38835c4da6ea78078c9d6092443c73d537c7220e3dd9bce087ba2f.png" src="../_images/a0bd6e505c38835c4da6ea78078c9d6092443c73d537c7220e3dd9bce087ba2f.png" />
+<img alt="../_images/afff5727d32e13ce16bbacc5e3ffa752296dbee49aa77e5846da8d4ed4d1db10.png" src="../_images/afff5727d32e13ce16bbacc5e3ffa752296dbee49aa77e5846da8d4ed4d1db10.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
