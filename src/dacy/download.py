@@ -3,6 +3,7 @@ import os
 from importlib.metadata import version
 from pathlib import Path
 
+from spacy.util import get_installed_models
 from tqdm import tqdm
 
 DACY_DEFAULT_PATH = Path.home() / ".dacy"
@@ -79,15 +80,13 @@ def download_model(
     """
     if model in {"small", "medium", "large"}:
         model = f"da_dacy_{model}_trf-0.1.0"
+    mdl_version = model.split("-")[-1]
 
     if model not in models_url:
         raise ValueError(
             "The model is not available in DaCy. Please use dacy.models() to see a"
             + " list of all models",
         )
-
-    mdl_version = model.split("-")[-1]
-    from spacy.util import get_installed_models
 
     mdl = model.split("-")[0]
     if mdl in get_installed_models() and not force:
