@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v2.5.2 (2023-04-11)
+### Fix
+* Update dependencies to allow for the latest version ([`86f1d2b`](https://github.com/centre-for-humanities-computing/DaCy/commit/86f1d2b7a99ffea03b2ca6d3506b475207c0fc81))
+
+### Documentation
+* Updated news and changelog ([`b41dc5c`](https://github.com/centre-for-humanities-computing/DaCy/commit/b41dc5c53e2f84a8db516fcb8fa79cd72e814469))
+* Reran tutorials to update the onces in the folder ([`b50701d`](https://github.com/centre-for-humanities-computing/DaCy/commit/b50701dd8dfaa874c9a7ac0a5c56e203a5d6ca44))
+* Hide download outputs from docs ([`493c78f`](https://github.com/centre-for-humanities-computing/DaCy/commit/493c78f4674a7f14989aab8d5d9683b72f281c2e))
+* Updated badges in readme ([`5141760`](https://github.com/centre-for-humanities-computing/DaCy/commit/51417605601e00daf7cadf91a52292758d991494))
+
 ## v2.5.1 (2023-04-11)
 ### Fix
 * Removed *-latest models ([`b2964e2`](https://github.com/centre-for-humanities-computing/DaCy/commit/b2964e28881e92edfebe1bdbbcf12dd09d9d043c))
