@@ -20,6 +20,9 @@ models_url = {
     "small": None,
     "medium": None,
     "large": None,
+    "da_dacy_small_ner_fine_grained-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_ner_fine_grained/resolve/43fedc5a1b1c1d193f461d13225f217f2ced507d/da_dacy_small_ner_fine_grained-any-py3-none-any.whl",
+    "da_dacy_medium_ner_fine_grained-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_ner_fine_grained/resolve/4bfc4397b720acdb6428d64f18e90bfd439c80fc/da_dacy_medium_ner_fine_grained-any-py3-none-any.whl",
+    "da_dacy_large_ner_fine_grained-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_ner_fine_grained/resolve/08f973a1ff57120268bf30d3b7e7c4656ed25a58/da_dacy_large_ner_fine_grained-any-py3-none-any.whl",
 }
 
 

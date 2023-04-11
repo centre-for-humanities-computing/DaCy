@@ -87,9 +87,10 @@ file = "README.md"
 content-type = "text/markdown"
 
 [project.entry-points.spacy_factories]
-emotion = "dacy.sentiment.wrapped_models:make_emotion_transformer"
-hatespeech_classification = "dacy.hate_speech.wrapped_models:make_offensive_transformer"
-ner = "dacy.ner.wrapped_models"
+"dacy/emotion" = "dacy.sentiment.wrapped_models:make_emotion_transformer"
+"dacy/hatespeech_classification" = "dacy.hate_speech.wrapped_models:make_offensive_transformer"
+"dacy/ner" = "dacy.ner.wrapped_models"
+"dacy/ner-fine-grained" = "dacy.ner.fine_grained"
 
 [tool.setuptools.package-data]
 "*" = ["*.csv"]
