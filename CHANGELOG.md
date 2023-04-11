@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v2.6.0 (2023-04-11)
+### Feature
+* Added fine-grained ner component ([`4977687`](https://github.com/centre-for-humanities-computing/DaCy/commit/497768716f6b47f2addf5565f43ac1e0605a8f3d))
+
+### Fix
+* Updates pandas version ([`09c438a`](https://github.com/centre-for-humanities-computing/DaCy/commit/09c438a47a4dcb20c2476a6c131c17edda20092b))
+* Improve UI for the fine-grained NER model ([`1c009c2`](https://github.com/centre-for-humanities-computing/DaCy/commit/1c009c2d093fdb3dc470ad2bcc607ded4dd49652))
+
+### Documentation
+* Updated news ([`b93b6aa`](https://github.com/centre-for-humanities-computing/DaCy/commit/b93b6aacdc49fdc390b7b9f45070238b86115e28))
+* Changed to model to small to download less models during testing ([`be21f41`](https://github.com/centre-for-humanities-computing/DaCy/commit/be21f41ddc0d6998711ca4fb5157cc07dd33870e))
+
 ## v2.5.2 (2023-04-11)
 ### Fix
 * Update dependencies to allow for the latest version ([`86f1d2b`](https://github.com/centre-for-humanities-computing/DaCy/commit/86f1d2b7a99ffea03b2ca6d3506b475207c0fc81))
