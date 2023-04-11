@@ -5,7 +5,7 @@
 [![pip downloads](https://img.shields.io/pypi/dm/dacy.svg)](https://pypi.org/project/dacy/)
 [![Python Version](https://img.shields.io/pypi/pyversions/dacy)][pypi status]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
-[![documentation](https://github.com/centre-for-humanities-computing/dacy/workflows/documentation/badge.svg)][documentation]
+[![documentation](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/documentation.yml/badge.svg)][documentation]
 [![Tests](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/tests.yml/badge.svg)][tests]
 
 [![Demo](https://img.shields.io/badge/Try%20the-Demo-important)](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.)
