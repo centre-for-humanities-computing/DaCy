@@ -1,0 +1,240 @@
+title: "Train Danish DaCy NER transformer models on DANSK"
+description: >
+    This project template lets you train a fine-grained Named-Entity Recognition model on the DANSK dataset containing 18 types annotations.
+    It takes care of downloading the corpus as well as training, evaluating, packaging and releasing the model.
+    The template uses one of more of the transformer models which have been downloaded via Huggingface: 
+      - "jonfd/electra-small-nordic" - small,
+      - "NbAiLab/nb-roberta-base-scandi" - medium,
+      - "chcaa/dfm-encoder-large-v1" - large
+      
+    You can run from yaml file using
+    spacy project run WORKFLOW/COMMAND
+
+# Variables can be referenced across the project.yml using ${vars.var_name}
+vars:
+  lang: "da"
+  size: "small"
+  no_partitioning: 0
+  package_version: "0.1.0"
+  gpu_id: 0
+  organization: "chcaa"
+
+# These are the directories that the project needs. The project CLI will make
+# sure that they always exist.
+directories: ["assets", "corpus", "training", "metrics", "packages"]
+
+
+assets:
+  - dest: "assets/dansk.spacy" 
+    description: "The full to-be-published DANSK dataset"
+    # url: "DANSK has not yet been released for public use"
+    # script:
+    # - "python fetch_assets.py"
+
+
+workflows:
+  prepare_data:
+    - fetch_assets
+
+  train_eval_pack_publ:
+    - train
+    - evaluate
+    - package
+    - publish
+
+  all_models_train_eval_pack_publ:
+    - train_all_models
+    - evaluate_all_models
+    - package_all_models
+    - publish_all_models
+
+
+commands:
+  - name: login
+    help: "Login for wandb and huggingface-cli"
+    script:
+      - "wandb login"
+      - "huggingface-cli login"
+
+  - name: setup_gpu
+    help: "Installs dependencies and drivers for NVIDIA GPU"
+    script:
+      - "bash server_setup.sh"
+ 
+  - name: fetch_assets
+    help: "Downloads DANSK to assets/"
+    script: 
+      - "python fetch_assets.py"
+      - "rm -rf assets/downloads"
+      - "rm -rf assets/assets*"
+    outputs:
+      - "assets/train.spacy"
+      - "assets/dev.spacy"
+      - "assets/test.spacy"
+
+  - name: train
+    help: "Trains ${vars.size} DaCy model. "
+    script:
+      - "mkdir -p training/${vars.size}"
+      - "python -m spacy train configs/config_${vars.size}.cfg --output training/${vars.size} --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
+      
+    deps:
+      - "corpus/train.spacy"
+      - "corpus/dev.spacy"
+      - "configs/config_${vars.size}.cfg"
+    outputs:
+      - "training/${vars.size}/model-last"
+    
+  - name: evaluate
+    help: "Evaluate the ${vars.size} model on the test.spacy and save the metrics. "
+    script:
+      - "python -m spacy evaluate ./training/${vars.size}/model-last corpus/test.spacy --output ./metrics/last_dacy_${vars.size}_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/${vars.size}/model-best corpus/test.spacy --output ./metrics/best_dacy_${vars.size}_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      
+    deps:
+      - "training/${vars.size}/model-last"
+      - "training/${vars.size}/model-best"
+      - "corpus/test.spacy"
+    outputs:
+      - "./metrics/last_dacy_${vars.size}_ner_fine_grained-${vars.package_version}.json"
+      - "./metrics/best_dacy_${vars.size}_ner_fine_grained-${vars.package_version}.json"
+
+  - name: package
+    help: "Package the ${vars.size} trained model so it can be installed. "
+    script:
+      - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_ner_fine_grained --version ${vars.package_version} --build wheel --force"
+      - "python update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/meta.json ${vars.no_partitioning}"
+      - "rm packages/da_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/README.md"
+      - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_ner_fine_grained --version ${vars.package_version} --meta-path template_meta_${vars.size}.json --build wheel --force"
+      - "rm template_meta_${vars.size}.json"
+      
+    deps:
+      - "training/${vars.size}/model-best"
+
+  - name: publish
+    help: "Publish ${vars.size} package to huggingface model hub. "
+    script:
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
+      
+    deps:
+      - "packages/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}-py3-none-any.whl"
+
+  - name: train_all_models
+    help: "Trains DaCy models of small, medium and large."
+    script:
+      - "mkdir -p training/small"
+      - "python -m spacy train configs/config_small.cfg --output training/small --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
+      
+      - "mkdir -p training/medium"
+      - "python -m spacy train configs/config_medium.cfg --output training/medium --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
+      
+      - "mkdir -p training/large"
+      - "python -m spacy train configs/config_large.cfg --output training/large --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
+
+    deps:
+      - "corpus/train.spacy"
+      - "corpus/dev.spacy"
+      - "configs/config_small.cfg"
+      - "configs/config_medium.cfg"
+      - "configs/config_large.cfg"
+    outputs:
+      - "training/small/model-last"
+      - "training/medium/model-last"
+      - "training/large/model-last"
+
+  - name: evaluate_all_models
+    help: "Evaluate all models on the test.spacy and save the metrics. "
+    script:
+      - "python -m spacy evaluate ./training/small/model-last corpus/test.spacy --output ./metrics/last_dacy_small_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/small/model-best corpus/test.spacy --output ./metrics/best_dacy_small_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      
+      - "python -m spacy evaluate ./training/medium/model-last corpus/test.spacy --output ./metrics/last_dacy_medium_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/medium/model-best corpus/test.spacy --output ./metrics/best_dacy_medium_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      
+      - "python -m spacy evaluate ./training/large/model-last corpus/test.spacy --output ./metrics/last_dacy_large_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+      - "python -m spacy evaluate ./training/large/model-best corpus/test.spacy --output ./metrics/best_dacy_large_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
+
+      
+    deps:
+      - "training/small/model-last"
+      - "training/small/model-best"
+
+      - "training/medium/model-last"
+      - "training/medium/model-best"
+
+      - "training/large/model-last"
+      - "training/large/model-best"
+
+      - "corpus/test.spacy"
+    outputs:
+      - "./metrics/last_dacy_small_ner_fine_grained-${vars.package_version}.json"
+      - "./metrics/best_dacy_small_ner_fine_grained-${vars.package_version}.json"
+
+      - "./metrics/last_dacy_medium_ner_fine_grained-${vars.package_version}.json"
+      - "./metrics/best_dacy_medium_ner_fine_grained-${vars.package_version}.json"
+
+      - "./metrics/last_dacy_large_ner_fine_grained-${vars.package_version}.json"
+      - "./metrics/best_dacy_large_ner_fine_grained-${vars.package_version}.json"
+
+  - name: package_all_models
+    help: "Package all trained models so they may be installed. "
+    script:
+      - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_ner_fine_grained --version ${vars.package_version} --build wheel --force"
+      - "python update_meta_json.py ${vars.package_version} ${vars.size} packages/da_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/meta.json ${vars.no_partitioning}"
+      - "rm packages/da_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/README.md"
+      - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_ner_fine_grained --version ${vars.package_version} --meta-path template_meta_${vars.size}.json --build wheel --force"
+      - "rm template_meta_${vars.size}.json"
+
+      - "python -m spacy package training/small/model-best packages --name dacy_small_ner_fine_grained --version ${vars.package_version} --build wheel --force"
+      - "python update_meta_json.py ${vars.package_version} small packages/da_dacy_small_ner_fine_grained-${vars.package_version}/meta.json ${vars.no_partitioning}"
+      - "rm packages/da_dacy_small_ner_fine_grained-${vars.package_version}/README.md"
+      - "python -m spacy package training/small/model-best packages --name dacy_small_ner_fine_grained --version ${vars.package_version} --meta-path template_meta_small.json --build wheel --force"
+      - "rm template_meta_small.json"
+
+      - "python -m spacy package training/medium/model-best packages --name dacy_medium_ner_fine_grained --version ${vars.package_version} --build wheel --force"
+      - "python update_meta_json.py ${vars.package_version} medium packages/da_dacy_medium_ner_fine_grained-${vars.package_version}/meta.json ${vars.no_partitioning}"
+      - "rm packages/da_dacy_medium_ner_fine_grained-${vars.package_version}/README.md"
+      - "python -m spacy package training/medium/model-best packages --name dacy_medium_ner_fine_grained --version ${vars.package_version} --meta-path template_meta_medium.json --build wheel --force"
+      - "rm template_meta_medium.json"
+
+      - "python -m spacy package training/large/model-best packages --name dacy_large_ner_fine_grained --version ${vars.package_version} --build wheel --force"
+      - "python update_meta_json.py ${vars.package_version} large packages/da_dacy_large_ner_fine_grained-${vars.package_version}/meta.json ${vars.no_partitioning}"
+      - "rm packages/da_dacy_large_ner_fine_grained-${vars.package_version}/README.md"
+      - "python -m spacy package training/large/model-best packages --name dacy_large_ner_fine_grained --version ${vars.package_version} --meta-path template_meta_large.json --build wheel --force"
+      - "rm template_meta_large.json"
+
+    deps:
+      - "training/small/model-best"
+
+      - "training/medium/model-best"
+
+      - "training/large/model-best"
+
+  - name: publish_all_models
+    help: "Publish all model packages to huggingface model hub."
+    script:
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_small_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_small_ner_fine_grained-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
+
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_medium_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_medium_ner_fine_grained-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
+
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_large_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_large_ner_fine_grained-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
+
+      
+    deps:
+      - "packages/${vars.lang}_dacy_small_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_small_ner_fine_grained-${vars.package_version}-py3-none-any.whl"
+
+      - "packages/${vars.lang}_dacy_medium_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_medium_ner_fine_grained-${vars.package_version}-py3-none-any.whl"
+
+      - "packages/${vars.lang}_dacy_large_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_large_ner_fine_grained-${vars.package_version}-py3-none-any.whl"
+
+  - name: generate_readme
+    help: "Auto-generates a README.md with a project description."
+    script:
+      - "python -m spacy project document --output README.md"
+
+  - name: clean
+    help: "Remove intermediate files"
+    script:
+      - "rm -rf training/*"
+      - "rm -rf metrics/*"
+      - "rm -rf corpus/*"
