@@ -143,6 +143,7 @@ def make_emotion_transformer(
         warn(
             "The 'emotion' component assumes the 'emotionally_laden' extension is set."
             + " To set it you can run  nlp.add_pipe('dacy/emotionally_laden')",
+            stacklevel=1,
         )
 
     # TODO: Add a conditional forward such that the model isn't run is document is not

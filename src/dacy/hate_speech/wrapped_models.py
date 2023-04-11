@@ -86,6 +86,7 @@ def make_offensive_transformer(
         warn(
             "The component assumes the 'is_offensive' extension is set."
             + " To set it you can run  nlp.add_pipe('dacy/hatespeech_detection')",
+            stacklevel=1,
         )
 
     # TODO: Add a conditional forward such that the model isn't run is document is not
