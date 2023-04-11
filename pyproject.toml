@@ -59,7 +59,7 @@ dev = [
   "black[jupyter]==22.8.0", # important that these match the pre-commit hooks
 ]
 tests = [
-  "pytest>=7.1.2,<7.3.0",
+  "pytest>=7.1.2,<7.4.0",
   "pytest-cov>=3.0.0,<3.1.0",
   "pytest-xdist>=3.0.0,<3.2.0",
   "pytest-instafail>=0.4.2,<0.5.0",
