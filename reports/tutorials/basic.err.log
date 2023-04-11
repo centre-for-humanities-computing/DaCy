@@ -17,17 +17,29 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-nlp = dacy.load("da_dacy_small_trf-latest")
-# or equivalently
-nlp = dacy.load("small")
+# load the small dacy model excluding the NER component
+nlp = dacy.load("da_dacy_small_trf-latest", exclude=["ner"])
+# or use an empty spacy model if you only want to do NER
+# nlp = spacy.blank("da")
+
+# add the ner component from the state-of-the-art model
+nlp.add_pipe("dacy/ner")
+
+doc = nlp("Denne NER model er trænet af Dan fra Alexandra Instituttet")
+
+displacy.render(doc, style="ent")
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mValueError[0m                                Traceback (most recent call last)
-Cell [0;32mIn[2], line 1[0m
-[0;32m----> 1[0m nlp [38;5;241m=[39m [43mdacy[49m[38;5;241;43m.[39;49m[43mload[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mda_dacy_small_trf-latest[39;49m[38;5;124;43m"[39;49m[43m)[49m
-[1;32m      2[0m [38;5;66;03m# or equivalently[39;00m
-[1;32m      3[0m nlp [38;5;241m=[39m dacy[38;5;241m.[39mload([38;5;124m"[39m[38;5;124msmall[39m[38;5;124m"[39m)
+Cell [0;32mIn[6], line 2[0m
+[1;32m      1[0m [38;5;66;03m# load the small dacy model excluding the NER component[39;00m
+[0;32m----> 2[0m nlp [38;5;241m=[39m [43mdacy[49m[38;5;241;43m.[39;49m[43mload[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mda_dacy_small_trf-latest[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[43mexclude[49m[38;5;241;43m=[39;49m[43m[[49m[38;5;124;43m"[39;49m[38;5;124;43mner[39;49m[38;5;124;43m"[39;49m[43m][49m[43m)[49m
+[1;32m      3[0m [38;5;66;03m# or use an empty spacy model if you only want to do NER[39;00m
+[1;32m      4[0m [38;5;66;03m# nlp = spacy.blank("da")[39;00m
+[1;32m      5[0m 
+[1;32m      6[0m [38;5;66;03m# add the ner component from the state-of-the-art model[39;00m
+[1;32m      7[0m nlp[38;5;241m.[39madd_pipe([38;5;124m"[39m[38;5;124mdacy/ner[39m[38;5;124m"[39m)
 
 File [0;32m~/.local/lib/python3.10/site-packages/dacy/load.py:37[0m, in [0;36mload[0;34m(model, force, **kwargs)[0m
 [1;32m     12[0m [38;5;28;01mdef[39;00m [38;5;21mload[39m(
@@ -44,15 +56,15 @@ File [0;32m~/.local/lib/python3.10/site-packages/dacy/load.py:37[0m, in [0;36
 [0;32m---> 37[0m     path [38;5;241m=[39m [43mdownload_model[49m[43m([49m[43mmodel[49m[43m,[49m[43m [49m[43mforce[49m[38;5;241;43m=[39;49m[43mforce[49m[43m)[49m
 [1;32m     38[0m     [38;5;28;01mreturn[39;00m spacy[38;5;241m.[39mload(path, [38;5;241m*[39m[38;5;241m*[39mkwargs)
 
-File [0;32m~/.local/lib/python3.10/site-packages/dacy/download.py:84[0m, in [0;36mdownload_model[0;34m(model, force)[0m
-[1;32m     81[0m     model [38;5;241m=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;124mda_dacy_[39m[38;5;132;01m{[39;00mmodel[38;5;132;01m}[39;00m[38;5;124m_trf-0.1.0[39m[38;5;124m"[39m
-[1;32m     83[0m [38;5;28;01mif[39;00m model [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m models_url:
-[0;32m---> 84[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
-[1;32m     85[0m         [38;5;124m"[39m[38;5;124mThe model is not available in DaCy. Please use dacy.models() to see a[39m[38;5;124m"[39m
-[1;32m     86[0m         [38;5;241m+[39m [38;5;124m"[39m[38;5;124m list of all models[39m[38;5;124m"[39m,
-[1;32m     87[0m     )
-[1;32m     89[0m mdl_version [38;5;241m=[39m model[38;5;241m.[39msplit([38;5;124m"[39m[38;5;124m-[39m[38;5;124m"[39m)[[38;5;241m-[39m[38;5;241m1[39m]
-[1;32m     90[0m [38;5;28;01mfrom[39;00m [38;5;21;01mspacy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mutil[39;00m [38;5;28;01mimport[39;00m get_installed_models
+File [0;32m~/.local/lib/python3.10/site-packages/dacy/download.py:86[0m, in [0;36mdownload_model[0;34m(model, force)[0m
+[1;32m     83[0m mdl_version [38;5;241m=[39m model[38;5;241m.[39msplit([38;5;124m"[39m[38;5;124m-[39m[38;5;124m"[39m)[[38;5;241m-[39m[38;5;241m1[39m]
+[1;32m     85[0m [38;5;28;01mif[39;00m model [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m models_url:
+[0;32m---> 86[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[1;32m     87[0m         [38;5;124m"[39m[38;5;124mThe model is not available in DaCy. Please use dacy.models() to see a[39m[38;5;124m"[39m
+[1;32m     88[0m         [38;5;241m+[39m [38;5;124m"[39m[38;5;124m list of all models[39m[38;5;124m"[39m,
+[1;32m     89[0m     )
+[1;32m     91[0m mdl [38;5;241m=[39m model[38;5;241m.[39msplit([38;5;124m"[39m[38;5;124m-[39m[38;5;124m"[39m)[[38;5;241m0[39m]
+[1;32m     92[0m [38;5;28;01mif[39;00m mdl [38;5;129;01min[39;00m get_installed_models() [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m force:
 
 [0;31mValueError[0m: The model is not available in DaCy. Please use dacy.models() to see a list of all models
 ValueError: The model is not available in DaCy. Please use dacy.models() to see a list of all models
