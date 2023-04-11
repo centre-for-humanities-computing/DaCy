@@ -56,7 +56,7 @@ dev = [
   "mypy",  
   "pre-commit==2.20.0,<2.21.0",
   "ruff==0.0.254", # important that these match the pre-commit hooks
-  "black[jupyter]==22.8.0", # important that these match the pre-commit hooks
+  "black[jupyter]==23.3.0", # important that these match the pre-commit hooks
 ]
 tests = [
   "pytest>=7.1.2,<7.3.0",
