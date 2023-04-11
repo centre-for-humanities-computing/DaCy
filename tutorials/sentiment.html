@@ -322,8 +322,8 @@ different models might be more suitable.</p>
 <a class="reference external" href="https://github.com/alexandrainst/danlp">DaNLP</a>. The models detect whether a
 text is subjective or objective in its phrasing.</p>
 <p>To add the subjectivity model to your pipeline simply run:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
 <span class="kn">import</span> <span class="nn">spacy</span>
 
@@ -333,11 +333,17 @@ text is subjective or objective in its phrasing.</p>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;spacy_wrap.pipeline_component_seq_clf.SequenceClassificationTransformer at 0x169757520&gt;
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>This will add the <code class="docutils literal notranslate"><span class="pre">dacy.subjectivity</span></code> component to your pipeline, which adds
 two extensions to the Doc object,<code class="docutils literal notranslate"><span class="pre">subjectivity_prob</span></code> and <code class="docutils literal notranslate"><span class="pre">subjectivity</span></code>.
@@ -374,20 +380,25 @@ subjective
 This model classifies the polarity of a text, i.e. whether it is positve,
 negative or neutral.</p>
 <p>To add the polarity model to your pipeline simply run:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span> <span class="c1"># an empty spacy pipeline</span>
 <span class="c1"># could also be a dacy pipeline, e.g. nlp = dacy.load(&quot;large&quot;)</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/polarity&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Added polarity compoenent&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Added polarity compoenent
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>This will add the <code class="docutils literal notranslate"><span class="pre">dacy.polarity</span></code> component to your pipeline, which adds
 two extensions to the Doc object,<code class="docutils literal notranslate"><span class="pre">polarity_prob</span></code> and <code class="docutils literal notranslate"><span class="pre">polarity</span></code>.
@@ -435,17 +446,20 @@ negative or neutral.</p>
 <li><p>“Frygt/Bekymret” (Fear)</p></li>
 </ul>
 <p>To add the emotion models to your pipeline simply run:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span> <span class="c1"># an empty spacy pipeline</span>
 <span class="c1"># could also be a dacy pipeline, e.g. nlp = dacy.load(&quot;large&quot;)</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/emotionally_laden&quot;</span><span class="p">)</span> <span class="c1"># for emotianal/non-emotional</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;dacy/emotion&quot;</span><span class="p">)</span> <span class="c1"># for type of emotion</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pipeline components added&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/au561649/Desktop/Github/DaCy/dacy/sentiment/wrapped_models.py:142: UserWarning: The &#39;emotion&#39; component assumes the &#39;emotionally_laden&#39; extension is set. To set it you can run  nlp.add_pipe(&#39;dacy.emotionally_laden&#39;)
   warn(
@@ -455,6 +469,7 @@ negative or neutral.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>This wil set the two extensions to the Doc object, <code class="docutils literal notranslate"><span class="pre">laden</span></code> and <code class="docutils literal notranslate"><span class="pre">emotion</span></code>.
 These shows whether a text is emotionally laden and what emotion it contains.

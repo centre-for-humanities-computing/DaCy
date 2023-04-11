@@ -311,8 +311,8 @@ includes</p>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <p>To add the emotion models to your pipeline simply run:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
 <span class="kn">import</span> <span class="nn">spacy</span>
 
@@ -324,6 +324,11 @@ includes</p>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/au561649/Desktop/Github/DaCy/.venv/lib/python3.9/site-packages/torch/autocast_mode.py:162: UserWarning: User provided device_type of &#39;cuda&#39;, but CUDA is not available. Disabling
   warnings.warn(&#39;User provided device_type of \&#39;cuda\&#39;, but CUDA is not available. Disabling&#39;)
@@ -333,6 +338,7 @@ includes</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>This wil set the two extensions to the Doc object, <code class="docutils literal notranslate"><span class="pre">is_offensive</span></code> and <code class="docutils literal notranslate"><span class="pre">hate_speech_type</span></code>.
 These shows whether a text is emotionally laden and what emotion it contains.</p>

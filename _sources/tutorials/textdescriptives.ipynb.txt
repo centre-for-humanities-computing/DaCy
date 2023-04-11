@@ -152,7 +152,11 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "hide-output"
+    ]
+   },
    "outputs": [
     {
      "name": "stderr",
@@ -187,7 +191,7 @@
    ],
    "source": [
     "import dacy\n",
-    "nlp = dacy.load(\"da_dacy_medium_trf-0.1.0\")\n",
+    "nlp = dacy.load(\"medium\") # load the latest medium model\n",
     "\n",
     "nlp.add_pipe(\"textdescriptives/readability\")\n",
     "nlp.add_pipe(\"textdescriptives/dependency_distance\")"
@@ -217,7 +221,11 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "hide-output"
+    ]
+   },
    "outputs": [
     {
      "name": "stderr",

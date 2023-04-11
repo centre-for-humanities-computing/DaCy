@@ -276,48 +276,49 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </section>
 <section id="loading-models-and-data">
 <h2>Loading models and data<a class="headerlink" href="#loading-models-and-data" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
-<span class="kn">import</span> <span class="nn">dacy</span>
-
-<span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="kn">import</span> <span class="n">dane</span>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="kn">import</span> <span class="n">dane</span>
 
 <span class="c1"># load the DaNE test set</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">dane</span><span class="p">(</span><span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">])</span>
-
-<span class="c1"># load models</span>
-<span class="n">spacy_small</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_core_news_sm&quot;</span><span class="p">)</span>
-<span class="n">dacy_small</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download: 0.00B [00:00, ?B/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   2%|▏         | 8.19k/475k [00:01&lt;01:08, 6.78kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   2%|▏         | 8.19k/475k [00:01&lt;01:16, 6.13kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   9%|▊         | 41.0k/475k [00:01&lt;00:11, 37.0kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   9%|▊         | 41.0k/475k [00:01&lt;00:12, 34.0kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  19%|█▉        | 90.1k/475k [00:01&lt;00:04, 82.5kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  19%|█▉        | 90.1k/475k [00:01&lt;00:05, 76.7kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  31%|███       | 147k/475k [00:01&lt;00:02, 132kB/s]  
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  31%|███       | 147k/475k [00:01&lt;00:02, 124kB/s]  
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  47%|████▋     | 221k/475k [00:01&lt;00:01, 193kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  47%|████▋     | 221k/475k [00:02&lt;00:01, 183kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  64%|██████▍   | 303k/475k [00:02&lt;00:00, 253kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  64%|██████▍   | 303k/475k [00:02&lt;00:00, 242kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  83%|████████▎ | 393k/475k [00:02&lt;00:00, 310kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  78%|███████▊  | 369k/475k [00:02&lt;00:00, 306kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download: 475kB [00:02, 192kB/s]                           
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  98%|█████████▊| 467k/475k [00:02&lt;00:00, 365kB/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download: 475kB [00:02, 181kB/s]                           
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -351,6 +352,26 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 <span class=" -Color -Color-C2">/home/runner/.dacy/datasets/dane/dane_1.spacy</span>
 </pre></div>
 </div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">dacy</span>
+
+<span class="c1"># load models</span>
+<span class="n">spacy_small</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_core_news_sm&quot;</span><span class="p">)</span>
+<span class="n">dacy_small</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:887: UserWarning: [W095] Model &#39;da_dacy_small_trf&#39; (0.1.0) was trained with spaCy v3.1 and may not be 100% compatible with the current version (3.5.1). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
   warnings.warn(warn_msg)
 </pre></div>
@@ -360,13 +381,14 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="estimating-performance">
 <h2>Estimating performance<a class="headerlink" href="#estimating-performance" title="Permalink to this heading">#</a></h2>
 <p>Evaluating models already in the <code class="docutils literal notranslate"><span class="pre">SpaCy</span></code> framework is very straightforward. Simply call the <code class="docutils literal notranslate"><span class="pre">score</span></code> function on your nlp pipeline and choose which metrics you want to calculate performance for. <code class="docutils literal notranslate"><span class="pre">score</span></code> is a wrapper for <code class="docutils literal notranslate"><span class="pre">SpaCy.scorer.Scorer</span></code> that outputs a nicely formatted dataframe. <code class="docutils literal notranslate"><span class="pre">score</span></code> calculates performance for NER, POS, tokenization, and dependency parsing by default, which can be changed with the score_fn argument.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dacy.score</span> <span class="kn">import</span> <span class="n">score</span>
 
 <span class="n">spacy_baseline</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">apply_fn</span><span class="o">=</span><span class="n">spacy_small</span><span class="p">,</span> <span class="n">score_fn</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ents&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">])</span>
@@ -374,12 +396,18 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/pipeline/attributeruler.py:150: UserWarning: [W036] The component &#39;matcher&#39; does not have any patterns defined.
   matches = self.matcher(doc, allow_missing=True, as_spans=False)
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -410,17 +438,17 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_PER_p</th>
       <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>ents_per_type_MISC_p</th>
+      <th>ents_per_type_MISC_r</th>
+      <th>ents_per_type_MISC_f</th>
       <th>...</th>
-      <th>ents_per_type_LOC_f</th>
-      <th>ents_per_type_ORG_p</th>
-      <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
+      <th>ents_per_type_LOC_p</th>
+      <th>ents_per_type_LOC_r</th>
+      <th>ents_per_type_LOC_f</th>
       <th>ents_excl_MISC_ents_p</th>
       <th>ents_excl_MISC_ents_r</th>
       <th>ents_excl_MISC_ents_f</th>
@@ -432,21 +460,21 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.418835</td>
+      <td>1.399772</td>
       <td>0.685598</td>
       <td>0.605735</td>
       <td>0.643197</td>
-      <td>0.628571</td>
-      <td>0.545455</td>
-      <td>0.584071</td>
       <td>0.79235</td>
       <td>0.805556</td>
       <td>0.798898</td>
+      <td>0.628571</td>
+      <td>0.545455</td>
+      <td>0.584071</td>
       <td>...</td>
-      <td>0.615385</td>
-      <td>0.677419</td>
-      <td>0.391304</td>
       <td>0.496063</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
       <td>0.701031</td>
       <td>0.622426</td>
       <td>0.659394</td>
@@ -488,12 +516,12 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_PER_p</th>
       <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>ents_per_type_MISC_p</th>
+      <th>ents_per_type_MISC_r</th>
+      <th>ents_per_type_MISC_f</th>
       <th>...</th>
       <th>ents_per_type_LOC_f</th>
       <th>ents_per_type_ORG_p</th>
@@ -510,16 +538,16 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
   <tbody>
     <tr>
       <th>0</th>
-      <td>5.054473</td>
+      <td>4.926447</td>
       <td>0.774312</td>
       <td>0.756272</td>
       <td>0.765186</td>
-      <td>0.656</td>
-      <td>0.677686</td>
-      <td>0.666667</td>
       <td>0.874346</td>
       <td>0.927778</td>
       <td>0.90027</td>
+      <td>0.656</td>
+      <td>0.677686</td>
+      <td>0.666667</td>
       <td>...</td>
       <td>0.786408</td>
       <td>0.773109</td>
@@ -549,8 +577,8 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lower_aug</span> <span class="o">=</span> <span class="n">create_lower_casing_augmenter</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">female_name_dict</span> <span class="o">=</span> <span class="n">female_names</span><span class="p">()</span>
 <span class="c1"># Augmenter that replaces names with random Danish female names. Keep the format of the name as is (force_pattern_size=False)</span>
@@ -574,6 +602,11 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/dacy/datasets/names.py:53: FutureWarning: Not prepending group keys to the result index of transform-like apply. In the future, the group keys will be included in the index, regardless of whether the applied function returns a like-indexed object.
 To preserve the previous behavior, use
@@ -595,6 +628,7 @@ To adopt the future behavior and silence this warning, use
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -627,17 +661,17 @@ To adopt the future behavior and silence this warning, use
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_PER_p</th>
       <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>ents_per_type_MISC_p</th>
+      <th>ents_per_type_MISC_r</th>
+      <th>ents_per_type_MISC_f</th>
       <th>...</th>
-      <th>ents_per_type_LOC_f</th>
-      <th>ents_per_type_ORG_p</th>
-      <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
+      <th>ents_per_type_LOC_p</th>
+      <th>ents_per_type_LOC_r</th>
+      <th>ents_per_type_LOC_f</th>
       <th>ents_excl_MISC_ents_p</th>
       <th>ents_excl_MISC_ents_r</th>
       <th>ents_excl_MISC_ents_f</th>
@@ -649,21 +683,21 @@ To adopt the future behavior and silence this warning, use
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.418835</td>
+      <td>1.399772</td>
       <td>0.685598</td>
       <td>0.605735</td>
       <td>0.643197</td>
-      <td>0.628571</td>
-      <td>0.545455</td>
-      <td>0.584071</td>
       <td>0.792350</td>
       <td>0.805556</td>
       <td>0.798898</td>
+      <td>0.628571</td>
+      <td>0.545455</td>
+      <td>0.584071</td>
       <td>...</td>
-      <td>0.615385</td>
-      <td>0.677419</td>
-      <td>0.391304</td>
       <td>0.496063</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
       <td>0.701031</td>
       <td>0.622426</td>
       <td>0.659394</td>
@@ -673,21 +707,21 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>1.554957</td>
+      <td>1.489095</td>
       <td>0.695652</td>
       <td>0.286738</td>
       <td>0.406091</td>
-      <td>0.720000</td>
-      <td>0.446281</td>
-      <td>0.551020</td>
       <td>0.688312</td>
       <td>0.294444</td>
       <td>0.412451</td>
+      <td>0.720000</td>
+      <td>0.446281</td>
+      <td>0.551020</td>
       <td>...</td>
-      <td>0.458333</td>
-      <td>0.666667</td>
-      <td>0.124224</td>
       <td>0.209424</td>
+      <td>0.687500</td>
+      <td>0.343750</td>
+      <td>0.458333</td>
       <td>0.683871</td>
       <td>0.242563</td>
       <td>0.358108</td>
@@ -697,21 +731,21 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>1.345908</td>
+      <td>1.259111</td>
       <td>0.685598</td>
       <td>0.605735</td>
       <td>0.643197</td>
-      <td>0.628571</td>
-      <td>0.545455</td>
-      <td>0.584071</td>
       <td>0.792350</td>
       <td>0.805556</td>
       <td>0.798898</td>
+      <td>0.628571</td>
+      <td>0.545455</td>
+      <td>0.584071</td>
       <td>...</td>
-      <td>0.615385</td>
-      <td>0.677419</td>
-      <td>0.391304</td>
       <td>0.496063</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
       <td>0.701031</td>
       <td>0.622426</td>
       <td>0.659394</td>
@@ -753,12 +787,12 @@ To adopt the future behavior and silence this warning, use
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_PER_p</th>
       <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>ents_per_type_MISC_p</th>
+      <th>ents_per_type_MISC_r</th>
+      <th>ents_per_type_MISC_f</th>
       <th>...</th>
       <th>ents_per_type_LOC_f</th>
       <th>ents_per_type_ORG_p</th>
@@ -775,16 +809,16 @@ To adopt the future behavior and silence this warning, use
   <tbody>
     <tr>
       <th>0</th>
-      <td>5.054473</td>
+      <td>4.926447</td>
       <td>0.774312</td>
       <td>0.756272</td>
       <td>0.765186</td>
-      <td>0.656000</td>
-      <td>0.677686</td>
-      <td>0.666667</td>
       <td>0.874346</td>
       <td>0.927778</td>
       <td>0.900270</td>
+      <td>0.656000</td>
+      <td>0.677686</td>
+      <td>0.666667</td>
       <td>...</td>
       <td>0.786408</td>
       <td>0.773109</td>
@@ -799,16 +833,16 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>5.373057</td>
+      <td>5.201767</td>
       <td>0.727088</td>
       <td>0.639785</td>
       <td>0.680648</td>
-      <td>0.614754</td>
-      <td>0.619835</td>
-      <td>0.617284</td>
       <td>0.842424</td>
       <td>0.772222</td>
       <td>0.805797</td>
+      <td>0.614754</td>
+      <td>0.619835</td>
+      <td>0.617284</td>
       <td>...</td>
       <td>0.746269</td>
       <td>0.686869</td>
@@ -823,16 +857,16 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>5.032594</td>
+      <td>4.814380</td>
       <td>0.774312</td>
       <td>0.756272</td>
       <td>0.765186</td>
-      <td>0.656000</td>
-      <td>0.677686</td>
-      <td>0.666667</td>
       <td>0.874346</td>
       <td>0.927778</td>
       <td>0.900270</td>
+      <td>0.656000</td>
+      <td>0.677686</td>
+      <td>0.666667</td>
       <td>...</td>
       <td>0.786408</td>
       <td>0.773109</td>
@@ -894,12 +928,12 @@ To adopt the future behavior and silence this warning, use
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_PER_p</th>
       <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>ents_per_type_MISC_p</th>
+      <th>ents_per_type_MISC_r</th>
+      <th>ents_per_type_MISC_f</th>
       <th>...</th>
       <th>ents_per_type_LOC_f</th>
       <th>ents_per_type_ORG_p</th>
@@ -916,122 +950,122 @@ To adopt the future behavior and silence this warning, use
   <tbody>
     <tr>
       <th>0</th>
-      <td>2.161878</td>
-      <td>0.105785</td>
-      <td>0.114695</td>
-      <td>0.110060</td>
-      <td>0.061538</td>
-      <td>0.066116</td>
-      <td>0.063745</td>
-      <td>0.151515</td>
-      <td>0.166667</td>
-      <td>0.158730</td>
+      <td>2.062714</td>
+      <td>0.104000</td>
+      <td>0.116487</td>
+      <td>0.109890</td>
+      <td>0.149485</td>
+      <td>0.161111</td>
+      <td>0.155080</td>
+      <td>0.039062</td>
+      <td>0.041322</td>
+      <td>0.040161</td>
       <td>...</td>
-      <td>0.136126</td>
-      <td>0.071429</td>
-      <td>0.080745</td>
-      <td>0.075802</td>
-      <td>0.117895</td>
-      <td>0.128146</td>
-      <td>0.122807</td>
-      <td>0.321782</td>
-      <td>0.321782</td>
+      <td>0.134715</td>
+      <td>0.087379</td>
+      <td>0.111801</td>
+      <td>0.098093</td>
+      <td>0.120724</td>
+      <td>0.137300</td>
+      <td>0.128480</td>
+      <td>0.322951</td>
+      <td>0.322951</td>
       <td>0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2.009037</td>
-      <td>0.127119</td>
-      <td>0.134409</td>
-      <td>0.130662</td>
-      <td>0.065574</td>
-      <td>0.066116</td>
-      <td>0.065844</td>
-      <td>0.191011</td>
-      <td>0.188889</td>
-      <td>0.189944</td>
+      <td>1.904328</td>
+      <td>0.097039</td>
+      <td>0.105735</td>
+      <td>0.101201</td>
+      <td>0.147059</td>
+      <td>0.166667</td>
+      <td>0.156250</td>
+      <td>0.078947</td>
+      <td>0.074380</td>
+      <td>0.076596</td>
       <td>...</td>
-      <td>0.157407</td>
-      <td>0.094118</td>
-      <td>0.099379</td>
-      <td>0.096677</td>
-      <td>0.143162</td>
-      <td>0.153318</td>
-      <td>0.148066</td>
-      <td>0.323995</td>
-      <td>0.323995</td>
+      <td>0.059406</td>
+      <td>0.076087</td>
+      <td>0.086957</td>
+      <td>0.081159</td>
+      <td>0.101215</td>
+      <td>0.114416</td>
+      <td>0.107411</td>
+      <td>0.319166</td>
+      <td>0.319166</td>
       <td>1</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2.002208</td>
-      <td>0.112195</td>
-      <td>0.123656</td>
-      <td>0.117647</td>
-      <td>0.062937</td>
-      <td>0.074380</td>
-      <td>0.068182</td>
-      <td>0.148936</td>
-      <td>0.155556</td>
-      <td>0.152174</td>
+      <td>1.886460</td>
+      <td>0.080479</td>
+      <td>0.084229</td>
+      <td>0.082312</td>
+      <td>0.107143</td>
+      <td>0.116667</td>
+      <td>0.111702</td>
+      <td>0.040984</td>
+      <td>0.041322</td>
+      <td>0.041152</td>
       <td>...</td>
-      <td>0.150754</td>
-      <td>0.093923</td>
-      <td>0.105590</td>
-      <td>0.099415</td>
-      <td>0.127119</td>
-      <td>0.137300</td>
-      <td>0.132013</td>
-      <td>0.318303</td>
-      <td>0.318303</td>
+      <td>0.089552</td>
+      <td>0.074534</td>
+      <td>0.074534</td>
+      <td>0.074534</td>
+      <td>0.090909</td>
+      <td>0.096110</td>
+      <td>0.093437</td>
+      <td>0.316468</td>
+      <td>0.316468</td>
       <td>2</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1.952077</td>
-      <td>0.092044</td>
-      <td>0.105735</td>
-      <td>0.098415</td>
-      <td>0.047619</td>
-      <td>0.049587</td>
-      <td>0.048583</td>
-      <td>0.134259</td>
-      <td>0.161111</td>
-      <td>0.146465</td>
+      <td>1.875122</td>
+      <td>0.105754</td>
+      <td>0.121864</td>
+      <td>0.113239</td>
+      <td>0.161905</td>
+      <td>0.188889</td>
+      <td>0.174359</td>
+      <td>0.054688</td>
+      <td>0.057851</td>
+      <td>0.056225</td>
       <td>...</td>
-      <td>0.114537</td>
-      <td>0.065476</td>
-      <td>0.068323</td>
-      <td>0.066869</td>
-      <td>0.102913</td>
-      <td>0.121281</td>
-      <td>0.111345</td>
-      <td>0.320522</td>
-      <td>0.320522</td>
+      <td>0.104762</td>
+      <td>0.083770</td>
+      <td>0.099379</td>
+      <td>0.090909</td>
+      <td>0.118447</td>
+      <td>0.139588</td>
+      <td>0.128151</td>
+      <td>0.323538</td>
+      <td>0.323538</td>
       <td>3</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.951072</td>
-      <td>0.087092</td>
-      <td>0.100358</td>
-      <td>0.093256</td>
-      <td>0.073529</td>
-      <td>0.082645</td>
-      <td>0.077821</td>
-      <td>0.116505</td>
-      <td>0.133333</td>
-      <td>0.124352</td>
+      <td>1.885785</td>
+      <td>0.111635</td>
+      <td>0.127240</td>
+      <td>0.118928</td>
+      <td>0.157360</td>
+      <td>0.172222</td>
+      <td>0.164456</td>
+      <td>0.028369</td>
+      <td>0.033058</td>
+      <td>0.030534</td>
       <td>...</td>
-      <td>0.091324</td>
-      <td>0.067416</td>
-      <td>0.074534</td>
-      <td>0.070796</td>
-      <td>0.090730</td>
-      <td>0.105263</td>
-      <td>0.097458</td>
-      <td>0.320960</td>
-      <td>0.320960</td>
+      <td>0.160804</td>
+      <td>0.102564</td>
+      <td>0.124224</td>
+      <td>0.112360</td>
+      <td>0.135354</td>
+      <td>0.153318</td>
+      <td>0.143777</td>
+      <td>0.318286</td>
+      <td>0.318286</td>
       <td>4</td>
     </tr>
   </tbody>
