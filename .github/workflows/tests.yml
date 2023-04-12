@@ -54,7 +54,7 @@ jobs:
           else
             source .venv/bin/activate
           fi
-          python3 pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           pip install -e .[tests]
 
       - name: Run and write pytest
