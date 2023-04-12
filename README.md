@@ -119,3 +119,5 @@ Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Oth
 [FAQ]: https://centre-for-humanities-computing.github.io/dacy/faq.html
 [github issue tracker]: https://github.com/centre-for-humanities-computing/dacy/issues
 [github discussions]: https://github.com/centre-for-humanities-computing/dacy/discussions
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/project/dacy/
