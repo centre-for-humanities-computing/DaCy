@@ -1,0 +1,14 @@
+spacy[lookups,transformers] >= 3.5.0
+thinc[torch] >= 8.1.9
+
+# for the coref model
+spacy-experimental >= 0.6.2
+
+# for using apple ops
+thinc-apple-ops >= 0.1.3
+
+# logging
+wandb >= 0.14.2
+
+# for dataset handling
+conllu>=4.5.2
