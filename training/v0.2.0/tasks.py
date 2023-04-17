@@ -31,11 +31,24 @@ format and training and evaluating the model.
 ## Future directions
 
 ### To do
-- [ ] Add pipeline for training coref model
+- [x] Add pipeline for training coref model
+  - [ ] Test pipeline with Transformer (find a good small model to use)
+    - Maltehb/aelaectra-danish-electra-small-cased
+    - 
 - [ ] Add pipeline for training NED model
 - [ ] Add description of manual corrections of the dataset
+- [ ] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
+- [ ] check status på "'" https://github.com/UniversalDependencies/UD_Danish-DDT/issues/4
+- [ ] 
+- [ ] Tilføj version af datasæt
+    - særlig af DaNE (HF version)
+    - DDT (github version)
+    - DaCoref (ikke versioneret)
+    - DaNED (ikke versioneret)
+    - Dansk (HF version)
 
 ### Notes
+
 - [ ] Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently?
 - [ ] DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf)
 it only improved the model from 0.85 to 0.86 so it might not be worth it.
@@ -43,6 +56,11 @@ it only improved the model from 0.85 to 0.86 so it might not be worth it.
 - [ ] DANSK is currently not included. It could be added
 - [ ] It would be interested to see if anything could be gained from using a multilingual approach e.g. include the english ontonotes
 or Norwegian Bokmål.
+- [ ] Future models to compare to:
+    - Coref model: https://github.com/pandora-intelligence/crosslingual-coreference
+    - Eksisterende NED model på dansk fra Alexandra
+    - Coref modeller fra alexandra
+    - 
 
 ## Usage
 
@@ -66,7 +84,7 @@ import shutil
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from invoke import Context, Task, task
 
@@ -365,15 +383,6 @@ def evaluate(
 
 
 @task
-def workflow_prepare_to_train(c: Context):
-    """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine`"""
-    install(c)
-    fetch_assets(c)
-    convert(c)
-    combine(c)
-
-
-@task
 def train_coref_cluster(c: Context):
     """
     "python -m spacy train config/cluster.cfg -g ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy -o training/cluster --training.max_epochs ${vars.max_epochs}"
@@ -383,11 +392,140 @@ def train_coref_cluster(c: Context):
     training_path = Path("training/cluster")
     training_path.mkdir(parents=True, exist_ok=True)
     with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
-        print("running:")
-        print(
-            f"spacy train configs/cluster.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da",
-        )
         c.run(
             f"spacy train configs/cluster.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da",
         )
     print(f"{Emo.GOOD} Model trained")
+
+
+@task
+def prep_span_data(
+    c: Context, heads="silver", model_path="training/cluster/model-best"
+) -> None:
+    """Prepare data for the span resolver component.
+
+    Args:
+        heads: Whether to use gold heads or silver heads predicted by the clustering component
+
+    """
+    # python scripts/prep_span_data.py --heads ${vars.heads} --model-path training/cluster/model-best/ --gpu ${vars.gpu_id} --input-path corpus/train.spacy --output-path corpus/spans.train.spacy --head-prefix coref_head_clusters --span-prefix coref_clusters
+    #       - python scripts/prep_span_data.py --heads ${vars.heads} --model-path training/cluster/model-best/ --gpu ${vars.gpu_id} --input-path corpus/dev.spacy --output-path corpus/spans.dev.spacy --head-prefix coref_head_clusters --span-prefix coref_clusters
+
+    echo_header(f"{Emo.DO} Preparing span data")
+
+    training_path = Path("training/cluster")
+    training_path.mkdir(parents=True, exist_ok=True)
+
+    cmd = (
+        "python scripts/prep_span_data.py"
+        + f" --heads {heads} "
+        + f"--model-path {model_path} "
+        + "--input-path corpus/cdt/{split}.spacy "
+        + "--output-path corpus/cdt/spans.{split}.spacy "
+        + "--head-prefix coref_head_clusters "
+        + "--span-prefix coref_clusters"
+    )
+    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+        for split in ["train", "dev"]:
+            c.run(cmd.format(split=split))
+    print(f"{Emo.GOOD} Span data prepared")
+
+
+@task
+def train_span_resolver(
+    c: Context,
+    tok2vec_source: Optional[str] = "training/cluster/model-best",
+    transformer_source: Optional[str] = None,
+    max_epochs: int = 20,
+):
+    """
+    Train the span resolver component.
+    """
+    # spacy train configs/span.cfg -c scripts/custom_functions.py -g ${vars.gpu_id} --paths.train corpus/spans.train.spacy --paths.dev corpus/spans.dev.spacy --training.max_epochs ${vars.max_epochs} --paths.transformer_source training/cluster/model-best -o training/span_resolver
+    echo_header(f"{Emo.DO} Training span resolver")
+
+    if tok2vec_source and transformer_source:
+        raise ValueError(
+            "Only one of `tok2vec_source` and `transformer_source` can be set"
+        )
+    if tok2vec_source is None and transformer_source is None:
+        raise ValueError("One of `tok2vec_source` and `transformer_source` must be set")
+
+    config = (
+        "configs/span_resolver.cfg"
+        if tok2vec_source
+        else "configs/span_resolver_trf.cfg"
+    )
+
+    cmd = (
+        f"spacy train {config}"
+        + " -c scripts/custom_functions.py"
+        + " --output training/span_resolver"
+        + " --paths.train corpus/cdt/spans.train.spacy"
+        + " --paths.dev corpus/cdt/spans.dev.spacy"
+        + f" --training.max_epochs {max_epochs}"
+    )
+    if tok2vec_source:
+        cmd += f" --paths.tok2vec_source {tok2vec_source}"
+    else:
+        cmd += f" --paths.transformer_source {transformer_source}"
+
+    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+        c.run(cmd)
+    print(f"{Emo.GOOD} Span resolver trained")
+
+
+@task
+def assemple_coref(c: Context):
+    """Assemble the coreference model."""
+    # spacy assemble ${vars.config_dir}/coref.cfg training/coref
+    echo_header(f"{Emo.DO} Assembling coreference model")
+
+    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+        c.run("spacy assemble configs/coref.cfg training/coref")
+    print(f"{Emo.GOOD} Coreference model assembled")
+
+
+@task
+def workflow_prepare_to_train(c: Context):
+    """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine`"""
+    install(c)
+    fetch_assets(c)
+    convert(c)
+    combine(c)
+
+
+@task
+def workflow_train_coref_model(c: Context):
+    """Runs: `train_coref_cluster` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemple_coref`"""
+    train_coref_cluster(c)
+    prep_span_data(c)
+    train_span_resolver(c)
+    assemple_coref(c)
+
+
+@task
+def train_ned(c: Context):
+    """Train the named entity disambiguation component."""
+    echo_header(f"{Emo.DO} Training NED model")
+    # python -m spacy train configs/${vars.config}
+    # --output training
+    # --paths.train corpus/${vars.train}.spacy
+    # --paths.dev corpus/${vars.dev}.spacy
+    # --paths.kb temp/${vars.kb}
+    # --paths.base_nlp temp/${vars.nlp}
+    # -c scripts/custom_functions.py
+
+    cmd = (
+        "python -m spacy train configs/ned.cfg"
+        + " --output training/ned"
+        + " --paths.train corpus/cdt/train.spacy"
+        + " --paths.dev corpus/cdt/dev.spacy"
+        + " --paths.kb assets/kb"
+        + " --paths.base_nlp my_nlp"
+        + " -c scripts/custom_ned_functions.py"
+    )
+
+    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+        c.run(cmd)
+    print(f"{Emo.GOOD} NED model trained")
