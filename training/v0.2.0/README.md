@@ -5,7 +5,7 @@
 
 Language: 🇩🇰
 
-Datasets: 
+Datasets:
 - [DaNE](https://danlp-alexandra.readthedocs.io/en/latest/docs/datasets.html?highlight=dane#dane) Danish Named Entity Corpus
 - da-DDT: Danish Dependency Treebank
 - DaCoref: Danish Coreference Corpus
@@ -14,7 +14,7 @@ Datasets:
 These all tag a subset of the Danish Universal Dependencies corpus. Thus thus project
 combined it all into one dataset.
 
-For the DaNED we remove QIDs which does not correspond to an entity in the DaNE dataset as many of are e.g. 
+For the DaNED we remove QIDs which does not correspond to an entity in the DaNE dataset as many of are e.g.
 first names and last names. Note that the QID is still within the dataset, it is just not used for training.
 
 This project template lets you train models for:
@@ -32,13 +32,32 @@ format and training and evaluating the model.
 
 ## Future directions
 
+### To do
+- [ ] Add pipeline for training coref model
+- [ ] Add pipeline for training NED model
+- [ ] Add description of manual corrections of the dataset
+- [ ] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
+- [ ] check status på "'" https://github.com/UniversalDependencies/UD_Danish-DDT/issues/4
+- [ ] 
+- [ ] Tilføj version af datasæt
+    - særlig af DaNE (HF version)
+    - DDT (github version)
+    - DaCoref (ikke versioneret)
+    - DaNED (ikke versioneret)
+
+### Notes
 - [ ] Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently?
-- [ ] DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf) 
+- [ ] DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf)
 it only improved the model from 0.85 to 0.86 so it might not be worth it.
 - [ ] Can the entity linker model use non-entity QIDs? We have quite a few of these in the DaNED dataset.
 - [ ] DANSK is currently not included. It could be added
 - [ ] It would be interested to see if anything could be gained from using a multilingual approach e.g. include the english ontonotes
 or Norwegian Bokmål.
+- [ ] Future models to compare to:
+    - Coref model: https://github.com/pandora-intelligence/crosslingual-coreference
+    - Eksisterende NED model på dansk fra Alexandra
+    - Coref modeller fra alexandra
+    - 
 
 ## Usage
 
@@ -70,6 +89,11 @@ inv create_readme
 | `combine` | Combine the data CDT and DDT datasets |
 | `train` | train a model using spacy train |
 | `evaluate` | Evaluate a model using spacy evaluate |
+| `train_coref_cluster` | "python -m spacy train config/cluster.cfg -g ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy -o training/cluster --training.max_epochs ${vars.max_epochs}" |
+| `prep_span_data` | Prepare data for the span resolver component. |
+| `train_span_resolver` | Train the span resolver component. |
+| `assemple_coref` | Assemble the coreference model. |
 | `workflow_prepare_to_train` | Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` |
+| `workflow_train_coref_model` | Runs: `train_coref_cluster` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemple_coref` |
 
     
