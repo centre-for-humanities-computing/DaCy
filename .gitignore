@@ -134,6 +134,8 @@ data
 *.spacy
 corpus/*
 training/*/training/*
+training/*/assets/*
+training/*/corpus/*
 training/*/wandb/*
 training/*/packages/*
 training/*/hub/*

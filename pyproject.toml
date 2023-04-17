@@ -184,6 +184,7 @@ exclude = [
   "training/v0.0.0/**",
   "training/v0.1.0/**",
   "training/v0.1.1/**",
+  "training/v0.2.0/**",
   "training/ner_fine_grained/**",
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
 ]
