@@ -8,9 +8,12 @@
 <meta property="og:url" content="tutorials/robustness.html" />
 <meta property="og:site_name" content="DaCy" />
 <meta property="og:description" content="This tutorial walks through how to use Augmenty/ SpaCy augmenters to evalutate robustness of any NLP pipeline. As an example we’ll start out by evaluating SpaCy small and DaCy small on the test set..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
 <meta property="og:image" content="/_images/social_previews/summary_tutorials_robustness_4a438c7e.png" />
 <meta property="og:image:alt" content="This tutorial walks through how to use Augmenty/ SpaCy augmenters to evalutate robustness of any NLP pipeline. As an example we’ll start out by evaluating Sp..." />
 <meta name="description" content="This tutorial walks through how to use Augmenty/ SpaCy augmenters to evalutate robustness of any NLP pipeline. As an example we’ll start out by evaluating SpaCy small and DaCy small on the test set..." />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Extracting Metrics from text using TextDescriptives" href="textdescriptives.html" /><link rel="prev" title="Advanced Tutorials" href="../adv_tutorials.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
@@ -19,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -296,46 +299,49 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download: 0.00B [00:00, ?B/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   2%|▏         | 8.19k/475k [00:02&lt;01:59, 3.91kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   2%|▏         | 8.19k/475k [00:01&lt;01:33, 5.00kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   3%|▎         | 16.4k/475k [00:02&lt;00:53, 8.54kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   3%|▎         | 16.4k/475k [00:01&lt;00:41, 10.9kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   9%|▊         | 41.0k/475k [00:02&lt;00:16, 26.3kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:   9%|▊         | 41.0k/475k [00:01&lt;00:12, 33.7kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  14%|█▍        | 65.5k/475k [00:02&lt;00:09, 45.0kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  14%|█▍        | 65.5k/475k [00:02&lt;00:07, 57.8kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  19%|█▉        | 90.1k/475k [00:02&lt;00:06, 63.6kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  19%|█▉        | 90.1k/475k [00:02&lt;00:04, 81.8kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  24%|██▍       | 115k/475k [00:02&lt;00:04, 81.0kB/s] 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  24%|██▍       | 115k/475k [00:02&lt;00:03, 104kB/s]  
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  31%|███       | 147k/475k [00:03&lt;00:03, 107kB/s] 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  31%|███       | 147k/475k [00:02&lt;00:02, 139kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  38%|███▊      | 180k/475k [00:03&lt;00:02, 130kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  38%|███▊      | 180k/475k [00:02&lt;00:01, 167kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  47%|████▋     | 221k/475k [00:03&lt;00:01, 160kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  47%|████▋     | 221k/475k [00:02&lt;00:01, 207kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  57%|█████▋    | 270k/475k [00:03&lt;00:01, 197kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  55%|█████▌    | 262k/475k [00:02&lt;00:00, 238kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  67%|██████▋   | 319k/475k [00:03&lt;00:00, 225kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  64%|██████▍   | 303k/475k [00:02&lt;00:00, 261kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  79%|███████▉  | 377k/475k [00:03&lt;00:00, 260kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  72%|███████▏  | 344k/475k [00:03&lt;00:00, 278kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  93%|█████████▎| 442k/475k [00:04&lt;00:00, 300kB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  85%|████████▍ | 401k/475k [00:03&lt;00:00, 328kB/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download: 475kB [00:04, 117kB/s]                           
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download:  97%|█████████▋| 459k/475k [00:03&lt;00:00, 363kB/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60882cf072bffe7f46a83a8307373480?download: 475kB [00:03, 144kB/s]                           
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -455,17 +461,17 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
+      <th>ents_per_type_LOC_p</th>
+      <th>ents_per_type_LOC_r</th>
+      <th>ents_per_type_LOC_f</th>
       <th>ents_per_type_ORG_p</th>
       <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
+      <th>...</th>
+      <th>ents_per_type_PER_f</th>
       <th>ents_per_type_MISC_p</th>
       <th>ents_per_type_MISC_r</th>
       <th>ents_per_type_MISC_f</th>
-      <th>...</th>
-      <th>ents_per_type_LOC_f</th>
-      <th>ents_per_type_PER_p</th>
-      <th>ents_per_type_PER_r</th>
-      <th>ents_per_type_PER_f</th>
       <th>ents_excl_MISC_ents_p</th>
       <th>ents_excl_MISC_ents_r</th>
       <th>ents_excl_MISC_ents_f</th>
@@ -477,21 +483,21 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.418874</td>
+      <td>1.401338</td>
       <td>0.685598</td>
       <td>0.605735</td>
       <td>0.643197</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
       <td>0.677419</td>
       <td>0.391304</td>
       <td>0.496063</td>
+      <td>...</td>
+      <td>0.798898</td>
       <td>0.628571</td>
       <td>0.545455</td>
       <td>0.584071</td>
-      <td>...</td>
-      <td>0.615385</td>
-      <td>0.79235</td>
-      <td>0.805556</td>
-      <td>0.798898</td>
       <td>0.701031</td>
       <td>0.622426</td>
       <td>0.659394</td>
@@ -533,14 +539,14 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_LOC_p</th>
       <th>ents_per_type_LOC_r</th>
       <th>ents_per_type_LOC_f</th>
-      <th>...</th>
+      <th>ents_per_type_PER_p</th>
+      <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>...</th>
+      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_ORG_p</th>
       <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
@@ -555,18 +561,18 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
   <tbody>
     <tr>
       <th>0</th>
-      <td>5.20665</td>
+      <td>5.046142</td>
       <td>0.774312</td>
       <td>0.756272</td>
       <td>0.765186</td>
-      <td>0.656</td>
-      <td>0.677686</td>
-      <td>0.666667</td>
       <td>0.736364</td>
       <td>0.84375</td>
       <td>0.786408</td>
-      <td>...</td>
+      <td>0.874346</td>
+      <td>0.927778</td>
       <td>0.90027</td>
+      <td>...</td>
+      <td>0.666667</td>
       <td>0.773109</td>
       <td>0.571429</td>
       <td>0.657143</td>
@@ -678,17 +684,17 @@ To adopt the future behavior and silence this warning, use
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
+      <th>ents_per_type_LOC_p</th>
+      <th>ents_per_type_LOC_r</th>
+      <th>ents_per_type_LOC_f</th>
       <th>ents_per_type_ORG_p</th>
       <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
+      <th>...</th>
+      <th>ents_per_type_PER_f</th>
       <th>ents_per_type_MISC_p</th>
       <th>ents_per_type_MISC_r</th>
       <th>ents_per_type_MISC_f</th>
-      <th>...</th>
-      <th>ents_per_type_LOC_f</th>
-      <th>ents_per_type_PER_p</th>
-      <th>ents_per_type_PER_r</th>
-      <th>ents_per_type_PER_f</th>
       <th>ents_excl_MISC_ents_p</th>
       <th>ents_excl_MISC_ents_r</th>
       <th>ents_excl_MISC_ents_f</th>
@@ -700,21 +706,21 @@ To adopt the future behavior and silence this warning, use
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.418874</td>
+      <td>1.401338</td>
       <td>0.685598</td>
       <td>0.605735</td>
       <td>0.643197</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
       <td>0.677419</td>
       <td>0.391304</td>
       <td>0.496063</td>
+      <td>...</td>
+      <td>0.798898</td>
       <td>0.628571</td>
       <td>0.545455</td>
       <td>0.584071</td>
-      <td>...</td>
-      <td>0.615385</td>
-      <td>0.792350</td>
-      <td>0.805556</td>
-      <td>0.798898</td>
       <td>0.701031</td>
       <td>0.622426</td>
       <td>0.659394</td>
@@ -724,21 +730,21 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>1.533089</td>
+      <td>1.495683</td>
       <td>0.695652</td>
       <td>0.286738</td>
       <td>0.406091</td>
+      <td>0.687500</td>
+      <td>0.343750</td>
+      <td>0.458333</td>
       <td>0.666667</td>
       <td>0.124224</td>
       <td>0.209424</td>
+      <td>...</td>
+      <td>0.412451</td>
       <td>0.720000</td>
       <td>0.446281</td>
       <td>0.551020</td>
-      <td>...</td>
-      <td>0.458333</td>
-      <td>0.688312</td>
-      <td>0.294444</td>
-      <td>0.412451</td>
       <td>0.683871</td>
       <td>0.242563</td>
       <td>0.358108</td>
@@ -748,21 +754,21 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>1.354984</td>
+      <td>1.276850</td>
       <td>0.685598</td>
       <td>0.605735</td>
       <td>0.643197</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
       <td>0.677419</td>
       <td>0.391304</td>
       <td>0.496063</td>
+      <td>...</td>
+      <td>0.798898</td>
       <td>0.628571</td>
       <td>0.545455</td>
       <td>0.584071</td>
-      <td>...</td>
-      <td>0.615385</td>
-      <td>0.792350</td>
-      <td>0.805556</td>
-      <td>0.798898</td>
       <td>0.701031</td>
       <td>0.622426</td>
       <td>0.659394</td>
@@ -804,14 +810,14 @@ To adopt the future behavior and silence this warning, use
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
-      <th>ents_per_type_MISC_p</th>
-      <th>ents_per_type_MISC_r</th>
-      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_LOC_p</th>
       <th>ents_per_type_LOC_r</th>
       <th>ents_per_type_LOC_f</th>
-      <th>...</th>
+      <th>ents_per_type_PER_p</th>
+      <th>ents_per_type_PER_r</th>
       <th>ents_per_type_PER_f</th>
+      <th>...</th>
+      <th>ents_per_type_MISC_f</th>
       <th>ents_per_type_ORG_p</th>
       <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
@@ -826,18 +832,18 @@ To adopt the future behavior and silence this warning, use
   <tbody>
     <tr>
       <th>0</th>
-      <td>5.206650</td>
+      <td>5.046142</td>
       <td>0.774312</td>
       <td>0.756272</td>
       <td>0.765186</td>
-      <td>0.656000</td>
-      <td>0.677686</td>
-      <td>0.666667</td>
       <td>0.736364</td>
       <td>0.84375</td>
       <td>0.786408</td>
-      <td>...</td>
+      <td>0.874346</td>
+      <td>0.927778</td>
       <td>0.900270</td>
+      <td>...</td>
+      <td>0.666667</td>
       <td>0.773109</td>
       <td>0.571429</td>
       <td>0.657143</td>
@@ -850,18 +856,18 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>5.438093</td>
+      <td>5.114714</td>
       <td>0.727088</td>
       <td>0.639785</td>
       <td>0.680648</td>
-      <td>0.614754</td>
-      <td>0.619835</td>
-      <td>0.617284</td>
       <td>0.714286</td>
       <td>0.78125</td>
       <td>0.746269</td>
-      <td>...</td>
+      <td>0.842424</td>
+      <td>0.772222</td>
       <td>0.805797</td>
+      <td>...</td>
+      <td>0.617284</td>
       <td>0.686869</td>
       <td>0.422360</td>
       <td>0.523077</td>
@@ -874,18 +880,18 @@ To adopt the future behavior and silence this warning, use
     </tr>
     <tr>
       <th>0</th>
-      <td>5.440093</td>
+      <td>4.914229</td>
       <td>0.774312</td>
       <td>0.756272</td>
       <td>0.765186</td>
-      <td>0.656000</td>
-      <td>0.677686</td>
-      <td>0.666667</td>
       <td>0.736364</td>
       <td>0.84375</td>
       <td>0.786408</td>
-      <td>...</td>
+      <td>0.874346</td>
+      <td>0.927778</td>
       <td>0.900270</td>
+      <td>...</td>
+      <td>0.666667</td>
       <td>0.773109</td>
       <td>0.571429</td>
       <td>0.657143</td>
@@ -945,17 +951,17 @@ To adopt the future behavior and silence this warning, use
       <th>ents_p</th>
       <th>ents_r</th>
       <th>ents_f</th>
+      <th>ents_per_type_LOC_p</th>
+      <th>ents_per_type_LOC_r</th>
+      <th>ents_per_type_LOC_f</th>
       <th>ents_per_type_ORG_p</th>
       <th>ents_per_type_ORG_r</th>
       <th>ents_per_type_ORG_f</th>
+      <th>...</th>
+      <th>ents_per_type_PER_f</th>
       <th>ents_per_type_MISC_p</th>
       <th>ents_per_type_MISC_r</th>
       <th>ents_per_type_MISC_f</th>
-      <th>...</th>
-      <th>ents_per_type_LOC_f</th>
-      <th>ents_per_type_PER_p</th>
-      <th>ents_per_type_PER_r</th>
-      <th>ents_per_type_PER_f</th>
       <th>ents_excl_MISC_ents_p</th>
       <th>ents_excl_MISC_ents_r</th>
       <th>ents_excl_MISC_ents_f</th>
@@ -967,122 +973,122 @@ To adopt the future behavior and silence this warning, use
   <tbody>
     <tr>
       <th>0</th>
-      <td>2.310766</td>
-      <td>0.097808</td>
-      <td>0.103943</td>
-      <td>0.100782</td>
-      <td>0.084270</td>
-      <td>0.093168</td>
-      <td>0.088496</td>
-      <td>0.060150</td>
-      <td>0.066116</td>
-      <td>0.062992</td>
+      <td>2.085137</td>
+      <td>0.110930</td>
+      <td>0.121864</td>
+      <td>0.116140</td>
+      <td>0.129032</td>
+      <td>0.125000</td>
+      <td>0.126984</td>
+      <td>0.064865</td>
+      <td>0.074534</td>
+      <td>0.069364</td>
       <td>...</td>
-      <td>0.095745</td>
-      <td>0.136842</td>
-      <td>0.144444</td>
-      <td>0.140541</td>
-      <td>0.108696</td>
-      <td>0.114416</td>
-      <td>0.111483</td>
-      <td>0.312556</td>
-      <td>0.312556</td>
+      <td>0.184539</td>
+      <td>0.061404</td>
+      <td>0.057851</td>
+      <td>0.059574</td>
+      <td>0.122244</td>
+      <td>0.139588</td>
+      <td>0.130342</td>
+      <td>0.317654</td>
+      <td>0.317654</td>
       <td>0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2.252141</td>
-      <td>0.101667</td>
-      <td>0.109319</td>
-      <td>0.105354</td>
-      <td>0.127660</td>
-      <td>0.111801</td>
-      <td>0.119205</td>
-      <td>0.046154</td>
-      <td>0.049587</td>
-      <td>0.047809</td>
+      <td>1.896682</td>
+      <td>0.105178</td>
+      <td>0.116487</td>
+      <td>0.110544</td>
+      <td>0.090909</td>
+      <td>0.114583</td>
+      <td>0.101382</td>
+      <td>0.100000</td>
+      <td>0.105590</td>
+      <td>0.102719</td>
       <td>...</td>
-      <td>0.082949</td>
-      <td>0.134615</td>
-      <td>0.155556</td>
-      <td>0.144330</td>
-      <td>0.117021</td>
-      <td>0.125858</td>
-      <td>0.121279</td>
-      <td>0.314303</td>
-      <td>0.314303</td>
+      <td>0.163588</td>
+      <td>0.046875</td>
+      <td>0.049587</td>
+      <td>0.048193</td>
+      <td>0.120408</td>
+      <td>0.135011</td>
+      <td>0.127292</td>
+      <td>0.319476</td>
+      <td>0.319476</td>
       <td>1</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2.142368</td>
-      <td>0.101089</td>
-      <td>0.116487</td>
-      <td>0.108243</td>
-      <td>0.089005</td>
-      <td>0.105590</td>
-      <td>0.096591</td>
-      <td>0.049296</td>
-      <td>0.057851</td>
-      <td>0.053232</td>
+      <td>2.013484</td>
+      <td>0.096506</td>
+      <td>0.103943</td>
+      <td>0.100086</td>
+      <td>0.099010</td>
+      <td>0.104167</td>
+      <td>0.101523</td>
+      <td>0.054217</td>
+      <td>0.055901</td>
+      <td>0.055046</td>
       <td>...</td>
-      <td>0.093264</td>
-      <td>0.150235</td>
-      <td>0.177778</td>
-      <td>0.162850</td>
-      <td>0.115768</td>
-      <td>0.132723</td>
-      <td>0.123667</td>
-      <td>0.310189</td>
-      <td>0.310189</td>
+      <td>0.168022</td>
+      <td>0.055172</td>
+      <td>0.066116</td>
+      <td>0.060150</td>
+      <td>0.109649</td>
+      <td>0.114416</td>
+      <td>0.111982</td>
+      <td>0.317977</td>
+      <td>0.317977</td>
       <td>2</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2.006278</td>
-      <td>0.106419</td>
-      <td>0.112903</td>
-      <td>0.109565</td>
-      <td>0.062893</td>
-      <td>0.062112</td>
-      <td>0.062500</td>
-      <td>0.053435</td>
-      <td>0.057851</td>
-      <td>0.055556</td>
+      <td>1.862934</td>
+      <td>0.102201</td>
+      <td>0.116487</td>
+      <td>0.108878</td>
+      <td>0.160377</td>
+      <td>0.177083</td>
+      <td>0.168317</td>
+      <td>0.073620</td>
+      <td>0.074534</td>
+      <td>0.074074</td>
       <td>...</td>
-      <td>0.128079</td>
-      <td>0.169231</td>
-      <td>0.183333</td>
-      <td>0.176000</td>
-      <td>0.121475</td>
-      <td>0.128146</td>
-      <td>0.124722</td>
-      <td>0.314424</td>
-      <td>0.314424</td>
+      <td>0.137592</td>
+      <td>0.057143</td>
+      <td>0.066116</td>
+      <td>0.061303</td>
+      <td>0.114919</td>
+      <td>0.130435</td>
+      <td>0.122186</td>
+      <td>0.311837</td>
+      <td>0.311837</td>
       <td>3</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2.064034</td>
-      <td>0.114530</td>
-      <td>0.120072</td>
-      <td>0.117235</td>
-      <td>0.125000</td>
-      <td>0.130435</td>
-      <td>0.127660</td>
-      <td>0.048387</td>
-      <td>0.049587</td>
-      <td>0.048980</td>
+      <td>1.875937</td>
+      <td>0.101613</td>
+      <td>0.112903</td>
+      <td>0.106961</td>
+      <td>0.103774</td>
+      <td>0.114583</td>
+      <td>0.108911</td>
+      <td>0.087912</td>
+      <td>0.099379</td>
+      <td>0.093294</td>
       <td>...</td>
-      <td>0.135266</td>
-      <td>0.142857</td>
-      <td>0.144444</td>
-      <td>0.143646</td>
-      <td>0.132321</td>
-      <td>0.139588</td>
-      <td>0.135857</td>
-      <td>0.315471</td>
-      <td>0.315471</td>
+      <td>0.149733</td>
+      <td>0.057971</td>
+      <td>0.066116</td>
+      <td>0.061776</td>
+      <td>0.114108</td>
+      <td>0.125858</td>
+      <td>0.119695</td>
+      <td>0.319576</td>
+      <td>0.319576</td>
       <td>4</td>
     </tr>
   </tbody>

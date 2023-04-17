@@ -8,9 +8,12 @@
 <meta property="og:url" content="tutorials/textdescriptives.html" />
 <meta property="og:site_name" content="DaCy" />
 <meta property="og:description" content="DaCy allows you to use other packages in the spaCy universe as you normally would - just powered by the DaCy models. The following tutorial shows you how to use DaCy and TextDescriptives to extract..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
 <meta property="og:image" content="/_images/social_previews/summary_tutorials_textdescriptives_046f899f.png" />
 <meta property="og:image:alt" content="DaCy allows you to use other packages in the spaCy universe as you normally would - just powered by the DaCy models. The following tutorial shows you how to..." />
 <meta name="description" content="DaCy allows you to use other packages in the spaCy universe as you normally would - just powered by the DaCy models. The following tutorial shows you how to use DaCy and TextDescriptives to extract..." />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Performance" href="../performance.html" /><link rel="prev" title="Evaluating Robustness" href="robustness.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
@@ -19,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -382,7 +385,7 @@ Name: label, dtype: int64
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f8aee4db6a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f3e5c503760&gt;
 </pre></div>
 </div>
 </div>
@@ -416,6 +419,7 @@ Name: label, dtype: int64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/pipeline/attributeruler.py:150: UserWarning: [W036] The component &#39;matcher&#39; does not have any patterns defined.
   matches = self.matcher(doc, allow_missing=True, as_spans=False)
+Token indices sequence length is longer than the specified maximum sequence length for this model (188 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -459,138 +463,138 @@ Name: label, dtype: int64
       <th>syllables_per_token_mean</th>
       <th>syllables_per_token_median</th>
       <th>...</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
       <th>smog</th>
       <th>gunning_fog</th>
       <th>automated_readability_index</th>
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>49</th>
+      <th>2596</th>
       <td>ham</td>
-      <td>U don't know how stubborn I am. I didn't even ...</td>
-      <td>3.25</td>
+      <td>No i'm not gonna be able to. || too late notic...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4688</th>
+      <td>ham</td>
+      <td>Didn't try, g and I decided not to head out</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2164</th>
+      <td>ham</td>
+      <td>Nothing really, just making sure everybody's u...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3921</th>
+      <td>ham</td>
+      <td>Oh really? perform, write a paper, go to a mov...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>ham</td>
+      <td>Yeah he got in at 2 and was v apologetic. n ha...</td>
+      <td>3.642857</td>
       <td>3.0</td>
-      <td>1.299038</td>
-      <td>4.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>1.25</td>
+      <td>1.715773</td>
+      <td>4.666667</td>
+      <td>5.0</td>
+      <td>1.247219</td>
+      <td>1.357143</td>
       <td>1.0</td>
       <td>...</td>
-      <td>NaN</td>
-      <td>1.6</td>
-      <td>-4.1225</td>
-      <td>-4.09</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>1.5</td>
-      <td>0.0</td>
+      <td>0.383333</td>
+      <td>0.10274</td>
+      <td>87.284048</td>
+      <td>2.244286</td>
+      <td>3.1291</td>
+      <td>1.866667</td>
+      <td>-1.93881</td>
+      <td>-0.722857</td>
+      <td>11.809524</td>
       <td>0.333333</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>3361</th>
-      <td>ham</td>
-      <td>No messages on her phone. I'm holding it now</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1476</th>
-      <td>ham</td>
-      <td>I'm watching lotr w my sis dis aft. So u wan 2...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4703</th>
-      <td>ham</td>
-      <td>Yar but they say got some error.</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2378</th>
-      <td>ham</td>
-      <td>Hi, Mobile no.  &amp;lt;#&amp;gt;  has added you in th...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -613,7 +617,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/056d082509a871589ce07ae05ab4591286268134e088eb4f711cffa94687fb0e.png" src="../_images/056d082509a871589ce07ae05ab4591286268134e088eb4f711cffa94687fb0e.png" />
+<img alt="../_images/014999526956991459e32dd5c476cfa3805bd2b3513e112a8062db97ffacf506.png" src="../_images/014999526956991459e32dd5c476cfa3805bd2b3513e112a8062db97ffacf506.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -628,16 +632,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dependency_distance_mean       0.235258
-rix                            0.224147
-automated_readability_index    0.205561
-n_characters                   0.198344
-token_length_mean              0.175170
-n_unique_tokens                0.163870
-token_length_std               0.162505
-coleman_liau_index             0.161745
-n_tokens                       0.160742
-sentence_length_std            0.158288
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>syllables_per_token_std       -0.372782
+smog                          -0.295564
+proportion_unique_tokens      -0.277611
+flesch_reading_ease            0.261999
+syllables_per_token_mean      -0.259359
+token_length_mean             -0.251535
+flesch_kincaid_grade          -0.240952
+automated_readability_index   -0.221392
+token_length_std              -0.199899
+dependency_distance_mean       0.182955
 dtype: float64
 </pre></div>
 </div>
@@ -655,7 +659,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/127713826776e8430163504bbe1987485ac800f37794b209c6eb55e00ece33f4.png" src="../_images/127713826776e8430163504bbe1987485ac800f37794b209c6eb55e00ece33f4.png" />
+<img alt="../_images/7064b4b7f78348c88a0cfe932e2dd3335a341c857128016909d027e6ce31a900.png" src="../_images/7064b4b7f78348c88a0cfe932e2dd3335a341c857128016909d027e6ce31a900.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -669,7 +673,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/a6b04db10ba71cf4a44b668efb8f76ac01ebb0607d74eb981922c48b1121f7ac.png" src="../_images/a6b04db10ba71cf4a44b668efb8f76ac01ebb0607d74eb981922c48b1121f7ac.png" />
+<img alt="../_images/d2527c13fa81736f190ccb66e28e036835b7f0e127b9e0f3f0a8978988b844c1.png" src="../_images/d2527c13fa81736f190ccb66e28e036835b7f0e127b9e0f3f0a8978988b844c1.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
