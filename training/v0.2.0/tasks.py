@@ -31,6 +31,10 @@ format and training and evaluating the model.
 ## Future directions
 
 ### To do
+Step my step
+- [x] Train ner, dep, pos, lemma, morph with small transformer model
+
+
 - [x] Add pipeline for training coref model
   - [ ] Test pipeline with Transformer (find a good small model to use)
     - Maltehb/aelaectra-danish-electra-small-cased
@@ -61,7 +65,8 @@ or Norwegian Bokmål.
     - Eksisterende NED model på dansk fra Alexandra
     - Coref modeller fra alexandra
     - 
-
+- [ ] Currently frequency is estimated from the training data. It is probably just fine assuming but it is probably important to add wikipedia.
+    
 ## Usage
 
 It uses invoke (pyinvoke.org) for task management. Install it via:
@@ -385,8 +390,9 @@ def evaluate(
 @task
 def train_coref_cluster(c: Context):
     """
-    "python -m spacy train config/cluster.cfg -g ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy -o training/cluster --training.max_epochs ${vars.max_epochs}"
+    Train the clustering component
     """
+    # "python -m spacy train config/cluster.cfg -g ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy -o training/cluster --training.max_epochs ${vars.max_epochs}"
     echo_header(f"{Emo.DO} Training model")
 
     training_path = Path("training/cluster")
@@ -505,6 +511,19 @@ def workflow_train_coref_model(c: Context):
 
 
 @task
+def create_knowledge_base(c: Context) -> None:
+    """Create the Knowledge Base in spaCy and write it to file."""
+    # script:
+    #   - "python ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
+    echo_header(f"{Emo.DO} Creating Knowledge Base")
+
+    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+        c.run("python ./scripts/create_kb.py")
+
+    print(f"{Emo.GOOD} Knowledge Base created")
+
+
+@task
 def train_ned(c: Context):
     """Train the named entity disambiguation component."""
     echo_header(f"{Emo.DO} Training NED model")
@@ -521,11 +540,33 @@ def train_ned(c: Context):
         + " --output training/ned"
         + " --paths.train corpus/cdt/train.spacy"
         + " --paths.dev corpus/cdt/dev.spacy"
-        + " --paths.kb assets/kb"
-        + " --paths.base_nlp my_nlp"
+        + " --paths.kb assets/daned/knowledge_base.kb"
+        # + " --paths.base_nlp my_nlp"
         + " -c scripts/custom_ned_functions.py"
     )
 
     with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
         c.run(cmd)
     print(f"{Emo.GOOD} NED model trained")
+
+
+@task
+def evaluate_ned(c: Context):
+    """Evaluate the named entity disambiguation component."""
+    # "python ./scripts/evaluate.py ./training/model-best/ corpus/${vars.dev}.spacy"
+    echo_header(f"{Emo.DO} Evaluating NED model")
+
+    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+        c.run(
+            "python ./scripts/evaluate_ned.py ./training/ned/model-best/ corpus/cdt/dev.spacy"
+        )
+
+    print(f"{Emo.GOOD} NED model evaluated")
+
+
+@task
+def workflow_train_ned(c: Context):
+    """Runs: `create_knowledge_base` &rarr; `train_ned` &rarr; `evaluate_ned`"""
+    create_knowledge_base(c)
+    train_ned(c)
+    evaluate_ned(c)
