@@ -33,7 +33,10 @@ format and training and evaluating the model.
 ## Future directions
 
 ### To do
-- [ ] Add pipeline for training coref model
+- [x] Add pipeline for training coref model
+  - [ ] Test pipeline with Transformer (find a good small model to use)
+    - Maltehb/aelaectra-danish-electra-small-cased
+    - 
 - [ ] Add pipeline for training NED model
 - [ ] Add description of manual corrections of the dataset
 - [ ] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
@@ -44,8 +47,10 @@ format and training and evaluating the model.
     - DDT (github version)
     - DaCoref (ikke versioneret)
     - DaNED (ikke versioneret)
+    - Dansk (HF version)
 
 ### Notes
+
 - [ ] Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently?
 - [ ] DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf)
 it only improved the model from 0.85 to 0.86 so it might not be worth it.
@@ -89,11 +94,13 @@ inv create_readme
 | `combine` | Combine the data CDT and DDT datasets |
 | `train` | train a model using spacy train |
 | `evaluate` | Evaluate a model using spacy evaluate |
-| `train_coref_cluster` | "python -m spacy train config/cluster.cfg -g ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy -o training/cluster --training.max_epochs ${vars.max_epochs}" |
+| `train_coref_cluster` | Train the clustering component |
 | `prep_span_data` | Prepare data for the span resolver component. |
 | `train_span_resolver` | Train the span resolver component. |
 | `assemple_coref` | Assemble the coreference model. |
 | `workflow_prepare_to_train` | Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` |
 | `workflow_train_coref_model` | Runs: `train_coref_cluster` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemple_coref` |
-
-    
+| `create_knowledge_base` | Create the Knowledge Base in spaCy and write it to file. |
+| `train_ned` | Train the named entity disambiguation component. |
+| `evaluate_ned` | Evaluate the named entity disambiguation component. |
+| `workflow_train_ned` | Runs: `create_knowledge_base` &rarr; `train_ned` &rarr; `evaluate_ned` |
