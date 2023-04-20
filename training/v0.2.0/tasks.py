@@ -239,16 +239,31 @@ def create_venv(
 
 
 @task
-def install(c: Context, overwrite: bool = False):
+def check_gpu(c: Context):
+    """Check if spacy gpu support is working"""
+    echo_header(f"{Emo.EXAMINE} Checking for GPU")
+    import spacy
+
+    if spacy.prefer_gpu():
+        print(f"{Emo.GOOD} GPU support is working")
+    else:
+        print(f"{Emo.FAIL} GPU support is not working")
+        exit(1)
+
+
+@task
+def install(c: Context, python: Optional[str] = None, overwrite: bool = False):
     """Install the project and logs in to wandb"""
     print(sys.prefix)
     echo_header(f"{Emo.DO} Installing project")
 
+    if python is None:
+        python = PYTHON
     create_venv(
         c,
         name=VENV_NAME,
         location=VENV_LOCATION,
-        python=PYTHON,
+        python=python,
         overwrite=overwrite,
     )
     # activate the virtual environment and install the requirements
