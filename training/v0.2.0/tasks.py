@@ -92,6 +92,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from invoke import Context, Task, task
+from datetime import datetime
 
 ## --- Config ------------------------------------
 
@@ -101,7 +102,9 @@ VERSION = "0.2.0"
 PYTHON = "python3.10"
 VENV_LOCATION = ".venv"
 VENV_NAME = f"{PROJECT}-{LANGUAGE}-{VERSION}"
-
+# ACTIVATE_VENV = f"source {VENV_LOCATION}/{VENV_NAME}/bin/activate"
+ACTIVATE_VENV = f"echo ''"  # when using conda
+GPU_ID = 0
 
 ## --- Setup ------------------------------------
 
@@ -267,7 +270,7 @@ def install(c: Context, python: Optional[str] = None, overwrite: bool = False):
         overwrite=overwrite,
     )
     # activate the virtual environment and install the requirements
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run("pip install -r requirements.txt")
     # login to wandb
     echo_header(f"{Emo.COMMUNICATE} Login to wandb")
@@ -327,7 +330,7 @@ def fetch_assets(c: Context, overwrite: bool = False):
         shutil.rmtree(assets_path)
     assets_path.mkdir(parents=True, exist_ok=True)
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         download_ud_ddt(c, assets_path)
         download_da_coref(c, assets_path)
         download_dane(c, assets_path)
@@ -341,7 +344,7 @@ def convert(c: Context):
     """Convert the data to the correct format"""
     echo_header(f"{Emo.DO} Converting data")
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         datasets = ["da_ddt", "dane"]
         for dataset in datasets:
             output_path = Path("corpus/") / dataset
@@ -359,22 +362,44 @@ def convert(c: Context):
 def combine(c: Context):
     """Combine the data CDT and DDT datasets"""
     echo_header(f"{Emo.DO} Combining CDT and DDT data")
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run("python scripts/combine.py")
     print(f"{Emo.GOOD} Data combined")
 
 
 @task
-def train(c: Context, output_path: str = "training/test"):
+def train(
+    c: Context,
+    output_path: Optional[str] = None,
+    model="vesteinn/DanskBERT",
+    run_name: Optional[str] = None,
+):
     """train a model using spacy train"""
     echo_header(f"{Emo.DO} Training model")
+    date = datetime.now().strftime("%Y-%m-%d")
 
-    training_path = Path(output_path)
+    if output_path is None:
+        training_path = Path(output_path)  # type: ignore
+    else:
+        # we don't want to overwrite it so we add a timestamp to the path
+        training_path = Path("training") / f"{model}-{date}"
+
+    if run_name is None:
+        run_name = f"{model}-{date}"
+
     training_path.mkdir(parents=True, exist_ok=True)
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
-        c.run(
-            f"spacy train configs/config.cfg --output {training_path} --paths.train corpus/dane/train.spacy --paths.dev corpus/dane/dev.spacy --nlp.lang=da",
-        )
+    cmd = (
+        f"spacy train configs/config.cfg"
+        + f" --output {training_path} "
+        + "--paths.train corpus/cdt/train.spacy "
+        + "--paths.dev corpus/cdt/dev.spacy "
+        + "--nlp.lang=da "
+        + f"--components.transformer.model.name={model} "
+        + f"--training.logger.run_name={run_name} "
+        + f"--gpu-id={GPU_ID} "
+    )
+    with c.prefix(ACTIVATE_VENV):
+        c.run(cmd)
     print(f"{Emo.GOOD} Model trained")
 
 
@@ -397,7 +422,7 @@ def evaluate(
 
     metrics_path.mkdir(parents=True, exist_ok=True)
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run(f"spacy evaluate {_model_path} {test_set} --output {metrics_json}")
     print(f"{Emo.GOOD} Model evaluated")
 
@@ -412,7 +437,7 @@ def train_coref_cluster(c: Context):
 
     training_path = Path("training/cluster")
     training_path.mkdir(parents=True, exist_ok=True)
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run(
             f"spacy train configs/cluster.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da",
         )
@@ -446,7 +471,7 @@ def prep_span_data(
         + "--head-prefix coref_head_clusters "
         + "--span-prefix coref_clusters"
     )
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         for split in ["train", "dev"]:
             c.run(cmd.format(split=split))
     print(f"{Emo.GOOD} Span data prepared")
@@ -491,7 +516,7 @@ def train_span_resolver(
     else:
         cmd += f" --paths.transformer_source {transformer_source}"
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run(cmd)
     print(f"{Emo.GOOD} Span resolver trained")
 
@@ -502,7 +527,7 @@ def assemple_coref(c: Context):
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
     echo_header(f"{Emo.DO} Assembling coreference model")
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run("spacy assemble configs/coref.cfg training/coref")
     print(f"{Emo.GOOD} Coreference model assembled")
 
@@ -526,14 +551,14 @@ def workflow_train_coref_model(c: Context):
 
 
 @task
-def create_knowledge_base(c: Context) -> None:
+def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     """Create the Knowledge Base in spaCy and write it to file."""
     # script:
     #   - "python ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
-        c.run("python ./scripts/create_kb.py")
+    with c.prefix(ACTIVATE_VENV):
+        c.run(f"python ./scripts/create_kb.py --trf_name {model}")
 
     print(f"{Emo.GOOD} Knowledge Base created")
 
@@ -560,7 +585,7 @@ def train_ned(c: Context):
         + " -c scripts/custom_ned_functions.py"
     )
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run(cmd)
     print(f"{Emo.GOOD} NED model trained")
 
@@ -571,7 +596,7 @@ def evaluate_ned(c: Context):
     # "python ./scripts/evaluate.py ./training/model-best/ corpus/${vars.dev}.spacy"
     echo_header(f"{Emo.DO} Evaluating NED model")
 
-    with c.prefix(f"source .venv/{VENV_NAME}/bin/activate"):
+    with c.prefix(ACTIVATE_VENV):
         c.run(
             "python ./scripts/evaluate_ned.py ./training/ned/model-best/ corpus/cdt/dev.spacy"
         )

@@ -19,15 +19,29 @@ ssl._create_default_https_context = ssl._create_unverified_context
 project_path = Path(__file__).parent.parent
 
 
+
+
 def main(
-    vector_model_path: str,
+    trf_name: str,
     save_path_kb: Path = project_path / "assets/daned/knowledge_base.kb",
 ):
     """Step 1: create the Knowledge Base in spaCy and write it to file"""
+    spacy.require_gpu()
 
     # First: create a simpel model from a model with an NER component
     # To ensure we get the correct entities for this demo, add a simple entity_ruler as well.
-    nlp = spacy.load(vector_model_path, exclude="tagger, lemmatizer")
+    nlp = spacy.blank("da") # empty English pipeline
+    # create the config with the name of your model
+    # values omitted will get default values
+    config = {
+        "model": {
+            "@architectures": "spacy-transformers.TransformerModel.v3",
+            "name": trf_name # XXX customize this bit
+        }
+    }
+    nlp.add_pipe("transformer", config=config)
+    nlp.initialize() # XXX don't forget this step!
+    # nlp = spacy.load(vector_model_path, exclude="tagger, lemmatizer")
     # get vector size from the model
     s = nlp("text")
     vector_size = s.vector.shape[0]
