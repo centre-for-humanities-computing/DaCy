@@ -1,5 +1,7 @@
-spacy[lookups,transformers,cuda-autodetect] >= 3.5.0
+spacy[lookups,transformers,cuda-autodetect] >= 3.5.2
+spacy-transformers>=1.2.3
 thinc[torch] >= 8.1.9
+
 
 # for the coref model
 spacy-experimental >= 0.6.2

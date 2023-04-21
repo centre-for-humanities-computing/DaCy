@@ -13,12 +13,10 @@ from spacy.kb import InMemoryLookupKB
 from spacy.language import Language
 from spacy.tokens import DocBin
 from wikidata.client import Client
-
+import numpy as np
 ssl._create_default_https_context = ssl._create_unverified_context
 
 project_path = Path(__file__).parent.parent
-
-
 
 
 def main(
@@ -26,25 +24,26 @@ def main(
     save_path_kb: Path = project_path / "assets/daned/knowledge_base.kb",
 ):
     """Step 1: create the Knowledge Base in spaCy and write it to file"""
-    spacy.require_gpu()
+    spacy.require_gpu()  # type: ignore
 
     # First: create a simpel model from a model with an NER component
     # To ensure we get the correct entities for this demo, add a simple entity_ruler as well.
-    nlp = spacy.blank("da") # empty English pipeline
+    nlp = spacy.blank("da")  # empty English pipeline
     # create the config with the name of your model
     # values omitted will get default values
     config = {
         "model": {
             "@architectures": "spacy-transformers.TransformerModel.v3",
-            "name": trf_name # XXX customize this bit
+            "name": trf_name,  # XXX customize this bit
         }
     }
     nlp.add_pipe("transformer", config=config)
-    nlp.initialize() # XXX don't forget this step!
+    nlp.initialize()  # XXX don't forget this step!
     # nlp = spacy.load(vector_model_path, exclude="tagger, lemmatizer")
     # get vector size from the model
-    s = nlp("text")
-    vector_size = s.vector.shape[0]
+    doc = nlp("text")
+    # vector_size = doc.vector.shape[0] # for non-transformer models
+    vector_size = doc._.trf_data.tensors[0].shape[-1]
     kb = InMemoryLookupKB(vocab=nlp.vocab, entity_vector_length=vector_size)
 
     qid2desc = _load_qid_to_description()
@@ -80,8 +79,12 @@ def main(
             # but could be learned, but so would the current
             # vector
 
-        desc_doc = nlp(desc)
-        desc_enc = desc_doc.vector
+        desc_doc = nlp(desc)  # not very efficient, but fast enough
+        # desc_enc = desc_doc.vector # for non-transformer models
+        # take the mean of the transformer vectors
+        batch_tensor = desc_doc._.trf_data.tensors[0]
+        desc_enc = np.mean(batch_tensor[0], axis=0)
+        
         # Set arbitrary value for frequency
         qid_freq = sum(qid2alias[qid].values())
         kb.add_entity(entity=qid, entity_vector=desc_enc, freq=qid_freq)
