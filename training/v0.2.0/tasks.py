@@ -50,6 +50,8 @@ Step my step
     - DaCoref (ikke versioneret)
     - DaNED (ikke versioneret)
     - Dansk (HF version)
+- [ ] Try NED with tok2vec instead of transformer (https://spacy.io/api/architectures#EntityLinker)
+    
 
 ### Notes
 
@@ -379,10 +381,10 @@ def train(
     date = datetime.now().strftime("%Y-%m-%d")
 
     if output_path is None:
-        training_path = Path(output_path)  # type: ignore
-    else:
         # we don't want to overwrite it so we add a timestamp to the path
         training_path = Path("training") / f"{model}-{date}"
+    else:
+        training_path = Path(output_path)  # type: ignore
 
     if run_name is None:
         run_name = f"{model}-{date}"
@@ -558,7 +560,7 @@ def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
     with c.prefix(ACTIVATE_VENV):
-        c.run(f"python ./scripts/create_kb.py --trf_name {model}")
+        c.run(f"python ./scripts/create_kb.py {model}")
 
     print(f"{Emo.GOOD} Knowledge Base created")
 
