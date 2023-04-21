@@ -31,7 +31,7 @@ def load_cdt():
     Load the copenhagen dependency treebank / DaCoref dataset
     """
     cdt_path = assets_path / "dacoref" / "CDT_coref.conllu"
-    with cdt_path.open() as f:
+    with cdt_path.open(encoding="utf-8") as f:
         text = f.read()
 
     sentences = parse(
@@ -58,7 +58,7 @@ def load_cdt():
 
     for split in split_ids:
         split_path = assets_path / "dacoref" / f"CDT_{split}_ids.json"
-        with split_path.open() as f:
+        with split_path.open(encoding="utf-8") as f:
             split_ids[split] = json.load(f)
 
     return sentences, split_ids
@@ -66,7 +66,7 @@ def load_cdt():
 
 def _add_sent_id(docs, split, dataset):
     path = assets_path / dataset / f"{split}.conllu"
-    with path.open() as f:
+    with path.open(encoding="utf-8") as f:
         text = f.read()
     sentences = parse(text)
     for sent, doc in zip(sentences, docs):
