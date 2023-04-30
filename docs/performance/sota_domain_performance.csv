@@ -1,0 +1,11 @@
+"","All domains combined","Conversation","Dannet","Legal","News","Social Media","Web","Wiki and Books"
+"da_dacy_large_ner_fine_grained",0.872,0.81,0.5,0.895,0.936,0.737,0.875,0.826
+"da_dacy_medium_ner_fine_grained",0.849,0.847,0.5,0.906,0.833,0.737,0.835,0.889
+"da_dacy_small_ner_fine_grained",0.798,0.819,1,0.875,0.833,0.556,0.782,0.761
+"saattrupdan/nbailab-base-ner-scandi",0.64,0.657,1,0.589,0.667,0.706,0.631,0.796
+"da_dacy_large_trf",0.68,0.74,1,0.698,0.851,0.737,0.649,0.733
+"da_dacy_medium_trf",0.626,0.706,0.8,0.761,0.68,0.778,0.573,0.721
+"da_dacy_small_trf",0.514,0.676,0.8,0.612,0.667,0.353,0.461,0.619
+"da_core_news_lg",0.485,0.718,1,0.561,0.609,0.632,0.437,0.519
+"da_core_news_md",0.492,0.727,0.8,0.578,0.609,0.737,0.446,0.496
+"da_core_news_sm",0.319,0.686,0.8,0.442,0.638,0.455,0.254,0.316
