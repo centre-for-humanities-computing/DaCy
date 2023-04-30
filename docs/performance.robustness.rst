@@ -89,7 +89,7 @@ Besides the general trends mentioned above we can also note that:
 Fine-grained named entity recognition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the following two tables we see the performance on named entity recognition (NER) on the DANSK dataset 
+In the following two tables we see the performance on named entity recognition (NER) on `the DANSK dataset <https://huggingface.co/datasets/chcaa/DANSK>`_
 by the 3 DaCy fine-grained models. The first table shows the performance within each of the named entity classes,
 while the second table shows the macro F1-scores on the different domains within the dataset.
 We have highlighted the best scores in bold and second best are in italic.
@@ -114,7 +114,6 @@ The performances of DaCy fine-grained are thus non-comparable to the other model
    all names not in other categories (encapsulating both e.g. events and
    adjectives such as ”2004 World Cup” and ”Italian”), any of these predictions
    were not included.
-
 
 
 
