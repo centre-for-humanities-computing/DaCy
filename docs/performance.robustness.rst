@@ -93,6 +93,7 @@ In the following two tables we see the performance on named entity recognition (
 by the 3 DaCy fine-grained models. The first table shows the performance within each of the named entity classes,
 while the second table shows the macro F1-scores on the different domains within the dataset.
 We have highlighted the best scores in bold and second best are in italic.
+To provide a clearer overview of the domain performances, a figure is also included; depicting the same information as in the table.
 
 .. image:: _static/ner_fine_grained_domain_perf.png
   :width: 1000
@@ -114,6 +115,11 @@ The performances of DaCy fine-grained are thus non-comparable to the other model
    all names not in other categories (encapsulating both e.g. events and
    adjectives such as ”2004 World Cup” and ”Italian”), any of these predictions
    were not included.
+
+
+.. image:: _static/domain_perf_on_dansk.png
+  :width: 1000
+  :alt: NER performance of Danish NLP pipelines
 
 
 
