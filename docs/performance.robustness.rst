@@ -56,9 +56,6 @@ These show some general trends, some of which include:
 Named entity recognition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-DaCy
-““““““““““““““““““““““““““““““
-
 In the following table we see a the performance on named entity recognition (NER) of Danish NLP pipelines
 reported as average F1 scores excluding the MISC category. We have highlighted the best scores in
 bold and second best are underlined. The "*" denotes that the result is significantly different 
@@ -89,8 +86,8 @@ Besides the general trends mentioned above we can also note that:
 
 * Lack of casing is detrimental for NER for the cased models, most notably Flair, the SpaCy models, DaCy large and DaCy small. 
 
-DaCy fine-grained on the DANSK dataset
-““““““““““““““““““““““““““““““
+Fine-grained named entity recognition
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the following two tables we see the performance on named entity recognition (NER) on the DANSK dataset 
 by the 3 DaCy fine-grained models. The first table shows the performance within each of the named entity classes,
