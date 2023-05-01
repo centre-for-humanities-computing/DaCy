@@ -51,7 +51,7 @@ Step my step
     - DaNED (ikke versioneret)
     - Dansk (HF version)
 - [ ] Try NED with tok2vec instead of transformer (https://spacy.io/api/architectures#EntityLinker)
-    
+- [ ] Experiment with not using gold ents for NED
 
 ### Notes
 
@@ -585,6 +585,7 @@ def train_ned(c: Context):
         + " --paths.kb assets/daned/knowledge_base.kb"
         # + " --paths.base_nlp my_nlp"
         + " -c scripts/custom_ned_functions.py"
+        + " --gpu-id 0"
     )
 
     with c.prefix(ACTIVATE_VENV):
