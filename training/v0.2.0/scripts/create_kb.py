@@ -1,11 +1,12 @@
 """
-Derived from: https://github.com/explosion/projects/blob/v3/tutorials/nel_emerson/scripts/create_kb.py
+Initially inspired by: https://github.com/explosion/projects/blob/v3/tutorials/nel_emerson/scripts/create_kb.py
 """
 import json
 import ssl
 from collections import defaultdict
 from pathlib import Path
-from typing import Iterable, List
+from typing import List
+from wasabi import msg
 
 import spacy
 import typer
@@ -14,6 +15,7 @@ from spacy.language import Language
 from spacy.tokens import DocBin
 from wikidata.client import Client
 import numpy as np
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 project_path = Path(__file__).parent.parent
@@ -22,13 +24,14 @@ project_path = Path(__file__).parent.parent
 def main(
     trf_name: str,
     save_path_kb: Path = project_path / "assets/daned/knowledge_base.kb",
+    langs_to_fetch: List[str] = ["da", "en"],
 ):
     """Step 1: create the Knowledge Base in spaCy and write it to file"""
     spacy.require_gpu()  # type: ignore
 
     # First: create a simpel model from a model with an NER component
     # To ensure we get the correct entities for this demo, add a simple entity_ruler as well.
-    nlp = spacy.blank("da")  # empty English pipeline
+    nlp = spacy.blank("da")  # empty Danish pipeline
     # create the config with the name of your model
     # values omitted will get default values
     config = {
@@ -47,27 +50,35 @@ def main(
     kb = InMemoryLookupKB(vocab=nlp.vocab, entity_vector_length=vector_size)
 
     qid2desc = _load_qid_to_description()
-    qid2probs = _load_qid_to_probs()
+    # qid2probs = _load_qid_to_probs()
+    msg.info("Loading entities from data")
     ents = list(_load_ents_from_data(nlp))
-
+    msg.good(f"Loaded {len(ents)} entities from data")
     qid2ent = defaultdict(lambda: defaultdict(int))
     for ent in ents:
         qid2ent[ent.kb_id_][ent.text] += 1
 
+    msg.info(f"Starting to fetch aliases")
     qid2alias = {
-        qid: defaultdict(int) for qid in qid2desc.keys()
-    }  # frequency to be estimates from the data
-    for qid, names in qid2probs.items():
-        for type, name in names:
-            occurances = qid2ent[qid].get(name, 0)
-            qid2alias[qid][name] += (
-                occurances + 1
-            )  # add 1 for each entry (will normalize the distribution)
+        qid: defaultdict(lambda: 0) for qid in qid2desc.keys()
+    }  # frequency to be estimates from the data but start with 1 to normalize the distribution
+    for qid in qid2alias:
+        # get occurance from the data
+        for name, occurances in qid2ent[qid].items():
+            qid2alias[qid][name] += occurances + 1
+        # get aliases from wikidata
+        aliases = _fetch_wikidata_aliases(qid, langs=langs_to_fetch)
+        for alias in aliases:
+            qid2alias[qid][alias] += 1
+    msg.good("Finished fetching aliases")
 
+    msg.info(f"Starting to creating embeddings for KB")
     for qid, desc in qid2desc.items():
-        if not desc.strip():
-            print(f"Fetching description for {qid}")
-            desc = _fetch_wikidata_description(qid)
+        fetch_desc = _fetch_wikidata_description(
+            qid
+        )  # just always fetch the description
+        if fetch_desc.strip():  # if it is not empty
+            desc = fetch_desc  # newer is probably better
         if not desc.strip():
             print(f"Could not fetch description for {qid}")
             desc = "No description."
@@ -84,11 +95,13 @@ def main(
         # take the mean of the transformer vectors
         batch_tensor = desc_doc._.trf_data.tensors[0]
         desc_enc = np.mean(batch_tensor[0], axis=0)
-        
+
         # Set arbitrary value for frequency
         qid_freq = sum(qid2alias[qid].values())
         kb.add_entity(entity=qid, entity_vector=desc_enc, freq=qid_freq)
+    msg.good("Finished creating embeddings for KB")
 
+    msg.info(f"Starting to add aliases to KB")
     alias2qid = defaultdict(lambda: defaultdict(int))
     for qid, names in qid2alias.items():
         for name, freq in names.items():
@@ -98,8 +111,11 @@ def main(
         total = sum(qids.values())
         probs = [freq / total for qid, freq in qids.items()]
         kb.add_alias(alias=name, entities=qids.keys(), probabilities=probs)
+    msg.good("Finished adding aliases to KB")
 
+    msg.info(f"Starting to add entities to KB")
     kb.to_disk(save_path_kb)
+    msg.good(f"Finished adding entities to KB and saved to {save_path_kb}")
 
 
 def _fetch_wikidata_description(qid: str):
@@ -107,8 +123,29 @@ def _fetch_wikidata_description(qid: str):
     Fetch the description of a Wikidata item.
     """
     client = Client()
-    item = client.get(qid, load=True)  # type: ignore
+    try:
+        item = client.get(qid, load=True)  # type: ignore
+    except Exception as e:
+        print(f"Could not load {qid}")
+        return ""
     return item.description.get("da", item.description.get("en", ""))  # type: ignore
+
+
+def _fetch_wikidata_aliases(qid, langs: List[str] = ["da", "en"]):
+    """
+    Fetch the aliases of a Wikidata item.
+    """
+    client = Client()
+    try:
+        item = client.get(qid, load=True)  # type: ignore
+    except Exception as e:
+        print(f"Could not load {qid}")
+        return []
+    aliases_dict = item.data.get("aliases", {})  # type: ignore
+    aliases = []
+    for lang in langs:
+        aliases += [a["value"] for a in aliases_dict.get(lang, [])]  # type: ignore
+    return aliases
 
 
 def _load_ents_from_data(nlp: Language, splits: List[str] = ["dev", "train"]):
