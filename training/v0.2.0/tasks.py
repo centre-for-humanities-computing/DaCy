@@ -375,6 +375,8 @@ def train(
     output_path: Optional[str] = None,
     model="vesteinn/DanskBERT",
     run_name: Optional[str] = None,
+    gpu_id: Optional[int] = None,
+    config: Optional[str] = None,
 ):
     """train a model using spacy train"""
     echo_header(f"{Emo.DO} Training model")
@@ -389,16 +391,22 @@ def train(
     if run_name is None:
         run_name = f"{model}-{date}"
 
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    if config is None:
+        config = "configs/config.cfg"
+
     training_path.mkdir(parents=True, exist_ok=True)
     cmd = (
-        f"spacy train configs/config.cfg"
+        f"spacy train {config}"
         + f" --output {training_path} "
         + "--paths.train corpus/cdt/train.spacy "
         + "--paths.dev corpus/cdt/dev.spacy "
         + "--nlp.lang=da "
         + f"--components.transformer.model.name={model} "
         + f"--training.logger.run_name={run_name} "
-        + f"--gpu-id={GPU_ID} "
+        + f"--gpu-id={gpu_id} "
     )
     with c.prefix(ACTIVATE_VENV):
         c.run(cmd)
