@@ -449,7 +449,7 @@ def train_coref_cluster(c: Context):
     training_path.mkdir(parents=True, exist_ok=True)
     with c.prefix(ACTIVATE_VENV):
         c.run(
-            f"spacy train configs/cluster.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da",
+            f"spacy train configs/cluster_trf.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da --gpu-id {GPU_ID}",
         )
     print(f"{Emo.GOOD} Model trained")
 
