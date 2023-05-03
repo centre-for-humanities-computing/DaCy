@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Performance" href="../performance.html" /><link rel="prev" title="Evaluating Robustness" href="robustness.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 6.2.1 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.0.0 and Furo 2022.12.07 -->
         <title>Extracting Metrics from text using TextDescriptives - DaCy</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
@@ -385,7 +385,7 @@ Name: label, dtype: int64
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fcf25e722f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fedd5cac070&gt;
 </pre></div>
 </div>
 </div>
@@ -421,7 +421,7 @@ Name: label, dtype: int64
   matches = self.matcher(doc, allow_missing=True, as_spans=False)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (131 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (135 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -456,17 +456,6 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>token_length_mean</th>
-      <th>token_length_median</th>
-      <th>token_length_std</th>
-      <th>sentence_length_mean</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
-      <th>...</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -475,13 +464,24 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
+      <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>4541</th>
-      <td>spam</td>
-      <td>FreeMsg Hi baby wow just got a new cam moby. W...</td>
+      <th>2198</th>
+      <td>ham</td>
+      <td>I'm in a movie. Call me 4 wat?</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -503,9 +503,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4465</th>
+      <th>5202</th>
       <td>ham</td>
-      <td>Hey u still at the gym?</td>
+      <td>WOT STUDENT DISCOUNT CAN U GET ON BOOKS?</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -527,9 +527,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1981</th>
+      <th>3231</th>
       <td>ham</td>
-      <td>Sorry, I'll call later in meeting any thing re...</td>
+      <td>Guess he wants alone time. We could just show ...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -551,9 +551,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2767</th>
+      <th>3291</th>
       <td>ham</td>
-      <td>Wow v v impressed. Have funs shopping!</td>
+      <td>Dear good morning how you feeling dear</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -575,28 +575,28 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>5167</th>
+      <th>242</th>
       <td>ham</td>
-      <td>Oh did you charge camera</td>
+      <td>Okay. No no, just shining on. That was meant t...</td>
+      <td>80.895</td>
+      <td>3.466667</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>5.733333</td>
+      <td>1.98</td>
+      <td>4.746667</td>
+      <td>22.666667</td>
+      <td>1.0</td>
       <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>1.416667</td>
+      <td>1.0</td>
+      <td>0.640095</td>
+      <td>12.0</td>
+      <td>12.0</td>
+      <td>1.0</td>
+      <td>54.0</td>
+      <td>2.0</td>
     </tr>
   </tbody>
 </table>
@@ -619,7 +619,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/160c3422c3443bdd16a011105f20aa1f8764095085fabc027ddb63d761f5c22e.png" src="../_images/160c3422c3443bdd16a011105f20aa1f8764095085fabc027ddb63d761f5c22e.png" />
+<img alt="../_images/3eb848d18a46b637c5dfc4f48bf84249cd2396103020e39fd015f7a826974f5c.png" src="../_images/3eb848d18a46b637c5dfc4f48bf84249cd2396103020e39fd015f7a826974f5c.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -634,16 +634,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dependency_distance_mean                  0.196827
-sentence_length_mean                      0.157253
-sentence_length_median                    0.148078
-syllables_per_token_std                  -0.138024
-proportion_unique_tokens                 -0.131937
-n_sentences                              -0.113436
-token_length_std                         -0.094112
-smog                                      0.090174
-prop_adjacent_dependency_relation_mean   -0.088852
-dependency_distance_std                  -0.087741
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>coleman_liau_index                      -0.309908
+n_sentences                              0.292839
+sentence_length_median                  -0.272758
+prop_adjacent_dependency_relation_std    0.272530
+sentence_length_mean                    -0.267112
+dependency_distance_std                  0.266434
+automated_readability_index             -0.258289
+sentence_length_std                      0.243091
+syllables_per_token_mean                 0.150431
+rix                                     -0.125629
 dtype: float64
 </pre></div>
 </div>
@@ -661,7 +661,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/a6776cd271dd369449e43e2cc67843263f5a37415eb2d98c245fd6fc7ae4c04f.png" src="../_images/a6776cd271dd369449e43e2cc67843263f5a37415eb2d98c245fd6fc7ae4c04f.png" />
+<img alt="../_images/e47e05a5dcf4e6ceb00438c552b7682e063ae3a0319ec6ed7264ea029b188e1a.png" src="../_images/e47e05a5dcf4e6ceb00438c552b7682e063ae3a0319ec6ed7264ea029b188e1a.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -675,7 +675,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/137bc34ec218cb5e689f6068a2a5471c86cdbd4db0c54918f69b09cab04591f2.png" src="../_images/137bc34ec218cb5e689f6068a2a5471c86cdbd4db0c54918f69b09cab04591f2.png" />
+<img alt="../_images/f9b63f91baeeb0ce0aebb615363e5033477594e29ef37a6d56f8cf5f4ec94010.png" src="../_images/f9b63f91baeeb0ce0aebb615363e5033477594e29ef37a6d56f8cf5f4ec94010.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
