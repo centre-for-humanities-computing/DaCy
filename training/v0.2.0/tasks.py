@@ -101,11 +101,11 @@ from datetime import datetime
 PROJECT = "dacy"
 LANGUAGE = "da"
 VERSION = "0.2.0"
-PYTHON = "python3.10"
+PYTHON = "python"
 VENV_LOCATION = ".venv"
 VENV_NAME = f"{PROJECT}-{LANGUAGE}-{VERSION}"
-# ACTIVATE_VENV = f"source {VENV_LOCATION}/{VENV_NAME}/bin/activate"
-ACTIVATE_VENV = f"echo ''"  # when using conda
+ACTIVATE_VENV = f"source {VENV_LOCATION}/{VENV_NAME}/bin/activate"
+# ACTIVATE_VENV = f"echo ''"  # when using conda
 GPU_ID = 0
 
 ## --- Setup ------------------------------------
@@ -247,13 +247,12 @@ def create_venv(
 def check_gpu(c: Context):
     """Check if spacy gpu support is working"""
     echo_header(f"{Emo.EXAMINE} Checking for GPU")
-    import spacy
-
-    if spacy.prefer_gpu():
-        print(f"{Emo.GOOD} GPU support is working")
-    else:
+    with c.prefix(ACTIVATE_VENV):
+        out = c.run("python -c 'import spacy; spacy.require_gpu()'")
+    if out.exited:
         print(f"{Emo.FAIL} GPU support is not working")
         exit(1)
+    print(f"{Emo.GOOD} GPU support is working")
 
 
 @task
@@ -276,7 +275,8 @@ def install(c: Context, python: Optional[str] = None, overwrite: bool = False):
         c.run("pip install -r requirements.txt")
     # login to wandb
     echo_header(f"{Emo.COMMUNICATE} Login to wandb")
-    c.run("wandb login")
+    with c.prefix(ACTIVATE_VENV):
+        c.run("wandb login")
     print(f"{Emo.GOOD} Project installed")
 
 
@@ -544,12 +544,12 @@ def assemple_coref(c: Context):
 
 @task
 def workflow_prepare_to_train(c: Context):
-    """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine`"""
+    """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` &rarr; `create-knowledge-base`"""
     install(c)
     fetch_assets(c)
     convert(c)
     combine(c)
-
+    create_knowledge_base(c)
 
 @task
 def workflow_train_coref_model(c: Context):
