@@ -33,6 +33,10 @@ format and training and evaluating the model.
 ## Future directions
 
 ### To do
+Step my step
+- [x] Train ner, dep, pos, lemma, morph with small transformer model
+
+
 - [x] Add pipeline for training coref model
   - [ ] Test pipeline with Transformer (find a good small model to use)
     - Maltehb/aelaectra-danish-electra-small-cased
@@ -48,6 +52,8 @@ format and training and evaluating the model.
     - DaCoref (ikke versioneret)
     - DaNED (ikke versioneret)
     - Dansk (HF version)
+- [ ] Try NED with tok2vec instead of transformer (https://spacy.io/api/architectures#EntityLinker)
+- [ ] Experiment with not using gold ents for NED
 
 ### Notes
 
@@ -63,7 +69,8 @@ or Norwegian Bokmål.
     - Eksisterende NED model på dansk fra Alexandra
     - Coref modeller fra alexandra
     - 
-
+- [ ] Currently frequency is estimated from the training data. It is probably just fine assuming but it is probably important to add wikipedia.
+    
 ## Usage
 
 It uses invoke (pyinvoke.org) for task management. Install it via:
@@ -88,6 +95,7 @@ inv create_readme
 | Task | Description |
 | --- | --- |
 | `create_readme` | Creates a readme file with the project workflow from the tasks.py file |
+| `check_gpu` | Check if spacy gpu support is working |
 | `install` | Install the project and logs in to wandb |
 | `fetch_assets` | Fetch assets for model training |
 | `convert` | Convert the data to the correct format |
@@ -98,9 +106,11 @@ inv create_readme
 | `prep_span_data` | Prepare data for the span resolver component. |
 | `train_span_resolver` | Train the span resolver component. |
 | `assemple_coref` | Assemble the coreference model. |
-| `workflow_prepare_to_train` | Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` |
+| `workflow_prepare_to_train` | Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` &rarr; `create-knowledge-base` |
 | `workflow_train_coref_model` | Runs: `train_coref_cluster` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemple_coref` |
 | `create_knowledge_base` | Create the Knowledge Base in spaCy and write it to file. |
 | `train_ned` | Train the named entity disambiguation component. |
 | `evaluate_ned` | Evaluate the named entity disambiguation component. |
 | `workflow_train_ned` | Runs: `create_knowledge_base` &rarr; `train_ned` &rarr; `evaluate_ned` |
+
+    
