@@ -104,8 +104,8 @@ VERSION = "0.2.0"
 PYTHON = "python"
 VENV_LOCATION = ".venv"
 VENV_NAME = f"{PROJECT}-{LANGUAGE}-{VERSION}"
-ACTIVATE_VENV = f"source {VENV_LOCATION}/{VENV_NAME}/bin/activate"
-# ACTIVATE_VENV = f"echo ''"  # when using conda
+# ACTIVATE_VENV = f"source {VENV_LOCATION}/{VENV_NAME}/bin/activate"  # when using Grundtvig
+ACTIVATE_VENV = f"echo ''"  # when using conda
 GPU_ID = 0
 
 ## --- Setup ------------------------------------
@@ -372,24 +372,24 @@ def combine(c: Context):
 @task
 def train(
     c: Context,
-    output_path: Optional[str] = None,
+    file_path: Optional[str] = None,
     model="vesteinn/DanskBERT",
     run_name: Optional[str] = None,
     gpu_id: Optional[int] = None,
     config: Optional[str] = None,
+    overwrite: bool = False,
 ):
     """train a model using spacy train"""
     echo_header(f"{Emo.DO} Training model")
     date = datetime.now().strftime("%Y-%m-%d")
 
-    if output_path is None:
-        # we don't want to overwrite it so we add a timestamp to the path
-        training_path = Path("training") / f"{model}-{date}"
-    else:
-        training_path = Path(output_path)  # type: ignore
-
     if run_name is None:
         run_name = f"{model}-{date}"
+    if file_path is None:
+        training_path = Path("training") / run_name
+    else:
+        training_path = Path(file_path)  # type: ignore
+
 
     if gpu_id is None:
         gpu_id = GPU_ID
@@ -397,7 +397,13 @@ def train(
     if config is None:
         config = "configs/config.cfg"
 
+    if training_path.exists() and (not overwrite):
+        print(
+            f"{Emo.FAIL} Training path already exists to overwrite it please use the -o/--overwrite flag",
+        )
+        exit(1)
     training_path.mkdir(parents=True, exist_ok=True)
+    
     cmd = (
         f"spacy train {config}"
         + f" --output {training_path} "
@@ -456,7 +462,7 @@ def train_coref_cluster(c: Context):
 
 @task
 def prep_span_data(
-    c: Context, heads="silver", model_path="training/cluster/model-best"
+    c: Context, heads="silver", model_path="training/coref/model-best"
 ) -> None:
     """Prepare data for the span resolver component.
 
