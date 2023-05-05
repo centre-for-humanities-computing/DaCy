@@ -33,19 +33,29 @@ format and training and evaluating the model.
 ## Future directions
 
 ### To do
-Step my step
+Step by step:
 - [x] Train ner, dep, pos, lemma, morph with small transformer model
+- [x] Performed manual correction of the dataset:
+    - [x] Fixed issues with "'", see github issue on UD_Danish-DDT (https://github.com/UniversalDependencies/UD_Danish-DDT/issues/4)
+    - [x] Combined datasets (DDT, DaNE, CDT, DaNED, DaCoref). Approach:
+        - [x] Load DDT
+        - [x] DaNE match 1-1 with DDT, so simply add the DaNE annotations to the DDT annotations
+        - [x] CDT is a subset of the DDT, but with a different and notably including document annotations. So we 
+            - [x] combine each of the documents in DDT according to the annotations in CDT, the sentences without document annotations are ignored.
+        - [x] CDT contains coreference annotations (DaCoref). All of these are directly added.
+        - [x] CDT also contains NED annotations (DaNED) using QID's for every possible entities (even obscure ones like, i.e. 
+          [mette](https://www.wikidata.org/wiki/Q1158302), refering to the name). To remove these we filter these out by
+            only keeping the QID's which match an entire entity (i.e. no entity can have multiple QIDs). 
+          - [ ] I should probably do this in a smarter way.
+        - [x] Write two datasets, one which is the extended DDT, another one which is the CDT only.
+- [x] Add pipeline for training NED model
+- [ ] Add pipeline for training coref model
+  - [x] Add pipeline for training clustering component
+  - [ ] Add span resolver
+  - [ ] Assemble it into a pipeline
 
 
-- [x] Add pipeline for training coref model
-  - [ ] Test pipeline with Transformer (find a good small model to use)
-    - Maltehb/aelaectra-danish-electra-small-cased
-    - 
-- [ ] Add pipeline for training NED model
-- [ ] Add description of manual corrections of the dataset
 - [ ] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
-- [ ] check status på "'" https://github.com/UniversalDependencies/UD_Danish-DDT/issues/4
-- [ ] 
 - [ ] Tilføj version af datasæt
     - særlig af DaNE (HF version)
     - DDT (github version)
@@ -53,7 +63,61 @@ Step my step
     - DaNED (ikke versioneret)
     - Dansk (HF version)
 - [ ] Try NED with tok2vec instead of transformer (https://spacy.io/api/architectures#EntityLinker)
-- [ ] Experiment with not using gold ents for NED
+- [ ] Create a grid search for:
+    - nlp
+        - batch_size
+    - components
+        - coref
+            - dropout
+            - depth
+            - hidden_size
+            - antecedent_limit
+            - antecedent_batch_size
+            - grad_factor
+            - tok2vec pooling
+        - entity_linker
+            - incl_context
+            - incl_prior
+            - (entity_vector_length)
+            - n_sents
+            - use_gold_ents
+            - model.tok2vec
+                - transformer vs tok2vec
+                - transformer
+                    - pooling
+                    - grad_factor
+        - ner.model
+            - architectures (transition based parser vs spancat)
+            - hidden_width
+            - maxout_pieces
+            - use_upper
+            - tok2vec.pooling
+        - trainable_lemmatizer
+            - backoff
+            - min_tree_freq
+            - top_k
+        - transformer
+            - model.get_spans
+                - window
+                - stride
+            - using freezed transformer
+
+    - training
+        - accumulate_gradient
+        - dropout
+        - patience
+        - max_epochs
+        - seed
+        - optimizer
+            - L2_is_weight_decay
+            - L2
+            - grad_clip
+            - use_averages
+            - beta1
+            - beta2
+        - 
+    - using seperate NED components
+    
 
 ### Notes
 
@@ -100,7 +164,7 @@ inv create_readme
 | `fetch_assets` | Fetch assets for model training |
 | `convert` | Convert the data to the correct format |
 | `combine` | Combine the data CDT and DDT datasets |
-| `train` | train a model using spacy train |
+| `train` | train a model using spacy train Args: embedding_size: The size of the transformer embedding. If None the default size is used. |
 | `evaluate` | Evaluate a model using spacy evaluate |
 | `train_coref_cluster` | Train the clustering component |
 | `prep_span_data` | Prepare data for the span resolver component. |
