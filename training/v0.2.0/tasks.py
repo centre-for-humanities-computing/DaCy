@@ -165,11 +165,8 @@ from datetime import datetime
 PROJECT = "dacy"
 LANGUAGE = "da"
 VERSION = "0.2.0"
-PYTHON = "python"
+PYTHON = "/home/kenneth/miniconda3/envs/dacy/bin/python"  # path to python, we recommend using a virtual environment
 VENV_LOCATION = ".venv"
-VENV_NAME = f"{PROJECT}-{LANGUAGE}-{VERSION}"
-# ACTIVATE_VENV = f"source {VENV_LOCATION}/{VENV_NAME}/bin/activate"  # when using Grundtvig
-ACTIVATE_VENV = f"echo ''"  # when using conda
 GPU_ID = 0
 
 EMBEDDING_MATCHUP = {
@@ -275,9 +272,9 @@ def create_readme(
     print(f"{Emo.GOOD} Markdown for project workflow created at: {readme.absolute()}")
 
 
+@task
 def create_venv(
     c: Context,
-    name: str,
     location: str,
     python: str,
     overwrite: bool = False,
@@ -296,12 +293,14 @@ def create_venv(
             overwritten
         verbose: If the command should be printed to the terminal
     """
-    venv_name = Path(location) / name
+    if python is None:
+        python = PYTHON
+    venv_name = Path(location)
     venv_name.parent.mkdir(parents=True, exist_ok=True)
     if not venv_name.exists() or overwrite:
         if verbose:
             echo_header(
-                f"{Emo.DO} Creating virtual environment '{name}' using {Emo.PY}{python}",
+                f"{Emo.DO} Creating virtual environment '{venv_name}' using {Emo.PY}{python}",
             )
         c.run(f"{python} -m venv {venv_name}")
     else:
@@ -316,8 +315,7 @@ def create_venv(
 def check_gpu(c: Context):
     """Check if spacy gpu support is working"""
     echo_header(f"{Emo.EXAMINE} Checking for GPU")
-    with c.prefix(ACTIVATE_VENV):
-        out = c.run("python -c 'import spacy; spacy.require_gpu()'")
+    out = c.run(f"{PYTHON} -c 'import spacy; spacy.require_gpu()'")
     if out.exited:
         print(f"{Emo.FAIL} GPU support is not working")
         exit(1)
@@ -325,27 +323,16 @@ def check_gpu(c: Context):
 
 
 @task
-def install(c: Context, python: Optional[str] = None, overwrite: bool = False):
+def install(c: Context):
     """Install the project and logs in to wandb"""
-    print(sys.prefix)
     echo_header(f"{Emo.DO} Installing project")
 
-    if python is None:
-        python = PYTHON
-    create_venv(
-        c,
-        name=VENV_NAME,
-        location=VENV_LOCATION,
-        python=python,
-        overwrite=overwrite,
-    )
     # activate the virtual environment and install the requirements
-    with c.prefix(ACTIVATE_VENV):
-        c.run("pip install -r requirements.txt")
+    c.run(f"{PYTHON} -m pip install -r requirements.txt")
     # login to wandb
     echo_header(f"{Emo.COMMUNICATE} Login to wandb")
-    with c.prefix(ACTIVATE_VENV):
-        c.run("wandb login")
+    c.run("wandb login")
+
     print(f"{Emo.GOOD} Project installed")
 
 
@@ -401,11 +388,10 @@ def fetch_assets(c: Context, overwrite: bool = False):
         shutil.rmtree(assets_path)
     assets_path.mkdir(parents=True, exist_ok=True)
 
-    with c.prefix(ACTIVATE_VENV):
-        download_ud_ddt(c, assets_path)
-        download_da_coref(c, assets_path)
-        download_dane(c, assets_path)
-        download_daned(c, assets_path)
+    download_ud_ddt(c, assets_path)
+    download_da_coref(c, assets_path)
+    download_dane(c, assets_path)
+    download_daned(c, assets_path)
 
     print(f"{Emo.GOOD} Assets fetched")
 
@@ -415,16 +401,15 @@ def convert(c: Context):
     """Convert the data to the correct format"""
     echo_header(f"{Emo.DO} Converting data")
 
-    with c.prefix(ACTIVATE_VENV):
-        datasets = ["da_ddt", "dane"]
-        for dataset in datasets:
-            output_path = Path("corpus/") / dataset
-            output_path.mkdir(parents=True, exist_ok=True)
-            print(output_path)
-            args = "--converter conllu --merge-subtokens"
-            for split in ["train", "dev", "test"]:
-                c.run(
-                    f"python -m spacy convert assets/{dataset}/{split}.conllu {output_path} {args}",
+    datasets = ["da_ddt", "dane"]
+    for dataset in datasets:
+        output_path = Path("corpus/") / dataset
+        output_path.mkdir(parents=True, exist_ok=True)
+        print(output_path)
+        args = "--converter conllu --merge-subtokens"
+        for split in ["train", "dev", "test"]:
+            c.run(
+                f"{PYTHON} -m spacy convert assets/{dataset}/{split}.conllu {output_path} {args}",
                 )
     print(f"{Emo.GOOD} Data converted")
 
@@ -433,8 +418,7 @@ def convert(c: Context):
 def combine(c: Context):
     """Combine the data CDT and DDT datasets"""
     echo_header(f"{Emo.DO} Combining CDT and DDT data")
-    with c.prefix(ACTIVATE_VENV):
-        c.run("python scripts/combine.py")
+    c.run(f"{PYTHON} scripts/combine.py")
     print(f"{Emo.GOOD} Data combined")
 
 
@@ -495,10 +479,9 @@ def train(
     #     cmd += f"--components.entity_linker.entity_vector_length={embedding_size} "
     
 
-    with c.prefix(ACTIVATE_VENV):
-        echo_header(f"{Emo.DO} Running command:")
-        print(cmd)
-        c.run(cmd)
+    echo_header(f"{Emo.DO} Running command:")
+    print(cmd)
+    c.run(cmd)
     print(f"{Emo.GOOD} Model trained")
 
 
@@ -521,8 +504,7 @@ def evaluate(
 
     metrics_path.mkdir(parents=True, exist_ok=True)
 
-    with c.prefix(ACTIVATE_VENV):
-        c.run(f"spacy evaluate {_model_path} {test_set} --output {metrics_json}")
+    c.run(f"{PYTHON} -m spacy evaluate {_model_path} {test_set} --output {metrics_json}")
     print(f"{Emo.GOOD} Model evaluated")
 
 
@@ -531,21 +513,22 @@ def train_coref_cluster(c: Context):
     """
     Train the clustering component
     """
-    # "python -m spacy train config/cluster.cfg -g ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy -o training/cluster --training.max_epochs ${vars.max_epochs}"
     echo_header(f"{Emo.DO} Training model")
 
     training_path = Path("training/cluster")
     training_path.mkdir(parents=True, exist_ok=True)
-    with c.prefix(ACTIVATE_VENV):
-        c.run(
-            f"spacy train configs/cluster_trf.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da --gpu-id {GPU_ID}",
-        )
+    c.run(
+        f"{PYTHON} -m spacy train configs/cluster_trf.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da --gpu-id {GPU_ID}",
+    )
     print(f"{Emo.GOOD} Model trained")
 
 
 @task
 def prep_span_data(
-    c: Context, heads="silver", model_path="training/coref/model-best"
+    c: Context, 
+    run_name: str,
+    heads="silver", 
+    model_best: bool=True
 ) -> None:
     """Prepare data for the span resolver component.
 
@@ -558,21 +541,27 @@ def prep_span_data(
 
     echo_header(f"{Emo.DO} Preparing span data")
 
-    training_path = Path("training/cluster")
+    training_path = Path("training")
     training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / run_name  
+
+    if model_best:
+        model_path = model_path / "model-best" 
+    else:
+        model_path = model_path / "model-last"
 
     cmd = (
-        "python scripts/prep_span_data.py"
+        f"{PYTHON} scripts/prep_span_data.py"
         + f" --heads {heads} "
         + f"--model-path {model_path} "
         + "--input-path corpus/cdt/{split}.spacy "
-        + "--output-path corpus/cdt/spans.{split}.spacy "
+        + "--output-path corpus/cdt/spans.{run_name}.{split}.spacy "
         + "--head-prefix coref_head_clusters "
-        + "--span-prefix coref_clusters"
+        + "--span-prefix coref_clusters "
     )
-    with c.prefix(ACTIVATE_VENV):
-        for split in ["train", "dev"]:
-            c.run(cmd.format(split=split))
+
+    for split in ["train", "dev"]:
+        c.run(cmd.format(split=split, run_name=run_name))
     print(f"{Emo.GOOD} Span data prepared")
 
 
@@ -615,8 +604,7 @@ def train_span_resolver(
     else:
         cmd += f" --paths.transformer_source {transformer_source}"
 
-    with c.prefix(ACTIVATE_VENV):
-        c.run(cmd)
+    c.run(cmd)
     print(f"{Emo.GOOD} Span resolver trained")
 
 
@@ -626,8 +614,7 @@ def assemple_coref(c: Context):
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
     echo_header(f"{Emo.DO} Assembling coreference model")
 
-    with c.prefix(ACTIVATE_VENV):
-        c.run("spacy assemble configs/coref.cfg training/coref")
+    c.run(f"{PYTHON} -m spacy assemble configs/coref.cfg training/coref")
     print(f"{Emo.GOOD} Coreference model assembled")
 
 
@@ -653,11 +640,10 @@ def workflow_train_coref_model(c: Context):
 def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     """Create the Knowledge Base in spaCy and write it to file."""
     # script:
-    #   - "python ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
+    #   - f"{PYTHON} ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
-    with c.prefix(ACTIVATE_VENV):
-        c.run(f"python ./scripts/create_kb.py {model}")
+    c.run(f"{PYTHON} ./scripts/create_kb.py {model}")
 
     print(f"{Emo.GOOD} Knowledge Base created")
 
@@ -675,7 +661,7 @@ def train_ned(c: Context):
     # -c scripts/custom_functions.py
 
     cmd = (
-        "python -m spacy train configs/ned.cfg"
+        f"{PYTHON} -m spacy train configs/ned.cfg"
         + " --output training/ned"
         + " --paths.train corpus/cdt/train.spacy"
         + " --paths.dev corpus/cdt/dev.spacy"
@@ -685,21 +671,19 @@ def train_ned(c: Context):
         + " --gpu-id 0"
     )
 
-    with c.prefix(ACTIVATE_VENV):
-        c.run(cmd)
+    c.run(cmd)
     print(f"{Emo.GOOD} NED model trained")
 
 
 @task
 def evaluate_ned(c: Context):
     """Evaluate the named entity disambiguation component."""
-    # "python ./scripts/evaluate.py ./training/model-best/ corpus/${vars.dev}.spacy"
+    # f"{PYTHON} ./scripts/evaluate.py ./training/model-best/ corpus/${vars.dev}.spacy"
     echo_header(f"{Emo.DO} Evaluating NED model")
 
-    with c.prefix(ACTIVATE_VENV):
-        c.run(
-            "python ./scripts/evaluate_ned.py ./training/ned/model-best/ corpus/cdt/dev.spacy"
-        )
+    c.run(
+        f"{PYTHON} ./scripts/evaluate_ned.py ./training/ned/model-best/ corpus/cdt/dev.spacy"
+    )
 
     print(f"{Emo.GOOD} NED model evaluated")
 
