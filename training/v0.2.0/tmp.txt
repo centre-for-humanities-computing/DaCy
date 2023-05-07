@@ -1,3 +1,0 @@
-
---- 🤖 Evaluating coreference model ---
-[38;5;4mℹ Using GPU: 0[0m
