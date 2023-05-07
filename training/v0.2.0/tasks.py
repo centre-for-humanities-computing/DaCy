@@ -52,7 +52,7 @@ Step by step:
   - [ ] Add span resolver
   - [ ] Assemble it into a pipeline
 
-
+- [ ] Check the whether you can use the parser for annotation in coreference
 - [ ] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
 - [ ] Tilføj version af datasæt
     - særlig af DaNE (HF version)
@@ -155,7 +155,7 @@ import shutil
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Literal, Optional
 
 from invoke import Context, Task, task
 from datetime import datetime
@@ -488,25 +488,72 @@ def train(
 @task
 def evaluate(
     c: Context,
-    model_path: str = "training/test/model-best",
+    run_name: str,
     dataset: str = "dane",
+    split: Literal["train", "dev", "test"] = "dev",
+    model_best: bool=True,
+    gpu_id: Optional[int] = None,
 ):
     """Evaluate a model using spacy evaluate"""
     echo_header(f"{Emo.DO} Evaluating model")
 
-    _model_path = Path(model_path)
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / run_name
+
+    if model_best:
+        model_path = model_path / "model-best"
+    else:
+        model_path = model_path / "model-last"
+
     metrics_path = Path("metrics") / dataset
-    test_set = Path("corpus") / dataset / "test.spacy"
-
-    model_name = _model_path.parent.name
-    model_type = _model_path.name
-    metrics_json = metrics_path / f"{model_name}_{model_type}.json"
-
+    metrics_json = metrics_path / f"{run_name}.json"
     metrics_path.mkdir(parents=True, exist_ok=True)
+    test_set = Path("corpus") / dataset / f"{split}.spacy"
 
-    c.run(f"{PYTHON} -m spacy evaluate {_model_path} {test_set} --output {metrics_json}")
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    cmd = (
+        f"{PYTHON} -m spacy evaluate {model_path} {test_set} --output {metrics_json}"
+        + f" --gpu-id {gpu_id}"
+    )
+    c.run(cmd)
     print(f"{Emo.GOOD} Model evaluated")
 
+
+@task
+def evaluate_coref(
+    c: Context,
+    run_name: str,
+    model_best: bool=True,
+    split: Literal["dev", "test"]= "dev",
+    dataset: Literal["cdt"] = "cdt",
+    gpu_id: Optional[int] = None,
+):
+    """Evaluate the coreference model."""
+    echo_header(f"{Emo.DO} Evaluating coreference model")
+
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / run_name
+
+    if model_best:
+        model_path = model_path / "model-best"
+    else:
+        model_path = model_path / "model-last"
+
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    cmd = (
+        f"{PYTHON} scripts/evaluate_coref.py --model {model_path} --test-data corpus/{dataset}/{split}.spacy"
+        + f" --gpu {gpu_id}"
+    )
+    echo_header(f"{Emo.DO} Running command:")
+    print(cmd)
+    c.run(cmd)
+    print(f"{Emo.GOOD} Coreference model evaluated")
 
 @task
 def train_coref_cluster(c: Context):
@@ -568,53 +615,76 @@ def prep_span_data(
 @task
 def train_span_resolver(
     c: Context,
-    tok2vec_source: Optional[str] = "training/cluster/model-best",
-    transformer_source: Optional[str] = None,
-    max_epochs: int = 20,
+    run_name: str,
+    model_best: bool=True,
+    gpu_id: Optional[int] = None,
 ):
     """
     Train the span resolver component.
     """
-    # spacy train configs/span.cfg -c scripts/custom_functions.py -g ${vars.gpu_id} --paths.train corpus/spans.train.spacy --paths.dev corpus/spans.dev.spacy --training.max_epochs ${vars.max_epochs} --paths.transformer_source training/cluster/model-best -o training/span_resolver
     echo_header(f"{Emo.DO} Training span resolver")
 
-    if tok2vec_source and transformer_source:
-        raise ValueError(
-            "Only one of `tok2vec_source` and `transformer_source` can be set"
-        )
-    if tok2vec_source is None and transformer_source is None:
-        raise ValueError("One of `tok2vec_source` and `transformer_source` must be set")
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / run_name
 
-    config = (
-        "configs/span_resolver.cfg"
-        if tok2vec_source
-        else "configs/span_resolver_trf.cfg"
-    )
+    if model_best:
+        model_path = model_path / "model-best"
+    else:
+        model_path = model_path / "model-last"
+
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    config = "configs/span_resolver.cfg"
 
     cmd = (
         f"spacy train {config}"
         + " -c scripts/custom_functions.py"
-        + " --output training/span_resolver"
-        + " --paths.train corpus/cdt/spans.train.spacy"
-        + " --paths.dev corpus/cdt/spans.dev.spacy"
-        + f" --training.max_epochs {max_epochs}"
+        + f" --output training/{run_name}.span_resolver"
+        + f" --paths.train corpus/cdt/spans.{run_name}.train.spacy"
+        + f" --paths.dev corpus/cdt/spans.{run_name}.dev.spacy"
+        + " --nlp.lang=da"
+        + f" --training.logger.run_name={run_name}.span_resolver"
+        + f" --paths.transformer_source {model_path}"
+        + f" --gpu-id {gpu_id}"
     )
-    if tok2vec_source:
-        cmd += f" --paths.tok2vec_source {tok2vec_source}"
-    else:
-        cmd += f" --paths.transformer_source {transformer_source}"
-
     c.run(cmd)
     print(f"{Emo.GOOD} Span resolver trained")
 
 
 @task
-def assemple_coref(c: Context):
+def assemble_coref(c: Context, run_name: str, model_best: bool=True):
     """Assemble the coreference model."""
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
     echo_header(f"{Emo.DO} Assembling coreference model")
 
-    c.run(f"{PYTHON} -m spacy assemble configs/coref.cfg training/coref")
+
+
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / f"{run_name}.span_resolver"
+    base_model_path = training_path / f"{run_name}"
+    write_path = training_path / f"{run_name}.coref"
+
+    if model_best:
+        model_path = model_path / "model-best"
+        base_model_path = base_model_path / "model-best"
+        write_path = write_path / "model-best"
+    else:
+        model_path = model_path / "model-last"
+        base_model_path = base_model_path / "model-last"
+        write_path = write_path / "model-last"
+
+
+    cmd = (
+        f"{PYTHON} -m spacy assemble configs/assemble_coref.cfg"
+        + f" {write_path}"
+        + f" --components.span_resolver.source {model_path}"
+        + f" --components.transformer.source {base_model_path}"
+        + f" --components.coref.source {base_model_path}"
+    )
+    c.run(cmd)
     print(f"{Emo.GOOD} Coreference model assembled")
 
 
@@ -646,33 +716,6 @@ def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     c.run(f"{PYTHON} ./scripts/create_kb.py {model}")
 
     print(f"{Emo.GOOD} Knowledge Base created")
-
-
-@task
-def train_ned(c: Context):
-    """Train the named entity disambiguation component."""
-    echo_header(f"{Emo.DO} Training NED model")
-    # python -m spacy train configs/${vars.config}
-    # --output training
-    # --paths.train corpus/${vars.train}.spacy
-    # --paths.dev corpus/${vars.dev}.spacy
-    # --paths.kb temp/${vars.kb}
-    # --paths.base_nlp temp/${vars.nlp}
-    # -c scripts/custom_functions.py
-
-    cmd = (
-        f"{PYTHON} -m spacy train configs/ned.cfg"
-        + " --output training/ned"
-        + " --paths.train corpus/cdt/train.spacy"
-        + " --paths.dev corpus/cdt/dev.spacy"
-        + " --paths.kb assets/daned/knowledge_base.kb"
-        # + " --paths.base_nlp my_nlp"
-        + " -c scripts/custom_ned_functions.py"
-        + " --gpu-id 0"
-    )
-
-    c.run(cmd)
-    print(f"{Emo.GOOD} NED model trained")
 
 
 @task
