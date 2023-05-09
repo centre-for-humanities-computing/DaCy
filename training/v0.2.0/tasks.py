@@ -413,16 +413,6 @@ def combine(c: Context):
     echo_header(f"{Emo.DO} Combining CDT and DDT data")
     c.run(f"{PYTHON} scripts/create_ddt_compatible_splits_for_cdt.py")
     c.run(f"{PYTHON} scripts/combine.py")
-
-    # recreate DaNE with 10 sent (for further training)
-    output_path = Path("corpus/") / "dane"
-    output_path.mkdir(parents=True, exist_ok=True)
-    print(output_path)
-    args = "--converter conllu --merge-subtokens --n-sents 10"
-    for split in ["train", "dev", "test"]:
-        c.run(
-            f"{PYTHON} -m spacy convert assets/dane/{split}.conllu {output_path} {args}",
-            )
     print(f"{Emo.GOOD} Data combined")
 
 
@@ -495,62 +485,6 @@ def train(
     print(cmd)
     c.run(cmd)
     print(f"{Emo.GOOD} Model trained")
-
-
-@task
-def train_further(
-    c: Context,
-    run_name: str,
-    dataset: Literal["dane", "cdt", "da_ddt"] = "dane",
-    gpu_id: Optional[int] = None,
-    config: Optional[str] = None,
-    overwrite: bool = False,
-    model_best: bool=False,
-):
-    """
-    train a model using spacy train
-    
-    Args:
-        embedding_size: The size of the transformer embedding. If None the default size is used.
-    """
-    echo_header(f"{Emo.DO} Training model")
-
-    training_path = Path("training") / (run_name + ".further_train")
-    model_source = Path("training") / run_name
-    if model_best:
-        model_source = model_source / "model-best"
-    else:
-        model_source = model_source / "model-last"
-
-    if gpu_id is None:
-        gpu_id = GPU_ID
-
-    if config is None:
-        config = "configs/further_train.cfg"
-
-    if training_path.exists() and (not overwrite):
-        print(
-            f"{Emo.FAIL} Training path already exists to overwrite it please use the -o/--overwrite flag",
-        )
-        exit(1)
-    training_path.mkdir(parents=True, exist_ok=True)
-    
-    cmd = (
-        f"spacy train {config} "
-        + f" --output {training_path} "
-        + f"--paths.train corpus/{dataset}/train.spacy "
-        + f"--paths.dev corpus/{dataset}/dev.spacy "
-        + "--nlp.lang=da "
-        + f"--gpu-id={gpu_id} "
-        + f"--training.logger.run_name={run_name}.further_train "
-        + f"--paths.model_source {model_source} "
-    )
-
-    echo_header(f"{Emo.DO} Running command:")
-    print(cmd)
-    c.run(cmd)
-    print(f"{Emo.GOOD} Model trained")
-
 
 
 @task
@@ -748,22 +682,22 @@ def assemble(c: Context, run_name: str, model_best: bool=False):
     training_path = Path("training")
     training_path.mkdir(parents=True, exist_ok=True)
     span_resolver = training_path / f"{run_name}.span_resolver"
-    further_trained = training_path / f"{run_name}.further_train"
+    main_model = training_path / f"{run_name}"
     write_path = training_path / f"{run_name}.assembled"
 
     if model_best:
         span_resolver = span_resolver / "model-best"
-        further_trained = further_trained / "model-best"
+        main_model = main_model / "model-best"
     else:
         span_resolver = span_resolver / "model-last"
-        further_trained = further_trained / "model-last"
+        main_model = main_model / "model-last"
 
 
     cmd = (
         f"{PYTHON} -m spacy assemble configs/assemble.cfg"
         + f" {write_path}"
         + f" --components.span_resolver.source {span_resolver}"
-        + f" --components.model_source {further_trained}"
+        + f" --components.model_source {main_model}"
     )
     c.run(cmd)
     print(f"{Emo.GOOD} Coreference model assembled")
@@ -819,13 +753,12 @@ def workflow_prepare_to_train(c: Context):
     combine(c)
 
 @task
-def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False):
-    """Runs: `create-knowledge-base` &rarr; `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `train_further` &rarr; `assemble`"""
-    create_knowledge_base(c, model=model)
-    train(c, model=model, run_name=run_name, overwrite=overwrite)
+def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False, gpu_id = None):
+    """Runs: `create-knowledge-base` &rarr; `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemble`"""
+    # create_knowledge_base(c, model=model)
+    train(c, model=model, run_name=run_name, overwrite=overwrite, gpu_id=gpu_id)
     prep_span_data(c, run_name=run_name, model_best=model_best)
-    train_span_resolver(c, run_name=run_name, model_best=model_best)
-    train_further(c, run_name=run_name, model_best=model_best, overwrite=overwrite)
+    train_span_resolver(c, run_name=run_name, model_best=model_best, gpu_id=gpu_id)
     assemble(c, run_name=run_name, model_best=model_best)
 
 
