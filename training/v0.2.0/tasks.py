@@ -416,13 +416,12 @@ def combine(c: Context):
     print(f"{Emo.GOOD} Data combined")
 
 
-
 @task
 def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     """Create the Knowledge Base in spaCy and write it to file."""
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
-    c.run(f"{PYTHON} ./scripts/create_kb.py {model}")
+    c.run(f"{PYTHON} ./scripts/create_kb.py {model} --save-path-kb assets/knowledge_bases/{model}.kb")
 
     print(f"{Emo.GOOD} Knowledge Base created")
 
@@ -479,6 +478,7 @@ def train(
         + f"--gpu-id={gpu_id} "
         + f"--components.transformer.model.name={model} "
         + f"--training.logger.run_name={run_name} "
+        + f"--paths.kb assets/knowledge_bases/{model}.kb "
     )
 
     echo_header(f"{Emo.DO} Running command:")
@@ -635,9 +635,6 @@ def evaluate_coref(
     c.run(cmd)
     print(f"{Emo.GOOD} Coreference model evaluated")
 
-
-
-
 @task
 def assemble_coref(c: Context, run_name: str, model_best: bool=False):
     """Assemble the coreference model."""
@@ -755,7 +752,7 @@ def workflow_prepare_to_train(c: Context):
 @task
 def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False, gpu_id = None):
     """Runs: `create-knowledge-base` &rarr; `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemble`"""
-    # create_knowledge_base(c, model=model)
+    create_knowledge_base(c, model=model)
     train(c, model=model, run_name=run_name, overwrite=overwrite, gpu_id=gpu_id)
     prep_span_data(c, run_name=run_name, model_best=model_best)
     train_span_resolver(c, run_name=run_name, model_best=model_best, gpu_id=gpu_id)
