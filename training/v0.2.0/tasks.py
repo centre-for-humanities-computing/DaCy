@@ -118,7 +118,7 @@ Step by step:
     
 
 ### Notes
-
+- [ ] There is test data from DaNE in CDT's train data...
 - [ ] Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently?
 - [ ] DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf)
 it only improved the model from 0.85 to 0.86 so it might not be worth it.
@@ -472,18 +472,67 @@ def train(
         + f"--components.transformer.model.name={model} "
         + f"--training.logger.run_name={run_name} "
     )
-    # if model in EMBEDDING_MATCHUP or embedding_size is not None:
-    #     if embedding_size is None:
-    #         embedding_size = EMBEDDING_MATCHUP[model]
-    #     echo_header(f"{Emo.INFO} Setting transformer embedding to {embedding_size}")
-    #     cmd += f"--components.entity_linker.entity_vector_length={embedding_size} "
-    
 
     echo_header(f"{Emo.DO} Running command:")
     print(cmd)
     c.run(cmd)
     print(f"{Emo.GOOD} Model trained")
 
+
+
+@task
+def further_train(
+    c: Context,
+    run_name: str,
+    dataset: Literal["dane", "cdt"] = "dane",
+    gpu_id: Optional[int] = None,
+    config: Optional[str] = None,
+    overwrite: bool = False,
+    model_best: bool=True,
+):
+    """
+    train a model using spacy train
+    
+    Args:
+        embedding_size: The size of the transformer embedding. If None the default size is used.
+    """
+    echo_header(f"{Emo.DO} Training model")
+
+    training_path = Path("training") / (run_name + ".further_train")
+    model_source = Path("training") / run_name
+    if model_best:
+        model_source = model_source / "model-best"
+    else:
+        model_source = model_source / "model-last"
+
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    if config is None:
+        config = "configs/further_train.cfg"
+
+    if training_path.exists() and (not overwrite):
+        print(
+            f"{Emo.FAIL} Training path already exists to overwrite it please use the -o/--overwrite flag",
+        )
+        exit(1)
+    training_path.mkdir(parents=True, exist_ok=True)
+    
+    cmd = (
+        f"spacy train {config} "
+        + f" --output {training_path} "
+        + "--paths.train corpus/cdt/train.spacy "
+        + "--paths.dev corpus/cdt/dev.spacy "
+        + "--nlp.lang=da "
+        + f"--gpu-id={gpu_id} "
+        + f"--training.logger.run_name={run_name} "
+        + f"--paths.model_source {model_source} "
+    )
+
+    echo_header(f"{Emo.DO} Running command:")
+    print(cmd)
+    c.run(cmd)
+    print(f"{Emo.GOOD} Model trained")
 
 @task
 def evaluate(
