@@ -1,3 +1,7 @@
+"""
+A script for creating splits for the copenhagen dependency treebank which align with DDT.
+"""
+
 import json
 from pathlib import Path
 
@@ -5,7 +9,7 @@ from conllu import parse
 
 
 def load_cdt(
-    assets_path = Path(__file__).parent / "assets",
+    assets_path = Path(__file__).parent.parent / "assets",
 ):
     """
     Load the copenhagen dependency treebank / DaCoref dataset
