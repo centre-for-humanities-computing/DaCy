@@ -1,18 +1,17 @@
-import argparse
 import tqdm
 import spacy
 from spacy.tokens import DocBin
 from spacy.training import Example
 from spacy_experimental.coref.coref_scorer import ClusterEvaluator
 from spacy_experimental.coref.coref_scorer import get_cluster_info, lea
-
+import typer
+import json
 
 PREFIX = "coref_clusters"
 skipped_clusters = 0
 num_gold_clusters = 0
 num_pred_clusters = 0
 repeated_mentions = 0
-
 
 def example2clusters(example: Example):
     pred = []
@@ -51,24 +50,21 @@ def example2clusters(example: Example):
     return pred, gold
 
 
-def main():
+def main( model: str, dataset: str, gpu_id: int=-1):
+    """
+    Evaluate a coreference model on a dataset.
 
-    parser = argparse.ArgumentParser(description="Evaluate data using LEA.")
-    parser.add_argument("--model", help="Path to the trained pipeline.")
-    parser.add_argument("--test-data", help="Path to the test data.")
-    parser.add_argument(
-        "--gpu", type=int, default=-1, help="ID of GPU to run coreference pipeline on."
-    )
-    args = parser.parse_args()
+    Args:
+        model: Path to the trained pipeline.
+        dataset: Path to the test data.
+        gpu_id: ID of GPU to run coreference pipeline on. Defaults to -1 (CPU only).
+    """
+    if gpu_id > -1:
+        spacy.require_gpu(gpu_id)  # type: ignore
 
-    if args.gpu > -1:
-        spacy.require_gpu(args.gpu)
-
-    model_name = args.model
-    infile = args.test_data
     # output
-    nlp = spacy.load(model_name)
-    gold_db = DocBin().from_disk(infile)
+    nlp = spacy.load(model)
+    gold_db = DocBin().from_disk(dataset)
     gold_docs = gold_db.get_docs(nlp.vocab)
     lea_evaluator = ClusterEvaluator(lea)
     for gold_doc in tqdm.tqdm(gold_docs):
@@ -87,6 +83,14 @@ def main():
     print("Skipped predicted clusters: ", skipped_clusters)
     print("Repeated mentions: ", repeated_mentions)
 
+    metrics = {"LEA_f1": lea_evaluator.get_f1(),
+               "LEA_precision": lea_evaluator.get_precision(),
+                "LEA_recall": lea_evaluator.get_recall(),
+    }
+    # write to metrics/evaluate_coref.json
+    with open("evaluate_coref.json", "w") as f:
+        json.dump(metrics, f)
+
 
 if __name__ == "__main__":
-    main()
+    typer.run(main)

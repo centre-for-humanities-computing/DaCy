@@ -165,3 +165,4 @@ _build/*
 # tutorials:
 tutorials/BenchmarkFairness.ipynb
 tutorials/*.py
+training/v0.2.0/evaluate_coref.json

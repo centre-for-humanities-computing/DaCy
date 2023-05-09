@@ -413,6 +413,16 @@ def combine(c: Context):
     echo_header(f"{Emo.DO} Combining CDT and DDT data")
     c.run(f"{PYTHON} scripts/create_ddt_compatible_splits_for_cdt.py")
     c.run(f"{PYTHON} scripts/combine.py")
+
+    # recreate DaNE with 10 sent (for further training)
+    output_path = Path("corpus/") / "dane"
+    output_path.mkdir(parents=True, exist_ok=True)
+    print(output_path)
+    args = "--converter conllu --merge-subtokens --n-sents 10"
+    for split in ["train", "dev", "test"]:
+        c.run(
+            f"{PYTHON} -m spacy convert assets/dane/{split}.conllu {output_path} {args}",
+            )
     print(f"{Emo.GOOD} Data combined")
 
 
@@ -420,8 +430,6 @@ def combine(c: Context):
 @task
 def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     """Create the Knowledge Base in spaCy and write it to file."""
-    # script:
-    #   - f"{PYTHON} ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
     c.run(f"{PYTHON} ./scripts/create_kb.py {model}")
@@ -490,10 +498,10 @@ def train(
 
 
 @task
-def further_train(
+def train_further(
     c: Context,
     run_name: str,
-    dataset: Literal["dane", "cdt", "da_ddt"] = "da_ddt",
+    dataset: Literal["dane", "cdt", "da_ddt"] = "dane",
     gpu_id: Optional[int] = None,
     config: Optional[str] = None,
     overwrite: bool = False,
@@ -534,7 +542,7 @@ def further_train(
         + f"--paths.dev corpus/{dataset}/dev.spacy "
         + "--nlp.lang=da "
         + f"--gpu-id={gpu_id} "
-        + f"--training.logger.run_name={run_name} "
+        + f"--training.logger.run_name={run_name}.further_train "
         + f"--paths.model_source {model_source} "
     )
 
@@ -670,7 +678,6 @@ def evaluate(
 def evaluate_coref(
     c: Context,
     run_name: str,
-    model_best: bool=False,
     split: Literal["dev", "test"]= "dev",
     dataset: Literal["cdt"] = "cdt",
     gpu_id: Optional[int] = None,
@@ -680,19 +687,14 @@ def evaluate_coref(
 
     training_path = Path("training")
     training_path.mkdir(parents=True, exist_ok=True)
-    model_path = training_path / run_name
-
-    if model_best:
-        model_path = model_path / "model-best"
-    else:
-        model_path = model_path / "model-last"
+    model_path = training_path / (run_name + ".assembled")
 
     if gpu_id is None:
         gpu_id = GPU_ID
 
     cmd = (
-        f"{PYTHON} scripts/evaluate_coref.py --model {model_path} --test-data corpus/{dataset}/{split}.spacy"
-        + f" --gpu {gpu_id}"
+        f"{PYTHON} scripts/evaluate_coref.py {model_path} corpus/{dataset}/{split}.spacy"
+        + f" --gpu-id {gpu_id}"
     )
     echo_header(f"{Emo.DO} Running command:")
     print(cmd)
@@ -737,24 +739,97 @@ def assemble_coref(c: Context, run_name: str, model_best: bool=False):
     print(f"{Emo.GOOD} Coreference model assembled")
 
 
+@task
+def assemble(c: Context, run_name: str, model_best: bool=False):
+    """Assemble the model."""
+    # spacy assemble ${vars.config_dir}/coref.cfg training/coref
+    echo_header(f"{Emo.DO} Assembling coreference model")
+
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    span_resolver = training_path / f"{run_name}.span_resolver"
+    further_trained = training_path / f"{run_name}.further_train"
+    write_path = training_path / f"{run_name}.assembled"
+
+    if model_best:
+        span_resolver = span_resolver / "model-best"
+        further_trained = further_trained / "model-best"
+    else:
+        span_resolver = span_resolver / "model-last"
+        further_trained = further_trained / "model-last"
+
+
+    cmd = (
+        f"{PYTHON} -m spacy assemble configs/assemble.cfg"
+        + f" {write_path}"
+        + f" --components.span_resolver.source {span_resolver}"
+        + f" --components.model_source {further_trained}"
+    )
+    c.run(cmd)
+    print(f"{Emo.GOOD} Coreference model assembled")
+
+## --- Package and Publish ------------------------------------
+
+
+@task
+def package(c: Context, run_name: str, size: Literal["small", "medium", "large"], overwrite: bool = False):
+    """Package the trained model so it can be installed with pip."""
+    echo_header(f"{Emo.DO} Packaging model")
+
+    training_path = Path("training")
+    package_path = Path("packages")
+    training_path.mkdir(parents=True, exist_ok=True)
+    package_path.mkdir(parents=True, exist_ok=True)
+    
+    model_path = training_path / (run_name + ".assembled")
+    if model_path.exists() and (not overwrite):
+        print(f"{Emo.FAIL} Model already exists to overwrite it please use the -o/--overwrite flag")
+        exit(1)
+    
+    name = f"{LANGUAGE}_{PROJECT}_{size}"
+    c.run(f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} -C --force")
+    c.run(f"python scripts/update_description.py --meta_json {package_path}/{name}-{VERSION}/meta.json --output_json template_meta.json --size {size}")
+    c.run(f"rm {package_path}/{name}-{VERSION}/README.md")
+    c.run(f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} --meta-path template_meta.json --force --build wheel")
+    c.run(f"rm template_meta.json")
+    print(f"{Emo.GOOD} Model packaged")
+
+
+@task
+def publish(c: Context, size: Literal["small", "medium", "large"]):
+    """Publish package to huggingface model hub."""
+
+    name = f"{LANGUAGE}_{PROJECT}_{size}-{VERSION}"
+    echo_header(f"{Emo.DO} Publishing model")
+    cmd = (
+        f"{PYTHON} -m spacy huggingface-hub push " + 
+        f"packages/{name}/dist/{name}-py3-none-any.whl -m 'Update spaCy pipeline to {VERSION}' -o chcaa"
+    )
+
+
+
 ## --- Workflows ------------------------------------
 
 @task
 def workflow_prepare_to_train(c: Context):
-    """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` &rarr; `create-knowledge-base`"""
+    """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine`"""
     install(c)
     fetch_assets(c)
     convert(c)
     combine(c)
 
 @task
-def workflow_train_(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False):
-    """Runs: `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `train_further` &rarr; `assemble`"""
+def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False):
+    """Runs: `create-knowledge-base` &rarr; `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `train_further` &rarr; `assemble`"""
     create_knowledge_base(c, model=model)
     train(c, model=model, run_name=run_name, overwrite=overwrite)
     prep_span_data(c, run_name=run_name, model_best=model_best)
     train_span_resolver(c, run_name=run_name, model_best=model_best)
-    further_train(c, run_name=run_name, model_best=model_best, overwrite=overwrite)
-    # assemble(c, run_name=run_name)
+    train_further(c, run_name=run_name, model_best=model_best, overwrite=overwrite)
+    assemble(c, run_name=run_name, model_best=model_best)
 
 
+@task
+def workflow_all(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False, size: str ="medium"):
+    """Runs: `workflow_prepare_to_train` &rarr; `workflow_train` &rarr; `evaluate` &rarr; `package`"""
+    
