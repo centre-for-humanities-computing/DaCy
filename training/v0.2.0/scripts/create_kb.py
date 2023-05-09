@@ -23,7 +23,7 @@ project_path = Path(__file__).parent.parent
 
 def main(
     trf_name: str,
-    save_path_kb: Path = project_path / "assets/daned/knowledge_base.kb",
+    save_path_kb: Path = project_path / "assets/knowledge_bases/knowledge_base.kb",
     langs_to_fetch: List[str] = ["da", "en"],
 ):
     """Step 1: create the Knowledge Base in spaCy and write it to file"""
