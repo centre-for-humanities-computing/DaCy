@@ -40,6 +40,7 @@ Step by step:
         - [x] DaNE match 1-1 with DDT, so simply add the DaNE annotations to the DDT annotations
         - [x] CDT is a subset of the DDT, but with a different and notably including document annotations. So we 
             - [x] combine each of the documents in DDT according to the annotations in CDT, the sentences without document annotations are ignored.
+            - [x] overwrite the CDT split with the split from DDT (i.e. the CDT split is ignored)
         - [x] CDT contains coreference annotations (DaCoref). All of these are directly added.
         - [x] CDT also contains NED annotations (DaNED) using QID's for every possible entities (even obscure ones like, i.e. 
           [mette](https://www.wikidata.org/wiki/Q1158302), refering to the name). To remove these we filter these out by
@@ -47,20 +48,16 @@ Step by step:
           - [ ] I should probably do this in a smarter way.
         - [x] Write two datasets, one which is the extended DDT, another one which is the CDT only.
 - [x] Add pipeline for training NED model
-- [ ] Add pipeline for training coref model
+- [x] Add pipeline for training coref model
   - [x] Add pipeline for training clustering component
-  - [ ] Add span resolver
-  - [ ] Assemble it into a pipeline
-
+  - [x] Add span resolver
+  - [x] Assemble it into a pipeline
+- [x] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
+- [x] Try NED with tok2vec instead of transformer
+- [ ] Train full pipeline
+    - [ ] Train two sets of models for DaCy (one for the testing and one trained on the full dataset)
 - [ ] Check the whether you can use the parser for annotation in coreference
-- [ ] Check the status of the tokenization issue: https://github.com/explosion/spaCy/discussions/12532
-- [ ] Tilføj version af datasæt
-    - særlig af DaNE (HF version)
-    - DDT (github version)
-    - DaCoref (ikke versioneret)
-    - DaNED (ikke versioneret)
-    - Dansk (HF version)
-- [ ] Try NED with tok2vec instead of transformer (https://spacy.io/api/architectures#EntityLinker)
+- [ ] Save current version of the datasets
 - [ ] Create a grid search for:
     - nlp
         - batch_size
@@ -99,7 +96,6 @@ Step by step:
                 - window
                 - stride
             - using freezed transformer
-
     - training
         - accumulate_gradient
         - dropout
@@ -115,24 +111,26 @@ Step by step:
             - beta2
         - 
     - using seperate NED components
-    
 
-### Notes
-- [ ] There is test data from DaNE in CDT's train data...
-- [ ] Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently?
-- [ ] DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf)
-it only improved the model from 0.85 to 0.86 so it might not be worth it.
-- [ ] Can the entity linker model use non-entity QIDs? We have quite a few of these in the DaNED dataset.
-- [ ] DANSK is currently not included. It could be added
-- [ ] It would be interested to see if anything could be gained from using a multilingual approach e.g. include the english ontonotes
-or Norwegian Bokmål.
 - [ ] Future models to compare to:
     - Coref model: https://github.com/pandora-intelligence/crosslingual-coreference
     - Eksisterende NED model på dansk fra Alexandra
     - Coref modeller fra alexandra
-    - 
-- [ ] Currently frequency is estimated from the training data. It is probably just fine assuming but it is probably important to add wikipedia.
     
+### Notes
+- Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently? It might be better to train them
+independentently
+- DaWikiNED is not currently used, but could be used to improve the NED model. In the [paper](https://aclanthology.org/2021.crac-1.7.pdf)
+it only improved the model from 0.85 to 0.86 so it might not be worth it.
+- The current entity linker model onyl uses entity QIDs, but the DaNED dataset contains a lot of non-entity QIDs. It might be worth it to
+include these as well during a seperate training step.
+- DANSK is currently not included.
+- It would be interested to see if anything could be gained from using a multilingual approach e.g. include the english ontonotes
+or Norwegian Bokmål.
+- Currently frequency is estimated from the training data. It is probably better to also add wikipedia to this.
+- The current NED annotation contains quite a new odd mentions e.g. where a person (i.e. "kenneth") has the QID which refers to the name. That is
+probably wrong unless you of-course are talking about the name. It might be worth it to filter these out. 
+
 ## Usage
 
 It uses invoke (pyinvoke.org) for task management. Install it via:
@@ -152,7 +150,6 @@ inv create_readme
 ```
 """
 import shutil
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Literal, Optional
@@ -169,10 +166,6 @@ PYTHON = "/home/kenneth/miniconda3/envs/dacy/bin/python"  # path to python, we r
 VENV_LOCATION = ".venv"
 GPU_ID = 0
 
-EMBEDDING_MATCHUP = {
-    "vesteinn/DanskBERT": 768,
-    "jonfd/electra-small-nordic": 256,
-}    
 
 ## --- Setup ------------------------------------
 
@@ -280,7 +273,7 @@ def create_venv(
     overwrite: bool = False,
     verbose: bool = True,
 ) -> Path:
-    """Create a virtual environment.
+    """Create a virtual environment. Optional.
 
     Args:
         c: The invoke context
@@ -381,7 +374,7 @@ def download_daned(c: Context, assets_path: Path):
 
 @task
 def fetch_assets(c: Context, overwrite: bool = False):
-    """Fetch assets for model training"""
+    """Fetch assets for model training."""
     echo_header(f"{Emo.DO} Fetching assets")
     assets_path = Path("assets")
     if overwrite and assets_path.exists():
@@ -418,8 +411,25 @@ def convert(c: Context):
 def combine(c: Context):
     """Combine the data CDT and DDT datasets"""
     echo_header(f"{Emo.DO} Combining CDT and DDT data")
+    c.run(f"{PYTHON} scripts/create_ddt_compatible_splits_for_cdt.py")
     c.run(f"{PYTHON} scripts/combine.py")
     print(f"{Emo.GOOD} Data combined")
+
+
+
+@task
+def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
+    """Create the Knowledge Base in spaCy and write it to file."""
+    # script:
+    #   - f"{PYTHON} ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
+    echo_header(f"{Emo.DO} Creating Knowledge Base")
+
+    c.run(f"{PYTHON} ./scripts/create_kb.py {model}")
+
+    print(f"{Emo.GOOD} Knowledge Base created")
+
+
+## --- Training ------------------------------------
 
 
 @task
@@ -479,16 +489,15 @@ def train(
     print(f"{Emo.GOOD} Model trained")
 
 
-
 @task
 def further_train(
     c: Context,
     run_name: str,
-    dataset: Literal["dane", "cdt"] = "dane",
+    dataset: Literal["dane", "cdt", "da_ddt"] = "da_ddt",
     gpu_id: Optional[int] = None,
     config: Optional[str] = None,
     overwrite: bool = False,
-    model_best: bool=True,
+    model_best: bool=False,
 ):
     """
     train a model using spacy train
@@ -521,8 +530,8 @@ def further_train(
     cmd = (
         f"spacy train {config} "
         + f" --output {training_path} "
-        + "--paths.train corpus/cdt/train.spacy "
-        + "--paths.dev corpus/cdt/dev.spacy "
+        + f"--paths.train corpus/{dataset}/train.spacy "
+        + f"--paths.dev corpus/{dataset}/dev.spacy "
         + "--nlp.lang=da "
         + f"--gpu-id={gpu_id} "
         + f"--training.logger.run_name={run_name} "
@@ -534,89 +543,6 @@ def further_train(
     c.run(cmd)
     print(f"{Emo.GOOD} Model trained")
 
-@task
-def evaluate(
-    c: Context,
-    run_name: str,
-    dataset: str = "dane",
-    split: Literal["train", "dev", "test"] = "dev",
-    model_best: bool=True,
-    gpu_id: Optional[int] = None,
-):
-    """Evaluate a model using spacy evaluate"""
-    echo_header(f"{Emo.DO} Evaluating model")
-
-    training_path = Path("training")
-    training_path.mkdir(parents=True, exist_ok=True)
-    model_path = training_path / run_name
-
-    if model_best:
-        model_path = model_path / "model-best"
-    else:
-        model_path = model_path / "model-last"
-
-    metrics_path = Path("metrics") / dataset
-    metrics_json = metrics_path / f"{run_name}.json"
-    metrics_path.mkdir(parents=True, exist_ok=True)
-    test_set = Path("corpus") / dataset / f"{split}.spacy"
-
-    if gpu_id is None:
-        gpu_id = GPU_ID
-
-    cmd = (
-        f"{PYTHON} -m spacy evaluate {model_path} {test_set} --output {metrics_json}"
-        + f" --gpu-id {gpu_id}"
-    )
-    c.run(cmd)
-    print(f"{Emo.GOOD} Model evaluated")
-
-
-@task
-def evaluate_coref(
-    c: Context,
-    run_name: str,
-    model_best: bool=True,
-    split: Literal["dev", "test"]= "dev",
-    dataset: Literal["cdt"] = "cdt",
-    gpu_id: Optional[int] = None,
-):
-    """Evaluate the coreference model."""
-    echo_header(f"{Emo.DO} Evaluating coreference model")
-
-    training_path = Path("training")
-    training_path.mkdir(parents=True, exist_ok=True)
-    model_path = training_path / run_name
-
-    if model_best:
-        model_path = model_path / "model-best"
-    else:
-        model_path = model_path / "model-last"
-
-    if gpu_id is None:
-        gpu_id = GPU_ID
-
-    cmd = (
-        f"{PYTHON} scripts/evaluate_coref.py --model {model_path} --test-data corpus/{dataset}/{split}.spacy"
-        + f" --gpu {gpu_id}"
-    )
-    echo_header(f"{Emo.DO} Running command:")
-    print(cmd)
-    c.run(cmd)
-    print(f"{Emo.GOOD} Coreference model evaluated")
-
-@task
-def train_coref_cluster(c: Context):
-    """
-    Train the clustering component
-    """
-    echo_header(f"{Emo.DO} Training model")
-
-    training_path = Path("training/cluster")
-    training_path.mkdir(parents=True, exist_ok=True)
-    c.run(
-        f"{PYTHON} -m spacy train configs/cluster_trf.cfg --output {training_path} --paths.train corpus/cdt/train.spacy --paths.dev corpus/cdt/dev.spacy --nlp.lang=da --gpu-id {GPU_ID}",
-    )
-    print(f"{Emo.GOOD} Model trained")
 
 
 @task
@@ -624,7 +550,7 @@ def prep_span_data(
     c: Context, 
     run_name: str,
     heads="silver", 
-    model_best: bool=True
+    model_best: bool=False
 ) -> None:
     """Prepare data for the span resolver component.
 
@@ -665,7 +591,7 @@ def prep_span_data(
 def train_span_resolver(
     c: Context,
     run_name: str,
-    model_best: bool=True,
+    model_best: bool=False,
     gpu_id: Optional[int] = None,
 ):
     """
@@ -701,9 +627,83 @@ def train_span_resolver(
     c.run(cmd)
     print(f"{Emo.GOOD} Span resolver trained")
 
+## --- Evaluate ------------------------------------
 
 @task
-def assemble_coref(c: Context, run_name: str, model_best: bool=True):
+def evaluate(
+    c: Context,
+    run_name: str,
+    dataset: str = "dane",
+    split: Literal["train", "dev", "test"] = "dev",
+    model_best: bool=False,
+    gpu_id: Optional[int] = None,
+):
+    """Evaluate a model using spacy evaluate"""
+    echo_header(f"{Emo.DO} Evaluating model")
+
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / run_name
+
+    if model_best:
+        model_path = model_path / "model-best"
+    else:
+        model_path = model_path / "model-last"
+
+    metrics_path = Path("metrics") / dataset
+    metrics_json = metrics_path / f"{run_name}.json"
+    metrics_path.mkdir(parents=True, exist_ok=True)
+    test_set = Path("corpus") / dataset / f"{split}.spacy"
+
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    cmd = (
+        f"{PYTHON} -m spacy evaluate {model_path} {test_set} --output {metrics_json}"
+        + f" --gpu-id {gpu_id}"
+    )
+    c.run(cmd)
+    print(f"{Emo.GOOD} Model evaluated")
+
+
+@task
+def evaluate_coref(
+    c: Context,
+    run_name: str,
+    model_best: bool=False,
+    split: Literal["dev", "test"]= "dev",
+    dataset: Literal["cdt"] = "cdt",
+    gpu_id: Optional[int] = None,
+):
+    """Evaluate the coreference model."""
+    echo_header(f"{Emo.DO} Evaluating coreference model")
+
+    training_path = Path("training")
+    training_path.mkdir(parents=True, exist_ok=True)
+    model_path = training_path / run_name
+
+    if model_best:
+        model_path = model_path / "model-best"
+    else:
+        model_path = model_path / "model-last"
+
+    if gpu_id is None:
+        gpu_id = GPU_ID
+
+    cmd = (
+        f"{PYTHON} scripts/evaluate_coref.py --model {model_path} --test-data corpus/{dataset}/{split}.spacy"
+        + f" --gpu {gpu_id}"
+    )
+    echo_header(f"{Emo.DO} Running command:")
+    print(cmd)
+    c.run(cmd)
+    print(f"{Emo.GOOD} Coreference model evaluated")
+
+
+
+
+@task
+def assemble_coref(c: Context, run_name: str, model_best: bool=False):
     """Assemble the coreference model."""
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
     echo_header(f"{Emo.DO} Assembling coreference model")
@@ -737,6 +737,8 @@ def assemble_coref(c: Context, run_name: str, model_best: bool=True):
     print(f"{Emo.GOOD} Coreference model assembled")
 
 
+## --- Workflows ------------------------------------
+
 @task
 def workflow_prepare_to_train(c: Context):
     """Runs: `install` &rarr; `fetch-assets` &rarr; `convert` &rarr; `combine` &rarr; `create-knowledge-base`"""
@@ -744,45 +746,15 @@ def workflow_prepare_to_train(c: Context):
     fetch_assets(c)
     convert(c)
     combine(c)
-    create_knowledge_base(c)
 
 @task
-def workflow_train_coref_model(c: Context):
-    """Runs: `train_coref_cluster` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemple_coref`"""
-    train_coref_cluster(c)
-    prep_span_data(c)
-    train_span_resolver(c)
-    assemple_coref(c)
+def workflow_train_(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False):
+    """Runs: `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `train_further` &rarr; `assemble`"""
+    create_knowledge_base(c, model=model)
+    train(c, model=model, run_name=run_name, overwrite=overwrite)
+    prep_span_data(c, run_name=run_name, model_best=model_best)
+    train_span_resolver(c, run_name=run_name, model_best=model_best)
+    further_train(c, run_name=run_name, model_best=model_best, overwrite=overwrite)
+    # assemble(c, run_name=run_name)
 
 
-@task
-def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
-    """Create the Knowledge Base in spaCy and write it to file."""
-    # script:
-    #   - f"{PYTHON} ./scripts/create_kb.py ./assets/${vars.entities} ${vars.vectors_model} ./temp/${vars.kb} ./temp/${vars.nlp}/"
-    echo_header(f"{Emo.DO} Creating Knowledge Base")
-
-    c.run(f"{PYTHON} ./scripts/create_kb.py {model}")
-
-    print(f"{Emo.GOOD} Knowledge Base created")
-
-
-@task
-def evaluate_ned(c: Context):
-    """Evaluate the named entity disambiguation component."""
-    # f"{PYTHON} ./scripts/evaluate.py ./training/model-best/ corpus/${vars.dev}.spacy"
-    echo_header(f"{Emo.DO} Evaluating NED model")
-
-    c.run(
-        f"{PYTHON} ./scripts/evaluate_ned.py ./training/ned/model-best/ corpus/cdt/dev.spacy"
-    )
-
-    print(f"{Emo.GOOD} NED model evaluated")
-
-
-@task
-def workflow_train_ned(c: Context):
-    """Runs: `create_knowledge_base` &rarr; `train_ned` &rarr; `evaluate_ned`"""
-    create_knowledge_base(c)
-    train_ned(c)
-    evaluate_ned(c)
