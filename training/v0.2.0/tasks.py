@@ -481,7 +481,7 @@ def train(
         + f"--paths.kb assets/knowledge_bases/{model}.kb "
     )
 
-    echo_header(f"{Emo.DO} Running command:")
+    print(f"{Emo.INFO} Running command:")
     print(cmd)
     c.run(cmd)
     print(f"{Emo.GOOD} Model trained")
@@ -575,10 +575,9 @@ def train_span_resolver(
 def evaluate(
     c: Context,
     run_name: str,
-    dataset: str = "dane",
-    split: Literal["train", "dev", "test"] = "dev",
-    model_best: bool=False,
+    split: Literal["train", "dev", "test"] = "test",
     gpu_id: Optional[int] = None,
+    overwrite: bool = False,
 ):
     """Evaluate a model using spacy evaluate"""
     echo_header(f"{Emo.DO} Evaluating model")
@@ -587,23 +586,17 @@ def evaluate(
     training_path.mkdir(parents=True, exist_ok=True)
     model_path = training_path / run_name
 
-    if model_best:
-        model_path = model_path / "model-best"
-    else:
-        model_path = model_path / "model-last"
-
-    metrics_path = Path("metrics") / dataset
-    metrics_json = metrics_path / f"{run_name}.json"
-    metrics_path.mkdir(parents=True, exist_ok=True)
-    test_set = Path("corpus") / dataset / f"{split}.spacy"
-
     if gpu_id is None:
         gpu_id = GPU_ID
 
     cmd = (
-        f"{PYTHON} -m spacy evaluate {model_path} {test_set} --output {metrics_json}"
-        + f" --gpu-id {gpu_id}"
+        f"{PYTHON} scripts/evaluate.py {model_path} --split {split} "
+        + f" --gpu-id {gpu_id} "
     )
+    if overwrite:
+        cmd += "--overwrite "
+    print(f"{Emo.INFO} Running command:")
+    print(cmd)
     c.run(cmd)
     print(f"{Emo.GOOD} Model evaluated")
 
@@ -630,7 +623,7 @@ def evaluate_coref(
         f"{PYTHON} scripts/evaluate_coref.py {model_path} corpus/{dataset}/{split}.spacy"
         + f" --gpu-id {gpu_id}"
     )
-    echo_header(f"{Emo.DO} Running command:")
+    print(f"{Emo.INFO} Running command:")
     print(cmd)
     c.run(cmd)
     print(f"{Emo.GOOD} Coreference model evaluated")
@@ -674,7 +667,7 @@ def assemble_coref(c: Context, run_name: str, model_best: bool=False):
 def assemble(c: Context, run_name: str, model_best: bool=False):
     """Assemble the model."""
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
-    echo_header(f"{Emo.DO} Assembling coreference model")
+    echo_header(f"{Emo.DO} Assembling model")
 
     training_path = Path("training")
     training_path.mkdir(parents=True, exist_ok=True)
@@ -694,16 +687,16 @@ def assemble(c: Context, run_name: str, model_best: bool=False):
         f"{PYTHON} -m spacy assemble configs/assemble.cfg"
         + f" {write_path}"
         + f" --components.span_resolver.source {span_resolver}"
-        + f" --components.model_source {main_model}"
+        + f" --paths.model_source {main_model}"
     )
     c.run(cmd)
-    print(f"{Emo.GOOD} Coreference model assembled")
+    print(f"{Emo.GOOD} model assembled")
 
 ## --- Package and Publish ------------------------------------
 
 
 @task
-def package(c: Context, run_name: str, size: Literal["small", "medium", "large"], overwrite: bool = False):
+def package(c: Context, run_name: str, size: str, overwrite: bool = False):
     """Package the trained model so it can be installed with pip."""
     echo_header(f"{Emo.DO} Packaging model")
 
@@ -727,7 +720,7 @@ def package(c: Context, run_name: str, size: Literal["small", "medium", "large"]
 
 
 @task
-def publish(c: Context, size: Literal["small", "medium", "large"]):
+def publish(c: Context, size: str):
     """Publish package to huggingface model hub."""
 
     name = f"{LANGUAGE}_{PROJECT}_{size}-{VERSION}"
@@ -750,16 +743,20 @@ def workflow_prepare_to_train(c: Context):
     combine(c)
 
 @task
-def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False, gpu_id = None):
+def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", config: Optional[str]=None, overwrite: bool=False, model_best: bool=False, gpu_id = None):
     """Runs: `create-knowledge-base` &rarr; `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemble`"""
     create_knowledge_base(c, model=model)
-    train(c, model=model, run_name=run_name, overwrite=overwrite, gpu_id=gpu_id)
+    train(c, model=model, run_name=run_name, overwrite=overwrite, gpu_id=gpu_id, config=config)
     prep_span_data(c, run_name=run_name, model_best=model_best)
     train_span_resolver(c, run_name=run_name, model_best=model_best, gpu_id=gpu_id)
     assemble(c, run_name=run_name, model_best=model_best)
 
 
 @task
-def workflow_all(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", overwrite: bool=False, model_best: bool=False, size: str ="medium"):
+def workflow_all(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", size: str="medium", config: Optional[str]=None, overwrite: bool=False, model_best: bool=False):
     """Runs: `workflow_prepare_to_train` &rarr; `workflow_train` &rarr; `evaluate` &rarr; `package`"""
-    
+
+    workflow_prepare_to_train(c)
+    workflow_train(c, model=model, run_name=run_name, config=config, overwrite=overwrite, model_best=model_best)
+    evaluate(c, run_name=run_name + ".assembled", model_best=model_best)
+    package(c, run_name=run_name, size=size)
