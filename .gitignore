@@ -142,6 +142,7 @@ training/*/hub/*
 
 # Removing data
 data
+*.zip
 
 # project specific
 *.lock
