@@ -403,7 +403,7 @@ def convert(c: Context):
         for split in ["train", "dev", "test"]:
             c.run(
                 f"{PYTHON} -m spacy convert assets/{dataset}/{split}.conllu {output_path} {args}",
-                )
+            )
     print(f"{Emo.GOOD} Data converted")
 
 
@@ -421,7 +421,9 @@ def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     """Create the Knowledge Base in spaCy and write it to file."""
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
-    c.run(f"{PYTHON} ./scripts/create_kb.py {model} --save-path-kb assets/knowledge_bases/{model}.kb")
+    c.run(
+        f"{PYTHON} ./scripts/create_kb.py {model} --save-path-kb assets/knowledge_bases/{model}.kb"
+    )
 
     print(f"{Emo.GOOD} Knowledge Base created")
 
@@ -441,7 +443,7 @@ def train(
 ):
     """
     train a model using spacy train
-    
+
     Args:
         embedding_size: The size of the transformer embedding. If None the default size is used.
     """
@@ -455,7 +457,6 @@ def train(
     else:
         training_path = Path(file_path)  # type: ignore
 
-
     if gpu_id is None:
         gpu_id = GPU_ID
 
@@ -468,7 +469,7 @@ def train(
         )
         exit(1)
     training_path.mkdir(parents=True, exist_ok=True)
-    
+
     cmd = (
         f"spacy train {config}"
         + f" --output {training_path} "
@@ -489,10 +490,7 @@ def train(
 
 @task
 def prep_span_data(
-    c: Context, 
-    run_name: str,
-    heads="silver", 
-    model_best: bool=False
+    c: Context, run_name: str, heads="silver", model_best: bool = False
 ) -> None:
     """Prepare data for the span resolver component.
 
@@ -507,10 +505,10 @@ def prep_span_data(
 
     training_path = Path("training")
     training_path.mkdir(parents=True, exist_ok=True)
-    model_path = training_path / run_name  
+    model_path = training_path / run_name
 
     if model_best:
-        model_path = model_path / "model-best" 
+        model_path = model_path / "model-best"
     else:
         model_path = model_path / "model-last"
 
@@ -533,7 +531,7 @@ def prep_span_data(
 def train_span_resolver(
     c: Context,
     run_name: str,
-    model_best: bool=False,
+    model_best: bool = False,
     gpu_id: Optional[int] = None,
 ):
     """
@@ -569,7 +567,9 @@ def train_span_resolver(
     c.run(cmd)
     print(f"{Emo.GOOD} Span resolver trained")
 
+
 ## --- Evaluate ------------------------------------
+
 
 @task
 def evaluate(
@@ -605,7 +605,7 @@ def evaluate(
 def evaluate_coref(
     c: Context,
     run_name: str,
-    split: Literal["dev", "test"]= "dev",
+    split: Literal["dev", "test"] = "dev",
     dataset: Literal["cdt"] = "cdt",
     gpu_id: Optional[int] = None,
 ):
@@ -628,13 +628,12 @@ def evaluate_coref(
     c.run(cmd)
     print(f"{Emo.GOOD} Coreference model evaluated")
 
+
 @task
-def assemble_coref(c: Context, run_name: str, model_best: bool=False):
+def assemble_coref(c: Context, run_name: str, model_best: bool = False):
     """Assemble the coreference model."""
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
     echo_header(f"{Emo.DO} Assembling coreference model")
-
-
 
     training_path = Path("training")
     training_path.mkdir(parents=True, exist_ok=True)
@@ -651,7 +650,6 @@ def assemble_coref(c: Context, run_name: str, model_best: bool=False):
         base_model_path = base_model_path / "model-last"
         write_path = write_path / "model-last"
 
-
     cmd = (
         f"{PYTHON} -m spacy assemble configs/assemble_coref.cfg"
         + f" {write_path}"
@@ -664,7 +662,7 @@ def assemble_coref(c: Context, run_name: str, model_best: bool=False):
 
 
 @task
-def assemble(c: Context, run_name: str, model_best: bool=False):
+def assemble(c: Context, run_name: str, model_best: bool = False):
     """Assemble the model."""
     # spacy assemble ${vars.config_dir}/coref.cfg training/coref
     echo_header(f"{Emo.DO} Assembling model")
@@ -682,7 +680,6 @@ def assemble(c: Context, run_name: str, model_best: bool=False):
         span_resolver = span_resolver / "model-last"
         main_model = main_model / "model-last"
 
-
     cmd = (
         f"{PYTHON} -m spacy assemble configs/assemble.cfg"
         + f" {write_path}"
@@ -691,6 +688,7 @@ def assemble(c: Context, run_name: str, model_best: bool=False):
     )
     c.run(cmd)
     print(f"{Emo.GOOD} model assembled")
+
 
 ## --- Package and Publish ------------------------------------
 
@@ -702,37 +700,61 @@ def package(c: Context, run_name: str, size: str, overwrite: bool = False):
 
     training_path = Path("training")
     package_path = Path("packages")
+    metrics = Path("metrics")
     training_path.mkdir(parents=True, exist_ok=True)
     package_path.mkdir(parents=True, exist_ok=True)
-    
-    model_path = training_path / (run_name + ".assembled")
+
+    model_path = training_path / run_name
+    metrics_json = metrics / run_name  / "scores.json"
     if model_path.exists() and (not overwrite):
-        print(f"{Emo.FAIL} Model already exists to overwrite it please use the -o/--overwrite flag")
+        print(
+            f"{Emo.FAIL} Model already exists to overwrite it please use the -o/--overwrite flag"
+        )
         exit(1)
-    
-    name = f"{LANGUAGE}_{PROJECT}_{size}"
-    c.run(f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} -C --force")
-    c.run(f"python scripts/update_description.py --meta_json {package_path}/{name}-{VERSION}/meta.json --output_json template_meta.json --size {size}")
-    c.run(f"rm {package_path}/{name}-{VERSION}/README.md")
-    c.run(f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} --meta-path template_meta.json --force --build wheel")
+
+    name = f"{PROJECT}_{size}_trf"
+    cmd = f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} --force"
+    print(f"{Emo.INFO} Running command:")
+    print(cmd)
+    c.run(cmd)
+    cmd = (
+        f"{PYTHON} scripts/update_description.py {package_path}/{LANGUAGE}_{name}-{VERSION}/meta.json template_meta.json {size}"
+        + f" --metrics-json {metrics_json} "
+    )
+
+    if overwrite:
+        cmd += " --overwrite "
+    print(f"{Emo.INFO} Running command:")
+    print(cmd)
+    c.run(cmd)
+    c.run(f"rm {package_path}/{LANGUAGE}_{name}-{VERSION}/README.md")
+    cmd = (
+        f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} --meta-path template_meta.json --force --build wheel"
+    )
+    print(f"{Emo.INFO} Running command:")
+    print(cmd)
+    c.run(cmd)
     c.run(f"rm template_meta.json")
     print(f"{Emo.GOOD} Model packaged")
 
 
-@task
-def publish(c: Context, size: str):
-    """Publish package to huggingface model hub."""
+# @task
+# def publish(c: Context, size: str):
+#     """Publish package to huggingface model hub."""
 
-    name = f"{LANGUAGE}_{PROJECT}_{size}-{VERSION}"
-    echo_header(f"{Emo.DO} Publishing model")
-    cmd = (
-        f"{PYTHON} -m spacy huggingface-hub push " + 
-        f"packages/{name}/dist/{name}-py3-none-any.whl -m 'Update spaCy pipeline to {VERSION}' -o chcaa"
-    )
-
-
+#     name = f"{LANGUAGE}_{PROJECT}_{size}_trf-{VERSION}"
+#     echo_header(f"{Emo.DO} Publishing model")
+#     cmd = (
+#         f"{PYTHON} -m spacy huggingface-hub push "
+#         + f"packages/{name}/dist/{name}-py3-none-any.whl -m 'Update spaCy pipeline to {VERSION}' -o chcaa"
+#     )
+#     print(f"{Emo.INFO} Running command")
+#     print(cmd)
+#     c.run(cmd)
+#     echo_header(f"{Emo.GOOD} Model pushed to hub")
 
 ## --- Workflows ------------------------------------
+
 
 @task
 def workflow_prepare_to_train(c: Context):
@@ -742,21 +764,52 @@ def workflow_prepare_to_train(c: Context):
     convert(c)
     combine(c)
 
+
 @task
-def workflow_train(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", config: Optional[str]=None, overwrite: bool=False, model_best: bool=False, gpu_id = None):
+def workflow_train(
+    c: Context,
+    model: str = "vesteinn/DanskBERT",
+    run_name: str = "dacy",
+    config: Optional[str] = None,
+    overwrite: bool = False,
+    model_best: bool = False,
+    gpu_id=None,
+):
     """Runs: `create-knowledge-base` &rarr; `train` &rarr; `prep_span_data` &rarr; `train_span_resolver` &rarr; `assemble`"""
     create_knowledge_base(c, model=model)
-    train(c, model=model, run_name=run_name, overwrite=overwrite, gpu_id=gpu_id, config=config)
+    train(
+        c,
+        model=model,
+        run_name=run_name,
+        overwrite=overwrite,
+        gpu_id=gpu_id,
+        config=config,
+    )
     prep_span_data(c, run_name=run_name, model_best=model_best)
     train_span_resolver(c, run_name=run_name, model_best=model_best, gpu_id=gpu_id)
     assemble(c, run_name=run_name, model_best=model_best)
 
 
 @task
-def workflow_all(c: Context, model: str="vesteinn/DanskBERT", run_name: str="dacy", size: str="medium", config: Optional[str]=None, overwrite: bool=False, model_best: bool=False):
+def workflow_all(
+    c: Context,
+    model: str = "vesteinn/DanskBERT",
+    run_name: str = "dacy",
+    size: str = "medium",
+    config: Optional[str] = None,
+    overwrite: bool = False,
+    model_best: bool = False,
+):
     """Runs: `workflow_prepare_to_train` &rarr; `workflow_train` &rarr; `evaluate` &rarr; `package`"""
 
     workflow_prepare_to_train(c)
-    workflow_train(c, model=model, run_name=run_name, config=config, overwrite=overwrite, model_best=model_best)
-    evaluate(c, run_name=run_name + ".assembled", model_best=model_best)
-    package(c, run_name=run_name, size=size)
+    workflow_train(
+        c,
+        model=model,
+        run_name=run_name,
+        config=config,
+        overwrite=overwrite,
+        model_best=model_best,
+    )
+    evaluate(c, run_name=run_name + ".assembled")
+    package(c, run_name=run_name + ".assembled", size=size)
