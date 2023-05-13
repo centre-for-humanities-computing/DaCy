@@ -110,6 +110,12 @@ def main(model_path: str, split: str = "test", gpu_id: int = -1, overwrite: bool
     scores = scorer.score(da_ddt)
     score_nel = scorer.score_links(cdt, negative_labels=["NIL", ""])
     score_ents = scorer.score_spans(dane, "ents")
+    # score lemmatization
+    # extract component
+    if nlp.has_pipe("trainable_lemmatizer"):
+        lemmatizer = nlp.get_pipe("trainable_lemmatizer")
+        lemma_scores = lemmatizer.score(dane)
+        scores.update(lemma_scores)
 
     scores.update(scores_coref)
     scores.update(score_nel)
