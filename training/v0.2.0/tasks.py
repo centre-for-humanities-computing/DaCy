@@ -58,6 +58,7 @@ Step by step:
     - [ ] Train two sets of models for DaCy (one for the testing and one trained on the full dataset)
 - [ ] Check the whether you can use the parser for annotation in coreference
 - [ ] Save current version of the datasets
+- [ ] Add scores for lemmatization
 - [ ] Create a grid search for:
     - nlp
         - batch_size
