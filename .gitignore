@@ -139,6 +139,7 @@ training/*/corpus/*
 training/*/wandb/*
 training/*/packages/*
 training/*/hub/*
+training/*/metrics/*
 
 # Removing data
 data
@@ -165,3 +166,4 @@ _build/*
 # tutorials:
 tutorials/BenchmarkFairness.ipynb
 tutorials/*.py
+
