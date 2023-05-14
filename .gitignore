@@ -143,6 +143,7 @@ training/*/metrics/*
 
 # Removing data
 data
+*.zip
 
 # project specific
 *.lock
@@ -166,4 +167,3 @@ _build/*
 # tutorials:
 tutorials/BenchmarkFairness.ipynb
 tutorials/*.py
-
