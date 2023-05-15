@@ -151,18 +151,20 @@ inv create_readme
 """
 import shutil
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Literal, Optional
 
 from invoke import Context, Task, task
-from datetime import datetime
 
 ## --- Config ------------------------------------
 
 PROJECT = "dacy"
 LANGUAGE = "da"
 VERSION = "0.2.0"
-PYTHON = "/home/kenneth/miniconda3/envs/dacy/bin/python"  # path to python, we recommend using a virtual environment
+# path to python, we recommend using a virtual environment
+PYTHON = "/home/kenneth/miniconda3/envs/dacy/bin/python"  # server
+# PYTHON = "/Users/au561649/Github/DaCy/training/v0.2.0/.venv/dacy-da-0.2.0/bin/python"  # local
 VENV_LOCATION = ".venv"
 GPU_ID = 0
 
@@ -705,7 +707,7 @@ def package(c: Context, run_name: str, size: str, overwrite: bool = False):
     package_path.mkdir(parents=True, exist_ok=True)
 
     model_path = training_path / run_name
-    metrics_json = metrics / run_name  / "scores.json"
+    metrics_json = metrics / run_name / "scores.json"
     if model_path.exists() and (not overwrite):
         print(
             f"{Emo.FAIL} Model already exists to overwrite it please use the -o/--overwrite flag"
@@ -728,20 +730,26 @@ def package(c: Context, run_name: str, size: str, overwrite: bool = False):
     print(cmd)
     c.run(cmd)
     c.run(f"rm {package_path}/{LANGUAGE}_{name}-{VERSION}/README.md")
-    cmd = (
-        f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} --meta-path template_meta.json --force --build wheel"
-    )
+    cmd = f"{PYTHON} -m spacy package {model_path} {package_path} --name {name} --version {VERSION} --meta-path template_meta.json --force --build wheel"
     print(f"{Emo.INFO} Running command:")
     print(cmd)
     c.run(cmd)
     c.run(f"rm template_meta.json")
+
+    # update readme
+    readme = package_path / f"{LANGUAGE}_{name}-{VERSION}/README.md"
+    cmd = f"{PYTHON} scripts/add_readme_metadata.py {readme} {size}"
+    print(f"{Emo.INFO} Running command:")
+    print(cmd)
+    c.run(cmd)
     print(f"{Emo.GOOD} Model packaged")
 
 
 # @task
 # def publish(c: Context, size: str):
-#     """Publish package to huggingface model hub."""
-
+#     """Publish package to huggingface model hub. This task is currently turned off as the push to hub spacy isn't sufficient
+#     for the desired documentation. Currently this means that the push to hub step is done manually, but in the future this
+#     should be automated."""
 #     name = f"{LANGUAGE}_{PROJECT}_{size}_trf-{VERSION}"
 #     echo_header(f"{Emo.DO} Publishing model")
 #     cmd = (
