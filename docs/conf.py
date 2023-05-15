@@ -28,7 +28,12 @@ extensions = [
     "sphinx_design",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
+    "sphinxcontrib.bibtex",
 ]
+
+bibtex_reference_style = "author_year"
+bibtex_default_style = "plain"
+bibtex_bibfiles = ["references.bib"]
 
 language = "en"
 
@@ -107,6 +112,3 @@ html_theme_options = {
     "sidebar_hide_name": False,
     "navigation_with_keys": True,
 }
-
-pygments_style = "monokai"
-pygments_dark_style = "monokai"

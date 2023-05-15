@@ -70,7 +70,14 @@ docs = [
     "sphinx_design>=0.3.0",
     "sphinx_togglebutton>=0.2.3",
     "myst-nb>=0.6.0",  # for rendering notebooks
-    "sphinxcontrib-bibtex>=2.4.0",
+    "sphinxcontrib-bibtex>=2.0.0",
+    # required for building the docs with references
+    # potentially see https://sourceforge.net/p/docutils/patches/195/
+    # and related issues
+    # not possible to upgrade to >0.20.0 as sphinx <7 is required
+    # for most of the extensions and it is not compatible with
+    # docutils >0.20.0
+    "docutils==0.17.1",
     # for tutorials
     "jupyter>=1.0.0,<1.1.0",
     # sentiment analysis
