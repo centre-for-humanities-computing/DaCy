@@ -13,6 +13,7 @@ num_gold_clusters = 0
 num_pred_clusters = 0
 repeated_mentions = 0
 
+
 def example2clusters(example: Example):
     pred = []
     gold = []
@@ -50,7 +51,7 @@ def example2clusters(example: Example):
     return pred, gold
 
 
-def main( model: str, dataset: str, gpu_id: int=-1):
+def main(model: str, dataset: str, gpu_id: int = -1):
     """
     Evaluate a coreference model on a dataset.
 
@@ -83,9 +84,10 @@ def main( model: str, dataset: str, gpu_id: int=-1):
     print("Skipped predicted clusters: ", skipped_clusters)
     print("Repeated mentions: ", repeated_mentions)
 
-    metrics = {"LEA_f1": lea_evaluator.get_f1(),
-               "LEA_precision": lea_evaluator.get_precision(),
-                "LEA_recall": lea_evaluator.get_recall(),
+    metrics = {
+        "LEA_f1": lea_evaluator.get_f1(),
+        "LEA_precision": lea_evaluator.get_precision(),
+        "LEA_recall": lea_evaluator.get_recall(),
     }
     # write to metrics/evaluate_coref.json
     with open("evaluate_coref.json", "w") as f:

@@ -5,18 +5,17 @@ to allow for a more detailed model card.
 
 """
 
+import json
 from os import name
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional, Union
 
-from typing import Optional, Union, Dict, Any, List
-import json
-import yaml
-from pathlib import Path
 import typer
+import yaml
 
 TOKEN_CLASSIFICATION_COMPONENTS = ["ner", "tagger", "morphologizer"]
 TEXT_CLASSIFICATION_COMPONENTS = ["textcat", "textcat_multilabel"]
+
 
 def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
     meta_path = repo_dir / "meta.json"
@@ -43,7 +42,7 @@ def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
 
         if component == "ner":
             tags.append("named entity recognition")
-        
+
         if component == "tagger":
             tags.append("pos tagging")
         if component == "trainable_lemmatizer":
@@ -58,8 +57,6 @@ def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
         if component == "morphologizer":
             tags.append("morphological analysis")
 
-
-
     metadata = _insert_values_as_list({}, "tags", tags)
     metadata = _insert_values_as_list(metadata, "language", lang)
     metadata = _insert_value(metadata, "license", lic)
@@ -69,7 +66,7 @@ def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
     for component in data["components"]:
         if component == "ner":
             metadata["datasets"].append("dane")
-        if component =="coref":
+        if component == "coref":
             metadata["datasets"].append("alexandrainst/dacoref")
 
     metadata["metrics"] = ["accuracy"]
@@ -144,7 +141,12 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                 "metrics": [
                     _create_metric("TAG (XPOS) Accuracy", "accuracy", data["tag_acc"])
                 ],
-                "dataset":   {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "pos_acc" in data:
@@ -154,7 +156,12 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                 "metrics": [
                     _create_metric("POS (UPOS) Accuracy", "accuracy", data["pos_acc"])
                 ],
-                "dataset":   {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "morph_acc" in data:
@@ -166,7 +173,12 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                         "Morph (UFeats) Accuracy", "accuracy", data["morph_acc"]
                     )
                 ],
-                "dataset":   {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "lemma_acc" in data:
@@ -176,7 +188,12 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                 "metrics": [
                     _create_metric("Lemma Accuracy", "accuracy", data["lemma_acc"])
                 ],
-                "dataset":   {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "dep_uas" in data:
@@ -191,7 +208,12 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                         "Unlabeled Attachment Score (UAS)", "f_score", data["dep_uas"]
                     )
                 ],
-                "dataset":   {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "dep_las" in data:
@@ -206,7 +228,12 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                         "Labeled Attachment Score (LAS)", "f_score", data["dep_las"]
                     )
                 ],
-                "dataset":  {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "sents_p" in data:
@@ -214,33 +241,51 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
             {
                 "task": {"name": "SENTS", "type": "token-classification"},
                 "metrics": [
-                    _create_metric(
-                        "Sentences F-Score", "f_score", data["sents_f"]
-                    ),
+                    _create_metric("Sentences F-Score", "f_score", data["sents_f"]),
                 ],
-                    "dataset": {"name": "UD Danish DDT", "split": "test", "type": "universal_dependencies", "config": "da_ddt"},
+                "dataset": {
+                    "name": "UD Danish DDT",
+                    "split": "test",
+                    "type": "universal_dependencies",
+                    "config": "da_ddt",
+                },
             }
         )
     if "coref_lea_f1" in data:
         results.append(
             {
-                "task": {"name": "coreference-resolution", "type": "coreference-resolution"},
+                "task": {
+                    "name": "coreference-resolution",
+                    "type": "coreference-resolution",
+                },
                 "metrics": [
-                    _create_metric(
-                        "LEA", "f_score", data["coref_lea_f1"]
-                    ),
+                    _create_metric("LEA", "f_score", data["coref_lea_f1"]),
                 ],
-                "dataset": {"name": "DaCoref", "type": "alexandrainst/dacoref", "split": "custom"},
+                "dataset": {
+                    "name": "DaCoref",
+                    "type": "alexandrainst/dacoref",
+                    "split": "custom",
+                },
             }
         )
     if "nel_micro_f" in data:
         results.append(
             {
-                "task": {"name": "coreference-resolution", "type": "coreference-resolution"},
+                "task": {
+                    "name": "coreference-resolution",
+                    "type": "coreference-resolution",
+                },
                 "metrics": _create_p_r_f_list(
-                    "Named entity Linking", data["nel_micro_p"], data["nel_micro_r"], data["nel_micro_f"]
-                    ),
-                "dataset": {"name": "DaNED", "type": "named-entity-linking", "split": "custom"},
+                    "Named entity Linking",
+                    data["nel_micro_p"],
+                    data["nel_micro_r"],
+                    data["nel_micro_f"],
+                ),
+                "dataset": {
+                    "name": "DaNED",
+                    "type": "named-entity-linking",
+                    "split": "custom",
+                },
             }
         )
     model_index["results"] = results  # type: ignore
@@ -252,6 +297,7 @@ def main(repo_name: str, repo_dir: Path) -> None:
         repo_name=repo_name,
         repo_dir=repo_dir,
     )
+
 
 if name == "__main__":
     typer.run(main)
