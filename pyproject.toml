@@ -55,7 +55,7 @@ dev = [
   "cruft",
   "mypy",  
   "pre-commit==2.20.0,<3.2.2",
-  "ruff==0.0.261", # important that these match the pre-commit hooks
+  "ruff==0.0.262", # important that these match the pre-commit hooks
   "black[jupyter]==23.3.0", # important that these match the pre-commit hooks
 ]
 tests = [
@@ -65,11 +65,11 @@ tests = [
   "pytest-instafail>=0.4.2,<0.6.0",
 ]
 docs = [
-    "sphinx>=5.3.0,<5.4.0",
+    "sphinx>=5.3.0,<6.3.0",
     "furo>=2022.12.7,< 2022.12.8",  # theme
-    "sphinx-copybutton>=0.5.1,<0.5.2",
-    "sphinxext-opengraph>=0.7.3,<0.8.2",
-    "sphinx_design>=0.3.0,<0.3.1",
+    "sphinx-copybutton>=0.5.1,<0.5.3",
+    "sphinxext-opengraph>=0.7.3,<0.8.3",
+    "sphinx_design>=0.3.0,<0.4.2",
     "sphinx_togglebutton>=0.2.3,<0.4.0",
     "myst-nb>=0.6.0,<1.17.0",  # for rendering notebooks
     # for tutorials
