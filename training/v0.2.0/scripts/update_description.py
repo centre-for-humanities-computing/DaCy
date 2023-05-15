@@ -4,7 +4,7 @@ import typer
 import json
 
 
-EMAIL =  "Kenneth.enevoldsen@cas.au.dk"
+EMAIL = "Kenneth.enevoldsen@cas.au.dk"
 AUTHOR = "Kenneth Enevoldsen"
 URL = "https://chcaa.io/#/"
 LICENSE = "Apache-2.0"
@@ -43,42 +43,41 @@ MODELS = {
     },
 }
 
-DATASETS =  [
-        {
-            "name": "UD Danish DDT v2.11",
-            "url": "https://github.com/UniversalDependencies/UD_Danish-DDT",
-            "license": "CC BY-SA 4.0",
-            "author": "Johannsen, Anders; Mart\u00ednez Alonso, H\u00e9ctor; Plank, Barbara",
-        },
-        {
-            "name": "DaNE",
-            "url": "https://huggingface.co/datasets/dane",
-            "license": "CC BY-SA 4.0",
-            "author": "Rasmus Hvingelby, Amalie B. Pauli, Maria Barrett, Christina Rosted, Lasse M. Lidegaard, Anders S\u00f8gaard",
-        },
-        {
-            "name": "DaCoref",
-            "url": "https://huggingface.co/datasets/alexandrainst/dacoref",
-            "license": "CC BY-SA 4.0",
-            "author": "Buch-Kromann, Matthias"
-        },
-        {
-            "name": "DaNED",
-            "url": "https://danlp-alexandra.readthedocs.io/en/stable/docs/datasets.html#daned",
-            "license": "CC BY-SA 4.0",
-            "author": "Barrett, M. J., Lam, H., Wu, M., Lacroix, O., Plank, B., & Søgaard, A."
-        }
-        ]
+DATASETS = [
+    {
+        "name": "UD Danish DDT v2.11",
+        "url": "https://github.com/UniversalDependencies/UD_Danish-DDT",
+        "license": "CC BY-SA 4.0",
+        "author": "Johannsen, Anders; Mart\u00ednez Alonso, H\u00e9ctor; Plank, Barbara",
+    },
+    {
+        "name": "DaNE",
+        "url": "https://huggingface.co/datasets/dane",
+        "license": "CC BY-SA 4.0",
+        "author": "Rasmus Hvingelby, Amalie B. Pauli, Maria Barrett, Christina Rosted, Lasse M. Lidegaard, Anders S\u00f8gaard",
+    },
+    {
+        "name": "DaCoref",
+        "url": "https://huggingface.co/datasets/alexandrainst/dacoref",
+        "license": "CC BY-SA 4.0",
+        "author": "Buch-Kromann, Matthias",
+    },
+    {
+        "name": "DaNED",
+        "url": "https://danlp-alexandra.readthedocs.io/en/stable/docs/datasets.html#daned",
+        "license": "CC BY-SA 4.0",
+        "author": "Barrett, M. J., Lam, H., Wu, M., Lacroix, O., Plank, B., & Søgaard, A.",
+    },
+]
 
 
-
-
-def main(meta_json: str, 
-         out_json: str, 
-         size: str, 
-         metrics_json: Optional[str] = None,
-         overwrite: bool=False, 
-         ):
+def main(
+    meta_json: str,
+    out_json: str,
+    size: str,
+    metrics_json: Optional[str] = None,
+    overwrite: bool = False,
+):
     """
     This is a utility script for updating the spacy meta.json.
 
@@ -92,7 +91,9 @@ def main(meta_json: str,
     out_path = Path(out_json)
     out_path.parent.mkdir(exist_ok=True, parents=True)
     if out_path.exists() and not overwrite:
-        raise FileExistsError(f"{out_path} already exists. Use --overwrite to overwrite.")
+        raise FileExistsError(
+            f"{out_path} already exists. Use --overwrite to overwrite."
+        )
 
     with open(meta_json) as f:
         meta = json.load(f)
@@ -114,9 +115,9 @@ def main(meta_json: str,
     meta["notes"] = f"\n\n### Training\nThis model was trained using [spaCy](https://spacy.io) and logged to [Weights & Biases]({WANB}). You can find all the training logs [here]({WANB})."
     # fmt: on
 
-
     with open(out_path, "w") as f:
         json.dump(meta, f)
+
 
 if __name__ == "__main__":
     typer.run(main)

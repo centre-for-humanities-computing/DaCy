@@ -9,7 +9,7 @@ from conllu import parse
 
 
 def load_cdt(
-    assets_path = Path(__file__).parent.parent / "assets",
+    assets_path=Path(__file__).parent.parent / "assets",
 ):
     """
     Load the copenhagen dependency treebank / DaCoref dataset
@@ -47,6 +47,7 @@ def load_cdt(
 
     return sentences, split_ids
 
+
 sents, split_ids = load_cdt()
 
 
@@ -67,7 +68,7 @@ for s in split_ids["train"]:
     if s not in doc_ids:
         print("not in doc_ids")
         break
-        
+
     if "test" in doc_ids[s]:
         test_docs.append(s)
 

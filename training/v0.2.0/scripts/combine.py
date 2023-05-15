@@ -26,7 +26,7 @@ Doc.set_extension("doc_id", default=None)
 Token.set_extension("qid", default=None)
 
 
-def load_cdt(custom_split_ids: bool=True):
+def load_cdt(custom_split_ids: bool = True):
     """
     Load the copenhagen dependency treebank / DaCoref dataset
     """
@@ -54,15 +54,15 @@ def load_cdt(custom_split_ids: bool=True):
         ],
     )
 
-    if not custom_split_ids: # use the ones specified by the authors
+    if not custom_split_ids:  # use the ones specified by the authors
         split_ids = {"train": [], "dev": [], "test": []}
 
         for split in split_ids:
             split_path = assets_path / "dacoref" / f"CDT_{split}_ids.json"
             with split_path.open(encoding="utf-8") as f:
                 split_ids[split] = json.load(f)
-    
-    else: # use the one we created that respects the DDT splits
+
+    else:  # use the one we created that respects the DDT splits
         with open(assets_path / "CDT_ddt_compatible_splits.json") as f:
             split_ids = json.load(f)
 
