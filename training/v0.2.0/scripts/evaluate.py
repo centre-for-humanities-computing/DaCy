@@ -1,12 +1,13 @@
 from pathlib import Path
 import spacy
-from spacy.training import Corpus, Example # type: ignore
+from spacy.training import Corpus, Example  # type: ignore
 from spacy.scorer import Scorer
 from spacy_experimental.coref.coref_scorer import ClusterEvaluator
 from spacy_experimental.coref.coref_scorer import get_cluster_info, lea
 import json
 import typer
 from wasabi import msg
+
 
 def score_coref(examples):
     PREFIX = "coref_clusters"
@@ -56,8 +57,9 @@ def score_coref(examples):
         p_clusters, g_clusters = example2clusters(ex)
         cluster_info = get_cluster_info(p_clusters, g_clusters)
         lea_evaluator.update(cluster_info)
-    
+
     return lea_evaluator
+
 
 def apply_and_score(nlp, examples):
     docs = nlp.pipe(e.x.text for e in examples)
@@ -65,19 +67,21 @@ def apply_and_score(nlp, examples):
         e.predicted = doc
 
 
-
-def main(model_path: str, split: str = "test", gpu_id: int = -1, overwrite: bool = False):
+def main(
+    model_path: str, split: str = "test", gpu_id: int = -1, overwrite: bool = False
+):
     if gpu_id >= 0:
         spacy.require_gpu(gpu_id=gpu_id)
 
     model_name = Path(model_path).name
     project_path = Path(__file__).parent.parent
-    corpus = project_path /Path("corpus")
+    corpus = project_path / Path("corpus")
     output_path = project_path / Path("metrics") / model_name
     if output_path.exists() and not overwrite:
-        raise ValueError("Output path already exists, set --overwrite to True to overwrite")
+        raise ValueError(
+            "Output path already exists, set --overwrite to True to overwrite"
+        )
     output_path.mkdir(parents=True, exist_ok=True)
-
 
     dane_path = corpus / "dane" / f"{split}.spacy"
     cdt_path = corpus / "cdt" / f"{split}.spacy"

@@ -1,13 +1,12 @@
 spacy[lookups,transformers,cuda-autodetect] >= 3.5.2
 spacy-transformers>=1.2.3
 thinc[torch] >= 8.1.9
-spacy-huggingface-hub>=0.0.9
 
 # for the coref model
 spacy-experimental >= 0.6.2
 
 # # for using apple ops
-# thinc-apple-ops >= 0.1.3
+thinc-apple-ops >= 0.1.3
 
 # logging
 wandb >= 0.14.2
