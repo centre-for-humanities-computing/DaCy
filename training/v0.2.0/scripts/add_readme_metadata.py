@@ -6,7 +6,6 @@ to allow for a more detailed model card.
 """
 
 import json
-from os import name
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
@@ -82,6 +81,7 @@ def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
     with readme_path.open("w", encoding="utf-8") as f:
         f.write(metadata_section)
         f.write(readme)
+    print(f"Updated {readme_path}")
     return metadata
 
 
@@ -292,12 +292,14 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
     return [model_index]
 
 
-def main(repo_name: str, repo_dir: Path) -> None:
+def main(repo_path: Path) -> None:
+    repo_name = repo_path.name
+    repo_dir = repo_path
     _create_model_card(
         repo_name=repo_name,
         repo_dir=repo_dir,
     )
 
 
-if name == "__main__":
+if __name__ == "__main__":
     typer.run(main)
