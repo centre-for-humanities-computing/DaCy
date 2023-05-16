@@ -29,7 +29,7 @@ The project takes care of downloading the corpus, converting it to spaCy's
 format and training and evaluating the model.
 
 ## Future directions
-
+    
 ### To do
 Step by step:
 - [x] Train ner, dep, pos, lemma, morph with small transformer model
@@ -117,7 +117,10 @@ Step by step:
     - Coref model: https://github.com/pandora-intelligence/crosslingual-coreference
     - Eksisterende NED model på dansk fra Alexandra
     - Coref modeller fra alexandra
-    
+- [ ] Try to test generalization of the model by first training with the transformer frozen and then with the whole thing unfrozen: https://www.linkedin.com/feed/update/urn:li:activity:7063880655142604803/
+1) https://magazine.sebastianraschka.com/p/finetuning-large-language-models
+2) https://arxiv.org/abs/2202.10054
+        
 ### Notes
 - Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently? It might be better to train them
 independentently
@@ -443,6 +446,7 @@ def train(
     gpu_id: Optional[int] = None,
     config: Optional[str] = None,
     overwrite: bool = False,
+    dataset: Literal["cdt", "ddt", "dane"] = "cdt",
 ):
     """
     train a model using spacy train
@@ -476,8 +480,8 @@ def train(
     cmd = (
         f"spacy train {config}"
         + f" --output {training_path} "
-        + "--paths.train corpus/cdt/train.spacy "
-        + "--paths.dev corpus/cdt/dev.spacy "
+        + f"--paths.train corpus/{dataset}/train.spacy "
+        + f"--paths.dev corpus/{dataset}/dev.spacy "
         + "--nlp.lang=da "
         + f"--gpu-id={gpu_id} "
         + f"--components.transformer.model.name={model} "
@@ -493,7 +497,7 @@ def train(
 
 @task
 def prep_span_data(
-    c: Context, run_name: str, heads="silver", model_best: bool = False
+    c: Context, run_name: str, heads="silver",  bool = False
 ) -> None:
     """Prepare data for the span resolver component.
 
@@ -738,8 +742,8 @@ def package(c: Context, run_name: str, size: str, overwrite: bool = False):
     c.run(f"rm template_meta.json")
 
     # update readme
-    readme = package_path / f"{LANGUAGE}_{name}-{VERSION}/README.md"
-    cmd = f"{PYTHON} scripts/add_readme_metadata.py {readme} {size}"
+    repo = package_path / f"{LANGUAGE}_{name}-{VERSION}"
+    cmd = f"{PYTHON} scripts/add_readme_metadata.py {repo}"
     print(f"{Emo.INFO} Running command:")
     print(cmd)
     c.run(cmd)
