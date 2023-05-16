@@ -100,6 +100,6 @@ api/dacy.score
 :caption: GitHub
 :hidden:
 
-Changelog <https://github.com/centre-for-humanities-computing/dacy/changelog.md>
+Changelog <https://github.com/centre-for-humanities-computing/dacy/CHANGELOG.md>
 GitHub <https://github.com/centre-for-humanities-computing/dacy>
 ```
