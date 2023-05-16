@@ -14,7 +14,7 @@ DEFAULT_CACHE_DIR = os.getenv(
 )
 
 models_url = {
-    # "da_dacy_small_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/a3da03433d42538fca37847e3c73503d8e029088/da_dacy_small_trf-any-py3-none-any.whl",
+    "da_dacy_small_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/0eadea074d5f637e76357c46bbd56451471d0154/da_dacy_small_trf-any-py3-none-any.whl",
     "da_dacy_medium_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/e7dba91f855a1d26679dc1ef3aa49f7874b50543/da_dacy_medium_trf-any-py3-none-any.whl",
     "da_dacy_large_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/963232f378190476503a1bfc35b520cb142e9e41/da_dacy_large_trf-any-py3-none-any.whl",
     "small": None,
@@ -37,11 +37,7 @@ def get_latest_version(model: str) -> str:
     """
     if model in {"small", "medium", "large"}:
         model = f"da_dacy_{model}_trf"
-    versions = [
-        mdl.split("-")[-1]
-        for mdl in models_url
-        if "ner_fine_grained" not in mdl and mdl.startswith(model)
-    ]
+    versions = [mdl.split("-")[-1] for mdl in models_url if mdl.startswith(model)]
     versions = sorted(
         versions,
         key=lambda s: [int(u) for u in s.split(".")],
