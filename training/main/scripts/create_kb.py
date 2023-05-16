@@ -6,15 +6,15 @@ import ssl
 from collections import defaultdict
 from pathlib import Path
 from typing import List
-from wasabi import msg
 
+import numpy as np
 import spacy
 import typer
 from spacy.kb import InMemoryLookupKB
 from spacy.language import Language
 from spacy.tokens import DocBin
+from wasabi import msg
 from wikidata.client import Client
-import numpy as np
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -38,7 +38,7 @@ def main(
         "model": {
             "@architectures": "spacy-transformers.TransformerModel.v3",
             "name": trf_name,  # XXX customize this bit
-        }
+        },
     }
     nlp.add_pipe("transformer", config=config)
     nlp.initialize()  # XXX don't forget this step!
@@ -58,9 +58,9 @@ def main(
     for ent in ents:
         qid2ent[ent.kb_id_][ent.text] += 1
 
-    msg.info(f"Starting to fetch aliases")
+    msg.info("Starting to fetch aliases")
     qid2alias = {
-        qid: defaultdict(lambda: 0) for qid in qid2desc.keys()
+        qid: defaultdict(lambda: 0) for qid in qid2desc
     }  # frequency to be estimates from the data but start with 1 to normalize the distribution
     for qid in qid2alias:
         # get occurance from the data
@@ -72,10 +72,10 @@ def main(
             qid2alias[qid][alias] += 1
     msg.good("Finished fetching aliases")
 
-    msg.info(f"Starting to creating embeddings for KB")
+    msg.info("Starting to creating embeddings for KB")
     for qid, desc in qid2desc.items():
         fetch_desc = _fetch_wikidata_description(
-            qid
+            qid,
         )  # just always fetch the description
         if fetch_desc.strip():  # if it is not empty
             desc = fetch_desc  # newer is probably better
@@ -101,7 +101,7 @@ def main(
         kb.add_entity(entity=qid, entity_vector=desc_enc, freq=qid_freq)
     msg.good("Finished creating embeddings for KB")
 
-    msg.info(f"Starting to add aliases to KB")
+    msg.info("Starting to add aliases to KB")
     alias2qid = defaultdict(lambda: defaultdict(int))
     for qid, names in qid2alias.items():
         for name, freq in names.items():
@@ -113,7 +113,7 @@ def main(
         kb.add_alias(alias=name, entities=qids.keys(), probabilities=probs)
     msg.good("Finished adding aliases to KB")
 
-    msg.info(f"Starting to add entities to KB")
+    msg.info("Starting to add entities to KB")
     kb.to_disk(save_path_kb)
     msg.good(f"Finished adding entities to KB and saved to {save_path_kb}")
 
@@ -125,7 +125,7 @@ def _fetch_wikidata_description(qid: str):
     client = Client()
     try:
         item = client.get(qid, load=True)  # type: ignore
-    except Exception as e:
+    except Exception:
         print(f"Could not load {qid}")
         return ""
     return item.description.get("da", item.description.get("en", ""))  # type: ignore
@@ -138,7 +138,7 @@ def _fetch_wikidata_aliases(qid, langs: List[str] = ["da", "en"]):
     client = Client()
     try:
         item = client.get(qid, load=True)  # type: ignore
-    except Exception as e:
+    except Exception:
         print(f"Could not load {qid}")
         return []
     aliases_dict = item.data.get("aliases", {})  # type: ignore
@@ -169,7 +169,7 @@ def _load_qid_to_description():
     """
     desc_path = project_path / "assets/daned/desc.json"
 
-    with open(desc_path, "r", encoding="utf8") as f:
+    with open(desc_path, encoding="utf8") as f:
         qid2description = json.load(f)
         return qid2description
 
@@ -180,7 +180,7 @@ def _load_qid_to_probs():
     """
     probs_path = project_path / "assets/daned/props.json"
 
-    with open(probs_path, "r", encoding="utf8") as f:
+    with open(probs_path, encoding="utf8") as f:
         qid2probs = json.load(f)
         return qid2probs
 

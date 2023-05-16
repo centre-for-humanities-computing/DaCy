@@ -4,16 +4,18 @@ Derived from: https://github.com/explosion/projects/blob/v3/experimental/coref/s
 
 from functools import partial
 from pathlib import Path
-from typing import Iterable, Callable
+from typing import Callable, Iterable
+
 import spacy
-from spacy.training import Example
-from spacy.tokens import Doc, DocBin
 from spacy.language import Language
+from spacy.tokens import Doc, DocBin
+from spacy.training import Example
 
 
 @spacy.registry.readers("HeadCopyingCorpus.v1")
 def create_head_copy_docbin_reader(
-    path: Path, head_prefix
+    path: Path,
+    head_prefix,
 ) -> Callable[[Language], Iterable[Example]]:
     return partial(copy_gold_heads, path, head_prefix)
 

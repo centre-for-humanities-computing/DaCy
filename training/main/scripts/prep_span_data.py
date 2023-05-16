@@ -6,26 +6,30 @@ prediction speed of the pipeline with the
 CorefClusterer.
 """
 
-import tqdm
-import spacy
 import argparse
-from spacy.training import Example
-from spacy.tokens import Doc, DocBin
 
+import spacy
+import tqdm
+from spacy.tokens import Doc, DocBin
+from spacy.training import Example
 
 parser = argparse.ArgumentParser(description="Create data set for SpanResolver.")
 parser.add_argument("--input-path", help="Path to the data set for the CorefClusterer.")
 parser.add_argument(
-    "--output-path", help="Path to store the data set for the SpanResolver."
+    "--output-path",
+    help="Path to store the data set for the SpanResolver.",
 )
 parser.add_argument(
-    "--model-path", help="Path to the trained pipeline with CorefClusterer."
+    "--model-path",
+    help="Path to the trained pipeline with CorefClusterer.",
 )
 parser.add_argument(
-    "--head-prefix", help="Prefix in the doc.spans used to store head-clusters."
+    "--head-prefix",
+    help="Prefix in the doc.spans used to store head-clusters.",
 )
 parser.add_argument(
-    "--span-prefix", help="Prefix in the doc.spans used to store span-clusters."
+    "--span-prefix",
+    help="Prefix in the doc.spans used to store span-clusters.",
 )
 parser.add_argument("--limit", type=int, help="Number of documents to process.")
 parser.add_argument(
@@ -35,7 +39,10 @@ parser.add_argument(
     help="Whether to use gold heads or silver heads predicted by the clustering component",
 )
 parser.add_argument(
-    "--gpu", type=int, default=-1, help="ID of GPU to run coreference pipeline on."
+    "--gpu",
+    type=int,
+    default=-1,
+    help="ID of GPU to run coreference pipeline on.",
 )
 
 args = parser.parse_args()
@@ -152,7 +159,7 @@ for i, gold_doc in enumerate(tqdm.tqdm(docs)):
                     kept_heads += 1
                     new_head_spangroup.append(new_doc[head.start : head.end])
                     new_span_spangroup.append(
-                        new_doc[target_span.start : target_span.end]
+                        new_doc[target_span.start : target_span.end],
                     )
             else:
                 duplicate_heads += 1

@@ -1,8 +1,8 @@
+import json
 from pathlib import Path
 from typing import Optional
-import typer
-import json
 
+import typer
 
 EMAIL = "Kenneth.enevoldsen@cas.au.dk"
 AUTHOR = "Kenneth Enevoldsen"
@@ -16,9 +16,9 @@ DESCRIPTION = """
 # DaCy {size}
 
 DaCy is a Danish language processing framework with state-of-the-art pipelines as well as functionality for analysing Danish pipelines.
-DaCy's largest pipeline has achieved State-of-the-Art performance on parts-of-speech tagging and dependency 
-parsing for Danish on the Danish Dependency treebank as well as competitive performance on named entity recognition, named entity disambiguation and coreference resolution. 
-To read more check out the [DaCy repository](https://github.com/centre-for-humanities-computing/DaCy) for material on how to use DaCy and reproduce the results. 
+DaCy's largest pipeline has achieved State-of-the-Art performance on parts-of-speech tagging and dependency
+parsing for Danish on the Danish Dependency treebank as well as competitive performance on named entity recognition, named entity disambiguation and coreference resolution.
+To read more check out the [DaCy repository](https://github.com/centre-for-humanities-computing/DaCy) for material on how to use DaCy and reproduce the results.
 DaCy also contains guides on usage of the package as well as behavioural test for biases and robustness of Danish NLP pipelines.
 """
 
@@ -92,7 +92,7 @@ def main(
     out_path.parent.mkdir(exist_ok=True, parents=True)
     if out_path.exists() and not overwrite:
         raise FileExistsError(
-            f"{out_path} already exists. Use --overwrite to overwrite."
+            f"{out_path} already exists. Use --overwrite to overwrite.",
         )
 
     with open(meta_json) as f:
@@ -110,7 +110,7 @@ def main(
     meta["author"] = AUTHOR
     meta["url"] = URL
     meta["license"] = LICENSE
-    meta["sources"] = DATASETS + [model]
+    meta["sources"] = [*DATASETS, model]
     meta["description"] = DESCRIPTION.format(size=size)
     meta["notes"] = f"\n\n### Training\nThis model was trained using [spaCy](https://spacy.io) and logged to [Weights & Biases]({WANB}). You can find all the training logs [here]({WANB})."
     # fmt: on

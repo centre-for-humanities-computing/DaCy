@@ -29,7 +29,7 @@ The project takes care of downloading the corpus, converting it to spaCy's
 format and training and evaluating the model.
 
 ## Future directions
-    
+
 ### To do
 Step by step:
 - [x] Train ner, dep, pos, lemma, morph with small transformer model
@@ -38,13 +38,13 @@ Step by step:
     - [x] Combined datasets (DDT, DaNE, CDT, DaNED, DaCoref). Approach:
         - [x] Load DDT
         - [x] DaNE match 1-1 with DDT, so simply add the DaNE annotations to the DDT annotations
-        - [x] CDT is a subset of the DDT, but with a different and notably including document annotations. So we 
+        - [x] CDT is a subset of the DDT, but with a different and notably including document annotations. So we
             - [x] combine each of the documents in DDT according to the annotations in CDT, the sentences without document annotations are ignored.
             - [x] overwrite the CDT split with the split from DDT (i.e. the CDT split is ignored)
         - [x] CDT contains coreference annotations (DaCoref). All of these are directly added.
-        - [x] CDT also contains NED annotations (DaNED) using QID's for every possible entities (even obscure ones like, i.e. 
+        - [x] CDT also contains NED annotations (DaNED) using QID's for every possible entities (even obscure ones like, i.e.
           [mette](https://www.wikidata.org/wiki/Q1158302), refering to the name). To remove these we filter these out by
-            only keeping the QID's which match an entire entity (i.e. no entity can have multiple QIDs). 
+            only keeping the QID's which match an entire entity (i.e. no entity can have multiple QIDs).
           - [ ] I should probably do this in a smarter way.
         - [x] Write two datasets, one which is the extended DDT, another one which is the CDT only.
 - [x] Add pipeline for training NED model
@@ -110,7 +110,7 @@ Step by step:
             - use_averages
             - beta1
             - beta2
-        - 
+        -
     - using seperate NED components
 
 - [ ] Future models to compare to:
@@ -120,7 +120,7 @@ Step by step:
 - [ ] Try to test generalization of the model by first training with the transformer frozen and then with the whole thing unfrozen: https://www.linkedin.com/feed/update/urn:li:activity:7063880655142604803/
 1) https://magazine.sebastianraschka.com/p/finetuning-large-language-models
 2) https://arxiv.org/abs/2202.10054
-        
+
 ### Notes
 - Corefs and NED are only available for a subset of the corpus? Would it be better to train these independently? It might be better to train them
 independentently
@@ -133,7 +133,7 @@ include these as well during a seperate training step.
 or Norwegian Bokmål.
 - Currently frequency is estimated from the training data. It is probably better to also add wikipedia to this.
 - The current NED annotation contains quite a new odd mentions e.g. where a person (i.e. "kenneth") has the QID which refers to the name. That is
-probably wrong unless you of-course are talking about the name. It might be worth it to filter these out. 
+probably wrong unless you of-course are talking about the name. It might be worth it to filter these out.
 
 ## Usage
 
@@ -428,7 +428,7 @@ def create_knowledge_base(c: Context, model="vesteinn/DanskBERT") -> None:
     echo_header(f"{Emo.DO} Creating Knowledge Base")
 
     c.run(
-        f"{PYTHON} ./scripts/create_kb.py {model} --save-path-kb assets/knowledge_bases/{model}.kb"
+        f"{PYTHON} ./scripts/create_kb.py {model} --save-path-kb assets/knowledge_bases/{model}.kb",
     )
 
     print(f"{Emo.GOOD} Knowledge Base created")
@@ -496,9 +496,7 @@ def train(
 
 
 @task
-def prep_span_data(
-    c: Context, run_name: str, heads="silver",  bool = False
-) -> None:
+def prep_span_data(c: Context, run_name: str, heads="silver", bool=False) -> None:
     """Prepare data for the span resolver component.
 
     Args:
@@ -514,10 +512,7 @@ def prep_span_data(
     training_path.mkdir(parents=True, exist_ok=True)
     model_path = training_path / run_name
 
-    if model_best:
-        model_path = model_path / "model-best"
-    else:
-        model_path = model_path / "model-last"
+    model_path = model_path / "model-best" if model_best else model_path / "model-last"
 
     cmd = (
         f"{PYTHON} scripts/prep_span_data.py"
@@ -550,10 +545,7 @@ def train_span_resolver(
     training_path.mkdir(parents=True, exist_ok=True)
     model_path = training_path / run_name
 
-    if model_best:
-        model_path = model_path / "model-best"
-    else:
-        model_path = model_path / "model-last"
+    model_path = model_path / "model-best" if model_best else model_path / "model-last"
 
     if gpu_id is None:
         gpu_id = GPU_ID
@@ -715,7 +707,7 @@ def package(c: Context, run_name: str, size: str, overwrite: bool = False):
     metrics_json = metrics / run_name / "scores.json"
     if model_path.exists() and (not overwrite):
         print(
-            f"{Emo.FAIL} Model already exists to overwrite it please use the -o/--overwrite flag"
+            f"{Emo.FAIL} Model already exists to overwrite it please use the -o/--overwrite flag",
         )
         exit(1)
 
@@ -739,7 +731,7 @@ def package(c: Context, run_name: str, size: str, overwrite: bool = False):
     print(f"{Emo.INFO} Running command:")
     print(cmd)
     c.run(cmd)
-    c.run(f"rm template_meta.json")
+    c.run("rm template_meta.json")
 
     # update readme
     repo = package_path / f"{LANGUAGE}_{name}-{VERSION}"

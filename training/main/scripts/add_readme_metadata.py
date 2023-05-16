@@ -86,7 +86,9 @@ def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
 
 
 def _insert_value(
-    metadata: Dict[str, Any], name: str, value: Optional[Any]
+    metadata: Dict[str, Any],
+    name: str,
+    value: Optional[Any],
 ) -> Dict[str, Any]:
     if value is None or value == "":
         return metadata
@@ -95,7 +97,9 @@ def _insert_value(
 
 
 def _insert_values_as_list(
-    metadata: Dict[str, Any], name: str, values: Optional[Any]
+    metadata: Dict[str, Any],
+    name: str,
+    values: Optional[Any],
 ) -> Dict[str, List[Any]]:
     if values is None:
         return metadata
@@ -112,7 +116,10 @@ def _create_metric(name: str, t: str, value: float) -> Dict[str, Union[str, floa
 
 
 def _create_p_r_f_list(
-    metric_name: str, precision: float, recall: float, f_score: float
+    metric_name: str,
+    precision: float,
+    recall: float,
+    f_score: float,
 ) -> List[Dict[str, Union[str, float]]]:
     precision = _create_metric(f"{metric_name} Precision", "precision", precision)  # type: ignore
     recall = _create_metric(f"{metric_name} Recall", "recall", recall)  # type: ignore
@@ -129,17 +136,20 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
             {
                 "task": {"name": "NER", "type": "token-classification"},
                 "metrics": _create_p_r_f_list(
-                    "NER", data["ents_p"], data["ents_r"], data["ents_f"]
+                    "NER",
+                    data["ents_p"],
+                    data["ents_r"],
+                    data["ents_f"],
                 ),
                 "dataset": {"name": "DaNE", "split": "test", "type": "dane"},
-            }
+            },
         )
     if "tag_acc" in data:
         results.append(
             {
                 "task": {"name": "TAG", "type": "token-classification"},
                 "metrics": [
-                    _create_metric("TAG (XPOS) Accuracy", "accuracy", data["tag_acc"])
+                    _create_metric("TAG (XPOS) Accuracy", "accuracy", data["tag_acc"]),
                 ],
                 "dataset": {
                     "name": "UD Danish DDT",
@@ -147,14 +157,14 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "pos_acc" in data:
         results.append(
             {
                 "task": {"name": "POS", "type": "token-classification"},
                 "metrics": [
-                    _create_metric("POS (UPOS) Accuracy", "accuracy", data["pos_acc"])
+                    _create_metric("POS (UPOS) Accuracy", "accuracy", data["pos_acc"]),
                 ],
                 "dataset": {
                     "name": "UD Danish DDT",
@@ -162,7 +172,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "morph_acc" in data:
         results.append(
@@ -170,8 +180,10 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                 "task": {"name": "MORPH", "type": "token-classification"},
                 "metrics": [
                     _create_metric(
-                        "Morph (UFeats) Accuracy", "accuracy", data["morph_acc"]
-                    )
+                        "Morph (UFeats) Accuracy",
+                        "accuracy",
+                        data["morph_acc"],
+                    ),
                 ],
                 "dataset": {
                     "name": "UD Danish DDT",
@@ -179,14 +191,14 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "lemma_acc" in data:
         results.append(
             {
                 "task": {"name": "LEMMA", "type": "token-classification"},
                 "metrics": [
-                    _create_metric("Lemma Accuracy", "accuracy", data["lemma_acc"])
+                    _create_metric("Lemma Accuracy", "accuracy", data["lemma_acc"]),
                 ],
                 "dataset": {
                     "name": "UD Danish DDT",
@@ -194,7 +206,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "dep_uas" in data:
         results.append(
@@ -205,8 +217,10 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                 },
                 "metrics": [
                     _create_metric(
-                        "Unlabeled Attachment Score (UAS)", "f_score", data["dep_uas"]
-                    )
+                        "Unlabeled Attachment Score (UAS)",
+                        "f_score",
+                        data["dep_uas"],
+                    ),
                 ],
                 "dataset": {
                     "name": "UD Danish DDT",
@@ -214,7 +228,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "dep_las" in data:
         results.append(
@@ -225,8 +239,10 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                 },
                 "metrics": [
                     _create_metric(
-                        "Labeled Attachment Score (LAS)", "f_score", data["dep_las"]
-                    )
+                        "Labeled Attachment Score (LAS)",
+                        "f_score",
+                        data["dep_las"],
+                    ),
                 ],
                 "dataset": {
                     "name": "UD Danish DDT",
@@ -234,7 +250,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "sents_p" in data:
         results.append(
@@ -249,7 +265,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "universal_dependencies",
                     "config": "da_ddt",
                 },
-            }
+            },
         )
     if "coref_lea_f1" in data:
         results.append(
@@ -266,7 +282,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "alexandrainst/dacoref",
                     "split": "custom",
                 },
-            }
+            },
         )
     if "nel_micro_f" in data:
         results.append(
@@ -286,7 +302,7 @@ def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, 
                     "type": "named-entity-linking",
                     "split": "custom",
                 },
-            }
+            },
         )
     model_index["results"] = results  # type: ignore
     return [model_index]

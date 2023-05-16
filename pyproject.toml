@@ -183,7 +183,7 @@ exclude = [
   ".git",
   "__pycache__",
   "dev/**",
-  "training/v0.0.0/**",
+  "training/main/**",
   "training/v0.1.0/**",
   "training/v0.1.1/**",
   "training/v0.2.0/**",

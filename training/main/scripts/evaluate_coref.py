@@ -1,11 +1,15 @@
-import tqdm
+import json
+
 import spacy
+import tqdm
+import typer
 from spacy.tokens import DocBin
 from spacy.training import Example
-from spacy_experimental.coref.coref_scorer import ClusterEvaluator
-from spacy_experimental.coref.coref_scorer import get_cluster_info, lea
-import typer
-import json
+from spacy_experimental.coref.coref_scorer import (
+    ClusterEvaluator,
+    get_cluster_info,
+    lea,
+)
 
 PREFIX = "coref_clusters"
 skipped_clusters = 0

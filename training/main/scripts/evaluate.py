@@ -1,11 +1,15 @@
-from pathlib import Path
-import spacy
-from spacy.training import Corpus, Example  # type: ignore
-from spacy.scorer import Scorer
-from spacy_experimental.coref.coref_scorer import ClusterEvaluator
-from spacy_experimental.coref.coref_scorer import get_cluster_info, lea
 import json
+from pathlib import Path
+
+import spacy
 import typer
+from spacy.scorer import Scorer
+from spacy.training import Corpus, Example  # type: ignore
+from spacy_experimental.coref.coref_scorer import (
+    ClusterEvaluator,
+    get_cluster_info,
+    lea,
+)
 from wasabi import msg
 
 
@@ -68,7 +72,10 @@ def apply_and_score(nlp, examples):
 
 
 def main(
-    model_path: str, split: str = "test", gpu_id: int = -1, overwrite: bool = False
+    model_path: str,
+    split: str = "test",
+    gpu_id: int = -1,
+    overwrite: bool = False,
 ):
     if gpu_id >= 0:
         spacy.require_gpu(gpu_id=gpu_id)
@@ -79,7 +86,7 @@ def main(
     output_path = project_path / Path("metrics") / model_name
     if output_path.exists() and not overwrite:
         raise ValueError(
-            "Output path already exists, set --overwrite to True to overwrite"
+            "Output path already exists, set --overwrite to True to overwrite",
         )
     output_path.mkdir(parents=True, exist_ok=True)
 
