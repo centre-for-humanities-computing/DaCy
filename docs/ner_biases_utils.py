@@ -122,10 +122,10 @@ def apply_models(
     return df2
 
 
-def create_table(
+def create_table(  # noqa: ANN201
     result_df: pd.DataFrame,
     augmenters: list,
-) -> pd.io.formats.style.Styler:
+):
     nam = [("", "Model"), ("", "Baseline")] + [
         ("Augmenter", aug_name) for aug_name, _ in augmenters
     ]
