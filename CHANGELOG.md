@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.7.1 (2023-05-16)
+### Fix
+* Changelog link ([`ef72ceb`](https://github.com/centre-for-humanities-computing/DaCy/commit/ef72ceb0b0ac5dc41b26b47229d2329cd53a3278))
+
 ## v2.7.0 (2023-05-16)
 ### Feature
 * Added version 0.2.0 models ([`5d4fc7d`](https://github.com/centre-for-humanities-computing/DaCy/commit/5d4fc7de635050423d9282795b67446259425bef))
