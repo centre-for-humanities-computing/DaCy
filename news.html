@@ -7,16 +7,16 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="news.html" />
 <meta property="og:site_name" content="DaCy" />
-<meta property="og:description" content="2.6.0 (10/04/23) Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩 - You can add these models to your pipeline usin..." />
+<meta property="og:description" content="2.7.0 (15/05/23) Updated the DaCy models to version 0.2.0, including a small, medium and large- Added beta support for Coreference Resolution! 🤩, Added beta support for Named Entity Linking!, Updat..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_news_d6b4e0ff.png" />
-<meta property="og:image:alt" content="2.6.0 (10/04/23) Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩 - You ca..." />
-<meta name="description" content="2.6.0 (10/04/23) Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩 - You can add these models to your pipeline usin..." />
+<meta property="og:image" content="/_images/social_previews/summary_news_35907f53.png" />
+<meta property="og:image:alt" content="2.7.0 (15/05/23) Updated the DaCy models to version 0.2.0, including a small, medium and large- Added beta support for Coreference Resolution! 🤩, Added beta..." />
+<meta name="description" content="2.7.0 (15/05/23) Updated the DaCy models to version 0.2.0, including a small, medium and large- Added beta support for Coreference Resolution! 🤩, Added beta support for Named Entity Linking!, Updat..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="FAQ" href="faq.html" /><link rel="prev" title="Robustness and Biases" href="performance.robustness.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.0 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2022.12.07 -->
         <title>News and Changelog - DaCy</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
@@ -184,11 +184,13 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html">Getting started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#named-entity-linking">Named Entity Linking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#dependency-parsing">Dependency Parsing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#sentence-segmentation">Sentence Segmentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#noun-chunks">Noun Chunks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#coreference-resolution">Coreference Resolution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html">Sentiment Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#subjectivity">Subjectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#polarity">Polarity</a></li>
@@ -265,10 +267,100 @@
         <article role="main">
           <section id="news-and-changelog">
 <h1>News and Changelog<a class="headerlink" href="#news-and-changelog" title="Permalink to this heading">#</a></h1>
+<p><strong>2.7.0 (15/05/23)</strong></p>
+<ul class="simple">
+<li><p>Updated the DaCy models to version 0.2.0, including a small, medium and large</p>
+<ul>
+<li><p>Added beta support for Coreference Resolution! 🤩</p></li>
+<li><p>Added beta support for Named Entity Linking!</p></li>
+<li><p>Updated dependency parsing and part-of-speech tagging to use the latest version of the DDT treebank 🌳</p></li>
+<li><p>Added a trainable lemmatizer, notably improving the lemmatization</p></li>
+<li><p>All model are trained using the intersection between the CDT and the DDT treebanks (so actually trained on less data than before) 🤯</p>
+<ul>
+<li><p>This includes the annotations from DaNED, DaCoref and DaNE</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Large model:</p>
+<ul>
+<li><p>obtained state-of-the-art performance on:</p>
+<ul>
+<li><p>Dependency parsing</p></li>
+<li><p>Part-of-speech tagging</p></li>
+<li><p>Morphological tagging</p></li>
+<li><p>lemmatization (from 84.91 to 95.89!)</p></li>
+</ul>
+</li>
+<li><p>Improved performance on:</p>
+<ul>
+<li><p>Reduced performance for NER down to 87.38 but we recommend either using the <code class="code docutils literal notranslate"><span class="pre">nlp.add_pipe(&quot;dacy/ner&quot;)</span></code> to add the SotA ScandiNER model to your pipeline or use one of the new fine-grained NER models.</p></li>
+</ul>
+</li>
+<li><p>Added support</p>
+<ul>
+<li><p>Coreference Resolution, performance isn’t great yet, but it’s a start!</p></li>
+<li><p>Named entity linking, with a precision of 0.86 but recall is still low due to a lacking knowledge base</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Medium model:</p>
+<ul>
+<li><p>Consistent improvements across all tasks:</p>
+<ul>
+<li><p>Notable performance gain for NER from an F1 of 81.79 to 85.82</p></li>
+<li><p>Notable performance gain for lemmatization from an ACC 84.91 to 94</p></li>
+</ul>
+</li>
+<li><p>Added support</p>
+<ul>
+<li><p>Coreference Resolution</p></li>
+<li><p>Named entity linking</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Small model:</p>
+<ul>
+<li><p>Consistent improvements across all tasks</p></li>
+<li><p>Added support:</p>
+<ul>
+<li><p>Coreference Resolution</p></li>
+<li><p>Named entity linking</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Fixes a variety of issues:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/issues/218">Removed custom requirements for the large model</a></p></li>
+<li><p><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/issues/72">Removing warning when loading the models</a></p></li>
+<li><p>Fixed annotatations in error in the DDT treebank where “’” was <em>never</em> followed by a space</p></li>
+</ul>
+</li>
+<li><p>Removed support for DaCy model version 0.1.0, if you need to use these models you will have to use <cite>DaCy &lt;= 2.0.0</cite></p></li>
+<li><p>What is next?</p>
+<ul>
+<li><p>A coreference resolution only model</p></li>
+<li><p>Better named entity linking by</p>
+<ul>
+<li><p>Improving the annotations of DaNED which currently annotate PERSONS using the QID reference to the name among other things</p></li>
+<li><p>Improving the knowledge base which currently is the main source of low recall</p></li>
+</ul>
+</li>
+<li><p>Examine model generalization using DANSK and whether we can improve the generalization</p></li>
+<li><p>and more!</p></li>
+</ul>
+</li>
+</ul>
 <p><strong>2.6.0 (10/04/23)</strong></p>
 <ul class="simple">
-<li><p>Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩
-- You can add these models to your pipeline using <code class="code docutils literal notranslate"><span class="pre">nlp.add_pipe(&quot;dacy/ner-fine-grained&quot;,</span> <span class="pre">config={&quot;size&quot;:</span> <span class="pre">&quot;small&quot;})</span></code></p></li>
+<li><p>Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩</p>
+<ul>
+<li><p>You can add these models to your pipeline using <code class="code docutils literal notranslate"><span class="pre">nlp.add_pipe(&quot;dacy/ner-fine-grained&quot;,</span> <span class="pre">config={&quot;size&quot;:</span> <span class="pre">&quot;small&quot;})</span></code></p></li>
+</ul>
+</li>
 </ul>
 <p><strong>2.5.0 (10/04/23)</strong></p>
 <ul class="simple">
@@ -280,10 +372,16 @@
 </ul>
 <p><strong>2.2.10 (05/01/23)</strong></p>
 <ul class="simple">
-<li><p>Added support for spaCy 3.4.0
-- This required the wrapped component model to change name from e.g. <code class="code docutils literal notranslate"><span class="pre">dacy.ner</span></code> to <code class="code docutils literal notranslate"><span class="pre">dacy/ner</span></code>. As the <code class="code docutils literal notranslate"><span class="pre">.</span></code> is no longer allowed by spaCy.</p></li>
-<li><p>Added support for the state-of-the-art NER model by Dan Nielsen
-- You can add this model to your pipeline using <code class="code docutils literal notranslate"><span class="pre">nlp.add_pipe(&quot;dacy/ner&quot;)</span></code></p></li>
+<li><p>Added support for spaCy 3.4.0</p>
+<ul>
+<li><p>This required the wrapped component model to change name from e.g. <code class="code docutils literal notranslate"><span class="pre">dacy.ner</span></code> to <code class="code docutils literal notranslate"><span class="pre">dacy/ner</span></code>. As the <code class="code docutils literal notranslate"><span class="pre">.</span></code> is no longer allowed by spaCy.</p></li>
+</ul>
+</li>
+<li><p>Added support for the state-of-the-art NER model by Dan Nielsen</p>
+<ul>
+<li><p>You can add this model to your pipeline using <code class="code docutils literal notranslate"><span class="pre">nlp.add_pipe(&quot;dacy/ner&quot;)</span></code></p></li>
+</ul>
+</li>
 </ul>
 <p><strong>2.0.0 (27/06/22): The Spandaur Update</strong></p>
 <a class="reference internal image-reference" href="_images/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png"><img alt="_images/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png" src="_images/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png" style="width: 100px;" /></a>
