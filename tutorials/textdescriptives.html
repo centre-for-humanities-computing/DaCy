@@ -379,7 +379,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f87ce071450&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f59e0aa0c10&gt;
 </pre></div>
 </div>
 </div>
@@ -411,7 +411,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (156 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (161 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -446,32 +446,32 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>flesch_reading_ease</th>
-      <th>flesch_kincaid_grade</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>...</th>
       <th>smog</th>
       <th>gunning_fog</th>
       <th>automated_readability_index</th>
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>1773</th>
+      <th>2275</th>
       <td>ham</td>
-      <td>I'm not coming over, do whatever you want</td>
+      <td>Is that on the telly? No its Brdget Jones!</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -493,9 +493,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4362</th>
+      <th>1812</th>
       <td>ham</td>
-      <td>Evry Emotion dsn't hav Words.Evry Wish dsn't h...</td>
+      <td>\Getting tickets 4 walsall tue 6 th march. My ...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -517,76 +517,76 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2870</th>
+      <th>274</th>
       <td>ham</td>
-      <td>I actually did for the first time in a while. ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2487</th>
-      <td>ham</td>
-      <td>K ill drink.pa then what doing. I need srs mod...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>393</th>
-      <td>ham</td>
-      <td>Yes i think so. I am in office but my lap is i...</td>
-      <td>76.552667</td>
-      <td>4.652</td>
-      <td>9.725611</td>
-      <td>9.733333</td>
-      <td>5.909867</td>
-      <td>9.5776</td>
-      <td>32.333333</td>
-      <td>2.0</td>
-      <td>...</td>
+      <td>No objection. My bf not coming.</td>
+      <td>3.928571</td>
+      <td>4.0</td>
+      <td>2.120117</td>
+      <td>7.0</td>
+      <td>7.0</td>
       <td>6.0</td>
-      <td>7.930252</td>
-      <td>1.44</td>
+      <td>1.357143</td>
       <td>1.0</td>
-      <td>0.752596</td>
-      <td>25.0</td>
-      <td>23.0</td>
-      <td>0.92</td>
-      <td>133.0</td>
-      <td>3.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>5.657143</td>
+      <td>0.573571</td>
+      <td>3.071429</td>
+      <td>21.285714</td>
+      <td>1.0</td>
+      <td>1.833333</td>
+      <td>1.166667</td>
+      <td>0.533333</td>
+      <td>0.133333</td>
+    </tr>
+    <tr>
+      <th>2557</th>
+      <td>spam</td>
+      <td>This message is brought to you by GMW Ltd. and...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4464</th>
+      <td>ham</td>
+      <td>\CHEERS FOR CALLIN BABE.SOZI CULDNT TALKBUT I ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -609,7 +609,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/ecf31f9320f73ffdb85e2dda562cc811857c927adbb399025fbdade371177b86.png" src="../_images/ecf31f9320f73ffdb85e2dda562cc811857c927adbb399025fbdade371177b86.png" />
+<img alt="../_images/309d8c74f35e6ec103d2d9c769f71f6bf9d8724ff1f95562b4a50e8fb67d194f.png" src="../_images/309d8c74f35e6ec103d2d9c769f71f6bf9d8724ff1f95562b4a50e8fb67d194f.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -624,16 +624,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                      0.326744
-syllables_per_token_median               -0.246425
-prop_adjacent_dependency_relation_mean   -0.186392
-sentence_length_median                    0.155407
-sentence_length_mean                      0.137325
-token_length_std                         -0.134132
-rix                                       0.130876
-coleman_liau_index                       -0.128735
-proportion_unique_tokens                 -0.124601
-prop_adjacent_dependency_relation_std     0.118582
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                    -0.531170
+sentence_length_mean                     0.247823
+n_tokens                                 0.245373
+sentence_length_median                   0.241312
+token_length_std                        -0.236884
+n_unique_tokens                          0.228298
+proportion_unique_tokens                -0.212134
+n_characters                             0.202734
+syllables_per_token_std                 -0.154534
+prop_adjacent_dependency_relation_std    0.135992
 dtype: float64
 </pre></div>
 </div>
@@ -651,7 +651,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/e1c2df08b4e038e327094603d465e7d0372027d78bdab8cca20aff9879138a94.png" src="../_images/e1c2df08b4e038e327094603d465e7d0372027d78bdab8cca20aff9879138a94.png" />
+<img alt="../_images/9adc535584a56bc8bee2044ec42314fa6061ea9a13204b25dd3d22556f939657.png" src="../_images/9adc535584a56bc8bee2044ec42314fa6061ea9a13204b25dd3d22556f939657.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -665,7 +665,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/d4f580adad9804c49dcc3d9a53002894eb4f2db3c04e18af93ba63fb98ea79a6.png" src="../_images/d4f580adad9804c49dcc3d9a53002894eb4f2db3c04e18af93ba63fb98ea79a6.png" />
+<img alt="../_images/02670dfdb285af1e0cd048a3c873a4a19e3581378573ea6b9740cce2e58fd092.png" src="../_images/02670dfdb285af1e0cd048a3c873a4a19e3581378573ea6b9740cce2e58fd092.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
