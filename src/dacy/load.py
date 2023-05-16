@@ -1,10 +1,10 @@
 """Functionality for loading and locating DaCy models."""
+import warnings
 from pathlib import Path
 from typing import Any, Union
 
 import spacy
 from spacy.language import Language
-from wasabi import msg
 
 from .download import DEFAULT_CACHE_DIR, download_model, models_url
 
@@ -55,7 +55,7 @@ def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:
         >>> dacy.where_is_my_dacy()
     """
     if verbose is True:
-        msg.info(
+        warnings.warn(  # noqa: B028
             "DaCy pipelines above and including version 0.1.0 are installed as a "
             + "python module and are thus located in your python environment under "
             + "the respective names. To get a list of installed models use "

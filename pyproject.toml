@@ -35,11 +35,11 @@ keywords = [
 requires-python = ">=3.9"
 dependencies = [
     "spacy-wrap>=1.4.1,<1.5.0",
-    "spacy>=3.2.0,<3.6.0",
+    "spacy-experimental >= 0.6.2",
+    "spacy[transformers]>=3.2.0,<3.6.0",
     "pandas>=1.0.0,<2.0.0",
     "wasabi>=0.8.2,<0.11.0",
     "tqdm>=4.42.1,<4.66.0",
-    "sentencepiece>=0.1.96,<0.2.0",
 ]
 
 
@@ -72,6 +72,8 @@ docs = [
     "sphinx_design>=0.3.0,<0.4.2",
     "sphinx_togglebutton>=0.2.3,<0.4.0",
     "myst-nb>=0.6.0,<1.17.0",  # for rendering notebooks
+    # for named entity linking
+    "wikidata>=0.7.0",
     # for tutorials
     "jupyter>=1.0.0,<1.1.0",
     # sentiment analysis
@@ -181,9 +183,7 @@ exclude = [
   ".git",
   "__pycache__",
   "dev/**",
-  "training/v0.0.0/**",
-  "training/v0.1.0/**",
-  "training/v0.1.1/**",
+  "training/main/**",
   "training/ner_fine_grained/**",
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
 ]
