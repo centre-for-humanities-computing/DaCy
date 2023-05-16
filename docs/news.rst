@@ -30,8 +30,10 @@ News and Changelog
     - Coreference Resolution
     - Named entity linking
 - Small model:
-  - The star of the show! 🌟 This small model perform so impressively well for its size
-  - Between 30-50x faster that the medium model depending on hardware
+  - Consistent improvements across all tasks
+  - Added support:
+    - Coreference Resolution
+    - Named entity linking
 
 - Fixes a variety of issues:
   - [Removed custom requirements for the large model](https://github.com/centre-for-humanities-computing/DaCy/issues/218) 
