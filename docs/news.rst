@@ -36,8 +36,8 @@ News and Changelog
     - Named entity linking
 
 - Fixes a variety of issues:
-  - [Removed custom requirements for the large model](https://github.com/centre-for-humanities-computing/DaCy/issues/218) 
-  - [Removing warning when loading the models](https://github.com/centre-for-humanities-computing/DaCy/issues/72)
+  - `Removed custom requirements for the large model <https://github.com/centre-for-humanities-computing/DaCy/issues/218>`__
+  - `Removing warning when loading the models <https://github.com/centre-for-humanities-computing/DaCy/issues/72>`__
   - Fixed annotatations in error in the DDT treebank where "'" was *never* followed by a space
 - Removed support for DaCy model version 0.1.0, if you need to use these models you will have to use `DaCy <= 2.0.0`
 
