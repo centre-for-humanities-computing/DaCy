@@ -8,8 +8,6 @@
 [![documentation](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/documentation.yml/badge.svg)][documentation]
 [![Tests](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/tests.yml/badge.svg)][tests]
 
-[![Demo](https://img.shields.io/badge/Try%20the-Demo-important)](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.)
-
 [pypi status]: https://pypi.org/project/dacy/
 [documentation]: https://centre-for-humanities-computing.github.io/dacy/
 [tests]: https://github.com/centre-for-humanities-computing/dacy/actions?workflow=Tests
@@ -36,27 +34,17 @@ import dacy
 for model in dacy.models():
     print(model)
 # ...
-# da_dacy_small_trf-0.1.0
-# da_dacy_medium_trf-0.1.0
-# da_dacy_large_trf-0.1.0
+# da_dacy_small_trf-0.2.0
+# da_dacy_medium_trf-0.2.0
+# da_dacy_large_trf-0.2.0
 ```
 
 To download and load a model simply execute:
 ```python
-nlp = dacy.load("da_dacy_medium_trf-0.1.0")
-# or equivalently
+nlp = dacy.load("da_dacy_medium_trf-0.2.0")
+# or equivalently (always loads the latest version)
 nlp = dacy.load("medium")
 ```
-
-Which will download the model to the `.dacy` directory in your home directory. 
-
-
-To download the model to a specific directory:
-```python
-dacy.download_model("da_dacy_medium_trf-0.1.0", your_save_path)
-nlp = dacy.load_model("da_dacy_medium_trf-0.1.0", your_save_path)
-```
-
 
 To see more examples, see the [documentation].
 
@@ -66,7 +54,6 @@ To see more examples, see the [documentation].
 | -------------------------- | ------------------------------------------------------------------------------------------- |
 | 📚 **[Getting started]**    | Guides and instructions on how to use DaCy and its features.                                |
 | 🦾 **[Performance]**        | A detailed description of the performance of DaCy and comparison with similar Danish models |
-| 😎 **[Demo]**               | A simple Streamlit demo to try out the augmenters.                                          |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                                 |
 | 🎛 **[API References]**     | The detailed reference for DaCy's API. Including function documentation                     |
 | 🙋 **[FAQ]**                | Frequently asked questions                                                                  |
@@ -75,7 +62,6 @@ To see more examples, see the [documentation].
 [Installation]: https://centre-for-humanities-computing.github.io/DaCy/installation.html
 [Getting started]: https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html
 [api references]: https://centre-for-humanities-computing.github.io/DaCy/
-[Demo]: https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.
 [News and changelog]: https://centre-for-humanities-computing.github.io/DaCy/news.html
 [FAQ]: https://centre-for-humanities-computing.github.io/DaCy/faq.html
 [Performance]: https://centre-for-humanities-computing.github.io/DaCy/performance.html
@@ -89,9 +75,7 @@ To see more examples, see the [documentation].
 <details>
   <summary> Training and reproduction </summary>
 
-The folder `training` contains a range of folders with a SpaCy project for each model version. This allows for the reproduction of the results. The SpaCy project folders also include the evaluation metrics and scripts for acquiring the required data. For more information, please see the readme's in the respective training folders.
-
-The folders include v0.0.0, v0.1.0, v0.1.1 and ner_fine_grained. The former 3 refer to the training of the main DaCy models, trained and evaluated on the DaNE dataset, whereas the latter contains the project for the fine-grained NER models trained on the [DANSK dataset](https://huggingface.co/datasets/chcaa/DANSK). Please refer to the available README's located within each training folder for more information.
+The folder `training` contains a range of folders with a SpaCy project for each model version. This allows for the reproduction of the results.
 
 Want to learn more about how DaCy initially came to be, check out this [blog post](https://www.centre-for-humanities-computing.com/post/new-fast-and-efficient-state-of-the-art-in-danish-nlp/).
 

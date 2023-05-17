@@ -32,7 +32,7 @@ def create_finegrained_ner_component(
         version: The version of the model to use. If None, the latest version will be used
     """
     if version is None:
-        version = dacy.get_latest_version("da_dacy_{size}_ner_fine_grained")
+        version = dacy.get_latest_version(f"da_dacy_{size}_ner_fine_grained")
     nlp_ner = dacy.load(f"da_dacy_{size}_ner_fine_grained-{version}")
     nlp.add_pipe(factory_name="transformer", name=transformer_name, source=nlp_ner)
     name_, component = nlp_ner.components[-1]

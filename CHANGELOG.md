@@ -2,6 +2,28 @@
 
 <!--next-version-placeholder-->
 
+## v2.7.1 (2023-05-16)
+### Fix
+* Changelog link ([`ef72ceb`](https://github.com/centre-for-humanities-computing/DaCy/commit/ef72ceb0b0ac5dc41b26b47229d2329cd53a3278))
+
+## v2.7.0 (2023-05-16)
+### Feature
+* Added version 0.2.0 models ([`5d4fc7d`](https://github.com/centre-for-humanities-computing/DaCy/commit/5d4fc7de635050423d9282795b67446259425bef))
+
+### Fix
+* Ensure that model download is handled correctly ([`2b48f4d`](https://github.com/centre-for-humanities-computing/DaCy/commit/2b48f4dacbd2fd06598421595d858677f1829826))
+* Removed unused package ([`c1f8681`](https://github.com/centre-for-humanities-computing/DaCy/commit/c1f86811748465413319dfc4f49483e3f913053c))
+
+### Documentation
+* Updated readme ([`0ce3862`](https://github.com/centre-for-humanities-computing/DaCy/commit/0ce3862170afe6f3442a39cd0bd8676917bb2e80))
+* Fixed news listing ([`9ea806d`](https://github.com/centre-for-humanities-computing/DaCy/commit/9ea806dbaae221d10f7f4ba5870eb3bdc29b412c))
+* Fix rendering of links ([`a7a9d96`](https://github.com/centre-for-humanities-computing/DaCy/commit/a7a9d964aa7be8f6fb77621dedaaca46b7691cf4))
+* Added coref and NED ([`4d20f71`](https://github.com/centre-for-humanities-computing/DaCy/commit/4d20f7167fa91fe557d71b32f6be8818e4ebb1d3))
+* Added news ([`de76d12`](https://github.com/centre-for-humanities-computing/DaCy/commit/de76d129da43176b13b0e8305b24e4b211554ab6))
+* Added missing links to readme ([`6ea8d4b`](https://github.com/centre-for-humanities-computing/DaCy/commit/6ea8d4b6308d9721e4be2de7a98515a7872d7431))
+* Hide downloads from output ([`efeae63`](https://github.com/centre-for-humanities-computing/DaCy/commit/efeae639a5f8e44ab18a18d3ff2262826c251427))
+* Update docs to hide downloads ([`0ee0a51`](https://github.com/centre-for-humanities-computing/DaCy/commit/0ee0a516b6faebf729eba8265e1f39a0de7c31e2))
+
 ## v2.6.0 (2023-04-11)
 ### Feature
 * Added fine-grained ner component ([`4977687`](https://github.com/centre-for-humanities-computing/DaCy/commit/497768716f6b47f2addf5565f43ac1e0605a8f3d))

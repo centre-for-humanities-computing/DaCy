@@ -1,14 +1,11 @@
 """Functions for downloading DaCy models."""
 import os
-from distutils.version import StrictVersion
 from importlib.metadata import version
 from pathlib import Path
 
 from spacy.util import get_installed_models
 from tqdm import tqdm
 
-versions = ["1.1.2", "1.0.0", "1.3.3", "1.0.12", "1.0.2"]
-versions.sort(key=StrictVersion)
 DACY_DEFAULT_PATH = Path.home() / ".dacy"
 
 DEFAULT_CACHE_DIR = os.getenv(
@@ -17,9 +14,9 @@ DEFAULT_CACHE_DIR = os.getenv(
 )
 
 models_url = {
-    "da_dacy_small_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/a3da03433d42538fca37847e3c73503d8e029088/da_dacy_small_trf-any-py3-none-any.whl",
-    "da_dacy_medium_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/61a54ab9e9ab437f5c603c023d4238ecc5bb8eb5/da_dacy_medium_trf-any-py3-none-any.whl",
-    "da_dacy_large_trf-0.1.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/5cfbb2bccf8e9509126e32fa3c537cc3c062aec2/da_dacy_large_trf-any-py3-none-any.whl",
+    "da_dacy_small_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/0eadea074d5f637e76357c46bbd56451471d0154/da_dacy_small_trf-any-py3-none-any.whl",
+    "da_dacy_medium_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/e7dba91f855a1d26679dc1ef3aa49f7874b50543/da_dacy_medium_trf-any-py3-none-any.whl",
+    "da_dacy_large_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/963232f378190476503a1bfc35b520cb142e9e41/da_dacy_large_trf-any-py3-none-any.whl",
     "small": None,
     "medium": None,
     "large": None,
@@ -40,7 +37,7 @@ def get_latest_version(model: str) -> str:
     """
     if model in {"small", "medium", "large"}:
         model = f"da_dacy_{model}_trf"
-    versions = [mdl.split("-")[-1] for mdl in models_url if "ner_fine_grained" in mdl]
+    versions = [mdl.split("-")[-1] for mdl in models_url if mdl.startswith(model)]
     versions = sorted(
         versions,
         key=lambda s: [int(u) for u in s.split(".")],
@@ -116,9 +113,7 @@ def download_model(
         )
 
     mdl = model.split("-")[0]
-    if mdl in get_installed_models() and not force:
-        if version(mdl) == mdl_version:
-            return mdl
-    else:
-        install(models_url[model])
+    if mdl in get_installed_models() and not force and version(mdl) == mdl_version:
+        return mdl
+    install(models_url[model])
     return mdl

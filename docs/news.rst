@@ -1,9 +1,80 @@
 News and Changelog
 ---------------------------------
 
+**2.7.0 (15/05/23)** 
+
+- Updated the DaCy models to version 0.2.0, including a small, medium and large
+
+  - Added beta support for Coreference Resolution! 🤩
+  - Added beta support for Named Entity Linking! 
+  - Updated dependency parsing and part-of-speech tagging to use the latest version of the DDT treebank 🌳
+  - Added a trainable lemmatizer, notably improving the lemmatization
+  - All model are trained using the intersection between the CDT and the DDT treebanks (so actually trained on less data than before) 🤯
+
+    - This includes the annotations from DaNED, DaCoref and DaNE
+
+- Large model:
+
+  - obtained state-of-the-art performance on:
+
+    - Dependency parsing
+    - Part-of-speech tagging
+    - Morphological tagging
+    - lemmatization (from 84.91 to 95.89!)
+
+  - Improved performance on:
+
+    - Reduced performance for NER down to 87.38 but we recommend either using the :code:`nlp.add_pipe("dacy/ner")` to add the SotA ScandiNER model to your pipeline or use one of the new fine-grained NER models.
+
+  - Added support
+
+    - Coreference Resolution, performance isn't great yet, but it's a start!
+    - Named entity linking, with a precision of 0.86 but recall is still low due to a lacking knowledge base
+
+- Medium model:
+
+  - Consistent improvements across all tasks:
+
+    - Notable performance gain for NER from an F1 of 81.79 to 85.82
+    - Notable performance gain for lemmatization from an ACC 84.91 to 94
+
+  - Added support
+
+    - Coreference Resolution
+    - Named entity linking
+
+- Small model:
+
+  - Consistent improvements across all tasks
+
+  - Added support:
+
+    - Coreference Resolution
+    - Named entity linking
+
+- Fixes a variety of issues:
+
+  - `Removed custom requirements for the large model <https://github.com/centre-for-humanities-computing/DaCy/issues/218>`__
+  - `Removing warning when loading the models <https://github.com/centre-for-humanities-computing/DaCy/issues/72>`__
+  - Fixed annotatations in error in the DDT treebank where "'" was *never* followed by a space
+
+- Removed support for DaCy model version 0.1.0, if you need to use these models you will have to use `DaCy <= 2.0.0`
+
+- What is next?
+
+  - A coreference resolution only model
+  - Better named entity linking by
+
+    - Improving the annotations of DaNED which currently annotate PERSONS using the QID reference to the name among other things
+    - Improving the knowledge base which currently is the main source of low recall
+
+  - Examine model generalization using DANSK and whether we can improve the generalization
+  - and more!
+
 **2.6.0 (10/04/23)**
 
 - Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩
+
   - You can add these models to your pipeline using :code:`nlp.add_pipe("dacy/ner-fine-grained", config={"size": "small"})`
 
 **2.5.0 (10/04/23)**
@@ -17,8 +88,11 @@ News and Changelog
 **2.2.10 (05/01/23)**
 
 - Added support for spaCy 3.4.0
+
   - This required the wrapped component model to change name from e.g. :code:`dacy.ner` to :code:`dacy/ner`. As the :code:`.` is no longer allowed by spaCy.
+
 - Added support for the state-of-the-art NER model by Dan Nielsen
+
   - You can add this model to your pipeline using :code:`nlp.add_pipe("dacy/ner")`
 
 
