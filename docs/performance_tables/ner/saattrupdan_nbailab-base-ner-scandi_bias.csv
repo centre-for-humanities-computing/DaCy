@@ -1,0 +1,2 @@
+Model,Baseline,Danish Names,Female Names,Male Names,Muslim Names
+saattrupdan/nbailab-base-ner-scandi,86.10,86.85 ± 0.43,86.99 ± 0.26,86.81 ± 0.29,86.19 ± 0.49

@@ -1,0 +1,2 @@
+Model,Baseline,Danish Names,Female Names,Male Names,Muslim Names
+da_dacy_large_ner_fine_grained-0.1.0,72.63,73.08 ± 0.44,73.37 ± 0.47,73.02 ± 0.46,72.20 ± 0.59

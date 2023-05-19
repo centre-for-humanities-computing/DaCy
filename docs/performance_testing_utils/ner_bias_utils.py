@@ -1,13 +1,117 @@
 ## This create the table for bias scores
 
+from functools import partial
+
 import augmenty
+import dacy
 import pandas as pd
+import spacy
 from dacy.datasets import danish_names, female_names, male_names, muslim_names
 from dacy.score import score
+from spacy.language import Language
 from spacy.training import Corpus, dont_augment
 
+SPACY_MODELS = [
+    "da_core_news_sm",
+    "da_core_news_md",
+    "da_core_news_lg",
+    "da_core_news_trf",
+]
 
-def get_augmenters() -> list:
+DACY_MODELS = [
+    "da_dacy_small_trf-0.2.0",
+    "da_dacy_medium_trf-0.2.0",
+    "da_dacy_large_trf-0.2.0",
+]
+DACY_MODELS_FINE = [
+    "da_dacy_small_ner_fine_grained-0.1.0",
+    "da_dacy_medium_ner_fine_grained-0.1.0",
+    "da_dacy_large_ner_fine_grained-0.1.0",
+]
+DACY_PIPES = [
+    "saattrupdan/nbailab-base-ner-scandi",
+]
+
+SPACY_WRAP_MODELS = [
+    "alexandrainst/da-ner-base",
+]
+
+ALL_MODELS_NAMES = (
+    SPACY_MODELS + DACY_MODELS + DACY_PIPES + SPACY_WRAP_MODELS + DACY_MODELS_FINE
+)
+
+
+def scandiner_loader():
+    scandiner = spacy.blank("da")
+    scandiner.add_pipe("dacy/ner")
+    return scandiner
+
+
+def spacy_wrap_loader(mdl):
+    daner_base = spacy.blank("da")
+    config = {"model": {"name": mdl}, "predictions_to": ["ents"]}
+    daner_base.add_pipe("token_classification_transformer", config=config)
+    return daner_base
+
+
+@Language.component("conll2003_converter")
+def conll2003_converter(doc):
+    """
+    converts ents to conllu format
+    """
+    mapping = {"PERSON": "PER", "ORGANIZATION": "ORG", "GPE": "LOC", "LOCATION": "LOC"}
+
+    new_ents = []
+    for ent in doc.ents:
+        if ent.label_ in mapping:
+            ent.label_ = mapping[ent.label_]
+            new_ents.append(ent)
+    doc.ents = new_ents
+    return doc
+
+
+def dacy_ner_mdl_fine_to_conll2003(mdl: str):
+    nlp = dacy.load(mdl)
+    # create component to convert annotations to conll2003
+    nlp.add_pipe("conll2003_converter", last=True)
+    return nlp
+
+
+def no_misc_getter(doc, attr):
+    for ent in doc.ents:
+        if ent.label_ != "MISC":
+            yield ent
+
+
+MDL_GETTER_DICT = {
+    "da_core_news_sm-3.5.0": partial(spacy.load, "da_core_news_sm"),
+    "da_core_news_md-3.5.0": partial(spacy.load, "da_core_news_md"),
+    "da_core_news_lg-3.5.0": partial(spacy.load, "da_core_news_lg"),
+    "da_core_news_trf-3.5.0": partial(spacy.load, "da_core_news_trf"),
+    "da_dacy_small_trf-0.2.0": partial(dacy.load, "da_dacy_small_trf-0.2.0"),
+    "da_dacy_medium_trf-0.2.0": partial(dacy.load, "da_dacy_medium_trf-0.2.0"),
+    "da_dacy_large_trf-0.2.0": partial(dacy.load, "da_dacy_large_trf-0.2.0"),
+    "da_dacy_small_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_small_ner_fine_grained-0.1.0",
+    ),
+    "da_da_dacy_medium_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_medium_ner_fine_grained-0.1.0",
+    ),
+    "da_dacy_large_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_large_ner_fine_grained-0.1.0",
+    ),
+    "saattrupdan/nbailab-base-ner-scandi": scandiner_loader,
+    "alexandrainst/da-ner-base": partial(
+        spacy_wrap_loader,
+        "alexandrainst/da-ner-base",
+    ),
+}
+
+
+def get_augmenters() -> dict:
     # augmentation
     # define pattern of augmentation
     patterns = [
@@ -66,24 +170,25 @@ def get_augmenters() -> list:
         replace_consistency=True,
     )
 
-    augmenters = [
-        ("Danish Names", dk_aug),
-        ("Muslim Names", muslim_aug),
-        ("Male Names", male_aug),
-        ("Female Names", fem_aug),
-    ]
-    return augmenters
+    bias_augmenters = {
+        "Danish Names": dk_aug,
+        "Muslim Names": muslim_aug,
+        "Male Names": male_aug,
+        "Female Names": fem_aug,
+    }
+    return bias_augmenters
 
 
 def apply_models(
     models: list,
     dataset: Corpus,
-    augmenters: list,
+    augmenters: dict,
     n_rep: int = 20,
 ) -> pd.DataFrame:
     rows = []
     for mdl_name, nlp in models:
         # Evaluate
+
         out = score(
             dataset,
             apply_fn=nlp,
@@ -99,7 +204,7 @@ def apply_models(
         }
         rows.append(row)
 
-        for aug_name, aug in augmenters:
+        for aug_name, aug in augmenters.items():
             out = score(
                 dataset,
                 apply_fn=nlp,
@@ -152,26 +257,3 @@ def create_table(  # noqa: ANN201
     # remove the index
     s = s.hide_index()
     return s
-
-
-if __name__ == "__main__":
-    import dacy
-    import spacy
-    from dacy.datasets import dane
-
-    sp_sm = spacy.load("da_core_news_sm")
-    sp_md = spacy.load("da_core_news_md")
-    dacy_sm = dacy.load("da_dacy_small_trf-0.1.0")
-
-    models = [
-        ("spaCy (da_core_news_sm)", sp_sm),
-        ("spaCy (da_core_news_md)", sp_md),
-        ("DaCy (da_dacy_small_trf-0.1.0)", dacy_sm),
-    ]
-
-    dataset = dane(splits="test")
-
-    augmenters = get_augmenters()
-    result_df = apply_models(models, dataset, augmenters, n_rep=20)
-    s = create_table(result_df, augmenters)
-    print(s.render())

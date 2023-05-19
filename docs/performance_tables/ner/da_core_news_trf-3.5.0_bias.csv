@@ -1,0 +1,2 @@
+Model,Baseline,Danish Names,Female Names,Male Names,Muslim Names
+da_core_news_trf-3.5.0,78.78,78.54 ± 0.79,78.62 ± 0.58,78.54 ± 0.53,76.38 ± 0.84

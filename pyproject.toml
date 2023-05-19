@@ -80,14 +80,18 @@ docs = [
     # docutils >0.20.0
     "docutils==0.17.1",
     # for tutorials
-    "jupyter>=1.0.0,<1.1.0",
+    "jupyter>=1.0.0",
     "wikidata>=0.7.0",
     # sentiment analysis
-    "asent>=0.4.2,<0.8.0",
-    "augmenty>=1.0.2,<1.4.0",
+    "asent>=0.4.2",
+    "augmenty>=1.0.2",
     # for the textdescriptives tutorial
-    "textdescriptives>=2.1.0,<3.0.0",
-    "seaborn>=0.11.2,<0.13.0",
+    "textdescriptives>=2.1.0",
+    "seaborn>=0.11.2",
+    # for performance notebooks
+    "altair>=4.1.0",
+    "datasets>=1.14.0",
+
 ]
 
 [project.readme]
@@ -191,7 +195,8 @@ exclude = [
   "dev/**",
   "training/main/**",
   "training/ner_fine_grained/**",
-  "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**"
+  "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
+  "docs/performance_testing_utils/**"
 ]
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
