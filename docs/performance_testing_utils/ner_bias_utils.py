@@ -3,13 +3,14 @@
 from functools import partial
 
 import augmenty
-import dacy
 import pandas as pd
 import spacy
-from dacy.datasets import danish_names, female_names, male_names, muslim_names
-from dacy.score import score
 from spacy.language import Language
 from spacy.training import Corpus, dont_augment
+
+import dacy
+from dacy.datasets import danish_names, female_names, male_names, muslim_names
+from dacy.score import score
 
 SPACY_MODELS = [
     "da_core_news_sm",
@@ -84,30 +85,30 @@ def no_misc_getter(doc, attr):
 
 
 MDL_GETTER_DICT = {
-    "da_core_news_sm-3.5.0": partial(spacy.load, "da_core_news_sm"),
-    "da_core_news_md-3.5.0": partial(spacy.load, "da_core_news_md"),
-    "da_core_news_lg-3.5.0": partial(spacy.load, "da_core_news_lg"),
-    "da_core_news_trf-3.5.0": partial(spacy.load, "da_core_news_trf"),
-    "da_dacy_small_trf-0.2.0": partial(dacy.load, "da_dacy_small_trf-0.2.0"),
-    "da_dacy_medium_trf-0.2.0": partial(dacy.load, "da_dacy_medium_trf-0.2.0"),
+    "saattrupdan/nbailab-base-ner-scandi": scandiner_loader,
     "da_dacy_large_trf-0.2.0": partial(dacy.load, "da_dacy_large_trf-0.2.0"),
-    "da_dacy_small_ner_fine_grained-0.1.0": partial(
-        dacy_ner_mdl_fine_to_conll2003,
-        "da_dacy_small_ner_fine_grained-0.1.0",
-    ),
-    "da_da_dacy_medium_ner_fine_grained-0.1.0": partial(
-        dacy_ner_mdl_fine_to_conll2003,
-        "da_dacy_medium_ner_fine_grained-0.1.0",
-    ),
+    "da_dacy_medium_trf-0.2.0": partial(dacy.load, "da_dacy_medium_trf-0.2.0"),
+    "da_dacy_small_trf-0.2.0": partial(dacy.load, "da_dacy_small_trf-0.2.0"),
     "da_dacy_large_ner_fine_grained-0.1.0": partial(
         dacy_ner_mdl_fine_to_conll2003,
         "da_dacy_large_ner_fine_grained-0.1.0",
     ),
-    "saattrupdan/nbailab-base-ner-scandi": scandiner_loader,
+    "da_dacy_medium_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_medium_ner_fine_grained-0.1.0",
+    ),
+    "da_dacy_small_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_small_ner_fine_grained-0.1.0",
+    ),
     "alexandrainst/da-ner-base": partial(
         spacy_wrap_loader,
         "alexandrainst/da-ner-base",
     ),
+    "da_core_news_trf-3.5.0": partial(spacy.load, "da_core_news_trf"),
+    "da_core_news_lg-3.5.0": partial(spacy.load, "da_core_news_lg"),
+    "da_core_news_md-3.5.0": partial(spacy.load, "da_core_news_md"),
+    "da_core_news_sm-3.5.0": partial(spacy.load, "da_core_news_sm"),
 }
 
 
@@ -227,33 +228,52 @@ def apply_models(
     return df2
 
 
+def highlight_max(s: pd.Series) -> list:
+    """Highlight the maximum in a Series with bold text."""
+    # convert to str for comparison
+    s = s.astype(str)
+    is_max = s == s.max()
+    return ["font-weight: bold" if v else "" for v in is_max]
+
+
+def underline_second_max(s: pd.Series) -> list:
+    """Underline the second maximum in a Series."""
+    is_second_max = s == s.sort_values(ascending=False).iloc[1]
+    return ["text-decoration: underline" if v else "" for v in is_second_max]
+
+
 def create_table(  # noqa: ANN201
     result_df: pd.DataFrame,
-    augmenters: list,
+    augmenters: dict,
 ):
-    nam = [("", "Model"), ("", "Baseline")] + [
-        ("Augmenter", aug_name) for aug_name, _ in augmenters
+    # replace index with range
+    result_df.index = range(len(result_df))
+
+    nam = [("", "Models"), ("", "Baseline")] + [
+        ("Augmenter", aug_name) for aug_name, _ in augmenters.items()
     ]
     super_header = pd.MultiIndex.from_tuples(nam)
     result_df.columns = super_header
 
-    def highlight_max(s: pd.Series) -> list:
-        """Highlight the maximum in a Series with bold text."""
-        is_max = s == s.max()
-        return ["font-weight: bold" if v else "" for v in is_max]
-
     s = result_df.style.apply(highlight_max, axis=0, subset=result_df.columns[1:])
+    s = s.apply(underline_second_max, axis=0, subset=result_df.columns[1:])
+
+    # round to 2 decimals the baseline
+    s = s.format("{:.2f}", subset=result_df.columns[1:2])
 
     # Add a caption
     s = s.set_caption("F1 scores for the different models and augmenters")
 
     # Center the header and left align the model names
-    s = s.set_properties(subset=[("", "Model")], **{"text-align": "left"})
-    s = s.set_properties(subset=result_df.columns[2:], **{"text-align": "right"})
-    super_header_style = [{"selector": ".level0", "props": [("text-align", "center")]}]
+    s = s.set_properties(subset=result_df.columns[1:], **{"text-align": "right"})
 
+    super_header_style = [
+        {"selector": ".level0", "props": [("text-align", "center")]},
+        {"selector": ".col_heading", "props": [("text-align", "center")]},
+    ]
     # Apply the CSS style to the styler
     s = s.set_table_styles(super_header_style)
+    s = s.set_properties(subset=[("", "Models")], **{"text-align": "left"})
     # remove the index
-    s = s.hide_index()
+    s = s.hide(axis="index")
     return s

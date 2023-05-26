@@ -1,24 +1,27 @@
 import random
 import warnings
 from functools import partial
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional
 
 import altair as alt
-import dacy
 import numpy as np
 import pandas as pd
 import spacy
 from datasets import load_dataset
-from ner_bias_utils import (
-    DACY_PIPES,
-    SPACY_MODELS,
-    SPACY_WRAP_MODELS,
-    scandiner_loader,
-    spacy_wrap_loader,
-)
 from spacy.scorer import Scorer
 from spacy.tokens import Doc
 from spacy.training import Example
+
+import dacy
+
+from .ner_bias_utils import (
+    DACY_PIPES,
+    SPACY_MODELS,
+    SPACY_WRAP_MODELS,
+    dacy_ner_mdl_fine_to_conll2003,
+    scandiner_loader,
+    spacy_wrap_loader,
+)
 
 DACY_MODELS = [
     "da_dacy_small_trf-0.2.0",
@@ -29,27 +32,29 @@ DACY_MODELS = [
 ALL_MODELS_NAMES = SPACY_MODELS + DACY_MODELS + DACY_PIPES + SPACY_WRAP_MODELS
 
 MDL_GETTER_DICT = {
-    "da_core_news_sm-3.5.0": partial(spacy.load, "da_core_news_sm"),
-    "da_core_news_md-3.5.0": partial(spacy.load, "da_core_news_md"),
-    "da_core_news_lg-3.5.0": partial(spacy.load, "da_core_news_lg"),
-    "da_core_news_trf-3.5.0": partial(spacy.load, "da_core_news_trf"),
-    "da_dacy_small_trf-0.2.0": partial(dacy.load, "da_dacy_small_trf-0.2.0"),
-    "da_dacy_medium_trf-0.2.0": partial(dacy.load, "da_dacy_medium_trf-0.2.0"),
-    "da_dacy_large_trf-0.2.0": partial(dacy.load, "da_dacy_large_trf-0.2.0"),
-    "da_dacy_small_ner_fine_grained-0.1.0": partial(
-        dacy.load,
-        "da_dacy_small_ner_fine_grained-0.1.0",
-    ),
-    "da_da_dacy_medium_ner_fine_grained-0.1.0": partial(
-        dacy.load,
-        "da_dacy_medium_ner_fine_grained-0.1.0",
-    ),
-    "da_dacy_large_ner_fine_grained-0.1.0": partial(
-        dacy.load,
-        "da_dacy_large_ner_fine_grained-0.1.0",
+    "alexandrainst/da-ner-base": partial(
+        spacy_wrap_loader, "alexandrainst/da-ner-base"
     ),
     "saattrupdan/nbailab-base-ner-scandi": scandiner_loader,
-    "alexandrainst/da-ner-base": spacy_wrap_loader,
+    "da_dacy_large_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_large_ner_fine_grained-0.1.0",
+    ),
+    "da_da_dacy_medium_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_medium_ner_fine_grained-0.1.0",
+    ),
+    "da_dacy_small_ner_fine_grained-0.1.0": partial(
+        dacy_ner_mdl_fine_to_conll2003,
+        "da_dacy_small_ner_fine_grained-0.1.0",
+    ),
+    "da_dacy_large_trf-0.2.0": partial(dacy.load, "da_dacy_large_trf-0.2.0"),
+    "da_dacy_medium_trf-0.2.0": partial(dacy.load, "da_dacy_medium_trf-0.2.0"),
+    "da_dacy_small_trf-0.2.0": partial(dacy.load, "da_dacy_small_trf-0.2.0"),
+    "da_core_news_trf-3.5.0": partial(spacy.load, "da_core_news_trf"),
+    "da_core_news_lg-3.5.0": partial(spacy.load, "da_core_news_lg"),
+    "da_core_news_md-3.5.0": partial(spacy.load, "da_core_news_md"),
+    "da_core_news_sm-3.5.0": partial(spacy.load, "da_core_news_sm"),
 }
 
 
@@ -93,46 +98,83 @@ def convert_to_conll_2003(
     return docs
 
 
-scorer = Scorer()
-
-
 def no_misc_getter(doc, attr):
     for ent in doc.ents:
         if ent.label_ != "MISC":
             yield ent
 
 
-def bootstrap(examples, n_rep=100):
+def bootstrap(examples, n_rep=100, getter: Optional[Callable] = no_misc_getter):
+    scorer = Scorer()
     scores = []
     for _i in range(n_rep):
         sample = random.choices(examples, k=len(examples))
-        score = scorer.score_spans(sample, getter=no_misc_getter, attr="ents")
+        if getter is None:
+            score = scorer.score_spans(sample, attr="ents")
+        else:
+            score = scorer.score_spans(sample, getter=getter, attr="ents")
         scores.append(score)
     return scores
 
 
 def compute_mean_and_ci(scores):
     ent_f = [score["ents_f"] for score in scores]
-    per_f = [score["ents_per_type"].get("PER", {"f": None})["f"] for score in scores]
-    loc_f = [score["ents_per_type"].get("LOC", {"f": None})["f"] for score in scores]
-    org_f = [score["ents_per_type"].get("ORG", {"f": None})["f"] for score in scores]
+    # filter out None
+    ent_f = [x for x in ent_f if x is not None]
+    if ent_f:
+        result_dict = {
+            "Average": {"mean": np.mean(ent_f), "ci": np.percentile(ent_f, [2.5, 97.5])}
+        }
+    else:
+        result_dict = {"Average": {"mean": None, "ci": np.array([None, None])}}
 
-    nam = ["Average F1", "Person F1", "Location F1", "Organization F1"]
+    score_mapping = {
+        "PER": "Person",
+        "LOC": "Location",
+        "LOCATION": "Location",
+        "ORG": "Organization",
+        "MISC": "Misc.",
+        "LANGUAGE": "Language",
+        "PRODUCT": "Product",
+        "LAW": "Law",
+        "ORGANIZATION": "Organization",
+        "WORK OF ART": "Work of Art",
+        "PERSON": "Person",
+        "FACILITY": "Facility",
+        "GPE": "GPE",
+        "EVENT": "Event",
+        "CARDINAL": "Cardinal",
+        "DATE": "Date",
+        "MONEY": "Money",
+        "NORP": "NORP",
+        "ORDINAL": "Ordinal",
+        "PERCENT": "Percent",
+        "QUANTITY": "Quantity",
+        "TIME": "Time",
+    }
 
-    d = {}
-    for n, f in zip(nam, [ent_f, per_f, loc_f, org_f]):
-        f = [x for x in f if x is not None]
-        if len(f) == 0:
-            d[n] = {"mean": None, "ci": None}
+    labels = set([label for score in scores for label in score["ents_per_type"]])
+
+    for label in labels:
+        label_f = [
+            score["ents_per_type"].get(label, {"f": None})["f"] for score in scores
+        ]
+        label_f = [x for x in label_f if x is not None]
+        label = score_mapping.get(label, label)
+        if len(label_f) == 0:
+            result_dict[label] = {"mean": None, "ci": None}
             continue
-        d[n] = {"mean": np.mean(f), "ci": np.percentile(f, [2.5, 97.5])}
-    return d
+        result_dict[label] = {
+            "mean": np.mean(label_f),
+            "ci": np.percentile(label_f, [2.5, 97.5]),
+        }
+    return result_dict
 
 
 def evaluate_generalization(
     mdl_name,
     mdl,
-    domains_dataset_dict=Dict[str, list],
+    domains_dataset_dict: Dict[str, list],
 ) -> pd.DataFrame:
     rows = []
     all_examples = []
@@ -142,35 +184,39 @@ def evaluate_generalization(
         examples = [Example(predicted=x, reference=y) for x, y in zip(model_pred, docs)]
         all_examples.extend(examples)
 
-        bs_score = bootstrap(examples)
+        bs_score = bootstrap(examples, getter=no_misc_getter)
         score = compute_mean_and_ci(bs_score)
+
+        avg_f1 = score.get("Average", {"mean": None, "ci": None})
+        person_f1 = score.get("Person", {"mean": None})
+        location_f1 = score.get("Location", {"mean": None})
+        organization_f1 = score.get("Organization", {"mean": None})
 
         row = {
             "Model": mdl_name,
             "Domain": domain,
-            "Average F1": score["Average F1"]["mean"],
-            "Person F1": score["Person F1"]["mean"],
-            "Location F1": score["Location F1"]["mean"],
-            "Organization F1": score["Organization F1"]["mean"],
-            "Average F1 CI": score["Average F1"]["ci"],
+            "Average F1": avg_f1["mean"],
+            "Person F1": person_f1["mean"],
+            "Location F1": location_f1["mean"],
+            "Organization F1": organization_f1["mean"],
+            "Average F1 CI": avg_f1["ci"],
             "Number of docs": len(docs),
         }
         rows.append(row)
 
     # across domains
-    examples = all_examples[mdl_name]
-    bs_score = bootstrap(examples)
+    bs_score = bootstrap(all_examples)
     score = compute_mean_and_ci(bs_score)
 
     row = {
         "Model": mdl_name,
         "Domain": "All",
-        "Average F1": score["Average F1"]["mean"],
-        "Person F1": score["Person F1"]["mean"],
-        "Location F1": score["Location F1"]["mean"],
-        "Organization F1": score["Organization F1"]["mean"],
-        "Average F1 CI": score["Average F1"]["ci"],
-        "Number of docs": len(examples),
+        "Average F1": score["Average"]["mean"],
+        "Person F1": score["Person"]["mean"],
+        "Location F1": score["Location"]["mean"],
+        "Organization F1": score["Organization"]["mean"],
+        "Average F1 CI": score["Average"]["ci"],
+        "Number of docs": len(all_examples),
     }
     rows.append(row)
     return pd.DataFrame(rows)
@@ -182,6 +228,8 @@ def create_generation_viz(df: pd.DataFrame):
     df = df[df["Domain"] != "dannet"]
     df = df[df["Domain"].notnull()]
 
+    # convert CI to numeric from string
+    df["Average F1 CI"] = df["Average F1 CI"].apply(lambda x: x[1:-1].split(" "))
     df["Average F1 CI Lower"] = df["Average F1 CI"].apply(lambda x: x[0])
     df["Average F1 CI Upper"] = df["Average F1 CI"].apply(lambda x: x[1])
     df["Average F1 CI Lower"] = pd.to_numeric(df["Average F1 CI Lower"])
@@ -191,8 +239,7 @@ def create_generation_viz(df: pd.DataFrame):
         fields=["Domain"],
         bind="legend",
         value=[{"Domain": "All"}],
-    )  # does not work
-
+    )
     bind_checkbox = alt.binding_checkbox(
         name="Scale point size by number of documents: ",
     )
@@ -202,11 +249,12 @@ def create_generation_viz(df: pd.DataFrame):
         alt.Chart(df)
         .mark_point(filled=True)
         .encode(
-            # x='Average F1',
-            x=alt.X("Average F1", title="F1"),
+            x=alt.X("Average F1", title="F1", sort="-y"),
             y="Model",
             color="Domain",
-            size=alt.condition(param_checkbox, "Number of docs", alt.value(100)),
+            size=alt.condition(
+                param_checkbox, "Number of docs", alt.value(100), legend=None
+            ),
             tooltip=[
                 "Model",
                 "Domain",
@@ -233,5 +281,7 @@ def create_generation_viz(df: pd.DataFrame):
 
     chart = error_bars + base
 
-    chart.add_params(selection, param_checkbox).properties(width=800, height=400)
+    chart = chart.add_params(selection, param_checkbox).properties(
+        width=800, height=400
+    )
     return chart

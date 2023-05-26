@@ -1,0 +1,5 @@
+# models required for performance benchmarks
+https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.5.0/da_core_news_sm-3.5.0-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/da_core_news_md-3.5.0/da_core_news_md-3.5.0-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/da_core_news_lg-3.5.0/da_core_news_lg-3.5.0-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/da_core_news_trf-3.5.0/da_core_news_trf-3.5.0-py3-none-any.whl
