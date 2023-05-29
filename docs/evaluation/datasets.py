@@ -1,10 +1,15 @@
+import random
 from typing import Dict, List
 
+import augmenty
 import catalogue
+import numpy as np
 import spacy
 from datasets import load_dataset
 from spacy.tokens import Doc
 from spacy.training import Example
+
+from .augmentations import get_gender_bias_augmenters, get_robustness_augmenters
 
 datasets = catalogue.create("dacy", "datasets")
 
@@ -22,6 +27,44 @@ def dane() -> Dict[str, List[Example]]:
         datasets[nam] = examples
 
     return datasets
+
+
+def augment_dataset(dataset: str, augmenters: dict, n_rep=20, split: str = "test"):
+    # ensure seed
+    random.seed(42)
+    np.random.seed(42)
+
+    nlp_da = spacy.blank("da")
+    _dataset = datasets.get(dataset)
+    ds_split = _dataset()[split]
+    docs = [example.reference for example in ds_split]
+
+    if not Doc.has_extension("meta"):
+        Doc.set_extension("meta", default={}, force=True)
+
+    # augment
+    aug_docs = []
+    for aug_name, aug in augmenters.items():
+        for i in range(n_rep):
+            _aug_docs = list(augmenty.docs(docs, augmenter=aug, nlp=nlp_da))
+            for doc in _aug_docs:
+                doc._.meta["augmenter"] = aug_name
+                doc._.meta["n_rep"] = i
+            aug_docs.extend(_aug_docs)
+
+    # convert to examples
+    examples = [Example(doc, doc) for doc in aug_docs]
+    return examples
+
+
+@datasets.register("gender_bias_dane")
+def dane_gender_bias():
+    return {"test": augment_dataset("dane", augmenters=get_gender_bias_augmenters())}
+
+
+@datasets.register("robustness_dane")
+def dane_robustness():
+    return {"test": augment_dataset("dane", augmenters=get_robustness_augmenters())}
 
 
 @datasets.register("dansk")

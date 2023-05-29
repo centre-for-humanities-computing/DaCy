@@ -1,10 +1,9 @@
 import augmenty
 import spacy
 
-prob = 0.02
 
 
-def get_augmenters():
+def get_augmenters(prob = 0.02):
     # Spelling error augmentations
     char_swap_aug = augmenty.load("char_swap_v1", level=prob)
     tok_swap_aug = augmenty.load("token_swap_v1", level=prob)
@@ -75,7 +74,6 @@ def get_augmenters():
     )
     first_name_only = augmenty.load(
         "ents_format_v1",
-        reordering=[1],
         formatter=[None, abbreviate],
         level=0.1,
         ent_types=["PER"],

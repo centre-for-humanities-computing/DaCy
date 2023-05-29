@@ -112,72 +112,7 @@ MDL_GETTER_DICT = {
 }
 
 
-def get_augmenters() -> dict:
-    # augmentation
-    # define pattern of augmentation
-    patterns = [
-        ["first_name"],
-        ["first_name", "last_name"],
-        ["first_name", "last_name", "last_name"],
-    ]
 
-    # define person tag for augmenters
-    person_tag = "PER"
-
-    # define all augmenters
-
-    dk_aug = augmenty.load(
-        "per_replace_v1",
-        patterns=patterns,
-        names=danish_names(),
-        level=1,
-        person_tag=person_tag,
-        replace_consistency=True,
-    )
-
-    dk_aug = augmenty.load(
-        "per_replace_v1",
-        patterns=patterns,
-        names=danish_names(),
-        level=1,
-        person_tag=person_tag,
-        replace_consistency=True,
-    )
-
-    muslim_aug = augmenty.load(
-        "per_replace_v1",
-        patterns=patterns,
-        names=muslim_names(),
-        level=1,
-        person_tag=person_tag,
-        replace_consistency=True,
-    )
-
-    male_aug = augmenty.load(
-        "per_replace_v1",
-        patterns=patterns,
-        names=male_names(),
-        level=1,
-        person_tag=person_tag,
-        replace_consistency=True,
-    )
-
-    fem_aug = augmenty.load(
-        "per_replace_v1",
-        patterns=patterns,
-        names=female_names(),
-        level=1,
-        person_tag=person_tag,
-        replace_consistency=True,
-    )
-
-    bias_augmenters = {
-        "Danish Names": dk_aug,
-        "Muslim Names": muslim_aug,
-        "Male Names": male_aug,
-        "Female Names": fem_aug,
-    }
-    return bias_augmenters
 
 
 def apply_models(

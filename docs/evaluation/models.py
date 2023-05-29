@@ -4,8 +4,9 @@ List of models using for testing
 
 from functools import partial
 
-import dacy
 import spacy
+
+import dacy
 
 
 def scandiner_loader():
@@ -36,7 +37,7 @@ MODELS = {
     ),
     "da_dacy_small_ner_fine_grained-0.1.0": partial(
         dacy.load,
-        "da_dacy_small_ner_fine_grained-0.1.0",
+        "da_dacy_small_ner_fine_grained",
     ),
     "alexandrainst/da-ner-base": partial(
         spacy_wrap_loader,
