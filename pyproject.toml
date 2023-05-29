@@ -55,7 +55,7 @@ dev = [
   "cruft",
   "mypy",  
   "pre-commit==3.3.2",
-  "ruff==0.0.269", # important that these match the pre-commit hooks
+  "ruff==0.0.270", # important that these match the pre-commit hooks
   "black[jupyter]==23.3.0", # important that these match the pre-commit hooks
 ]
 tests = [
