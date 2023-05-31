@@ -153,9 +153,9 @@ def apply_models(
 ):
     from time import time
 
-    docs_path = Path(".")
+    eval_path = Path(__file__).parent
     _mdl_name = mdl_name.replace("/", "_")
-    save_folder = docs_path / "evaluation" / "data" / f"{_mdl_name}"
+    save_folder = eval_path / "data" / f"{_mdl_name}"
 
     results = {}
     for split in splits:
@@ -304,9 +304,9 @@ def create_row_conll2003(
     bs_score = bootstrap(examples, n_rep=n_rep, n_samples=n_samples)
     score = compute_mean_and_ci(bs_score)
 
-    orga = score.get("ORGANIZATION", {"mean": None, "ci": (None, None)})
-    person = score.get("PERSON", {"mean": None, "ci": (None, None)})
-    location = score.get("LOCATION", {"mean": None, "ci": (None, None)})
+    orga = score.get("Organization", {"mean": None, "ci": (None, None)})
+    person = score.get("Person", {"mean": None, "ci": (None, None)})
+    location = score.get("Location", {"mean": None, "ci": (None, None)})
 
     return {
         "Model": mdl_name,

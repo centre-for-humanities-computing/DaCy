@@ -72,7 +72,7 @@ def get_gender_bias_augmenters() -> dict:
     return bias_augmenters
 
 
-def get_robustness_augmenters(prob=0.02):
+def get_robustness_augmenters(prob=0.05):
     # Spelling error augmentations
     char_swap_aug = augmenty.load("char_swap_v1", level=prob)
     tok_swap_aug = augmenty.load("token_swap_v1", level=prob)
@@ -98,10 +98,10 @@ def get_robustness_augmenters(prob=0.02):
     synonym_aug = augmenty.combine([wordnet_aug, emb_aug])
 
     # spacing augmentations
-    remove_spacing_augmenter = augmenty.load("remove_spacing_v1", level=0.02)
+    remove_spacing_augmenter = augmenty.load("remove_spacing_v1", level=prob)
     spacing_insertion_augmenter = augmenty.load(
         "spacing_insertion_v1",
-        level=0.02,
+        level=prob,
     )
 
     spacing_aug = augmenty.combine(
@@ -109,8 +109,8 @@ def get_robustness_augmenters(prob=0.02):
     )
 
     # historical spelling augmentations
-    upper_noun_aug = augmenty.load("da_historical_noun_casing_v1", level=0.02)
-    æøå_aug = augmenty.load("da_æøå_replace_v1", level=0.1)
+    upper_noun_aug = augmenty.load("da_historical_noun_casing_v1", level=1)
+    æøå_aug = augmenty.load("da_æøå_replace_v1", level=1)
 
     hist_spelling_aug = augmenty.combine([upper_noun_aug, æøå_aug])
 

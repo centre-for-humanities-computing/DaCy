@@ -37,7 +37,7 @@ MODELS = {
     ),
     "da_dacy_small_ner_fine_grained-0.1.0": partial(
         dacy.load,
-        "da_dacy_small_ner_fine_grained",
+        "da_dacy_small_ner_fine_grained-0.1.0",
     ),
     "alexandrainst/da-ner-base": partial(
         spacy_wrap_loader,
