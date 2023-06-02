@@ -1,6 +1,5 @@
 import augmenty
 import spacy
-
 from dacy.datasets import danish_names, female_names, male_names, muslim_names
 
 
@@ -77,7 +76,7 @@ def get_robustness_augmenters(prob=0.05):
     char_swap_aug = augmenty.load("char_swap_v1", level=prob)
     tok_swap_aug = augmenty.load("token_swap_v1", level=prob)
     keystroke_aug = augmenty.load(
-        "keystroke_error_v1", level=prob, keyboard="da_qwerty_v1"
+        "keystroke_error_v1", level=prob, keyboard="da_qwerty_v1",
     )
     start_casing_aug = augmenty.load("random_starting_case_v1", level=prob)
     # common spelling error
@@ -105,7 +104,7 @@ def get_robustness_augmenters(prob=0.05):
     )
 
     spacing_aug = augmenty.combine(
-        [remove_spacing_augmenter, spacing_insertion_augmenter]
+        [remove_spacing_augmenter, spacing_insertion_augmenter],
     )
 
     # historical spelling augmentations
