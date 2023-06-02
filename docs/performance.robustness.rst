@@ -56,77 +56,9 @@ These show some general trends, some of which include:
 Named entity recognition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the following table we see a the performance on named entity recognition (NER) of Danish NLP pipelines
-reported as average F1 scores excluding the MISC category. We have highlighted the best scores in
-bold and second best are underlined. The "*" denotes that the result is significantly different 
-from baseline using a significance threshold of 0.05 with Bonferroni correction for multiple comparisons.
-Values in parentheses denote the standard deviation. 
+The performance comparisons for robustness of NER models have all been moved to the its own section together to easily allow for comparison. Please
+see the `Named Entity Recognition <https://centre-for-humanities-computing.github.io/DaCy/tutorials/dont_run_performance_ner.html>`__ section for more details.
 
-.. image:: _static/ner_robustness.png
-  :width: 1000
-  :alt: NER performance of Danish NLP pipelines
-
-
-.. hint::
-   
-   NERDA limits input size to 128 wordpieces which leads to truncation on long input sizes and when there is a high rates of keystroke errors.
-
-
-Besides the general trends mentioned above we can also note that:
-
-* All models show a bias toward Muslim names, except DaCy large. The robustness of DaCy large likely stems from the multilingual pre-training. 
-
-* No models show significant biases based on gender with the exception of Polyglot.
-
-* DaCy small is robust to spelling errors and outperforms larger models such as DaNLP's BERT and NERDA.
-
-* DaNLP's BERT and NERDA models were found to under-perform if given longer input lengths.
-
-* DaCy's models consistently perform slightly better with more context, but are not vulnerable to shorter input.
-
-* Lack of casing is detrimental for NER for the cased models, most notably Flair, the SpaCy models, DaCy large and DaCy small. 
-
-Fine-grained named entity recognition
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In the following two tables we see the performance on named entity recognition (NER) on `the DANSK dataset <https://huggingface.co/datasets/chcaa/DANSK>`_
-by the 3 DaCy fine-grained models. The first table shows the performance within each of the named entity classes,
-while the second table shows the macro F1-scores on the different domains within the dataset.
-We have highlighted the best scores in bold and second best are in italic.
-To provide a clearer overview of the domain performances, a figure is also included; depicting the same information as in the table.
-
-.. image:: _static/ner_fine_grained_domain_perf.png
-  :width: 1000
-  :alt: NER performance of DaCy fine-grained on the domains of the DANSK dataset
-
-Please note that the domain performance scores are based on a transfer of labels, 
-to make DANSK match the CoNLL-2003 standards that the other models base their predictions on.
-The performances of DaCy fine-grained are thus non-comparable to the other models.
-
-.. hint::
-   
-   The description of both ORG and PER in CoNLL-2003 largely matches
-   that of the extended OntoNotes, these named entity types could be used in
-   the evaluation with a 1-to-1 mapping without further handling. However, in
-   CoNLL-2003, LOC includes cities, roads, mountains, abstract places, specific
-   buildings, and meeting points.
-   Any GPE annotations in the DANSK dataset were therefore transferred into
-   LOCs in an attempt to make the test more accurate.
-   The MISC category in CoNLL-2003 is a diverse category meant to denote 
-   all names not in other categories (encapsulating both e.g. events and
-   adjectives such as ”2004 World Cup” and ”Italian”), any of these predictions
-   were not included.
-
-
-.. image:: _static/domain_perf_on_dansk.png
-  :width: 1000
-  :alt: NER performance of Danish NLP pipelines
-
-
-
-.. image:: _static/ner_tags_fine_grained_perf.png
-  :width: 1000
-  :alt: NER performance of DaCy fine-grained on the individual named entities of the DANSK dataset
   
 
 Part-of-speech tagging
