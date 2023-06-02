@@ -4,9 +4,8 @@ List of models using for testing
 
 from functools import partial
 
-import spacy
-
 import dacy
+import spacy
 
 
 def scandiner_loader():
