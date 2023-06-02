@@ -42,7 +42,10 @@ def compute_mean_and_ci(scores):
     ent_f = [x for x in ent_f if x is not None]
     if ent_f:
         result_dict = {
-            "Average": {"mean": np.mean(ent_f), "ci": np.percentile(ent_f, [2.5, 97.5])},
+            "Average": {
+                "mean": np.mean(ent_f),
+                "ci": np.percentile(ent_f, [2.5, 97.5]),
+            },
         }
     else:
         result_dict = {"Average": {"mean": None, "ci": np.array([None, None])}}
@@ -107,7 +110,10 @@ def doc_from_json(json_obj: dict, nlp: Language):
 
 
 def predictions_to_disk(
-    save_path: Path, examples: List[Example], mdl_name: str, time_in_seconds: float,
+    save_path: Path,
+    examples: List[Example],
+    mdl_name: str,
+    time_in_seconds: float,
 ):
     save_path.parent.mkdir(exist_ok=True, parents=True)
     meta = {
@@ -174,7 +180,10 @@ def apply_models(
             end = time()
             time_in_seconds = end - start
             results = predictions_to_disk(
-                save_path, examples, mdl_name, time_in_seconds,
+                save_path,
+                examples,
+                mdl_name,
+                time_in_seconds,
             )
         else:
             print(f"{dataset} ({split}): Loading prediction for {mdl_name}")
@@ -253,7 +262,11 @@ def evaluate_generalization(
     for domain in domains:
         _examples = domains[domain]
         row = create_row_fn(
-            mdl_name, domain, _examples, n_rep=n_rep, n_samples=n_samples,
+            mdl_name,
+            domain,
+            _examples,
+            n_rep=n_rep,
+            n_samples=n_samples,
         )
         rows.append(row)
 
