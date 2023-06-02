@@ -1,5 +1,5 @@
 import random
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import augmenty
 import catalogue
@@ -22,14 +22,19 @@ def dane() -> Dict[str, List[Example]]:
     nlp_da = spacy.blank("da")
 
     datasets = {}
-    for nam, split in zip(["train", "dev", "test"], [train, dev, test]):
+    for nam, split in zip(["train", "dev", "test"], [train, dev, test]):  # type: ignore
         examples = list(split(nlp_da))
         datasets[nam] = examples
 
     return datasets
 
 
-def augment_dataset(dataset: str, augmenters: dict, n_rep=20, split: str = "test"):
+def augment_dataset(
+    dataset: str,
+    augmenters: dict,
+    n_rep: int = 20,
+    split: str = "test",
+) -> List[Example]:
     # ensure seed
     random.seed(42)
     np.random.seed(42)
@@ -58,17 +63,17 @@ def augment_dataset(dataset: str, augmenters: dict, n_rep=20, split: str = "test
 
 
 @datasets.register("gender_bias_dane")
-def dane_gender_bias():
+def dane_gender_bias() -> Dict[str, List[Example]]:
     return {"test": augment_dataset("dane", augmenters=get_gender_bias_augmenters())}
 
 
 @datasets.register("robustness_dane")
-def dane_robustness():
+def dane_robustness() -> Dict[str, List[Example]]:
     return {"test": augment_dataset("dane", augmenters=get_robustness_augmenters())}
 
 
 @datasets.register("dansk")
-def dansk(**kwargs) -> Dict[str, List[Example]]:
+def dansk(**kwargs: Any) -> Dict[str, List[Example]]:
     splits = ["train", "dev", "test"]
 
     if not Doc.has_extension("meta"):
@@ -76,7 +81,7 @@ def dansk(**kwargs) -> Dict[str, List[Example]]:
 
     nlp = spacy.blank("da")
 
-    def convert_to_doc(example):
+    def convert_to_doc(example: Dict) -> Doc:
         doc = Doc(nlp.vocab).from_json(example)
         # set metadata
         for k in ["dagw_source", "dagw_domain", "dagw_source_full"]:
@@ -86,7 +91,7 @@ def dansk(**kwargs) -> Dict[str, List[Example]]:
     dataset = {}
     for split in splits:
         ds = load_dataset("chcaa/DANSK", split=split, **kwargs)
-        docs = [convert_to_doc(example) for example in ds]
+        docs = [convert_to_doc(example) for example in ds]  # type: ignore
         examples = [Example(doc, doc) for doc in docs]
         dataset[split] = examples
 

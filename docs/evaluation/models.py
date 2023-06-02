@@ -6,15 +6,16 @@ from functools import partial
 
 import dacy
 import spacy
+from spacy.language import Language
 
 
-def scandiner_loader():
+def scandiner_loader() -> Language:
     scandiner = spacy.blank("da")
     scandiner.add_pipe("dacy/ner")
     return scandiner
 
 
-def spacy_wrap_loader(mdl):
+def spacy_wrap_loader(mdl: str) -> Language:
     daner_base = spacy.blank("da")
     config = {"model": {"name": mdl}, "predictions_to": ["ents"]}
     daner_base.add_pipe("token_classification_transformer", config=config)

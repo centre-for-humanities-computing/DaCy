@@ -2,8 +2,6 @@
 """
 
 import asyncio
-from collections import Counter
-from http import client
 from pathlib import Path
 
 # for running it in jupyter
@@ -80,7 +78,6 @@ def main():
     qids = [ent.kb_id_ for ent in ents if ent.kb_id_ != "-"]
     qids = list(set(qids))
 
-
     results = asyncio.run(check_if_qids_in_wikidata(qids))
 
     qids_not_in_wikidata = [qids[i] for i, result in enumerate(results) if not result]
@@ -96,12 +93,6 @@ def main():
 
     results = asyncio.run(is_given_name(qids))
     qid_to_given_name = {qids[i]: result for i, result in enumerate(results) if result}
-
-    for doc in docs:
-        if doc.
-
-
-
 
 
 if __name__ == "__main__":

@@ -1,4 +1,3 @@
-## Apply each of the model to DaNE
 import json
 import random
 from pathlib import Path
@@ -20,7 +19,7 @@ def bootstrap(
     n_rep: int = 100,
     n_samples: Optional[int] = None,
     getter: Optional[Callable] = None,
-):
+) -> List[Dict[str, Any]]:
     random.seed(42)
     scorer = Scorer()
     scores = []
@@ -36,7 +35,7 @@ def bootstrap(
     return scores
 
 
-def compute_mean_and_ci(scores):
+def compute_mean_and_ci(scores: List[Dict[str, Any]]) -> Dict[str, Any]:
     ent_f = [score["ents_f"] for score in scores]
     # filter out None
     ent_f = [x for x in ent_f if x is not None]
@@ -82,7 +81,7 @@ def compute_mean_and_ci(scores):
             score["ents_per_type"].get(label, {"f": None})["f"] for score in scores
         ]
         label_f = [x for x in label_f if x is not None]
-        label = score_mapping.get(label, label)
+        label = score_mapping.get(label, label)  # noqa
         if len(label_f) == 0:
             result_dict[label] = {"mean": None, "ci": None}
             continue
@@ -93,14 +92,14 @@ def compute_mean_and_ci(scores):
     return result_dict
 
 
-def doc_to_json(doc: Doc):
+def doc_to_json(doc: Doc) -> dict:
     json_obj = doc.to_json()
     if hasattr(doc._, "meta"):
         json_obj["meta"] = doc._.meta
     return json_obj
 
 
-def doc_from_json(json_obj: dict, nlp: Language):
+def doc_from_json(json_obj: dict, nlp: Language) -> Doc:
     doc = Doc(nlp.vocab).from_json(json_obj)
     if "meta" in json_obj:
         if not Doc.has_extension("meta"):
@@ -114,7 +113,7 @@ def predictions_to_disk(
     examples: List[Example],
     mdl_name: str,
     time_in_seconds: float,
-):
+) -> dict:
     save_path.parent.mkdir(exist_ok=True, parents=True)
     meta = {
         "mdl_name": mdl_name,
@@ -126,7 +125,7 @@ def predictions_to_disk(
     meta["predicted"] = [doc_to_json(d.predicted) for d in examples]
     meta["reference"] = [doc_to_json(d.reference) for d in examples]
 
-    with open(save_path, "w") as f:
+    with save_path.open("w") as f:
         json.dump(meta, f, indent=2)
 
     meta["examples"] = examples
@@ -135,7 +134,7 @@ def predictions_to_disk(
 
 def predictions_from_disk(path: Path) -> dict:
     nlp = spacy.blank("da")
-    with open(path) as f:
+    with path.open() as f:
         meta = json.load(f)
 
     reference = [doc_from_json(d, nlp) for d in meta["reference"]]
@@ -152,12 +151,12 @@ def predictions_from_disk(path: Path) -> dict:
 
 
 def apply_models(
-    mdl_name,
+    mdl_name: str,
     mdl_getter: Callable[[], Language],
     dataset: str,
-    splits: list[str] = ["test"],
+    splits: list[str] = ["test"],  # noqa: B006
     cache: bool = True,
-):
+) -> dict:
     from time import time
 
     eval_path = Path(__file__).parent
@@ -199,7 +198,7 @@ def create_dataframe(
     decimals: int = 1,
     n_rep: int = 100,
     n_samples: Optional[int] = None,
-):
+) -> pd.DataFrame:
     score = bootstrap(examples, getter=None, n_rep=n_rep, n_samples=n_samples)
     score = compute_mean_and_ci(score)
 
@@ -217,7 +216,7 @@ def create_dataframe(
     return pd.DataFrame([row])
 
 
-def string_repr(score):
+def __string_repr(score: dict) -> str | None:
     if score["mean"] is None:
         return None
     return f"{score['mean']:.2f} ({score['ci'][0]:.2f}, {score['ci'][1]:.2f})"
@@ -239,7 +238,7 @@ def _create_row(
         "Average": score["Average"]["mean"],
         "Average Lower CI": score["Average"]["ci"][0],
         "Average Upper CI": score["Average"]["ci"][1],
-        "Average F1": string_repr(score["Average"]),
+        "Average F1": __string_repr(score["Average"]),
         "Number of docs": len(examples),
     }
 
@@ -249,7 +248,7 @@ def evaluate_generalization(
     examples: list[Example],
     n_rep: int = 100,
     n_samples: Optional[int] = None,
-    create_row_fn=_create_row,
+    create_row_fn: Callable = _create_row,
 ) -> pd.DataFrame:
     domains = {}
     for example in examples:
@@ -278,8 +277,8 @@ def evaluate_generalization(
 
 
 def convert_to_conll_2003(
-    examples,
-    mapping={
+    examples: list[Example],
+    mapping: dict = {  # noqa: B006
         "PERSON": "PER",
         "GPE": "LOC",
         "LOCATION": "LOC",
@@ -289,12 +288,12 @@ def convert_to_conll_2003(
         "ORG": "ORG",
     },
 ) -> list:
-    def doc_to_conll_2003(doc):
+    def doc_to_conll_2003(doc: Doc) -> Doc:
         ents = doc.ents
         ents = [e for e in ents if e.label_ in mapping]
         for ent in ents:
             ent.label_ = mapping[ent.label_]
-        doc.ents = ents
+        doc.ents = ents  # type: ignore
         return doc
 
     for example in examples:
@@ -309,8 +308,8 @@ def create_row_conll2003(
     examples: list[Example],
     n_rep: int = 100,
     n_samples: Optional[int] = None,
-):
-    def string_repr(score):
+) -> dict:
+    def string_repr(score: dict) -> str | None:
         if score["mean"] is None:
             return None
         return f"{score['mean']:.2f} ({score['ci'][0]:.2f}, {score['ci'][1]:.2f})"

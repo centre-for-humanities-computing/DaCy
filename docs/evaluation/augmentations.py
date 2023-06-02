@@ -71,7 +71,7 @@ def get_gender_bias_augmenters() -> dict:
     return bias_augmenters
 
 
-def get_robustness_augmenters(prob=0.05):
+def get_robustness_augmenters(prob: float = 0.05) -> dict:
     # Spelling error augmentations
     char_swap_aug = augmenty.load("char_swap_v1", level=prob)
     tok_swap_aug = augmenty.load("token_swap_v1", level=prob)
@@ -81,10 +81,6 @@ def get_robustness_augmenters(prob=0.05):
         keyboard="da_qwerty_v1",
     )
     start_casing_aug = augmenty.load("random_starting_case_v1", level=prob)
-    # common spelling error
-    # https://huggingface.co/datasets/KennethEnevoldsen/ddo-misspellings/tree/main
-    # replace = {"act": {"VERB": ["perform", "move"], "NOUN": ["action", "deed"]}}
-    # create_token_dict_replace_augmenter(replace=replace, level=.10)
 
     sim_spelling_error_aug = augmenty.combine(
         [char_swap_aug, tok_swap_aug, keystroke_aug],
@@ -115,55 +111,10 @@ def get_robustness_augmenters(prob=0.05):
 
     hist_spelling_aug = augmenty.combine([upper_noun_aug, æøå_aug])
 
-    # Abbreviations
-    def abbreviate_dot(token):
-        return token.text[0] + "."
-
-    def abbreviate(token):
-        return token.text[0]
-
-    # ent_abbr_dot = augmenty.load(
-    #     "ents_format_v1",
-    #     reordering=[-1, None],
-    #     formatter=[None, abbreviate_dot],
-    #     level=prob,
-    #     ent_types=["PER"],
-    # )
-    # ent_abbr = augmenty.load(
-    #     "ents_format_v1",
-    #     reordering=[-1, None],
-    #     formatter=[None, abbreviate],
-    #     level=prob,
-    #     ent_types=["PER"],
-    # )
-    # last_name_only = augmenty.load(
-    #     "ents_format_v1",
-    #     reordering=[-1],
-    #     formatter=[None, abbreviate],
-    #     level=0.1,
-    #     ent_types=["PER"],
-    # )
-    # first_name_only = augmenty.load(
-    #     "ents_format_v1",
-    #     reordering=[1],
-    #     formatter=[None, abbreviate],
-    #     level=0.1,
-    #     ent_types=["PER"],
-    # )
-
-    # abbreviations_aug = augmenty.combine(
-    #     [ent_abbr_dot, ent_abbr] #, last_name_only, first_name_only],
-    # )
-
-    # # sentence subset augmentations
-    # DaNE currently only work on one sentence at a time - so we can't use this
-    # sent_subset = augmenty.load("sent_subset_v1", level=1)
-
     return {
         "Spelling Error": sim_spelling_error_aug,
         "Inconsistent Casing": inconsistent_casing_aug,
         "Synonym replacement": synonym_aug,
         "Inconsistent Spacing": spacing_aug,
         "Historical Spelling": hist_spelling_aug,
-        # "Name abbreviations": abbreviations_aug,
     }
