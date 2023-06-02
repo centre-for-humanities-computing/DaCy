@@ -52,7 +52,7 @@ name = "Apache License 2.0"
 [project.optional-dependencies]
 dev = [
   "cruft",
-  "mypy",  
+  "mypy",
   "pre-commit>=2.20.0",
   "ruff>=0.0.262",
   "black[jupyter]>=23.3.0",
