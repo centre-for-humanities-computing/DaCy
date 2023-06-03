@@ -170,7 +170,6 @@
     <img class="sidebar-logo only-dark" src="../_static/icon_dark.png" alt="Dark Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">DaCy</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -379,7 +378,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f7f9d5c7ca0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fd245154fd0&gt;
 </pre></div>
 </div>
 </div>
@@ -398,13 +397,24 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="c1"># extract the metrics as a dataframe</span>
 <span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (161 &gt; 128). Running this sequence through the model will result in indexing errors
+</pre></div>
+</div>
+</div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -435,32 +445,32 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
       <th>token_length_mean</th>
       <th>token_length_median</th>
       <th>token_length_std</th>
       <th>sentence_length_mean</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
       <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
       <th>smog</th>
       <th>gunning_fog</th>
       <th>automated_readability_index</th>
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>3679</th>
+      <th>1146</th>
       <td>ham</td>
-      <td>I cant pick the phone right now. Pls send a me...</td>
+      <td>Babe ? I lost you ... :-(</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -482,9 +492,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4123</th>
+      <th>1754</th>
       <td>ham</td>
-      <td>Hey sexy buns ! Have I told you ? I adore you,...</td>
+      <td>How is your schedule next week? I am out of to...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -506,9 +516,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4632</th>
+      <th>549</th>
       <td>ham</td>
-      <td>Oh wow thats gay. Will firmware update help</td>
+      <td>Ok give me 5 minutes I think I see her. BTW yo...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -530,9 +540,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2627</th>
+      <th>2049</th>
       <td>ham</td>
-      <td>I know I'm lacking on most of this particular ...</td>
+      <td>How much is blackberry bold2 in nigeria.</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -554,9 +564,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3546</th>
+      <th>5164</th>
       <td>spam</td>
-      <td>Rock yr chik. Get 100's of filthy films &amp;XXX p...</td>
+      <td>Congrats 2 mobile 3G Videophones R yours. call...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -598,7 +608,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/2d744aabc45933efa88c91a79501b91b352d039919e3ec8db765ac2c544b1f02.png" src="../_images/2d744aabc45933efa88c91a79501b91b352d039919e3ec8db765ac2c544b1f02.png" />
+<img alt="../_images/b5872748a7ad6f297e907dbd0f26852709f6065531839462231272d0059d2bec.png" src="../_images/b5872748a7ad6f297e907dbd0f26852709f6065531839462231272d0059d2bec.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -613,16 +623,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                     -0.295612
-prop_adjacent_dependency_relation_std    -0.183087
-n_sentences                              -0.179788
-syllables_per_token_median                0.116059
-rix                                       0.115759
-automated_readability_index               0.105654
-proportion_unique_tokens                  0.102770
-token_length_mean                         0.101585
-prop_adjacent_dependency_relation_mean    0.091590
-coleman_liau_index                        0.078575
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prop_adjacent_dependency_relation_std    -0.466943
+dependency_distance_mean                  0.391603
+sentence_length_mean                      0.266784
+sentence_length_median                    0.257190
+token_length_mean                        -0.253647
+syllables_per_token_mean                 -0.236875
+syllables_per_token_std                  -0.230039
+prop_adjacent_dependency_relation_mean    0.216598
+token_length_median                      -0.207763
+dependency_distance_std                  -0.202648
 dtype: float64
 </pre></div>
 </div>
@@ -640,7 +650,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/c105094c3b941f48c7f98df3981d17f894d74e91ca53f5d5fedb7b86c07dbd6d.png" src="../_images/c105094c3b941f48c7f98df3981d17f894d74e91ca53f5d5fedb7b86c07dbd6d.png" />
+<img alt="../_images/493e7e49879f8c51e395c27e0b2b5552119d29de41a74c2c67c6e3824f62eada.png" src="../_images/493e7e49879f8c51e395c27e0b2b5552119d29de41a74c2c67c6e3824f62eada.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -654,7 +664,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/af89cbf392d8bd1f998661cea45471874149f7cb16dc5dc63887ba6c65a0575d.png" src="../_images/af89cbf392d8bd1f998661cea45471874149f7cb16dc5dc63887ba6c65a0575d.png" />
+<img alt="../_images/1fc33366aec8aaf6bb095bc0f582fe7acd27afb255b5c4c4bacd712a8ae8c9cc.png" src="../_images/1fc33366aec8aaf6bb095bc0f582fe7acd27afb255b5c4c4bacd712a8ae8c9cc.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
