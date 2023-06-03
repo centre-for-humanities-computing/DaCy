@@ -1,8 +1,8 @@
 # models required for performance benchmarks
-https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.5.0/da_core_news_sm-3.5.0-py3-none-any.whl
-https://github.com/explosion/spacy-models/releases/download/da_core_news_md-3.5.0/da_core_news_md-3.5.0-py3-none-any.whl
-https://github.com/explosion/spacy-models/releases/download/da_core_news_lg-3.5.0/da_core_news_lg-3.5.0-py3-none-any.whl
-https://github.com/explosion/spacy-models/releases/download/da_core_news_trf-3.5.0/da_core_news_trf-3.5.0-py3-none-any.whl
+# https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.5.0/da_core_news_sm-3.5.0-py3-none-any.whl
+# https://github.com/explosion/spacy-models/releases/download/da_core_news_md-3.5.0/da_core_news_md-3.5.0-py3-none-any.whl
+# https://github.com/explosion/spacy-models/releases/download/da_core_news_lg-3.5.0/da_core_news_lg-3.5.0-py3-none-any.whl
+# https://github.com/explosion/spacy-models/releases/download/da_core_news_trf-3.5.0/da_core_news_trf-3.5.0-py3-none-any.whl
 # https://huggingface.co/chcaa/da_dacy_medium_ner_fine_grained/resolve/main/da_dacy_medium_ner_fine_grained-any-py3-none-any.whl
 # https://huggingface.co/chcaa/da_dacy_large_ner_fine_grained/resolve/main/da_dacy_large_ner_fine_grained-any-py3-none-any.whl
 # https://huggingface.co/chcaa/da_dacy_small_ner_fine_grained/resolve/main/da_dacy_small_ner_fine_grained-any-py3-none-any.whl
@@ -11,3 +11,4 @@ dacy>=2.6.0
 altair>=4.1.0
 datasets>=1.14.0
 augmenty[all]>=1.3.7
+spacy-llm>=0.2.0
