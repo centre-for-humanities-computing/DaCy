@@ -207,6 +207,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../performance.general.html">State of the Art Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_ner.html">Named Entity Recognition</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../news.html">News and Updates</a></li>
@@ -378,7 +379,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fde1ff24fd0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f5d29e15210&gt;
 </pre></div>
 </div>
 </div>
@@ -410,7 +411,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (158 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (159 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -445,6 +446,17 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>...</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -453,24 +465,13 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>4618</th>
+      <th>2629</th>
       <td>ham</td>
-      <td>Sorry, I'll call later In meeting.</td>
+      <td>Hey there! Glad u r better now. I hear u treat...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -492,9 +493,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3038</th>
+      <th>2956</th>
       <td>ham</td>
-      <td>Wishing you and your family Merry \X\" mas and...</td>
+      <td>I would but I'm still cozy. And exhausted from...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -516,57 +517,57 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2979</th>
+      <th>17</th>
       <td>ham</td>
-      <td>What u mean u almost done? Done wif sleeping? ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>Eh u remember how 2 spell his name... Yes i di...</td>
+      <td>4.222222</td>
+      <td>4.0</td>
+      <td>1.685083</td>
+      <td>4.5</td>
+      <td>4.5</td>
+      <td>1.5</td>
+      <td>1.222222</td>
+      <td>1.0</td>
       <td>...</td>
+      <td>0.267857</td>
+      <td>0.017857</td>
+      <td>98.867500</td>
+      <td>0.587222</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1.800000</td>
+      <td>0.706667</td>
+      <td>2.448889</td>
+      <td>26.722222</td>
+      <td>1.0</td>
     </tr>
     <tr>
-      <th>4202</th>
-      <td>ham</td>
-      <td>C movie is juz last minute decision mah. Juz w...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>42</th>
+      <td>spam</td>
+      <td>07732584351 - Rodger Burns - MSG = We tried to...</td>
+      <td>4.392857</td>
+      <td>4.0</td>
+      <td>2.511961</td>
+      <td>28.0</td>
+      <td>28.0</td>
+      <td>0.0</td>
+      <td>1.428571</td>
+      <td>1.0</td>
       <td>...</td>
+      <td>0.483871</td>
+      <td>0.000000</td>
+      <td>57.557857</td>
+      <td>12.187143</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>15.485714</td>
+      <td>13.260357</td>
+      <td>8.972857</td>
+      <td>45.857143</td>
+      <td>5.0</td>
     </tr>
     <tr>
-      <th>829</th>
+      <th>5093</th>
       <td>ham</td>
-      <td>Thanks for yesterday sir. You have been wonder...</td>
+      <td>Gokila is talking with you aha:)</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -608,7 +609,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/f09638b72895c343b2303b3cfadf22eff21bd89aafe5c08ca691885062264e9d.png" src="../_images/f09638b72895c343b2303b3cfadf22eff21bd89aafe5c08ca691885062264e9d.png" />
+<img alt="../_images/431609fad08682604cbfdf8036da8a3324d1a4f1b3b6adb80b0fb52d76f30490.png" src="../_images/431609fad08682604cbfdf8036da8a3324d1a4f1b3b6adb80b0fb52d76f30490.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -623,16 +624,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dependency_distance_std                  -0.507639
-prop_adjacent_dependency_relation_std    -0.375885
-sentence_length_std                      -0.351633
-n_sentences                              -0.209319
-prop_adjacent_dependency_relation_mean    0.201316
-n_unique_tokens                          -0.192473
-n_tokens                                 -0.164461
-smog                                     -0.146981
-n_characters                             -0.137542
-dependency_distance_mean                  0.100484
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sentence_length_median        -0.355941
+rix                           -0.340341
+sentence_length_mean          -0.328707
+n_characters                  -0.299162
+n_unique_tokens               -0.287501
+n_tokens                      -0.279942
+dependency_distance_std       -0.261909
+dependency_distance_mean      -0.245090
+sentence_length_std           -0.223029
+automated_readability_index   -0.216419
 dtype: float64
 </pre></div>
 </div>
@@ -650,7 +651,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/fdaf5d4b27302b809f58821d6a6ab2b5bbd6151ebe91076e517c88246c208129.png" src="../_images/fdaf5d4b27302b809f58821d6a6ab2b5bbd6151ebe91076e517c88246c208129.png" />
+<img alt="../_images/3e27b780e5ac0c3c43417fd114025100720f1d565644fe44500d97c762ec2021.png" src="../_images/3e27b780e5ac0c3c43417fd114025100720f1d565644fe44500d97c762ec2021.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -664,7 +665,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/64ae567c9381471e08f81478db873d5522080c1150eb47054dabc19fb6cc0328.png" src="../_images/64ae567c9381471e08f81478db873d5522080c1150eb47054dabc19fb6cc0328.png" />
+<img alt="../_images/f3913c6915165fcf81a406b73b141cb61db51425295157d4530796623ad23b1b.png" src="../_images/f3913c6915165fcf81a406b73b141cb61db51425295157d4530796623ad23b1b.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
