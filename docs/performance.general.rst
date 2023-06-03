@@ -21,6 +21,15 @@ The speed of the DaNLP model is as reported by the framework (v. 0.0.11), which 
 However, given the model size, it can be expected to reach speeds comparable to DaCy medium.
 
 
+
+.. add reference to: https://centre-for-humanities-computing.github.io/DaCy/performance_ner.html
+
+.. admonition:: Want to see more performance metrics for Named entity recognition?
+   :class: important
+
+   If you want to see a updated comparison of the performance of the NER models, check out the `NER performance page <https://centre-for-humanities-computing.github.io/DaCy/performance_ner.html>`__.
+
+
 .. admonition:: What is LAS and UAS?
    :class: note
 
