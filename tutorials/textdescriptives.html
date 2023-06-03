@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="Extracting Metrics from text using TextDescriptives" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="tutorials/textdescriptives.html" />
@@ -16,10 +16,10 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Performance" href="../performance.html" /><link rel="prev" title="Evaluating Robustness" href="robustness.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
         <title>Extracting Metrics from text using TextDescriptives - DaCy</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -30,24 +30,24 @@
 
 <style>
   body {
-    --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
   --color-brand-primary: #ff5454;
   --color-brand-content: #ff7575;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
@@ -207,6 +207,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../performance.general.html">State of the Art Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dont_run/performance_ner.html">Named Entity Recognition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="robustness.html">Evaluating Robustness</a></li>
 </ul>
 </li>
@@ -379,7 +380,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f59e0aa0c10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fd05c544c40&gt;
 </pre></div>
 </div>
 </div>
@@ -411,7 +412,7 @@ Name: label, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (161 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (136 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -446,32 +447,32 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
       <th>token_length_mean</th>
       <th>token_length_median</th>
       <th>token_length_std</th>
       <th>sentence_length_mean</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
       <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
       <th>smog</th>
       <th>gunning_fog</th>
       <th>automated_readability_index</th>
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>2275</th>
+      <th>2931</th>
       <td>ham</td>
-      <td>Is that on the telly? No its Brdget Jones!</td>
+      <td>Only 2% students solved this CAT question in '...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -493,9 +494,33 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1812</th>
+      <th>210</th>
       <td>ham</td>
-      <td>\Getting tickets 4 walsall tue 6 th march. My ...</td>
+      <td>What's up bruv, hope you had a great break. Do...</td>
+      <td>1.452381</td>
+      <td>0.351543</td>
+      <td>0.420635</td>
+      <td>0.068272</td>
+      <td>3.461538</td>
+      <td>3.0</td>
+      <td>1.737168</td>
+      <td>4.333333</td>
+      <td>...</td>
+      <td>48.0</td>
+      <td>3.0</td>
+      <td>85.298205</td>
+      <td>2.438462</td>
+      <td>6.427356</td>
+      <td>4.810256</td>
+      <td>-2.959487</td>
+      <td>-2.276923</td>
+      <td>12.025641</td>
+      <td>0.333333</td>
+    </tr>
+    <tr>
+      <th>5411</th>
+      <td>ham</td>
+      <td>I ask if u meeting da ge tmr nite...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -517,33 +542,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>274</th>
+      <th>577</th>
       <td>ham</td>
-      <td>No objection. My bf not coming.</td>
-      <td>3.928571</td>
-      <td>4.0</td>
-      <td>2.120117</td>
-      <td>7.0</td>
-      <td>7.0</td>
-      <td>6.0</td>
-      <td>1.357143</td>
-      <td>1.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>5.657143</td>
-      <td>0.573571</td>
-      <td>3.071429</td>
-      <td>21.285714</td>
-      <td>1.0</td>
-      <td>1.833333</td>
-      <td>1.166667</td>
-      <td>0.533333</td>
-      <td>0.133333</td>
-    </tr>
-    <tr>
-      <th>2557</th>
-      <td>spam</td>
-      <td>This message is brought to you by GMW Ltd. and...</td>
+      <td>ÌÏ wait 4 me in sch i finish ard 5..</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -565,9 +566,9 @@ Name: label, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4464</th>
+      <th>963</th>
       <td>ham</td>
-      <td>\CHEERS FOR CALLIN BABE.SOZI CULDNT TALKBUT I ...</td>
+      <td>Yo chad which gymnastics class do you wanna ta...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -609,7 +610,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/309d8c74f35e6ec103d2d9c769f71f6bf9d8724ff1f95562b4a50e8fb67d194f.png" src="../_images/309d8c74f35e6ec103d2d9c769f71f6bf9d8724ff1f95562b4a50e8fb67d194f.png" />
+<img alt="../_images/301654882fdc7a04ace107b396d53f7ca300dd2de0433d215ef2c7862d9adecf.png" src="../_images/301654882fdc7a04ace107b396d53f7ca300dd2de0433d215ef2c7862d9adecf.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -624,16 +625,16 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                    -0.531170
-sentence_length_mean                     0.247823
-n_tokens                                 0.245373
-sentence_length_median                   0.241312
-token_length_std                        -0.236884
-n_unique_tokens                          0.228298
-proportion_unique_tokens                -0.212134
-n_characters                             0.202734
-syllables_per_token_std                 -0.154534
-prop_adjacent_dependency_relation_std    0.135992
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>proportion_unique_tokens                  0.313624
+dependency_distance_mean                 -0.235193
+smog                                     -0.235059
+token_length_std                          0.199465
+n_tokens                                 -0.196443
+n_characters                             -0.172289
+n_unique_tokens                          -0.154932
+syllables_per_token_std                   0.150053
+prop_adjacent_dependency_relation_mean   -0.130603
+prop_adjacent_dependency_relation_std     0.128698
 dtype: float64
 </pre></div>
 </div>
@@ -651,7 +652,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/9adc535584a56bc8bee2044ec42314fa6061ea9a13204b25dd3d22556f939657.png" src="../_images/9adc535584a56bc8bee2044ec42314fa6061ea9a13204b25dd3d22556f939657.png" />
+<img alt="../_images/baeab74c26dc3075121d932582d56ea48351c72a3b93d63cbf77066587a04bdf.png" src="../_images/baeab74c26dc3075121d932582d56ea48351c72a3b93d63cbf77066587a04bdf.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -665,7 +666,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/02670dfdb285af1e0cd048a3c873a4a19e3581378573ea6b9740cce2e58fd092.png" src="../_images/02670dfdb285af1e0cd048a3c873a4a19e3581378573ea6b9740cce2e58fd092.png" />
+<img alt="../_images/4910ff4347320823023cfdd425ca1589b06a9f9cd7d5f73f60b734cfdc3e0adb.png" src="../_images/4910ff4347320823023cfdd425ca1589b06a9f9cd7d5f73f60b734cfdc3e0adb.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>

@@ -2,24 +2,24 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="Performance" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="performance.html" />
 <meta property="og:site_name" content="DaCy" />
-<meta property="og:description" content="DaCy is evaulate contains performance metrics for State of the Art Comparison- State-of-the-Art., Robustness and Biases- Named entity recognition, Part-of-speech tagging, Dependency parsing., Evalu..." />
+<meta property="og:description" content="DaCy is evaulate contains performance metrics for State of the Art Comparison- State-of-the-Art., Robustness and Biases- Named entity recognition, Part-of-speech tagging, Dependency parsing., Named..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
 <meta property="og:image" content="/_images/social_previews/summary_performance_e9d5d2ac.png" />
 <meta property="og:image:alt" content="DaCy is evaulate contains performance metrics for State of the Art Comparison- State-of-the-Art., Robustness and Biases- Named entity recognition, Part-of-sp..." />
-<meta name="description" content="DaCy is evaulate contains performance metrics for State of the Art Comparison- State-of-the-Art., Robustness and Biases- Named entity recognition, Part-of-speech tagging, Dependency parsing., Evalu..." />
+<meta name="description" content="DaCy is evaulate contains performance metrics for State of the Art Comparison- State-of-the-Art., Robustness and Biases- Named entity recognition, Part-of-speech tagging, Dependency parsing., Named..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="State of the Art Comparison" href="performance.general.html" /><link rel="prev" title="Extracting Metrics from text using TextDescriptives" href="tutorials/textdescriptives.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
         <title>Performance - DaCy</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -30,24 +30,24 @@
 
 <style>
   body {
-    --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
   --color-brand-primary: #ff5454;
   --color-brand-content: #ff7575;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
@@ -207,6 +207,7 @@
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Performance</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html">Named Entity Recognition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
 </ul>
 </li>
@@ -278,6 +279,22 @@
 <li class="toctree-l2"><a class="reference internal" href="performance.robustness.html#named-entity-recognition">Named entity recognition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.robustness.html#part-of-speech-tagging">Part-of-speech tagging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.robustness.html#dependency-parsing">Dependency parsing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dont_run/performance_ner.html">Named Entity Recognition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#state-of-the-art-comparison">State-of-the-Art comparison</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#dane-simple-named-entity-recognition">DaNE: Simple Named Entity Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#dansk-fine-grained-named-entity-recognition">DANSK: Fine-grained Named Entity Recognition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#domain-generalization">Domain Generalization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#domain-generalization-using-conll-2003-format">Domain generalization using CoNLL-2003 format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#biases">Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#robustness">Robustness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#inference-speed">Inference Speed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a><ul>

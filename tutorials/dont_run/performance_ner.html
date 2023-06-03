@@ -1,0 +1,1429 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Named Entity Recognition" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="tutorials/dont_run/performance_ner.html" />
+<meta property="og:site_name" content="DaCy" />
+<meta property="og:description" content="This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to accuracy, but also includes domain generalization, b..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="/_images/social_previews/summary_tutorials_dont_run_performance_ner_2249ba84.png" />
+<meta property="og:image:alt" content="This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to accuracy, bu..." />
+<meta name="description" content="This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to accuracy, but also includes domain generalization, b..." />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="News and Changelog" href="../../news.html" /><link rel="prev" title="Robustness and Biases" href="../../performance.robustness.html" />
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
+        <title>Named Entity Recognition - DaCy</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">DaCy</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">DaCy</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#named-entity-linking">Named Entity Linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#dependency-parsing">Dependency Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#sentence-segmentation">Sentence Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#noun-chunks">Noun Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../basic.html#coreference-resolution">Coreference Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#subjectivity">Subjectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#polarity">Polarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#emotion">Emotion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hate-speech.html">Hate Speech</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../performance.html">Performance</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../performance.general.html">State of the Art Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../performance.robustness.html">Robustness and Biases</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../robustness.html">Evaluating Robustness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../news.html">News and Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.score.html">Score</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy/CHANGELOG.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/tutorials/dont_run/performance_ner.ipynb" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="named-entity-recognition">
+<h1>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this heading">#</a></h1>
+<p>This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to
+accuracy, but also includes domain generalization, biases and robustness. This page is also a notebook, which can be opened and run to replicate the results.</p>
+<section id="state-of-the-art-comparison">
+<h2>State-of-the-Art comparison<a class="headerlink" href="#state-of-the-art-comparison" title="Permalink to this heading">#</a></h2>
+<p>To our knowledge there exists three datasets for Danish named entity recognition;</p>
+<ol class="arabic simple">
+<li><p>DaNE <span id="id1">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, which uses the simple annotation scheme of CoNLL 2003 <span id="id2">[<a class="reference internal" href="#id15" title="Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. arXiv preprint cs/0306050, 2003.">Sang and De Meulder, 2003</a>]</span> with the entities; <em>person</em>, <em>location</em>, <em>organization</em>, and <em>miscellaneus</em>.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[<a class="reference internal" href="#id14" title="Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. Linguistic Data Consortium, Philadelphia, PA, 2013.">Weischedel <em>et al.</em>, 2013</a>]</span> including more that 16 entity types.</p></li>
+<li><p>and DAN+ <span id="id4">[<a class="reference internal" href="#id16" title="Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. arXiv preprint arXiv:2105.11301, 2021.">Plank <em>et al.</em>, 2021</a>]</span>, which also uses the annotation scheme of CoNLL 2003, but allows for nested entities for instance <em>Aarhus Universitet</em>, where <em>Aarhus</em> is a location and <em>Aarhus Universitet</em> is an organization.</p></li>
+</ol>
+<p>In this comparison we will be examing performance on DaNE and DANSK, but as no known models have been trained on Danish nested entities, we will not be comparing performance on DAN+.</p>
+<div class="admonition-measuring-performance admonition">
+<p class="admonition-title">Measuring Performance</p>
+<p>Typically when measuring performance on these benchmark it is normal to feed the model the gold standard tokens. While this allows for easier comparisons of modules and architectures, it inflates the performance metrics. Further, it does not proberly reflect what you are really interested in:
+<em>the performance you can expect when you apply the model to data of a similar type</em>. Therefore we estimate the model is given no prior knowledge of the data, and only the raw text is fed to the model. Thus the performance metrics might be slightly different compared to e.g. DaNLP.</p>
+</div>
+<section id="dane-simple-named-entity-recognition">
+<h3>DaNE: Simple Named Entity Recognition<a class="headerlink" href="#dane-simple-named-entity-recognition" title="Permalink to this heading">#</a></h3>
+<p>As already stated DaNE uses an extraction from the CoNLL 2003 dataset, which is as follows <span id="id5">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Entity</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LOC</p></td>
+<td><p>includes locations like cities, roads and mountains, as well as both public and commercial places like specific buildings or meeting points, but also abstract places.</p></td>
+</tr>
+<tr class="row-odd"><td><p>PERSON</p></td>
+<td><p>consists of names of people, fictional characters, and animals. The names includes aliases.</p></td>
+</tr>
+<tr class="row-even"><td><p>ORG</p></td>
+<td><p>can be summarized as all sorts of organizations and collections of people, ranging from companies, brands, political movements, governmental bodies and clubs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>MISC</p></td>
+<td><p>is a broad category of e.g. events, languages, titles and religions, but this tag also includes words derived from one of the four tags as well as words for which one part is from one of the three other tags.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here is an example from the dataset:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">To kendte 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    russiske
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MISC</span>
+</mark>
+ historikere 
+<mark class="entity" style="background: #aa9cfc; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Andronik Mirganjan
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PERSON</span>
+</mark>
+ og 
+<mark class="entity" style="background: #aa9cfc; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Igor Klamkin
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PERSON</span>
+</mark>
+ tror ikke, at 
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Rusland
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+ kan udvikles uden en &quot;jernnæve&quot;.</div></span></div></div>
+</div>
+<p>The table below shows the performance of Danish language processing pipelines scored on the DaNE test set. The best scores in each category are highlighted with bold and the second best is underlined.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_7c109 .level0 {
+  text-align: center;
+}
+#T_7c109 .col_heading {
+  text-align: center;
+}
+#T_7c109_row0_col0, #T_7c109_row1_col0, #T_7c109_row2_col0, #T_7c109_row3_col0, #T_7c109_row4_col0, #T_7c109_row5_col0, #T_7c109_row6_col0, #T_7c109_row7_col0, #T_7c109_row8_col0 {
+  text-align: left;
+}
+#T_7c109_row0_col1, #T_7c109_row0_col3, #T_7c109_row0_col4, #T_7c109_row1_col2, #T_7c109_row1_col5 {
+  font-weight: bold;
+  text-align: right;
+}
+#T_7c109_row0_col2, #T_7c109_row1_col1, #T_7c109_row1_col4, #T_7c109_row2_col3, #T_7c109_row2_col5 {
+  text-decoration: underline;
+  text-align: right;
+}
+#T_7c109_row0_col5, #T_7c109_row1_col3, #T_7c109_row2_col1, #T_7c109_row2_col2, #T_7c109_row2_col4, #T_7c109_row3_col1, #T_7c109_row3_col2, #T_7c109_row3_col3, #T_7c109_row3_col4, #T_7c109_row3_col5, #T_7c109_row4_col1, #T_7c109_row4_col2, #T_7c109_row4_col3, #T_7c109_row4_col4, #T_7c109_row4_col5, #T_7c109_row5_col1, #T_7c109_row5_col2, #T_7c109_row5_col3, #T_7c109_row5_col4, #T_7c109_row5_col5, #T_7c109_row6_col1, #T_7c109_row6_col2, #T_7c109_row6_col3, #T_7c109_row6_col4, #T_7c109_row6_col5, #T_7c109_row7_col1, #T_7c109_row7_col2, #T_7c109_row7_col3, #T_7c109_row7_col4, #T_7c109_row7_col5, #T_7c109_row8_col1, #T_7c109_row8_col2, #T_7c109_row8_col3, #T_7c109_row8_col4, #T_7c109_row8_col5 {
+  text-align: right;
+}
+</style>
+<table id="T_7c109" style="font-size: 0.65em">
+  <caption>F1 score with 95% confidence interval calculated using bootstrapping with 500 samples.</caption>
+  <thead>
+    <tr>
+      <th id="T_7c109_level0_col0" class="col_heading level0 col0" ></th>
+      <th id="T_7c109_level0_col1" class="col_heading level0 col1" colspan="5">F1</th>
+    </tr>
+    <tr>
+      <th id="T_7c109_level1_col0" class="col_heading level1 col0" >Models</th>
+      <th id="T_7c109_level1_col1" class="col_heading level1 col1" >Average</th>
+      <th id="T_7c109_level1_col2" class="col_heading level1 col2" >Location</th>
+      <th id="T_7c109_level1_col3" class="col_heading level1 col3" >Person</th>
+      <th id="T_7c109_level1_col4" class="col_heading level1 col4" >Organization</th>
+      <th id="T_7c109_level1_col5" class="col_heading level1 col5" >Misc.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_7c109_row0_col0" class="data row0 col0" >saattrupdan/nbailab-base-ner-scandi</td>
+      <td id="T_7c109_row0_col1" class="data row0 col1" >86.3 (82.4, 89.7)</td>
+      <td id="T_7c109_row0_col2" class="data row0 col2" >88.6 (83.0, 93.3)</td>
+      <td id="T_7c109_row0_col3" class="data row0 col3" >95.1 (92.4, 97.8)</td>
+      <td id="T_7c109_row0_col4" class="data row0 col4" >80.3 (73.6, 85.8)</td>
+      <td id="T_7c109_row0_col5" class="data row0 col5" >78.6 (69.4, 86.0)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row1_col0" class="data row1 col0" >da_dacy_large_trf-0.2.0</td>
+      <td id="T_7c109_row1_col1" class="data row1 col1" >85.4 (81.2, 88.9)</td>
+      <td id="T_7c109_row1_col2" class="data row1 col2" >89.5 (84.0, 94.7)</td>
+      <td id="T_7c109_row1_col3" class="data row1 col3" >92.6 (89.0, 95.4)</td>
+      <td id="T_7c109_row1_col4" class="data row1 col4" >79.0 (72.5, 84.6)</td>
+      <td id="T_7c109_row1_col5" class="data row1 col5" >79.0 (70.8, 86.0)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row2_col0" class="data row2 col0" >da_dacy_medium_trf-0.2.0</td>
+      <td id="T_7c109_row2_col1" class="data row2 col1" >84.9 (81.0, 88.5)</td>
+      <td id="T_7c109_row2_col2" class="data row2 col2" >86.8 (81.2, 92.3)</td>
+      <td id="T_7c109_row2_col3" class="data row2 col3" >92.7 (89.2, 95.6)</td>
+      <td id="T_7c109_row2_col4" class="data row2 col4" >78.7 (71.8, 85.0)</td>
+      <td id="T_7c109_row2_col5" class="data row2 col5" >78.7 (70.6, 86.1)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row3_col0" class="data row3 col0" >da_dacy_small_trf-0.2.0</td>
+      <td id="T_7c109_row3_col1" class="data row3 col1" >82.7 (79.3, 85.9)</td>
+      <td id="T_7c109_row3_col2" class="data row3 col2" >84.2 (78.3, 89.8)</td>
+      <td id="T_7c109_row3_col3" class="data row3 col3" >92.2 (88.5, 95.1)</td>
+      <td id="T_7c109_row3_col4" class="data row3 col4" >75.9 (69.3, 81.7)</td>
+      <td id="T_7c109_row3_col5" class="data row3 col5" >75.7 (68.8, 81.8)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row4_col0" class="data row4 col0" >alexandrainst/da-ner-base</td>
+      <td id="T_7c109_row4_col1" class="data row4 col1" >70.7 (66.2, 75.2)</td>
+      <td id="T_7c109_row4_col2" class="data row4 col2" >84.8 (77.8, 91.0)</td>
+      <td id="T_7c109_row4_col3" class="data row4 col3" >90.3 (86.3, 93.9)</td>
+      <td id="T_7c109_row4_col4" class="data row4 col4" >64.7 (57.0, 71.3)</td>
+      <td id="T_7c109_row4_col5" class="data row4 col5" > </td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row5_col0" class="data row5 col0" >da_core_news_trf-3.5.0</td>
+      <td id="T_7c109_row5_col1" class="data row5 col1" >79.0 (75.1, 82.3)</td>
+      <td id="T_7c109_row5_col2" class="data row5 col2" >82.1 (75.5, 88.5)</td>
+      <td id="T_7c109_row5_col3" class="data row5 col3" >91.6 (88.2, 94.5)</td>
+      <td id="T_7c109_row5_col4" class="data row5 col4" >68.0 (61.0, 75.2)</td>
+      <td id="T_7c109_row5_col5" class="data row5 col5" >69.0 (61.1, 77.3)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row6_col0" class="data row6 col0" >da_core_news_lg-3.5.0</td>
+      <td id="T_7c109_row6_col1" class="data row6 col1" >74.6 (70.8, 78.1)</td>
+      <td id="T_7c109_row6_col2" class="data row6 col2" >81.6 (75.3, 88.2)</td>
+      <td id="T_7c109_row6_col3" class="data row6 col3" >85.5 (81.1, 89.9)</td>
+      <td id="T_7c109_row6_col4" class="data row6 col4" >62.7 (54.8, 70.3)</td>
+      <td id="T_7c109_row6_col5" class="data row6 col5" >64.4 (55.9, 72.8)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row7_col0" class="data row7 col0" >da_core_news_md-3.5.0</td>
+      <td id="T_7c109_row7_col1" class="data row7 col1" >71.2 (66.9, 75.2)</td>
+      <td id="T_7c109_row7_col2" class="data row7 col2" >76.8 (69.9, 83.6)</td>
+      <td id="T_7c109_row7_col3" class="data row7 col3" >82.6 (77.8, 87.0)</td>
+      <td id="T_7c109_row7_col4" class="data row7 col4" >58.2 (49.6, 66.7)</td>
+      <td id="T_7c109_row7_col5" class="data row7 col5" >61.8 (52.6, 70.6)</td>
+    </tr>
+    <tr>
+      <td id="T_7c109_row8_col0" class="data row8 col0" >da_core_news_sm-3.5.0</td>
+      <td id="T_7c109_row8_col1" class="data row8 col1" >64.4 (59.7, 68.5)</td>
+      <td id="T_7c109_row8_col2" class="data row8 col2" >61.6 (52.2, 69.9)</td>
+      <td id="T_7c109_row8_col3" class="data row8 col3" >80.1 (74.9, 85.1)</td>
+      <td id="T_7c109_row8_col4" class="data row8 col4" >49.0 (39.0, 57.5)</td>
+      <td id="T_7c109_row8_col5" class="data row8 col5" >58.4 (49.8, 67.1)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>It is worth mentioning that while the <code class="docutils literal notranslate"><span class="pre">da_dacy_large_trf-0.2.0</span></code> and <code class="docutils literal notranslate"><span class="pre">saattrupdan/nbailab-base-ner-scandi</span></code> performs similarly they have their independent strength and weaknesses. The large DaCy model is a multi-task model performing named-entity recognition as only one of its many tasks and thus if you wish to use one of those we would recommend that model. On the other hand the <code class="docutils literal notranslate"><span class="pre">nbailab-base-ner-scandi</span></code> is trained on multiple Scandinavian languages and thus might be ideal if your dataset might contain these languages as well. <code class="docutils literal notranslate"><span class="pre">saattrupdan/nbailab-base-ner-scandi</span></code> is available in DaCy using <code class="docutils literal notranslate"><span class="pre">nlp.add_pipe(&quot;dacy/ner&quot;)</span></code>.</p>
+<div class="note admonition">
+<p class="admonition-title">You are missing a model</p>
+<p>These tables are continually updated and thus we try to limit the number of models to only the most relevant Danish models. Therefore models like Polyglot with strict requirements and consistently worse performance are excluded. If you want to see a specific model, please open an issue on GitHub.</p>
+</div>
+</section>
+<section id="dansk-fine-grained-named-entity-recognition">
+<h3>DANSK: Fine-grained Named Entity Recognition<a class="headerlink" href="#dansk-fine-grained-named-entity-recognition" title="Permalink to this heading">#</a></h3>
+<p>DANSK is annotated from the Danish Gigaword Corpus <span id="id6">[<a class="reference internal" href="#id13" title="Leon Derczynski, Manuel R Ciosici, Rebekah Baglini, Morten H Christiansen, Jacob Aarup Dalsgaard, Riccardo Fusaroli, Peter Juel Henrichsen, Rasmus Hvingelby, Andreas Kirkedal, Alex Speed Kjeldsen, and others. The danish gigaword corpus. In Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa), 413–421. 2021.">Derczynski <em>et al.</em>, 2021</a>]</span> and a wide variety of domains including conversational, legal, news, social media, web content,  wiki’s and Books. Dansk follows includes the following labels:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Entity</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PERSON</p></td>
+<td><p>People, including fictional</p></td>
+</tr>
+<tr class="row-odd"><td><p>NORP</p></td>
+<td><p>Nationalities or religious or political groups</p></td>
+</tr>
+<tr class="row-even"><td><p>FACILITY</p></td>
+<td><p>Building, airports, highways, bridges, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ORGANIZATION</p></td>
+<td><p>Companies, agencies, institutions, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p>GPE</p></td>
+<td><p>Countries, cities, states.</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOCATION</p></td>
+<td><p>Non-GPE locations, mountain ranges, bodies of water</p></td>
+</tr>
+<tr class="row-even"><td><p>PRODUCT</p></td>
+<td><p>Vehicles, weapons, foods, etc. (not services)</p></td>
+</tr>
+<tr class="row-odd"><td><p>EVENT</p></td>
+<td><p>Named hurricanes, battles, wars, sports events, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p>WORK OF ART</p></td>
+<td><p>Titles of books, songs, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p>LAW</p></td>
+<td><p>Named documents made into laws</p></td>
+</tr>
+<tr class="row-even"><td><p>LANGUAGE</p></td>
+<td><p>Any named language</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>As well as annotation for the following concepts:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Entity</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DATE</p></td>
+<td><p>Absolute or relative dates or periods</p></td>
+</tr>
+<tr class="row-odd"><td><p>TIME</p></td>
+<td><p>Times smaller than a day</p></td>
+</tr>
+<tr class="row-even"><td><p>PERCENT</p></td>
+<td><p>Percentage (including “*”%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MONEY</p></td>
+<td><p>Monetary values, including unit</p></td>
+</tr>
+<tr class="row-even"><td><p>QUANTITY</p></td>
+<td><p>Measurements, as of weight or distance</p></td>
+</tr>
+<tr class="row-odd"><td><p>ORDINAL</p></td>
+<td><p>“first”, “second”</p></td>
+</tr>
+<tr class="row-even"><td><p>CARDINAL</p></td>
+<td><p>Numerals that do no fall under another type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We have here opted to create an interactive chart over a table as with the number of labels it quickly becomes unruly. The chart is interactive and you can select the label you want to compare the models on. You can also hover over the dots the see the exact values.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style>
+  #altair-viz-a65206bbd8d8455388d4e821c2ffa6c0.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-a65206bbd8d8455388d4e821c2ffa6c0.vega-embed details,
+  #altair-viz-a65206bbd8d8455388d4e821c2ffa6c0.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-a65206bbd8d8455388d4e821c2ffa6c0"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-a65206bbd8d8455388d4e821c2ffa6c0") {
+      outputDiv = document.getElementById("altair-viz-a65206bbd8d8455388d4e821c2ffa6c0");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.8.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.8.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "point", "filled": true, "size": 100}, "encoding": {"color": {"field": "Label", "type": "nominal"}, "opacity": {"condition": {"param": "param_1", "value": 1}, "value": 0.0}, "tooltip": [{"field": "Models", "type": "nominal"}, {"field": "Label", "type": "nominal"}, {"field": "F1 string", "title": "F1", "type": "nominal"}], "x": {"field": "F1", "title": "F1", "type": "quantitative"}, "y": {"field": "Models", "type": "nominal"}}, "name": "view_1"}, {"mark": {"type": "errorbar", "ticks": false}, "encoding": {"color": {"field": "Label", "type": "nominal"}, "opacity": {"condition": {"param": "param_1", "value": 1}, "value": 0.0}, "x": {"field": "CI Lower", "title": "F1", "type": "quantitative"}, "x2": {"field": "CI Upper"}, "y": {"field": "Models", "type": "nominal"}}}], "data": {"name": "data-fb3a3f7660e577e82d7e98bc93f4bc12"}, "height": 300, "params": [{"name": "param_1", "select": {"type": "point", "fields": ["Label"]}, "bind": "legend", "value": [{"Label": "Average"}], "views": ["view_1"]}], "width": 400, "$schema": "https://vega.github.io/schema/vega-lite/v5.8.0.json", "datasets": {"data-fb3a3f7660e577e82d7e98bc93f4bc12": [{"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Average", "F1 string": "80.1 (78.2, 81.9)", "F1": 80.1, "CI Lower": 78.2, "CI Upper": 81.9}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Average", "F1 string": "79.7 (77.7, 81.5)", "F1": 79.7, "CI Lower": 77.7, "CI Upper": 81.5}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Average", "F1 string": "78.4 (76.3, 80.4)", "F1": 78.4, "CI Lower": 76.3, "CI Upper": 80.4}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Language", "F1 string": "74.5 (60.0, 83.3)", "F1": 74.5, "CI Lower": 60.0, "CI Upper": 83.3}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Language", "F1 string": "51.9 (23.3, 100.0)", "F1": 51.9, "CI Lower": 23.3, "CI Upper": 100.0}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Language", "F1 string": "45.9 (13.3, 93.3)", "F1": 45.9, "CI Lower": 13.3, "CI Upper": 93.3}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Product", "F1 string": "62.4 (53.9, 72.0)", "F1": 62.4, "CI Lower": 53.9, "CI Upper": 72.0}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Product", "F1 string": "62.6 (53.9, 71.6)", "F1": 62.6, "CI Lower": 53.9, "CI Upper": 71.6}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Product", "F1 string": "59.5 (48.9, 67.9)", "F1": 59.5, "CI Lower": 48.9, "CI Upper": 67.9}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Organization", "F1 string": "79.5 (74.9, 83.1)", "F1": 79.5, "CI Lower": 74.9, "CI Upper": 83.1}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Organization", "F1 string": "80.5 (78.1, 84.2)", "F1": 80.5, "CI Lower": 78.1, "CI Upper": 84.2}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Organization", "F1 string": "79.1 (75.7, 82.3)", "F1": 79.1, "CI Lower": 75.7, "CI Upper": 82.3}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Cardinal", "F1 string": "87.0 (82.8, 90.3)", "F1": 87.0, "CI Lower": 82.8, "CI Upper": 90.3}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Cardinal", "F1 string": "80.5 (77.0, 84.4)", "F1": 80.5, "CI Lower": 77.0, "CI Upper": 84.4}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Cardinal", "F1 string": "89.2 (86.0, 91.7)", "F1": 89.2, "CI Lower": 86.0, "CI Upper": 91.7}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Quantity", "F1 string": "78.6 (59.8, 93.8)", "F1": 78.6, "CI Lower": 59.8, "CI Upper": 93.8}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Quantity", "F1 string": "76.9 (63.9, 89.9)", "F1": 76.9, "CI Lower": 63.9, "CI Upper": 89.9}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Quantity", "F1 string": "71.3 (50.0, 91.1)", "F1": 71.3, "CI Lower": 50.0, "CI Upper": 91.1}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Work of Art", "F1 string": "39.3 (25.5, 50.3)", "F1": 39.3, "CI Lower": 25.5, "CI Upper": 50.3}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Work of Art", "F1 string": "58.4 (48.7, 69.1)", "F1": 58.4, "CI Lower": 48.7, "CI Upper": 69.1}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Work of Art", "F1 string": "46.6 (36.2, 56.9)", "F1": 46.6, "CI Lower": 36.2, "CI Upper": 56.9}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Location", "F1 string": "75.3 (66.9, 83.8)", "F1": 75.3, "CI Lower": 66.9, "CI Upper": 83.8}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Location", "F1 string": "72.5 (62.1, 80.8)", "F1": 72.5, "CI Lower": 62.1, "CI Upper": 80.8}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Location", "F1 string": "65.6 (55.4, 74.1)", "F1": 65.6, "CI Lower": 55.4, "CI Upper": 74.1}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "NORP", "F1 string": "84.8 (76.9, 90.8)", "F1": 84.8, "CI Lower": 76.9, "CI Upper": 90.8}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "NORP", "F1 string": "78.2 (68.6, 85.8)", "F1": 78.2, "CI Lower": 68.6, "CI Upper": 85.8}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "NORP", "F1 string": "73.3 (62.9, 81.5)", "F1": 73.3, "CI Lower": 62.9, "CI Upper": 81.5}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Date", "F1 string": "77.3 (71.6, 81.8)", "F1": 77.3, "CI Lower": 71.6, "CI Upper": 81.8}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Date", "F1 string": "77.6 (72.8, 82.2)", "F1": 77.6, "CI Lower": 72.8, "CI Upper": 82.2}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Date", "F1 string": "78.8 (73.9, 83.4)", "F1": 78.8, "CI Lower": 73.9, "CI Upper": 83.4}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Percent", "F1 string": "100.0 (100.0, 100.0)", "F1": 100.0, "CI Lower": 100.0, "CI Upper": 100.0}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Percent", "F1 string": "100.0 (100.0, 100.0)", "F1": 100.0, "CI Lower": 100.0, "CI Upper": 100.0}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Percent", "F1 string": "100.0 (100.0, 100.0)", "F1": 100.0, "CI Lower": 100.0, "CI Upper": 100.0}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Money", "F1 string": "99.3 (97.9, 100.0)", "F1": 99.3, "CI Lower": 97.9, "CI Upper": 100.0}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Money", "F1 string": "98.6 (97.2, 100.0)", "F1": 98.6, "CI Lower": 97.2, "CI Upper": 100.0}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Money", "F1 string": "95.2 (90.0, 98.2)", "F1": 95.2, "CI Lower": 90.0, "CI Upper": 98.2}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Person", "F1 string": "85.9 (82.7, 88.8)", "F1": 85.9, "CI Lower": 82.7, "CI Upper": 88.8}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Person", "F1 string": "84.8 (80.6, 88.2)", "F1": 84.8, "CI Lower": 80.6, "CI Upper": 88.2}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Person", "F1 string": "86.8 (83.2, 90.1)", "F1": 86.8, "CI Lower": 83.2, "CI Upper": 90.1}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Time", "F1 string": "90.9 (83.8, 96.7)", "F1": 90.9, "CI Lower": 83.8, "CI Upper": 96.7}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Time", "F1 string": "85.1 (74.0, 93.7)", "F1": 85.1, "CI Lower": 74.0, "CI Upper": 93.7}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Time", "F1 string": "83.4 (68.0, 95.6)", "F1": 83.4, "CI Lower": 68.0, "CI Upper": 95.6}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "GPE", "F1 string": "90.6 (87.2, 93.1)", "F1": 90.6, "CI Lower": 87.2, "CI Upper": 93.1}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "GPE", "F1 string": "88.0 (82.7, 92.1)", "F1": 88.0, "CI Lower": 82.7, "CI Upper": 92.1}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "GPE", "F1 string": "79.6 (73.0, 84.6)", "F1": 79.6, "CI Lower": 73.0, "CI Upper": 84.6}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Event", "F1 string": "43.5 (27.0, 56.0)", "F1": 43.5, "CI Lower": 27.0, "CI Upper": 56.0}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Event", "F1 string": "64.2 (50.0, 79.4)", "F1": 64.2, "CI Lower": 50.0, "CI Upper": 79.4}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Event", "F1 string": "46.1 (27.8, 62.4)", "F1": 46.1, "CI Lower": 27.8, "CI Upper": 62.4}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Law", "F1 string": "54.2 (38.1, 72.5)", "F1": 54.2, "CI Lower": 38.1, "CI Upper": 72.5}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Law", "F1 string": "59.3 (37.4, 77.3)", "F1": 59.3, "CI Lower": 37.4, "CI Upper": 77.3}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Law", "F1 string": "57.6 (39.6, 75.1)", "F1": 57.6, "CI Lower": 39.6, "CI Upper": 75.1}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Facility", "F1 string": "69.8 (54.3, 84.4)", "F1": 69.8, "CI Lower": 54.3, "CI Upper": 84.4}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Facility", "F1 string": "72.3 (56.2, 84.6)", "F1": 72.3, "CI Lower": 56.2, "CI Upper": 84.6}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Facility", "F1 string": "55.5 (36.2, 70.5)", "F1": 55.5, "CI Lower": 36.2, "CI Upper": 70.5}, {"Models": "da_dacy_large_ner_fine_grained-0.1.0", "Label": "Ordinal", "F1 string": "37.8 (22.5, 51.2)", "F1": 37.8, "CI Lower": 22.5, "CI Upper": 51.2}, {"Models": "da_dacy_medium_ner_fine_grained-0.1.0", "Label": "Ordinal", "F1 string": "68.7 (49.1, 82.6)", "F1": 68.7, "CI Lower": 49.1, "CI Upper": 82.6}, {"Models": "da_dacy_small_ner_fine_grained-0.1.0", "Label": "Ordinal", "F1 string": "68.5 (47.6, 83.1)", "F1": 68.5, "CI Lower": 47.6, "CI Upper": 83.1}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_05512 .level0 {
+  text-align: center;
+}
+#T_05512 .col_heading {
+  text-align: center;
+}
+#T_05512_row0_col1, #T_05512_row1_col1, #T_05512_row2_col0, #T_05512_row3_col0, #T_05512_row4_col1, #T_05512_row5_col0, #T_05512_row6_col0, #T_05512_row7_col1, #T_05512_row8_col1, #T_05512_row9_col2, #T_05512_row10_col1, #T_05512_row11_col1, #T_05512_row12_col2, #T_05512_row13_col2, #T_05512_row14_col0, #T_05512_row16_col0, #T_05512_row17_col0, #T_05512_row18_col0 {
+  font-weight: bold;
+}
+#T_05512_row0_col2, #T_05512_row1_col0, #T_05512_row2_col1, #T_05512_row3_col1, #T_05512_row4_col2, #T_05512_row5_col1, #T_05512_row6_col1, #T_05512_row7_col2, #T_05512_row8_col0, #T_05512_row9_col0, #T_05512_row10_col0, #T_05512_row11_col2, #T_05512_row12_col0, #T_05512_row13_col1, #T_05512_row14_col1, #T_05512_row16_col1, #T_05512_row17_col1, #T_05512_row18_col1 {
+  font-style: italic;
+}
+#T_05512_row15_col0, #T_05512_row15_col1, #T_05512_row15_col2 {
+  font-weight: bold;
+  font-style: normal;
+}
+</style>
+<table id="T_05512" style="font-size: 0.8em">
+  <caption>F1 score with 95% confidence interval calculated using bootstrapping with 100 samples.</caption>
+  <thead>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_05512_level0_col0" class="col_heading level0 col0" colspan="3">Fine-grained Models</th>
+    </tr>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level1" >&nbsp;</th>
+      <th id="T_05512_level1_col0" class="col_heading level1 col0" >Large 0.1.0</th>
+      <th id="T_05512_level1_col1" class="col_heading level1 col1" >Medium 0.1.0</th>
+      <th id="T_05512_level1_col2" class="col_heading level1 col2" >Small 0.1.0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_05512_level0_row0" class="row_heading level0 row0" rowspan="12">Entities</th>
+      <th id="T_05512_level1_row0" class="row_heading level1 row0" >Event</th>
+      <td id="T_05512_row0_col0" class="data row0 col0" >43.5 (27.0, 56.0)</td>
+      <td id="T_05512_row0_col1" class="data row0 col1" >64.2 (50.0, 79.4)</td>
+      <td id="T_05512_row0_col2" class="data row0 col2" >46.1 (27.8, 62.4)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row1" class="row_heading level1 row1" >Facility</th>
+      <td id="T_05512_row1_col0" class="data row1 col0" >69.8 (54.3, 84.4)</td>
+      <td id="T_05512_row1_col1" class="data row1 col1" >72.3 (56.2, 84.6)</td>
+      <td id="T_05512_row1_col2" class="data row1 col2" >55.5 (36.2, 70.5)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row2" class="row_heading level1 row2" >GPE</th>
+      <td id="T_05512_row2_col0" class="data row2 col0" >90.6 (87.2, 93.1)</td>
+      <td id="T_05512_row2_col1" class="data row2 col1" >88.0 (82.7, 92.1)</td>
+      <td id="T_05512_row2_col2" class="data row2 col2" >79.6 (73.0, 84.6)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row3" class="row_heading level1 row3" >Language</th>
+      <td id="T_05512_row3_col0" class="data row3 col0" >74.5 (60.0, 83.3)</td>
+      <td id="T_05512_row3_col1" class="data row3 col1" >51.9 (23.3, 100.0)</td>
+      <td id="T_05512_row3_col2" class="data row3 col2" >45.9 (13.3, 93.3)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row4" class="row_heading level1 row4" >Law</th>
+      <td id="T_05512_row4_col0" class="data row4 col0" >54.2 (38.1, 72.5)</td>
+      <td id="T_05512_row4_col1" class="data row4 col1" >59.3 (37.4, 77.3)</td>
+      <td id="T_05512_row4_col2" class="data row4 col2" >57.6 (39.6, 75.1)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row5" class="row_heading level1 row5" >Location</th>
+      <td id="T_05512_row5_col0" class="data row5 col0" >75.3 (66.9, 83.8)</td>
+      <td id="T_05512_row5_col1" class="data row5 col1" >72.5 (62.1, 80.8)</td>
+      <td id="T_05512_row5_col2" class="data row5 col2" >65.6 (55.4, 74.1)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row6" class="row_heading level1 row6" >NORP</th>
+      <td id="T_05512_row6_col0" class="data row6 col0" >84.8 (76.9, 90.8)</td>
+      <td id="T_05512_row6_col1" class="data row6 col1" >78.2 (68.6, 85.8)</td>
+      <td id="T_05512_row6_col2" class="data row6 col2" >73.3 (62.9, 81.5)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row7" class="row_heading level1 row7" >Ordinal</th>
+      <td id="T_05512_row7_col0" class="data row7 col0" >37.8 (22.5, 51.2)</td>
+      <td id="T_05512_row7_col1" class="data row7 col1" >68.7 (49.1, 82.6)</td>
+      <td id="T_05512_row7_col2" class="data row7 col2" >68.5 (47.6, 83.1)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row8" class="row_heading level1 row8" >Organization</th>
+      <td id="T_05512_row8_col0" class="data row8 col0" >79.5 (74.9, 83.1)</td>
+      <td id="T_05512_row8_col1" class="data row8 col1" >80.5 (78.1, 84.2)</td>
+      <td id="T_05512_row8_col2" class="data row8 col2" >79.1 (75.7, 82.3)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row9" class="row_heading level1 row9" >Person</th>
+      <td id="T_05512_row9_col0" class="data row9 col0" >85.9 (82.7, 88.8)</td>
+      <td id="T_05512_row9_col1" class="data row9 col1" >84.8 (80.6, 88.2)</td>
+      <td id="T_05512_row9_col2" class="data row9 col2" >86.8 (83.2, 90.1)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row10" class="row_heading level1 row10" >Product</th>
+      <td id="T_05512_row10_col0" class="data row10 col0" >62.4 (53.9, 72.0)</td>
+      <td id="T_05512_row10_col1" class="data row10 col1" >62.6 (53.9, 71.6)</td>
+      <td id="T_05512_row10_col2" class="data row10 col2" >59.5 (48.9, 67.9)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row11" class="row_heading level1 row11" >Work of Art</th>
+      <td id="T_05512_row11_col0" class="data row11 col0" >39.3 (25.5, 50.3)</td>
+      <td id="T_05512_row11_col1" class="data row11 col1" >58.4 (48.7, 69.1)</td>
+      <td id="T_05512_row11_col2" class="data row11 col2" >46.6 (36.2, 56.9)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level0_row12" class="row_heading level0 row12" rowspan="6">Non-Entities</th>
+      <th id="T_05512_level1_row12" class="row_heading level1 row12" >Cardinal</th>
+      <td id="T_05512_row12_col0" class="data row12 col0" >87.0 (82.8, 90.3)</td>
+      <td id="T_05512_row12_col1" class="data row12 col1" >80.5 (77.0, 84.4)</td>
+      <td id="T_05512_row12_col2" class="data row12 col2" >89.2 (86.0, 91.7)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row13" class="row_heading level1 row13" >Date</th>
+      <td id="T_05512_row13_col0" class="data row13 col0" >77.3 (71.6, 81.8)</td>
+      <td id="T_05512_row13_col1" class="data row13 col1" >77.6 (72.8, 82.2)</td>
+      <td id="T_05512_row13_col2" class="data row13 col2" >78.8 (73.9, 83.4)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row14" class="row_heading level1 row14" >Money</th>
+      <td id="T_05512_row14_col0" class="data row14 col0" >99.3 (97.9, 100.0)</td>
+      <td id="T_05512_row14_col1" class="data row14 col1" >98.6 (97.2, 100.0)</td>
+      <td id="T_05512_row14_col2" class="data row14 col2" >95.2 (90.0, 98.2)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row15" class="row_heading level1 row15" >Percent</th>
+      <td id="T_05512_row15_col0" class="data row15 col0" >100.0 (100.0, 100.0)</td>
+      <td id="T_05512_row15_col1" class="data row15 col1" >100.0 (100.0, 100.0)</td>
+      <td id="T_05512_row15_col2" class="data row15 col2" >100.0 (100.0, 100.0)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row16" class="row_heading level1 row16" >Quantity</th>
+      <td id="T_05512_row16_col0" class="data row16 col0" >78.6 (59.8, 93.8)</td>
+      <td id="T_05512_row16_col1" class="data row16 col1" >76.9 (63.9, 89.9)</td>
+      <td id="T_05512_row16_col2" class="data row16 col2" >71.3 (50.0, 91.1)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level1_row17" class="row_heading level1 row17" >Time</th>
+      <td id="T_05512_row17_col0" class="data row17 col0" >90.9 (83.8, 96.7)</td>
+      <td id="T_05512_row17_col1" class="data row17 col1" >85.1 (74.0, 93.7)</td>
+      <td id="T_05512_row17_col2" class="data row17 col2" >83.4 (68.0, 95.6)</td>
+    </tr>
+    <tr>
+      <th id="T_05512_level0_row18" class="row_heading level0 row18" >Average</th>
+      <th id="T_05512_level1_row18" class="row_heading level1 row18" >Average</th>
+      <td id="T_05512_row18_col0" class="data row18 col0" >80.1 (78.2, 81.9)</td>
+      <td id="T_05512_row18_col1" class="data row18 col1" >79.7 (77.7, 81.5)</td>
+      <td id="T_05512_row18_col2" class="data row18 col2" >78.4 (76.3, 80.4)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+</section>
+<section id="domain-generalization">
+<h2>Domain Generalization<a class="headerlink" href="#domain-generalization" title="Permalink to this heading">#</a></h2>
+<p>For the domains generalization benchmark we utilize the <a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a> dataset. This dataset is annotated across many different domains including fiction, web content, social media, wikis, news, legal and conversational data.
+As some models are trained on DANSK (<code class="docutils literal notranslate"><span class="pre">da_dacy_{size}_ner_fine_grained-{version}</span></code>) these models are tested on the test set using all of the
+labels.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style>
+  #altair-viz-ab74447a07bd43b493eb9af490258f99.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-ab74447a07bd43b493eb9af490258f99.vega-embed details,
+  #altair-viz-ab74447a07bd43b493eb9af490258f99.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-ab74447a07bd43b493eb9af490258f99"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-ab74447a07bd43b493eb9af490258f99") {
+      outputDiv = document.getElementById("altair-viz-ab74447a07bd43b493eb9af490258f99");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.8.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.8.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "point", "filled": true}, "encoding": {"color": {"field": "Domain", "type": "nominal"}, "opacity": {"condition": {"param": "param_2", "value": 1}, "value": 0.0}, "size": {"condition": {"param": "param_3", "field": "Number of docs", "legend": null}, "value": 100}, "tooltip": [{"field": "Model", "type": "nominal"}, {"field": "Domain", "type": "nominal"}, {"field": "Average F1", "type": "nominal"}], "x": {"field": "Average", "scale": {"domain": [0.0, 1.0]}, "title": "F1", "type": "quantitative"}, "y": {"field": "Model", "sort": ["saattrupdan/nbailab-base-ner-scandi", "da_dacy_large_trf-0.2.0", "da_dacy_medium_trf-0.2.0", "da_dacy_small_trf-0.2.0", "da_dacy_large_ner_fine_grained-0.1.0", "da_dacy_medium_ner_fine_grained-0.1.0", "da_dacy_small_ner_fine_grained-0.1.0", "alexandrainst/da-ner-base", "da_core_news_trf-3.5.0", "da_core_news_lg-3.5.0", "da_core_news_md-3.5.0", "da_core_news_sm-3.5.0"], "type": "nominal"}}, "name": "view_2"}, {"mark": {"type": "errorbar", "ticks": false}, "encoding": {"color": {"field": "Domain", "type": "nominal"}, "opacity": {"condition": {"param": "param_2", "value": 1}, "value": 0.0}, "x": {"field": "Average Lower CI", "title": "F1", "type": "quantitative"}, "x2": {"field": "Average Upper CI"}, "y": {"field": "Model", "sort": ["saattrupdan/nbailab-base-ner-scandi", "da_dacy_large_trf-0.2.0", "da_dacy_medium_trf-0.2.0", "da_dacy_small_trf-0.2.0", "da_dacy_large_ner_fine_grained-0.1.0", "da_dacy_medium_ner_fine_grained-0.1.0", "da_dacy_small_ner_fine_grained-0.1.0", "alexandrainst/da-ner-base", "da_core_news_trf-3.5.0", "da_core_news_lg-3.5.0", "da_core_news_md-3.5.0", "da_core_news_sm-3.5.0"], "type": "nominal"}}}], "data": {"name": "data-f41e944fb77a7a56152b17a7560d7b9e"}, "height": 300, "params": [{"name": "param_2", "select": {"type": "point", "fields": ["Domain"]}, "bind": "legend", "value": [{"Domain": "All"}], "views": ["view_2"]}, {"name": "param_3", "bind": {"input": "checkbox", "name": "Scale point size by number of documents: "}}], "title": "DANSK test set performance", "width": 400, "$schema": "https://vega.github.io/schema/vega-lite/v5.8.0.json", "datasets": {"data-f41e944fb77a7a56152b17a7560d7b9e": [{"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "Web", "Average": 0.8101067602127482, "Average Lower CI": 0.7841651487553125, "Average Upper CI": 0.830900900900901, "Average F1": "0.81 (0.78, 0.83)", "Number of docs": 783}, {"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "Legal", "Average": 0.8663320350050492, "Average Lower CI": 0.8419256402801457, "Average Upper CI": 0.8887819496820972, "Average F1": "0.87 (0.84, 0.89)", "Number of docs": 239}, {"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "Conversation", "Average": 0.7641179934708223, "Average Lower CI": 0.7337162907078971, "Average Upper CI": 0.7902515430981282, "Average F1": "0.76 (0.73, 0.79)", "Number of docs": 168}, {"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "Wiki & Books", "Average": 0.7220179014224088, "Average Lower CI": 0.6878643801132788, "Average Upper CI": 0.762446517440944, "Average F1": "0.72 (0.69, 0.76)", "Number of docs": 182}, {"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "News", "Average": 0.823329124708956, "Average Lower CI": 0.7975750707209395, "Average Upper CI": 0.8467087702231627, "Average F1": "0.82 (0.80, 0.85)", "Number of docs": 39}, {"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "Social Media", "Average": 0.5842981151577813, "Average Lower CI": 0.5411082722470623, "Average Upper CI": 0.6276502609352638, "Average F1": "0.58 (0.54, 0.63)", "Number of docs": 64}, {"Model": "da_dacy_large_ner_fine_grained-0.1.0", "Domain": "All", "Average": 0.8012382615583585, "Average Lower CI": 0.7773314556164734, "Average Upper CI": 0.8290060904096623, "Average F1": "0.80 (0.78, 0.83)", "Number of docs": 1500}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "Web", "Average": 0.8069059577346168, "Average Lower CI": 0.7792190204698447, "Average Upper CI": 0.8320044217003898, "Average F1": "0.81 (0.78, 0.83)", "Number of docs": 783}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "Legal", "Average": 0.8792798287165162, "Average Lower CI": 0.860279516303508, "Average Upper CI": 0.8961524325753569, "Average F1": "0.88 (0.86, 0.90)", "Number of docs": 239}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "Conversation", "Average": 0.6636923028744094, "Average Lower CI": 0.6349232630707509, "Average Upper CI": 0.6883207901715027, "Average F1": "0.66 (0.63, 0.69)", "Number of docs": 168}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "Wiki & Books", "Average": 0.7937488810814491, "Average Lower CI": 0.7653571428571427, "Average Upper CI": 0.8218744746115128, "Average F1": "0.79 (0.77, 0.82)", "Number of docs": 182}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "News", "Average": 0.6966281148220598, "Average Lower CI": 0.6733559377459511, "Average Upper CI": 0.7196226874856663, "Average F1": "0.70 (0.67, 0.72)", "Number of docs": 39}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "Social Media", "Average": 0.6944594484094899, "Average Lower CI": 0.6478237984608682, "Average Upper CI": 0.7331416617609958, "Average F1": "0.69 (0.65, 0.73)", "Number of docs": 64}, {"Model": "da_dacy_medium_ner_fine_grained-0.1.0", "Domain": "All", "Average": 0.7954568921751537, "Average Lower CI": 0.7682324162204714, "Average Upper CI": 0.825265478923979, "Average F1": "0.80 (0.77, 0.83)", "Number of docs": 1500}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "Web", "Average": 0.7781528937111613, "Average Lower CI": 0.7453085067542898, "Average Upper CI": 0.7999058473736373, "Average F1": "0.78 (0.75, 0.80)", "Number of docs": 783}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "Legal", "Average": 0.9090202269126079, "Average Lower CI": 0.8905576809510362, "Average Upper CI": 0.9278187376371155, "Average F1": "0.91 (0.89, 0.93)", "Number of docs": 239}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "Conversation", "Average": 0.7369381979372508, "Average Lower CI": 0.7024462244622447, "Average Upper CI": 0.7668525088402879, "Average F1": "0.74 (0.70, 0.77)", "Number of docs": 168}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "Wiki & Books", "Average": 0.7414870979112445, "Average Lower CI": 0.711301648812756, "Average Upper CI": 0.774739456390258, "Average F1": "0.74 (0.71, 0.77)", "Number of docs": 182}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "News", "Average": 0.7978561822955089, "Average Lower CI": 0.7712527545212747, "Average Upper CI": 0.8215780291306777, "Average F1": "0.80 (0.77, 0.82)", "Number of docs": 39}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "Social Media", "Average": 0.707274819499705, "Average Lower CI": 0.6689111635220126, "Average Upper CI": 0.7518443992428864, "Average F1": "0.71 (0.67, 0.75)", "Number of docs": 64}, {"Model": "da_dacy_small_ner_fine_grained-0.1.0", "Domain": "All", "Average": 0.7842946502544421, "Average Lower CI": 0.7563924902895867, "Average Upper CI": 0.8127158179241442, "Average F1": "0.78 (0.76, 0.81)", "Number of docs": 1500}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<section id="domain-generalization-using-conll-2003-format">
+<h3>Domain generalization using CoNLL-2003 format<a class="headerlink" href="#domain-generalization-using-conll-2003-format" title="Permalink to this heading">#</a></h3>
+<p>To test the generalization we here convert the annotations to the CoNLL-2003 format using the labels <code class="docutils literal notranslate"><span class="pre">Person</span></code>, <code class="docutils literal notranslate"><span class="pre">Location</span></code>, <code class="docutils literal notranslate"><span class="pre">Organization</span></code>. As CoNLL-2003, <code class="docutils literal notranslate"><span class="pre">Location</span></code> includes cities, roads, mountains, abstract places, specific buildings, and meeting points. Thus the <code class="docutils literal notranslate"><span class="pre">GPE</span></code> (geo-political entity) were converted to <code class="docutils literal notranslate"><span class="pre">Location</span></code>. The <code class="docutils literal notranslate"><span class="pre">MISC</span></code> category in CoNLL-2003 is a diverse category meant to denote all names not in other categories (encapsulating both e.g. events and adjectives such as ”2004 World Cup” and ”Italian”), and is therefore not included.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style>
+  #altair-viz-15ce44fa180d4c9db32ce47daf4b14e4.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-15ce44fa180d4c9db32ce47daf4b14e4.vega-embed details,
+  #altair-viz-15ce44fa180d4c9db32ce47daf4b14e4.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-15ce44fa180d4c9db32ce47daf4b14e4"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-15ce44fa180d4c9db32ce47daf4b14e4") {
+      outputDiv = document.getElementById("altair-viz-15ce44fa180d4c9db32ce47daf4b14e4");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.8.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.8.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "point", "filled": true}, "encoding": {"color": {"field": "Domain", "type": "nominal"}, "opacity": {"condition": {"param": "param_4", "value": 1}, "value": 0.0}, "size": {"condition": {"param": "param_5", "field": "Number of docs", "legend": null}, "value": 100}, "tooltip": [{"field": "Model", "type": "nominal"}, {"field": "Domain", "type": "nominal"}, {"field": "Average F1", "type": "nominal"}, {"field": "Person F1", "type": "nominal"}, {"field": "Location F1", "type": "nominal"}, {"field": "Organization F1", "type": "nominal"}], "x": {"field": "Average", "scale": {"domain": [0.0, 1.0]}, "title": "F1", "type": "quantitative"}, "y": {"field": "Model", "sort": ["saattrupdan/nbailab-base-ner-scandi", "da_dacy_large_trf-0.2.0", "da_dacy_medium_trf-0.2.0", "da_dacy_small_trf-0.2.0", "da_dacy_large_ner_fine_grained-0.1.0", "da_dacy_medium_ner_fine_grained-0.1.0", "da_dacy_small_ner_fine_grained-0.1.0", "alexandrainst/da-ner-base", "da_core_news_trf-3.5.0", "da_core_news_lg-3.5.0", "da_core_news_md-3.5.0", "da_core_news_sm-3.5.0"], "type": "nominal"}}, "name": "view_3"}, {"mark": {"type": "errorbar", "ticks": false}, "encoding": {"color": {"field": "Domain", "type": "nominal"}, "opacity": {"condition": {"param": "param_4", "value": 1}, "value": 0.0}, "x": {"field": "Average Lower CI", "title": "F1", "type": "quantitative"}, "x2": {"field": "Average Upper CI"}, "y": {"field": "Model", "sort": ["saattrupdan/nbailab-base-ner-scandi", "da_dacy_large_trf-0.2.0", "da_dacy_medium_trf-0.2.0", "da_dacy_small_trf-0.2.0", "da_dacy_large_ner_fine_grained-0.1.0", "da_dacy_medium_ner_fine_grained-0.1.0", "da_dacy_small_ner_fine_grained-0.1.0", "alexandrainst/da-ner-base", "da_core_news_trf-3.5.0", "da_core_news_lg-3.5.0", "da_core_news_md-3.5.0", "da_core_news_sm-3.5.0"], "type": "nominal"}}}], "data": {"name": "data-290b8a00f13b86923ad85bd2d9a5337f"}, "height": 300, "params": [{"name": "param_4", "select": {"type": "point", "fields": ["Domain"]}, "bind": "legend", "value": [{"Domain": "All"}], "views": ["view_3"]}, {"name": "param_5", "bind": {"input": "checkbox", "name": "Scale point size by number of documents: "}}], "title": "Generalization to Unseen Domains", "width": 400, "$schema": "https://vega.github.io/schema/vega-lite/v5.8.0.json", "datasets": {"data-290b8a00f13b86923ad85bd2d9a5337f": [{"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "Web", "Average": 0.6320979667934344, "Average Lower CI": 0.5772940747683015, "Average Upper CI": 0.6807455174059502, "Average F1": "0.63 (0.58, 0.68)", "Person F1": "0.76 (0.70, 0.82)", "Organization F1": "0.44 (0.34, 0.53)", "Location F1": "0.71 (0.61, 0.80)", "Number of docs": 8270}, {"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "Legal", "Average": 0.6091491463766007, "Average Lower CI": 0.5561125604518662, "Average Upper CI": 0.6694873582948897, "Average F1": "0.61 (0.56, 0.67)", "Person F1": "0.64 (0.54, 0.74)", "Organization F1": "0.57 (0.51, 0.64)", "Location F1": "0.70 (0.56, 0.83)", "Number of docs": 2163}, {"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "Conversation", "Average": 0.6868105414946557, "Average Lower CI": 0.6288968945167018, "Average Upper CI": 0.733696412560472, "Average F1": "0.69 (0.63, 0.73)", "Person F1": "0.45 (0.34, 0.53)", "Organization F1": "0.68 (0.56, 0.80)", "Location F1": "0.91 (0.86, 0.95)", "Number of docs": 1649}, {"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "Wiki & Books", "Average": 0.7071938816537304, "Average Lower CI": 0.6478843311160384, "Average Upper CI": 0.7605586293923509, "Average F1": "0.71 (0.65, 0.76)", "Person F1": "0.65 (0.54, 0.73)", "Organization F1": "0.62 (0.46, 0.74)", "Location F1": "0.77 (0.70, 0.84)", "Number of docs": 1709}, {"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "News", "Average": 0.6930174636150015, "Average Lower CI": 0.6646859011292303, "Average Upper CI": 0.7221996681383499, "Average F1": "0.69 (0.66, 0.72)", "Person F1": "0.78 (0.74, 0.82)", "Organization F1": "0.62 (0.57, 0.68)", "Location F1": "0.65 (0.60, 0.70)", "Number of docs": 421}, {"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "Social Media", "Average": 0.7146932414144532, "Average Lower CI": 0.6727417628443784, "Average Upper CI": 0.7635720331809718, "Average F1": "0.71 (0.67, 0.76)", "Person F1": "0.82 (0.76, 0.87)", "Organization F1": "0.39 (0.29, 0.48)", "Location F1": "0.80 (0.73, 0.86)", "Number of docs": 554}, {"Model": "saattrupdan/nbailab-base-ner-scandi", "Domain": "All", "Average": 0.6399846068221187, "Average Lower CI": 0.5913243276585245, "Average Upper CI": 0.6863364795832064, "Average F1": "0.64 (0.59, 0.69)", "Person F1": "0.70 (0.63, 0.76)", "Organization F1": "0.49 (0.40, 0.58)", "Location F1": "0.74 (0.62, 0.81)", "Number of docs": 15062}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "Web", "Average": 0.6622299878444764, "Average Lower CI": 0.6067156841323254, "Average Upper CI": 0.7040365031143719, "Average F1": "0.66 (0.61, 0.70)", "Person F1": "0.79 (0.72, 0.84)", "Organization F1": "0.46 (0.39, 0.53)", "Location F1": "0.77 (0.70, 0.83)", "Number of docs": 8270}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "Legal", "Average": 0.6705098767100004, "Average Lower CI": 0.6259144053402851, "Average Upper CI": 0.7092298537220516, "Average F1": "0.67 (0.63, 0.71)", "Person F1": "0.75 (0.67, 0.83)", "Organization F1": "0.62 (0.56, 0.68)", "Location F1": "0.74 (0.60, 0.84)", "Number of docs": 2163}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "Conversation", "Average": 0.6542176020229208, "Average Lower CI": 0.6019818043008016, "Average Upper CI": 0.7140041741204531, "Average F1": "0.65 (0.60, 0.71)", "Person F1": "0.48 (0.36, 0.57)", "Organization F1": "0.46 (0.31, 0.59)", "Location F1": "0.92 (0.88, 0.96)", "Number of docs": 1649}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "Wiki & Books", "Average": 0.6542573239405536, "Average Lower CI": 0.5965014245014245, "Average Upper CI": 0.7100683431310761, "Average F1": "0.65 (0.60, 0.71)", "Person F1": "0.60 (0.50, 0.69)", "Organization F1": "0.43 (0.31, 0.52)", "Location F1": "0.82 (0.74, 0.87)", "Number of docs": 1709}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "News", "Average": 0.6919175862990398, "Average Lower CI": 0.6616499275837584, "Average Upper CI": 0.7227475950526797, "Average F1": "0.69 (0.66, 0.72)", "Person F1": "0.76 (0.73, 0.81)", "Organization F1": "0.56 (0.51, 0.61)", "Location F1": "0.73 (0.69, 0.79)", "Number of docs": 421}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "Social Media", "Average": 0.7549612024929343, "Average Lower CI": 0.7119168127463809, "Average Upper CI": 0.7917034827948499, "Average F1": "0.75 (0.71, 0.79)", "Person F1": "0.83 (0.79, 0.88)", "Organization F1": "0.45 (0.38, 0.53)", "Location F1": "0.90 (0.85, 0.95)", "Number of docs": 554}, {"Model": "da_dacy_large_trf-0.2.0", "Domain": "All", "Average": 0.664953725293192, "Average Lower CI": 0.6217947060344624, "Average Upper CI": 0.7064397860593513, "Average F1": "0.66 (0.62, 0.71)", "Person F1": "0.74 (0.67, 0.79)", "Organization F1": "0.50 (0.42, 0.56)", "Location F1": "0.79 (0.72, 0.85)", "Number of docs": 15062}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "Web", "Average": 0.5429015929539475, "Average Lower CI": 0.48955164757226394, "Average Upper CI": 0.600878112968197, "Average F1": "0.54 (0.49, 0.60)", "Person F1": "0.66 (0.58, 0.73)", "Organization F1": "0.37 (0.31, 0.46)", "Location F1": "0.63 (0.51, 0.71)", "Number of docs": 8270}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "Legal", "Average": 0.5958256886871834, "Average Lower CI": 0.5559941357868662, "Average Upper CI": 0.6406445244706698, "Average F1": "0.60 (0.56, 0.64)", "Person F1": "0.74 (0.64, 0.82)", "Organization F1": "0.48 (0.42, 0.55)", "Location F1": "0.79 (0.68, 0.89)", "Number of docs": 2163}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "Conversation", "Average": 0.6168235305503006, "Average Lower CI": 0.5622598708645221, "Average Upper CI": 0.6705878502225713, "Average F1": "0.62 (0.56, 0.67)", "Person F1": "0.39 (0.30, 0.47)", "Organization F1": "0.50 (0.37, 0.61)", "Location F1": "0.92 (0.88, 0.96)", "Number of docs": 1649}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "Wiki & Books", "Average": 0.6013171286772022, "Average Lower CI": 0.5419592074592074, "Average Upper CI": 0.6513982076552458, "Average F1": "0.60 (0.54, 0.65)", "Person F1": "0.59 (0.49, 0.68)", "Organization F1": "0.32 (0.22, 0.43)", "Location F1": "0.75 (0.67, 0.81)", "Number of docs": 1709}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "News", "Average": 0.5916103793988399, "Average Lower CI": 0.5514664353215447, "Average Upper CI": 0.6284386551663439, "Average F1": "0.59 (0.55, 0.63)", "Person F1": "0.66 (0.61, 0.71)", "Organization F1": "0.57 (0.51, 0.63)", "Location F1": "0.53 (0.48, 0.59)", "Number of docs": 421}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "Social Media", "Average": 0.6229443114860667, "Average Lower CI": 0.5669289935014807, "Average Upper CI": 0.6692543941862644, "Average F1": "0.62 (0.57, 0.67)", "Person F1": "0.65 (0.58, 0.72)", "Organization F1": "0.41 (0.33, 0.49)", "Location F1": "0.80 (0.74, 0.86)", "Number of docs": 554}, {"Model": "da_dacy_medium_trf-0.2.0", "Domain": "All", "Average": 0.5569509457639416, "Average Lower CI": 0.49619818542368543, "Average Upper CI": 0.6100553940441581, "Average F1": "0.56 (0.50, 0.61)", "Person F1": "0.62 (0.54, 0.70)", "Organization F1": "0.40 (0.31, 0.47)", "Location F1": "0.68 (0.57, 0.77)", "Number of docs": 15062}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "Web", "Average": 0.5461978061161671, "Average Lower CI": 0.5069639110204845, "Average Upper CI": 0.5969669409344694, "Average F1": "0.55 (0.51, 0.60)", "Person F1": "0.73 (0.66, 0.78)", "Organization F1": "0.33 (0.26, 0.41)", "Location F1": "0.64 (0.57, 0.71)", "Number of docs": 8270}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "Legal", "Average": 0.536429517680482, "Average Lower CI": 0.4824591818015043, "Average Upper CI": 0.5958867300943556, "Average F1": "0.54 (0.48, 0.60)", "Person F1": "0.52 (0.38, 0.64)", "Organization F1": "0.56 (0.49, 0.62)", "Location F1": "0.44 (0.26, 0.59)", "Number of docs": 2163}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "Conversation", "Average": 0.6268520454467161, "Average Lower CI": 0.5757813428401664, "Average Upper CI": 0.6786188472541147, "Average F1": "0.63 (0.58, 0.68)", "Person F1": "0.43 (0.30, 0.51)", "Organization F1": "0.48 (0.37, 0.58)", "Location F1": "0.89 (0.84, 0.93)", "Number of docs": 1649}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "Wiki & Books", "Average": 0.46992430120737955, "Average Lower CI": 0.41995114847401627, "Average Upper CI": 0.51962931735553, "Average F1": "0.47 (0.42, 0.52)", "Person F1": "0.52 (0.41, 0.61)", "Organization F1": "0.23 (0.15, 0.30)", "Location F1": "0.56 (0.50, 0.63)", "Number of docs": 1709}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "News", "Average": 0.6758817829004726, "Average Lower CI": 0.6382040892047133, "Average Upper CI": 0.707565011820331, "Average F1": "0.68 (0.64, 0.71)", "Person F1": "0.76 (0.72, 0.80)", "Organization F1": "0.54 (0.48, 0.60)", "Location F1": "0.69 (0.64, 0.73)", "Number of docs": 421}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "Social Media", "Average": 0.6894082728405587, "Average Lower CI": 0.6451891646489103, "Average Upper CI": 0.725898249488777, "Average F1": "0.69 (0.65, 0.73)", "Person F1": "0.83 (0.77, 0.87)", "Organization F1": "0.45 (0.35, 0.57)", "Location F1": "0.66 (0.56, 0.73)", "Number of docs": 554}, {"Model": "da_dacy_small_trf-0.2.0", "Domain": "All", "Average": 0.5444872004098057, "Average Lower CI": 0.4915802185619259, "Average Upper CI": 0.5935406545573487, "Average F1": "0.54 (0.49, 0.59)", "Person F1": "0.64 (0.56, 0.72)", "Organization F1": "0.38 (0.30, 0.46)", "Location F1": "0.65 (0.56, 0.72)", "Number of docs": 15062}, {"Model": "alexandrainst/da-ner-base", "Domain": "Web", "Average": 0.6409070653617142, "Average Lower CI": 0.5889088534921868, "Average Upper CI": 0.693482868803189, "Average F1": "0.64 (0.59, 0.69)", "Person F1": "0.76 (0.70, 0.82)", "Organization F1": "0.44 (0.37, 0.55)", "Location F1": "0.71 (0.64, 0.79)", "Number of docs": 8270}, {"Model": "alexandrainst/da-ner-base", "Domain": "Legal", "Average": 0.7598117588210556, "Average Lower CI": 0.7161917167009288, "Average Upper CI": 0.7983702763026245, "Average F1": "0.76 (0.72, 0.80)", "Person F1": "0.76 (0.67, 0.83)", "Organization F1": "0.75 (0.71, 0.80)", "Location F1": "0.81 (0.67, 0.90)", "Number of docs": 2163}, {"Model": "alexandrainst/da-ner-base", "Domain": "Conversation", "Average": 0.6593392586208562, "Average Lower CI": 0.5947191641011913, "Average Upper CI": 0.7285752473593345, "Average F1": "0.66 (0.59, 0.73)", "Person F1": "0.47 (0.36, 0.56)", "Organization F1": "0.49 (0.29, 0.62)", "Location F1": "0.92 (0.88, 0.96)", "Number of docs": 1649}, {"Model": "alexandrainst/da-ner-base", "Domain": "Wiki & Books", "Average": 0.7018148381144313, "Average Lower CI": 0.6321812888672114, "Average Upper CI": 0.7556884494815529, "Average F1": "0.70 (0.63, 0.76)", "Person F1": "0.68 (0.59, 0.76)", "Organization F1": "0.41 (0.24, 0.55)", "Location F1": "0.81 (0.75, 0.86)", "Number of docs": 1709}, {"Model": "alexandrainst/da-ner-base", "Domain": "News", "Average": 0.7094609467638066, "Average Lower CI": 0.6772939111022244, "Average Upper CI": 0.7341493750609626, "Average F1": "0.71 (0.68, 0.73)", "Person F1": "0.77 (0.73, 0.81)", "Organization F1": "0.62 (0.56, 0.67)", "Location F1": "0.70 (0.65, 0.74)", "Number of docs": 421}, {"Model": "alexandrainst/da-ner-base", "Domain": "Social Media", "Average": 0.7396773181136647, "Average Lower CI": 0.6929453672293987, "Average Upper CI": 0.785763293310463, "Average F1": "0.74 (0.69, 0.79)", "Person F1": "0.81 (0.75, 0.86)", "Organization F1": "0.47 (0.37, 0.57)", "Location F1": "0.83 (0.77, 0.90)", "Number of docs": 554}, {"Model": "alexandrainst/da-ner-base", "Domain": "All", "Average": 0.6644254866827842, "Average Lower CI": 0.6035380314277451, "Average Upper CI": 0.7188656810176565, "Average F1": "0.66 (0.60, 0.72)", "Person F1": "0.72 (0.65, 0.78)", "Organization F1": "0.52 (0.41, 0.61)", "Location F1": "0.76 (0.68, 0.83)", "Number of docs": 15062}, {"Model": "da_core_news_trf-3.5.0", "Domain": "Web", "Average": 0.5717369198343648, "Average Lower CI": 0.5082934413798914, "Average Upper CI": 0.624909837855705, "Average F1": "0.57 (0.51, 0.62)", "Person F1": "0.66 (0.60, 0.73)", "Organization F1": "0.37 (0.29, 0.47)", "Location F1": "0.69 (0.60, 0.77)", "Number of docs": 8270}, {"Model": "da_core_news_trf-3.5.0", "Domain": "Legal", "Average": 0.6762522405192257, "Average Lower CI": 0.6271914294898971, "Average Upper CI": 0.722508563135951, "Average F1": "0.68 (0.63, 0.72)", "Person F1": "0.71 (0.62, 0.79)", "Organization F1": "0.63 (0.58, 0.69)", "Location F1": "0.80 (0.67, 0.91)", "Number of docs": 2163}, {"Model": "da_core_news_trf-3.5.0", "Domain": "Conversation", "Average": 0.6234100285427392, "Average Lower CI": 0.567126906271783, "Average Upper CI": 0.6840985610092647, "Average F1": "0.62 (0.57, 0.68)", "Person F1": "0.44 (0.33, 0.55)", "Organization F1": "0.40 (0.24, 0.52)", "Location F1": "0.89 (0.85, 0.93)", "Number of docs": 1649}, {"Model": "da_core_news_trf-3.5.0", "Domain": "Wiki & Books", "Average": 0.6148739675696991, "Average Lower CI": 0.5642660339813256, "Average Upper CI": 0.6703068610254237, "Average F1": "0.61 (0.56, 0.67)", "Person F1": "0.58 (0.50, 0.67)", "Organization F1": "0.26 (0.12, 0.38)", "Location F1": "0.76 (0.69, 0.82)", "Number of docs": 1709}, {"Model": "da_core_news_trf-3.5.0", "Domain": "News", "Average": 0.691160431800026, "Average Lower CI": 0.6555163417138534, "Average Upper CI": 0.7208689637826962, "Average F1": "0.69 (0.66, 0.72)", "Person F1": "0.71 (0.68, 0.76)", "Organization F1": "0.55 (0.46, 0.61)", "Location F1": "0.77 (0.71, 0.81)", "Number of docs": 421}, {"Model": "da_core_news_trf-3.5.0", "Domain": "Social Media", "Average": 0.7107722551142583, "Average Lower CI": 0.671195919335157, "Average Upper CI": 0.7532407407407407, "Average F1": "0.71 (0.67, 0.75)", "Person F1": "0.76 (0.71, 0.81)", "Organization F1": "0.45 (0.36, 0.54)", "Location F1": "0.83 (0.76, 0.89)", "Number of docs": 554}, {"Model": "da_core_news_trf-3.5.0", "Domain": "All", "Average": 0.5941779959127065, "Average Lower CI": 0.5375469336670838, "Average Upper CI": 0.6430959568288406, "Average F1": "0.59 (0.54, 0.64)", "Person F1": "0.63 (0.54, 0.71)", "Organization F1": "0.43 (0.34, 0.52)", "Location F1": "0.73 (0.63, 0.80)", "Number of docs": 15062}, {"Model": "da_core_news_lg-3.5.0", "Domain": "Web", "Average": 0.4859487847315235, "Average Lower CI": 0.43429190757967623, "Average Upper CI": 0.5372173263110323, "Average F1": "0.49 (0.43, 0.54)", "Person F1": "0.65 (0.58, 0.73)", "Organization F1": "0.29 (0.21, 0.38)", "Location F1": "0.56 (0.45, 0.64)", "Number of docs": 8270}, {"Model": "da_core_news_lg-3.5.0", "Domain": "Legal", "Average": 0.5568956849585586, "Average Lower CI": 0.49839034509529123, "Average Upper CI": 0.608655303030303, "Average F1": "0.56 (0.50, 0.61)", "Person F1": "0.71 (0.62, 0.83)", "Organization F1": "0.44 (0.38, 0.52)", "Location F1": "0.71 (0.59, 0.83)", "Number of docs": 2163}, {"Model": "da_core_news_lg-3.5.0", "Domain": "Conversation", "Average": 0.6077738474778475, "Average Lower CI": 0.5579258733398409, "Average Upper CI": 0.6628561064019317, "Average F1": "0.61 (0.56, 0.66)", "Person F1": "0.36 (0.26, 0.47)", "Organization F1": "0.52 (0.39, 0.65)", "Location F1": "0.89 (0.84, 0.94)", "Number of docs": 1649}, {"Model": "da_core_news_lg-3.5.0", "Domain": "Wiki & Books", "Average": 0.5171714580214156, "Average Lower CI": 0.442906976744186, "Average Upper CI": 0.5804834955564959, "Average F1": "0.52 (0.44, 0.58)", "Person F1": "0.45 (0.36, 0.54)", "Organization F1": "0.25 (0.13, 0.34)", "Location F1": "0.70 (0.63, 0.76)", "Number of docs": 1709}, {"Model": "da_core_news_lg-3.5.0", "Domain": "News", "Average": 0.6154821004039736, "Average Lower CI": 0.5746965811965812, "Average Upper CI": 0.6540876498287672, "Average F1": "0.62 (0.57, 0.65)", "Person F1": "0.69 (0.65, 0.74)", "Organization F1": "0.46 (0.40, 0.54)", "Location F1": "0.64 (0.59, 0.70)", "Number of docs": 421}, {"Model": "da_core_news_lg-3.5.0", "Domain": "Social Media", "Average": 0.5774874698174104, "Average Lower CI": 0.5310012956286616, "Average Upper CI": 0.6240742887424237, "Average F1": "0.58 (0.53, 0.62)", "Person F1": "0.65 (0.57, 0.71)", "Organization F1": "0.34 (0.24, 0.43)", "Location F1": "0.66 (0.58, 0.75)", "Number of docs": 554}, {"Model": "da_core_news_lg-3.5.0", "Domain": "All", "Average": 0.5069216754168929, "Average Lower CI": 0.44735545946565103, "Average Upper CI": 0.5651739638258565, "Average F1": "0.51 (0.45, 0.57)", "Person F1": "0.60 (0.51, 0.68)", "Organization F1": "0.32 (0.24, 0.40)", "Location F1": "0.63 (0.53, 0.72)", "Number of docs": 15062}, {"Model": "da_core_news_md-3.5.0", "Domain": "Web", "Average": 0.4745033261598815, "Average Lower CI": 0.4263456721228215, "Average Upper CI": 0.5215018656716418, "Average F1": "0.47 (0.43, 0.52)", "Person F1": "0.64 (0.56, 0.71)", "Organization F1": "0.26 (0.21, 0.34)", "Location F1": "0.58 (0.46, 0.68)", "Number of docs": 8270}, {"Model": "da_core_news_md-3.5.0", "Domain": "Legal", "Average": 0.5748506490376031, "Average Lower CI": 0.5140775267241071, "Average Upper CI": 0.6232807901440448, "Average F1": "0.57 (0.51, 0.62)", "Person F1": "0.65 (0.55, 0.74)", "Organization F1": "0.50 (0.43, 0.56)", "Location F1": "0.77 (0.61, 0.86)", "Number of docs": 2163}, {"Model": "da_core_news_md-3.5.0", "Domain": "Conversation", "Average": 0.6129605060379099, "Average Lower CI": 0.5610351926912437, "Average Upper CI": 0.6640061306614093, "Average F1": "0.61 (0.56, 0.66)", "Person F1": "0.37 (0.27, 0.46)", "Organization F1": "0.53 (0.40, 0.66)", "Location F1": "0.87 (0.81, 0.92)", "Number of docs": 1649}, {"Model": "da_core_news_md-3.5.0", "Domain": "Wiki & Books", "Average": 0.48662621172654597, "Average Lower CI": 0.41378571428571426, "Average Upper CI": 0.5387693288697593, "Average F1": "0.49 (0.41, 0.54)", "Person F1": "0.44 (0.35, 0.53)", "Organization F1": "0.22 (0.12, 0.30)", "Location F1": "0.66 (0.58, 0.73)", "Number of docs": 1709}, {"Model": "da_core_news_md-3.5.0", "Domain": "News", "Average": 0.5823902691260386, "Average Lower CI": 0.5451603700806806, "Average Upper CI": 0.6201576245460397, "Average F1": "0.58 (0.55, 0.62)", "Person F1": "0.61 (0.56, 0.66)", "Organization F1": "0.40 (0.34, 0.47)", "Location F1": "0.68 (0.62, 0.73)", "Number of docs": 421}, {"Model": "da_core_news_md-3.5.0", "Domain": "Social Media", "Average": 0.5930123182295732, "Average Lower CI": 0.5490975059454845, "Average Upper CI": 0.6368166593854666, "Average F1": "0.59 (0.55, 0.64)", "Person F1": "0.69 (0.63, 0.74)", "Organization F1": "0.30 (0.20, 0.39)", "Location F1": "0.70 (0.63, 0.78)", "Number of docs": 554}, {"Model": "da_core_news_md-3.5.0", "Domain": "All", "Average": 0.498074458954352, "Average Lower CI": 0.43267572996741643, "Average Upper CI": 0.5507352130044973, "Average F1": "0.50 (0.43, 0.55)", "Person F1": "0.59 (0.51, 0.67)", "Organization F1": "0.31 (0.24, 0.39)", "Location F1": "0.63 (0.51, 0.73)", "Number of docs": 15062}, {"Model": "da_core_news_sm-3.5.0", "Domain": "Web", "Average": 0.2920643226833033, "Average Lower CI": 0.2502204729525964, "Average Upper CI": 0.3343973227045257, "Average F1": "0.29 (0.25, 0.33)", "Person F1": "0.35 (0.28, 0.41)", "Organization F1": "0.15 (0.08, 0.19)", "Location F1": "0.39 (0.30, 0.49)", "Number of docs": 8270}, {"Model": "da_core_news_sm-3.5.0", "Domain": "Legal", "Average": 0.4928129111150733, "Average Lower CI": 0.42574027160596367, "Average Upper CI": 0.5437918445517297, "Average F1": "0.49 (0.43, 0.54)", "Person F1": "0.53 (0.41, 0.65)", "Organization F1": "0.46 (0.39, 0.52)", "Location F1": "0.53 (0.39, 0.65)", "Number of docs": 2163}, {"Model": "da_core_news_sm-3.5.0", "Domain": "Conversation", "Average": 0.4988902152023031, "Average Lower CI": 0.4402202471024494, "Average Upper CI": 0.552027665980754, "Average F1": "0.50 (0.44, 0.55)", "Person F1": "0.24 (0.16, 0.33)", "Organization F1": "0.31 (0.17, 0.43)", "Location F1": "0.80 (0.74, 0.87)", "Number of docs": 1649}, {"Model": "da_core_news_sm-3.5.0", "Domain": "Wiki & Books", "Average": 0.33443918532217004, "Average Lower CI": 0.2861951798136416, "Average Upper CI": 0.3820397022332506, "Average F1": "0.33 (0.29, 0.38)", "Person F1": "0.26 (0.19, 0.34)", "Organization F1": "0.14 (0.07, 0.23)", "Location F1": "0.48 (0.41, 0.56)", "Number of docs": 1709}, {"Model": "da_core_news_sm-3.5.0", "Domain": "News", "Average": 0.5051741121845459, "Average Lower CI": 0.45972088749306494, "Average Upper CI": 0.5399541337759082, "Average F1": "0.51 (0.46, 0.54)", "Person F1": "0.51 (0.47, 0.56)", "Organization F1": "0.29 (0.23, 0.36)", "Location F1": "0.64 (0.58, 0.69)", "Number of docs": 421}, {"Model": "da_core_news_sm-3.5.0", "Domain": "Social Media", "Average": 0.39286038498567044, "Average Lower CI": 0.3438957174909765, "Average Upper CI": 0.4500212449543233, "Average F1": "0.39 (0.34, 0.45)", "Person F1": "0.45 (0.38, 0.53)", "Organization F1": "0.18 (0.09, 0.25)", "Location F1": "0.47 (0.36, 0.55)", "Number of docs": 554}, {"Model": "da_core_news_sm-3.5.0", "Domain": "All", "Average": 0.3418451669912897, "Average Lower CI": 0.2815761105612794, "Average Upper CI": 0.395188156070509, "Average F1": "0.34 (0.28, 0.40)", "Person F1": "0.36 (0.27, 0.45)", "Organization F1": "0.22 (0.14, 0.27)", "Location F1": "0.46 (0.37, 0.55)", "Number of docs": 15062}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+</section>
+</section>
+<section id="biases">
+<h2>Biases<a class="headerlink" href="#biases" title="Permalink to this heading">#</a></h2>
+<p>To examine the biases in Danish models we use augmentation to replace names in the Danish dataset DaNE <span id="id7">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, this approach
+is similar to that introduced in the initial DaCy paper <span id="id8">[<a class="reference internal" href="#id12" title="Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. arXiv preprint arXiv:2107.05295, 2021.">Enevoldsen <em>et al.</em>, 2021</a>]</span>.</p>
+<p>Here is a short example of how the augmentation might look like:</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="note admonition">
+<p class="admonition-title">Original</p>
+<p>Peter Schmeichel mener også, at det danske landshold anno 2021 tilhører verdenstoppen og kan vinde den kommende kamp mod England.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Female name augmentation</p>
+<p>Anne Østergaard mener også, at det danske landshold anno 2021 tilhører verdenstoppen og kan vinde den kommende kamp mod England.</p>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_1ce53 .level0 {
+  text-align: center;
+}
+#T_1ce53 .col_heading {
+  text-align: center;
+}
+#T_1ce53_row0_col1, #T_1ce53_row0_col2, #T_1ce53_row0_col3, #T_1ce53_row0_col4, #T_1ce53_row0_col5 {
+  font-weight: bold;
+  text-align: right;
+}
+#T_1ce53_row1_col1, #T_1ce53_row1_col2, #T_1ce53_row1_col3, #T_1ce53_row1_col4, #T_1ce53_row1_col5 {
+  text-decoration: underline;
+  text-align: right;
+}
+#T_1ce53_row2_col1, #T_1ce53_row2_col2, #T_1ce53_row2_col3, #T_1ce53_row2_col4, #T_1ce53_row2_col5, #T_1ce53_row3_col1, #T_1ce53_row3_col2, #T_1ce53_row3_col3, #T_1ce53_row3_col4, #T_1ce53_row3_col5, #T_1ce53_row4_col1, #T_1ce53_row4_col2, #T_1ce53_row4_col3, #T_1ce53_row4_col4, #T_1ce53_row4_col5, #T_1ce53_row5_col1, #T_1ce53_row5_col2, #T_1ce53_row5_col3, #T_1ce53_row5_col4, #T_1ce53_row5_col5, #T_1ce53_row6_col1, #T_1ce53_row6_col2, #T_1ce53_row6_col3, #T_1ce53_row6_col4, #T_1ce53_row6_col5, #T_1ce53_row7_col1, #T_1ce53_row7_col2, #T_1ce53_row7_col3, #T_1ce53_row7_col4, #T_1ce53_row7_col5, #T_1ce53_row8_col1, #T_1ce53_row8_col2, #T_1ce53_row8_col3, #T_1ce53_row8_col4, #T_1ce53_row8_col5 {
+  text-align: right;
+}
+</style>
+<table id="T_1ce53" style="font-size: 0.65em">
+  <caption>F1 score for each augmentation with 95% confidence interval calculated over 100 repetitions</caption>
+  <thead>
+    <tr>
+      <th id="T_1ce53_level0_col0" class="col_heading level0 col0" >Models</th>
+      <th id="T_1ce53_level0_col1" class="col_heading level0 col1" ></th>
+      <th id="T_1ce53_level0_col2" class="col_heading level0 col2" colspan="4">Augmentation</th>
+    </tr>
+    <tr>
+      <th id="T_1ce53_level1_col0" class="col_heading level1 col0" ></th>
+      <th id="T_1ce53_level1_col1" class="col_heading level1 col1" >Baseline</th>
+      <th id="T_1ce53_level1_col2" class="col_heading level1 col2" >Danish Names</th>
+      <th id="T_1ce53_level1_col3" class="col_heading level1 col3" >Female Names</th>
+      <th id="T_1ce53_level1_col4" class="col_heading level1 col4" >Male Names</th>
+      <th id="T_1ce53_level1_col5" class="col_heading level1 col5" >Muslim Names</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_1ce53_row0_col0" class="data row0 col0" >saattrupdan/nbailab-base-ner-scandi</td>
+      <td id="T_1ce53_row0_col1" class="data row0 col1" >86.3 (82.4, 89.7)</td>
+      <td id="T_1ce53_row0_col2" class="data row0 col2" >89.0 (86.8, 91.1)</td>
+      <td id="T_1ce53_row0_col3" class="data row0 col3" >88.9 (86.9, 91.1)</td>
+      <td id="T_1ce53_row0_col4" class="data row0 col4" >88.9 (86.9, 91.1)</td>
+      <td id="T_1ce53_row0_col5" class="data row0 col5" >88.1 (85.9, 90.4)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row1_col0" class="data row1 col0" >da_dacy_large_trf-0.2.0</td>
+      <td id="T_1ce53_row1_col1" class="data row1 col1" >85.4 (81.2, 88.9)</td>
+      <td id="T_1ce53_row1_col2" class="data row1 col2" >87.7 (85.2, 90.4)</td>
+      <td id="T_1ce53_row1_col3" class="data row1 col3" >87.8 (85.2, 90.2)</td>
+      <td id="T_1ce53_row1_col4" class="data row1 col4" >87.5 (84.3, 90.3)</td>
+      <td id="T_1ce53_row1_col5" class="data row1 col5" >85.6 (82.9, 88.3)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row2_col0" class="data row2 col0" >da_dacy_medium_trf-0.2.0</td>
+      <td id="T_1ce53_row2_col1" class="data row2 col1" >84.9 (81.0, 88.5)</td>
+      <td id="T_1ce53_row2_col2" class="data row2 col2" >86.2 (83.9, 88.8)</td>
+      <td id="T_1ce53_row2_col3" class="data row2 col3" >86.1 (83.8, 89.1)</td>
+      <td id="T_1ce53_row2_col4" class="data row2 col4" >86.1 (83.6, 89.2)</td>
+      <td id="T_1ce53_row2_col5" class="data row2 col5" >84.2 (81.7, 87.4)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row3_col0" class="data row3 col0" >da_dacy_small_trf-0.2.0</td>
+      <td id="T_1ce53_row3_col1" class="data row3 col1" >82.7 (79.3, 85.9)</td>
+      <td id="T_1ce53_row3_col2" class="data row3 col2" >82.4 (79.6, 85.3)</td>
+      <td id="T_1ce53_row3_col3" class="data row3 col3" >82.2 (79.9, 84.7)</td>
+      <td id="T_1ce53_row3_col4" class="data row3 col4" >82.1 (79.2, 85.2)</td>
+      <td id="T_1ce53_row3_col5" class="data row3 col5" >81.2 (78.6, 83.7)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row4_col0" class="data row4 col0" >alexandrainst/da-ner-base</td>
+      <td id="T_1ce53_row4_col1" class="data row4 col1" >70.7 (66.2, 75.2)</td>
+      <td id="T_1ce53_row4_col2" class="data row4 col2" >81.5 (78.2, 84.4)</td>
+      <td id="T_1ce53_row4_col3" class="data row4 col3" >81.6 (78.3, 84.4)</td>
+      <td id="T_1ce53_row4_col4" class="data row4 col4" >81.5 (78.2, 84.4)</td>
+      <td id="T_1ce53_row4_col5" class="data row4 col5" >79.8 (76.7, 82.4)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row5_col0" class="data row5 col0" >da_core_news_trf-3.5.0</td>
+      <td id="T_1ce53_row5_col1" class="data row5 col1" >79.0 (75.1, 82.3)</td>
+      <td id="T_1ce53_row5_col2" class="data row5 col2" >80.7 (77.2, 83.1)</td>
+      <td id="T_1ce53_row5_col3" class="data row5 col3" >80.9 (78.1, 83.8)</td>
+      <td id="T_1ce53_row5_col4" class="data row5 col4" >80.6 (77.3, 83.8)</td>
+      <td id="T_1ce53_row5_col5" class="data row5 col5" >78.7 (75.8, 81.1)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row6_col0" class="data row6 col0" >da_core_news_lg-3.5.0</td>
+      <td id="T_1ce53_row6_col1" class="data row6 col1" >74.6 (70.8, 78.1)</td>
+      <td id="T_1ce53_row6_col2" class="data row6 col2" >78.3 (75.5, 80.7)</td>
+      <td id="T_1ce53_row6_col3" class="data row6 col3" >78.5 (75.9, 81.1)</td>
+      <td id="T_1ce53_row6_col4" class="data row6 col4" >78.4 (75.4, 81.2)</td>
+      <td id="T_1ce53_row6_col5" class="data row6 col5" >68.2 (65.4, 71.2)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row7_col0" class="data row7 col0" >da_core_news_md-3.5.0</td>
+      <td id="T_1ce53_row7_col1" class="data row7 col1" >71.2 (66.9, 75.2)</td>
+      <td id="T_1ce53_row7_col2" class="data row7 col2" >75.7 (71.9, 78.7)</td>
+      <td id="T_1ce53_row7_col3" class="data row7 col3" >75.6 (72.2, 79.1)</td>
+      <td id="T_1ce53_row7_col4" class="data row7 col4" >75.5 (72.3, 78.9)</td>
+      <td id="T_1ce53_row7_col5" class="data row7 col5" >64.6 (60.5, 68.1)</td>
+    </tr>
+    <tr>
+      <td id="T_1ce53_row8_col0" class="data row8 col0" >da_core_news_sm-3.5.0</td>
+      <td id="T_1ce53_row8_col1" class="data row8 col1" >64.4 (59.7, 68.5)</td>
+      <td id="T_1ce53_row8_col2" class="data row8 col2" >58.8 (55.5, 62.0)</td>
+      <td id="T_1ce53_row8_col3" class="data row8 col3" >59.1 (56.2, 62.6)</td>
+      <td id="T_1ce53_row8_col4" class="data row8 col4" >59.1 (56.4, 62.3)</td>
+      <td id="T_1ce53_row8_col5" class="data row8 col5" >53.4 (50.2, 56.4)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="robustness">
+<h2>Robustness<a class="headerlink" href="#robustness" title="Permalink to this heading">#</a></h2>
+<p>In the paper <em>‘DaCy: A Unified Framework for Danish NLP’</em> <span id="id9">[<a class="reference internal" href="#id12" title="Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. arXiv preprint arXiv:2107.05295, 2021.">Enevoldsen <em>et al.</em>, 2021</a>]</span> we conducted a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pipelines. This page represents only parts of the paper. We recommend reading the paper for a more thorough and nuanced overview.</p>
+<p>The augmentation we will be using in this test are performed on the DaNE test set and include the following:</p>
+<ul class="simple">
+<li><p><strong>Spelling Error</strong>: Intended to similar domains with inconsistent spelling, OCR errors, conversational data, etc.. The augmentation includes a series of smaller augmentation:</p>
+<ul>
+<li><p>Keystroke error: The augmentation is used to introduce errors by replacing a character with a character that is close on the keyboard.</p></li>
+<li><p>Character swap: The augmentation is used to introduce errors by swapping two neighboring characters.</p></li>
+<li><p>Token swap: The augmentation is used to introduce errors by swapping two neighboring tokens.</p></li>
+</ul>
+</li>
+<li><p><strong>Inconsistent Casing</strong>: This augmentation is used to simulate inconsistent casing in the language and uses two different methods by either randomly capitalizing or lowercasing tokens.</p></li>
+<li><p><strong>Synonym Augmentation</strong>: This augmentation is used to simulate the variation and slight grammatical errors in the language and uses two different methods:</p>
+<ul>
+<li><p>Wordnet Synonym replacement: The augmentation replaces a token with a synonym in WordNet while respecting its syntactic role.</p></li>
+<li><p>Embedding Synonym replacement: This augmentation replaces a token with a synonym which tends to appear in similar contexts.</p></li>
+</ul>
+</li>
+<li><p><strong>Inconsistent Spacing</strong>: This augmentation is used to simulate inconsistent spacing in the language and uses two different methods by either randomly adding or removing spaces.</p></li>
+<li><p><strong>Historical Spelling</strong>: This augmentation is used to simulate historical spelling in Danish including ASCII spellings of the letters Æ (Ae), Ø (Oe), and Å (Aa) as well as uppercasing nouns.</p></li>
+</ul>
+<p>For all of the augmentations the probability of an augmentation is set to augment 5% of the spaces where the targeted augmentation can take place. The augmentations are performed using the <a class="reference external" href="https://kennethenevoldsen.github.io/augmenty/index.html">augmenty</a>.</p>
+<p>The underlying assumption of making these augmentations is that the annotations of the tokens do not change with augmentation. This can naturally sometimes be the case. A single letter <em>“hun læste gåden”</em> (<em>she read the puzzle</em>) and <em>“hun løste gåden”</em> (<em>she solved the puzzle</em>) have quite a different meaning. So while we expect the performance to drop the degree of the drop is interesting to examine and often in comparison to the other models.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_f0a31 .level0 {
+  text-align: center;
+}
+#T_f0a31 .col_heading {
+  text-align: center;
+}
+#T_f0a31_row0_col1, #T_f0a31_row0_col4, #T_f0a31_row0_col5, #T_f0a31_row0_col6, #T_f0a31_row1_col2, #T_f0a31_row1_col3 {
+  font-weight: bold;
+  text-align: right;
+}
+#T_f0a31_row0_col2, #T_f0a31_row0_col3, #T_f0a31_row1_col1, #T_f0a31_row1_col6, #T_f0a31_row2_col4, #T_f0a31_row2_col5 {
+  text-decoration: underline;
+  text-align: right;
+}
+#T_f0a31_row1_col4, #T_f0a31_row1_col5, #T_f0a31_row2_col1, #T_f0a31_row2_col2, #T_f0a31_row2_col3, #T_f0a31_row2_col6, #T_f0a31_row3_col1, #T_f0a31_row3_col2, #T_f0a31_row3_col3, #T_f0a31_row3_col4, #T_f0a31_row3_col5, #T_f0a31_row3_col6, #T_f0a31_row4_col1, #T_f0a31_row4_col2, #T_f0a31_row4_col3, #T_f0a31_row4_col4, #T_f0a31_row4_col5, #T_f0a31_row4_col6, #T_f0a31_row5_col1, #T_f0a31_row5_col2, #T_f0a31_row5_col3, #T_f0a31_row5_col4, #T_f0a31_row5_col5, #T_f0a31_row5_col6, #T_f0a31_row6_col1, #T_f0a31_row6_col2, #T_f0a31_row6_col3, #T_f0a31_row6_col4, #T_f0a31_row6_col5, #T_f0a31_row6_col6, #T_f0a31_row7_col1, #T_f0a31_row7_col2, #T_f0a31_row7_col3, #T_f0a31_row7_col4, #T_f0a31_row7_col5, #T_f0a31_row7_col6, #T_f0a31_row8_col1, #T_f0a31_row8_col2, #T_f0a31_row8_col3, #T_f0a31_row8_col4, #T_f0a31_row8_col5, #T_f0a31_row8_col6 {
+  text-align: right;
+}
+</style>
+<table id="T_f0a31" style="font-size: 0.65em">
+  <caption>F1 score for each augmentation with 95% confidence interval calculated over 100 repetitions</caption>
+  <thead>
+    <tr>
+      <th id="T_f0a31_level0_col0" class="col_heading level0 col0" >Models</th>
+      <th id="T_f0a31_level0_col1" class="col_heading level0 col1" ></th>
+      <th id="T_f0a31_level0_col2" class="col_heading level0 col2" colspan="5">Augmentation</th>
+    </tr>
+    <tr>
+      <th id="T_f0a31_level1_col0" class="col_heading level1 col0" ></th>
+      <th id="T_f0a31_level1_col1" class="col_heading level1 col1" >Baseline</th>
+      <th id="T_f0a31_level1_col2" class="col_heading level1 col2" >Historical Spelling</th>
+      <th id="T_f0a31_level1_col3" class="col_heading level1 col3" >Inconsistent Casing</th>
+      <th id="T_f0a31_level1_col4" class="col_heading level1 col4" >Inconsistent Spacing</th>
+      <th id="T_f0a31_level1_col5" class="col_heading level1 col5" >Spelling Error</th>
+      <th id="T_f0a31_level1_col6" class="col_heading level1 col6" >Synonym replacement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_f0a31_row0_col0" class="data row0 col0" >saattrupdan/nbailab-base-ner-scandi</td>
+      <td id="T_f0a31_row0_col1" class="data row0 col1" >86.3 (82.4, 89.7)</td>
+      <td id="T_f0a31_row0_col2" class="data row0 col2" >81.9 (79.1, 85.0)</td>
+      <td id="T_f0a31_row0_col3" class="data row0 col3" >86.5 (84.4, 89.0)</td>
+      <td id="T_f0a31_row0_col4" class="data row0 col4" >78.8 (75.7, 81.6)</td>
+      <td id="T_f0a31_row0_col5" class="data row0 col5" >73.3 (69.9, 76.8)</td>
+      <td id="T_f0a31_row0_col6" class="data row0 col6" >87.1 (84.9, 89.6)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row1_col0" class="data row1 col0" >da_dacy_large_trf-0.2.0</td>
+      <td id="T_f0a31_row1_col1" class="data row1 col1" >85.4 (81.2, 88.9)</td>
+      <td id="T_f0a31_row1_col2" class="data row1 col2" >86.0 (82.8, 88.9)</td>
+      <td id="T_f0a31_row1_col3" class="data row1 col3" >86.9 (83.9, 89.4)</td>
+      <td id="T_f0a31_row1_col4" class="data row1 col4" >69.7 (66.4, 72.4)</td>
+      <td id="T_f0a31_row1_col5" class="data row1 col5" >59.7 (56.4, 63.9)</td>
+      <td id="T_f0a31_row1_col6" class="data row1 col6" >85.9 (82.9, 88.8)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row2_col0" class="data row2 col0" >da_dacy_medium_trf-0.2.0</td>
+      <td id="T_f0a31_row2_col1" class="data row2 col1" >84.9 (81.0, 88.5)</td>
+      <td id="T_f0a31_row2_col2" class="data row2 col2" >69.6 (66.7, 72.1)</td>
+      <td id="T_f0a31_row2_col3" class="data row2 col3" >83.7 (81.3, 86.3)</td>
+      <td id="T_f0a31_row2_col4" class="data row2 col4" >70.5 (66.6, 74.0)</td>
+      <td id="T_f0a31_row2_col5" class="data row2 col5" >65.4 (62.6, 68.5)</td>
+      <td id="T_f0a31_row2_col6" class="data row2 col6" >85.1 (82.5, 88.3)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row3_col0" class="data row3 col0" >da_dacy_small_trf-0.2.0</td>
+      <td id="T_f0a31_row3_col1" class="data row3 col1" >82.7 (79.3, 85.9)</td>
+      <td id="T_f0a31_row3_col2" class="data row3 col2" >51.7 (49.1, 54.6)</td>
+      <td id="T_f0a31_row3_col3" class="data row3 col3" >81.1 (78.6, 83.5)</td>
+      <td id="T_f0a31_row3_col4" class="data row3 col4" >64.3 (60.4, 67.2)</td>
+      <td id="T_f0a31_row3_col5" class="data row3 col5" >63.1 (59.9, 66.5)</td>
+      <td id="T_f0a31_row3_col6" class="data row3 col6" >83.4 (81.0, 85.7)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row4_col0" class="data row4 col0" >alexandrainst/da-ner-base</td>
+      <td id="T_f0a31_row4_col1" class="data row4 col1" >70.7 (66.2, 75.2)</td>
+      <td id="T_f0a31_row4_col2" class="data row4 col2" >78.7 (75.3, 81.6)</td>
+      <td id="T_f0a31_row4_col3" class="data row4 col3" >80.8 (77.6, 83.2)</td>
+      <td id="T_f0a31_row4_col4" class="data row4 col4" >63.4 (59.4, 66.3)</td>
+      <td id="T_f0a31_row4_col5" class="data row4 col5" >49.9 (47.3, 53.6)</td>
+      <td id="T_f0a31_row4_col6" class="data row4 col6" >80.1 (77.1, 82.8)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row5_col0" class="data row5 col0" >da_core_news_trf-3.5.0</td>
+      <td id="T_f0a31_row5_col1" class="data row5 col1" >79.0 (75.1, 82.3)</td>
+      <td id="T_f0a31_row5_col2" class="data row5 col2" >75.1 (72.4, 77.3)</td>
+      <td id="T_f0a31_row5_col3" class="data row5 col3" >81.3 (78.5, 84.1)</td>
+      <td id="T_f0a31_row5_col4" class="data row5 col4" >58.9 (55.8, 62.3)</td>
+      <td id="T_f0a31_row5_col5" class="data row5 col5" >41.2 (38.5, 44.0)</td>
+      <td id="T_f0a31_row5_col6" class="data row5 col6" >80.4 (77.6, 83.3)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row6_col0" class="data row6 col0" >da_core_news_lg-3.5.0</td>
+      <td id="T_f0a31_row6_col1" class="data row6 col1" >74.6 (70.8, 78.1)</td>
+      <td id="T_f0a31_row6_col2" class="data row6 col2" >47.0 (44.5, 49.7)</td>
+      <td id="T_f0a31_row6_col3" class="data row6 col3" >74.5 (71.6, 77.7)</td>
+      <td id="T_f0a31_row6_col4" class="data row6 col4" >51.1 (48.1, 53.8)</td>
+      <td id="T_f0a31_row6_col5" class="data row6 col5" >44.9 (42.0, 47.9)</td>
+      <td id="T_f0a31_row6_col6" class="data row6 col6" >76.3 (73.6, 79.1)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row7_col0" class="data row7 col0" >da_core_news_md-3.5.0</td>
+      <td id="T_f0a31_row7_col1" class="data row7 col1" >71.2 (66.9, 75.2)</td>
+      <td id="T_f0a31_row7_col2" class="data row7 col2" >48.7 (45.7, 51.6)</td>
+      <td id="T_f0a31_row7_col3" class="data row7 col3" >71.6 (68.2, 75.4)</td>
+      <td id="T_f0a31_row7_col4" class="data row7 col4" >51.1 (47.6, 54.3)</td>
+      <td id="T_f0a31_row7_col5" class="data row7 col5" >41.8 (38.8, 44.7)</td>
+      <td id="T_f0a31_row7_col6" class="data row7 col6" >72.8 (69.2, 76.1)</td>
+    </tr>
+    <tr>
+      <td id="T_f0a31_row8_col0" class="data row8 col0" >da_core_news_sm-3.5.0</td>
+      <td id="T_f0a31_row8_col1" class="data row8 col1" >64.4 (59.7, 68.5)</td>
+      <td id="T_f0a31_row8_col2" class="data row8 col2" >31.9 (29.6, 34.1)</td>
+      <td id="T_f0a31_row8_col3" class="data row8 col3" >61.5 (58.1, 64.6)</td>
+      <td id="T_f0a31_row8_col4" class="data row8 col4" >46.6 (43.7, 50.4)</td>
+      <td id="T_f0a31_row8_col5" class="data row8 col5" >49.6 (46.5, 53.0)</td>
+      <td id="T_f0a31_row8_col6" class="data row8 col6" >64.8 (61.4, 68.1)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="inference-speed">
+<h2>Inference Speed<a class="headerlink" href="#inference-speed" title="Permalink to this heading">#</a></h2>
+<p>While performance naturally is important is it also important to know why you might choose one model over another. One of the main reasons for choosing a smaller model is inference speed. The following table shows the inference speed of the different models. The inference speed is measured in words per second (WPS) and is measured on a Apple M1 Pro 16Gb running macOS 13.3.1 (i.e. high-end consumer laptop). The models are tested on the test set of DaNE.</p>
+<div class="note admonition">
+<p class="admonition-title">GPU Acceleration</p>
+<p>These benchmarks does not use GPU acceleration. If you were to use GPU acceleration the inference speed would be much higher, similarly larger models would benefit more from this acceleration.</p>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_de718_row0_col0, #T_de718_row1_col0, #T_de718_row2_col0, #T_de718_row3_col0, #T_de718_row4_col0, #T_de718_row5_col0, #T_de718_row6_col0, #T_de718_row7_col0, #T_de718_row8_col0, #T_de718_row9_col0, #T_de718_row10_col0, #T_de718_row11_col0 {
+  text-align: left;
+}
+#T_de718_row0_col1, #T_de718_row0_col2, #T_de718_row1_col1, #T_de718_row1_col2, #T_de718_row2_col1, #T_de718_row2_col2, #T_de718_row3_col1, #T_de718_row3_col2, #T_de718_row4_col1, #T_de718_row4_col2, #T_de718_row5_col1, #T_de718_row5_col2, #T_de718_row6_col1, #T_de718_row6_col2, #T_de718_row7_col1, #T_de718_row7_col2, #T_de718_row8_col1, #T_de718_row8_col2, #T_de718_row9_col1, #T_de718_row9_col2, #T_de718_row10_col1, #T_de718_row10_col2 {
+  text-align: right;
+}
+#T_de718_row11_col1, #T_de718_row11_col2 {
+  font-weight: bold;
+  text-align: right;
+}
+</style>
+<table id="T_de718">
+  <caption>Inference speed on DANE test set</caption>
+  <thead>
+    <tr>
+      <th id="T_de718_level0_col0" class="col_heading level0 col0" >Model</th>
+      <th id="T_de718_level0_col1" class="col_heading level0 col1" >Words per second</th>
+      <th id="T_de718_level0_col2" class="col_heading level0 col2" >Total time (sec)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_de718_row0_col0" class="data row0 col0" >saattrupdan/nbailab-base-ner-scandi</td>
+      <td id="T_de718_row0_col1" class="data row0 col1" >1438.8</td>
+      <td id="T_de718_row0_col2" class="data row0 col2" >6.97</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row1_col0" class="data row1 col0" >da_dacy_large_trf-0.2.0</td>
+      <td id="T_de718_row1_col1" class="data row1 col1" >353.3</td>
+      <td id="T_de718_row1_col2" class="data row1 col2" >28.37</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row2_col0" class="data row2 col0" >da_dacy_medium_trf-0.2.0</td>
+      <td id="T_de718_row2_col1" class="data row2 col1" >770.2</td>
+      <td id="T_de718_row2_col2" class="data row2 col2" >13.01</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row3_col0" class="data row3 col0" >da_dacy_small_trf-0.2.0</td>
+      <td id="T_de718_row3_col1" class="data row3 col1" >2024.6</td>
+      <td id="T_de718_row3_col2" class="data row3 col2" >4.95</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row4_col0" class="data row4 col0" >da_dacy_large_ner_fine_grained-0.1.0</td>
+      <td id="T_de718_row4_col1" class="data row4 col1" >567.9</td>
+      <td id="T_de718_row4_col2" class="data row4 col2" >17.65</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row5_col0" class="data row5 col0" >da_dacy_medium_ner_fine_grained-0.1.0</td>
+      <td id="T_de718_row5_col1" class="data row5 col1" >1670.3</td>
+      <td id="T_de718_row5_col2" class="data row5 col2" >6.00</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row6_col0" class="data row6 col0" >da_dacy_small_ner_fine_grained-0.1.0</td>
+      <td id="T_de718_row6_col1" class="data row6 col1" >5717.6</td>
+      <td id="T_de718_row6_col2" class="data row6 col2" >1.75</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row7_col0" class="data row7 col0" >alexandrainst/da-ner-base</td>
+      <td id="T_de718_row7_col1" class="data row7 col1" >1618.7</td>
+      <td id="T_de718_row7_col2" class="data row7 col2" >6.19</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row8_col0" class="data row8 col0" >da_core_news_trf-3.5.0</td>
+      <td id="T_de718_row8_col1" class="data row8 col1" >1125.1</td>
+      <td id="T_de718_row8_col2" class="data row8 col2" >8.91</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row9_col0" class="data row9 col0" >da_core_news_lg-3.5.0</td>
+      <td id="T_de718_row9_col1" class="data row9 col1" >31364.7</td>
+      <td id="T_de718_row9_col2" class="data row9 col2" >0.32</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row10_col0" class="data row10 col0" >da_core_news_md-3.5.0</td>
+      <td id="T_de718_row10_col1" class="data row10 col1" >32571.3</td>
+      <td id="T_de718_row10_col2" class="data row10 col2" >0.31</td>
+    </tr>
+    <tr>
+      <td id="T_de718_row11_col0" class="data row11 col0" >da_core_news_sm-3.5.0</td>
+      <td id="T_de718_row11_col1" class="data row11 col1" >34624.4</td>
+      <td id="T_de718_row11_col2" class="data row11 col2" >0.29</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Note here that the <code class="docutils literal notranslate"><span class="pre">da_dacy_{size}_trf-{version}</span></code> models from DaCy and the <code class="docutils literal notranslate"><span class="pre">da_core_news_{size}-{version}</span></code> models from spaCy are multi-task models so performs multiple tasks at once. This means that the inference speed is not directly comparable to the other models.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<div class="docutils container" id="id10">
+<div role="list" class="citation-list">
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">1</a><span class="fn-bracket">]</span></span>
+<p>Leon Derczynski, Manuel R Ciosici, Rebekah Baglini, Morten H Christiansen, Jacob Aarup Dalsgaard, Riccardo Fusaroli, Peter Juel Henrichsen, Rasmus Hvingelby, Andreas Kirkedal, Alex Speed Kjeldsen, and others. The danish gigaword corpus. In <em>Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa)</em>, 413–421. 2021.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id8">1</a>,<a role="doc-backlink" href="#id9">2</a>)</span>
+<p>Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. <em>arXiv preprint arXiv:2107.05295</em>, 2021.</p>
+</div>
+<div class="citation" id="id11" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
+<p>Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 4597–4604. 2020.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. <em>arXiv preprint arXiv:2105.11301</em>, 2021.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">5</a><span class="fn-bracket">]</span></span>
+<p>Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. <em>arXiv preprint cs/0306050</em>, 2003.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">6</a><span class="fn-bracket">]</span></span>
+<p>Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. <em>Linguistic Data Consortium, Philadelphia, PA</em>, 2013.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../news.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">News and Changelog</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../../performance.robustness.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Robustness and Biases</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Kenneth Enevoldsen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/centre-for-humanities-computing/dacy" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Named Entity Recognition</a><ul>
+<li><a class="reference internal" href="#state-of-the-art-comparison">State-of-the-Art comparison</a><ul>
+<li><a class="reference internal" href="#dane-simple-named-entity-recognition">DaNE: Simple Named Entity Recognition</a></li>
+<li><a class="reference internal" href="#dansk-fine-grained-named-entity-recognition">DANSK: Fine-grained Named Entity Recognition</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#domain-generalization">Domain Generalization</a><ul>
+<li><a class="reference internal" href="#domain-generalization-using-conll-2003-format">Domain generalization using CoNLL-2003 format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#biases">Biases</a></li>
+<li><a class="reference internal" href="#robustness">Robustness</a></li>
+<li><a class="reference internal" href="#inference-speed">Inference Speed</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    </body>
+</html>

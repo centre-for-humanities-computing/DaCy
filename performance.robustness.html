@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="Robustness and Biases" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="performance.robustness.html" />
@@ -14,12 +14,12 @@
 <meta property="og:image:alt" content="In the paper DaCy: A Unified Framework for Danish NLP we conduct a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy..." />
 <meta name="description" content="In the paper DaCy: A Unified Framework for Danish NLP we conduct a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pip..." />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="News and Changelog" href="news.html" /><link rel="prev" title="State of the Art Comparison" href="performance.general.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Named Entity Recognition" href="tutorials/dont_run/performance_ner.html" /><link rel="prev" title="State of the Art Comparison" href="performance.general.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
         <title>Robustness and Biases - DaCy</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -30,24 +30,24 @@
 
 <style>
   body {
-    --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
   --color-brand-primary: #ff5454;
   --color-brand-content: #ff7575;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   --color-brand-primary: #ff8f8f;
   --color-brand-content: #ff8f8f;
   
@@ -207,6 +207,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="performance.html">Performance</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Robustness and Biases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dont_run/performance_ner.html">Named Entity Recognition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
 </ul>
 </li>
@@ -306,25 +307,8 @@ These show some general trends, some of which include:</p>
 </ul>
 <section id="named-entity-recognition">
 <h2>Named entity recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this heading">#</a></h2>
-<p>In the following table we see a the performance on named entity recognition (NER) of Danish NLP pipelines
-reported as average F1 scores excluding the MISC category. We have highlighted the best scores in
-bold and second best are underlined. The “*” denotes that the result is significantly different
-from baseline using a significance threshold of 0.05 with Bonferroni correction for multiple comparisons.
-Values in parentheses denote the standard deviation.</p>
-<a class="reference internal image-reference" href="_images/ner_robustness.png"><img alt="NER performance of Danish NLP pipelines" src="_images/ner_robustness.png" style="width: 1000px;" /></a>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>NERDA limits input size to 128 wordpieces which leads to truncation on long input sizes and when there is a high rates of keystroke errors.</p>
-</div>
-<p>Besides the general trends mentioned above we can also note that:</p>
-<ul class="simple">
-<li><p>All models show a bias toward Muslim names, except DaCy large. The robustness of DaCy large likely stems from the multilingual pre-training.</p></li>
-<li><p>No models show significant biases based on gender with the exception of Polyglot.</p></li>
-<li><p>DaCy small is robust to spelling errors and outperforms larger models such as DaNLP’s BERT and NERDA.</p></li>
-<li><p>DaNLP’s BERT and NERDA models were found to under-perform if given longer input lengths.</p></li>
-<li><p>DaCy’s models consistently perform slightly better with more context, but are not vulnerable to shorter input.</p></li>
-<li><p>Lack of casing is detrimental for NER for the cased models, most notably Flair, the SpaCy models, DaCy large and DaCy small.</p></li>
-</ul>
+<p>The performance comparisons for robustness of NER models have all been moved to the its own section together to easily allow for comparison. Please
+see the <a class="reference external" href="https://centre-for-humanities-computing.github.io/DaCy/tutorials/dont_run_performance_ner.html">Named Entity Recognition</a> section for more details.</p>
 </section>
 <section id="part-of-speech-tagging">
 <h2>Part-of-speech tagging<a class="headerlink" href="#part-of-speech-tagging" title="Permalink to this heading">#</a></h2>
@@ -352,12 +336,12 @@ on how to use these.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="news.html">
+          <a class="next-page" href="tutorials/dont_run/performance_ner.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">News and Changelog</div>
+                <div class="title">Named Entity Recognition</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
