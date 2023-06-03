@@ -209,6 +209,7 @@ def mypy(c: Context):
 @task
 def install(c: Context):
     echo_header(f"{Emo.DO} Installing project")
+    c.run("pip install -r docs/requirements.txt")  # docs requirements (spacy model)
     c.run("pip install -e '.[dev,tests,docs]'")
 
 
