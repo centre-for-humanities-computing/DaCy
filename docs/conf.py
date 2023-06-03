@@ -113,6 +113,6 @@ html_theme_options = {
         "color-brand-primary": "#ff8f8f",
         "color-brand-content": "#ff8f8f",
     },
-    "sidebar_hide_name": False,
+    "sidebar_hide_name": True,
     "navigation_with_keys": True,
 }
