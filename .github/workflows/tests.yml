@@ -30,42 +30,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache venv
-        uses: actions/cache@v3.2.6
-        id: cache_venv
-        with:
-          path: |
-            .venv
-          key: ${{ runner.os }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
-
       - name: Set up Python
         uses: actions/setup-python@v4
         id: setup_python
-        if: steps.cache_venv.outputs.cache-hit != 'true'
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pip' # caching pip dependencies
 
       - name: Install dependencies
         shell: bash
         run: |
-          python3 -m venv .venv
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            source .venv/Scripts/activate
-          else
-            source .venv/bin/activate
-          fi
-          python3 -m pip install --upgrade pip
-          pip install -e .[tests]
+          pip install .[tests]
 
       - name: Run and write pytest
         shell: bash
         run: |
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            source .venv/Scripts/activate
-          else
-            source .venv/bin/activate
-          fi
-          pytest --durations=0 -n 2 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
+          python -m pytest --durations=0 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
 
       - name: Test report on failures
         uses: EnricoMi/publish-unit-test-result-action@v2

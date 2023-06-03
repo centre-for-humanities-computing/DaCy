@@ -28,7 +28,12 @@ extensions = [
     "sphinx_design",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
+    "sphinxcontrib.bibtex",
 ]
+
+bibtex_reference_style = "author_year"
+bibtex_default_style = "plain"
+bibtex_bibfiles = ["references.bib"]
 
 language = "en"
 
@@ -40,6 +45,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # Do not execute the notebooks when building the docs (turned off by default)
 nb_execution_raise_on_error = True
 nb_execution_mode = "cache"
+nb_execution_excludepatterns = ["tutorials/dont_run/*", "tutorials/robustness.ipynb"]
 
 
 # Automatically extract typehints when specified and place them in
@@ -107,6 +113,3 @@ html_theme_options = {
     "sidebar_hide_name": False,
     "navigation_with_keys": True,
 }
-
-pygments_style = "monokai"
-pygments_dark_style = "monokai"

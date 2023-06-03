@@ -56,36 +56,10 @@ These show some general trends, some of which include:
 Named entity recognition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the following table we see a the performance on named entity recognition (NER) of Danish NLP pipelines
-reported as average F1 scores excluding the MISC category. We have highlighted the best scores in
-bold and second best are underlined. The "*" denotes that the result is significantly different 
-from baseline using a significance threshold of 0.05 with Bonferroni correction for multiple comparisons.
-Values in parentheses denote the standard deviation. 
+The performance comparisons for robustness of NER models have all been moved to the its own section together to easily allow for comparison. Please
+see the `Named Entity Recognition <https://centre-for-humanities-computing.github.io/DaCy/tutorials/dont_run_performance_ner.html>`__ section for more details.
 
-.. image:: _static/ner_robustness.png
-  :width: 1000
-  :alt: NER performance of Danish NLP pipelines
-
-
-.. hint::
-   
-   NERDA limits input size to 128 wordpieces which leads to truncation on long input sizes and when there is a high rates of keystroke errors.
-
-
-Besides the general trends mentioned above we can also note that:
-
-* All models show a bias toward Muslim names, except DaCy large. The robustness of DaCy large likely stems from the multilingual pre-training. 
-
-* No models show significant biases based on gender with the exception of Polyglot.
-
-* DaCy small is robust to spelling errors and outperforms larger models such as DaNLP's BERT and NERDA.
-
-* DaNLP's BERT and NERDA models were found to under-perform if given longer input lengths.
-
-* DaCy's models consistently perform slightly better with more context, but are not vulnerable to shorter input.
-
-* Lack of casing is detrimental for NER for the cased models, most notably Flair, the SpaCy models, DaCy large and DaCy small. 
-
+  
 
 Part-of-speech tagging
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

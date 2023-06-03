@@ -15,7 +15,7 @@ def test_score():
             e.append(example)
         return e
 
-    test = dane(splits=["test"])
+    test = dane(splits=["all"])
     test.limit = 1
 
     scores = score(

@@ -1,14 +1,14 @@
 title: "Train Danish DaCy NER transformer models on DANSK"
 description: >
-    This project template lets you train a fine-grained Named-Entity Recognition model on the DANSK dataset containing 18 types annotations.
-    It takes care of downloading the corpus as well as training, evaluating, packaging and releasing the model.
-    The template uses one of more of the transformer models which have been downloaded via Huggingface: 
-      - "jonfd/electra-small-nordic" - small,
-      - "NbAiLab/nb-roberta-base-scandi" - medium,
-      - "chcaa/dfm-encoder-large-v1" - large
-      
-    You can run from yaml file using
-    spacy project run WORKFLOW/COMMAND
+  This project template lets you train a fine-grained Named-Entity Recognition model on the DANSK dataset containing 18 types annotations.
+  It takes care of downloading the corpus as well as training, evaluating, packaging and releasing the model.
+  The template uses one of more of the transformer models which have been downloaded via Huggingface: 
+    - "jonfd/electra-small-nordic" - small,
+    - "NbAiLab/nb-roberta-base-scandi" - medium,
+    - "chcaa/dfm-encoder-large-v1" - large
+    
+  You can run from yaml file using
+  spacy project run WORKFLOW/COMMAND
 
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
@@ -23,14 +23,12 @@ vars:
 # sure that they always exist.
 directories: ["assets", "corpus", "training", "metrics", "packages"]
 
-
 assets:
-  - dest: "assets/dansk.spacy" 
+  - dest: "assets/dansk.spacy"
     description: "The full to-be-published DANSK dataset"
     # url: "DANSK has not yet been released for public use"
     # script:
     # - "python fetch_assets.py"
-
 
 workflows:
   prepare_data:
@@ -48,7 +46,6 @@ workflows:
     - package_all_models
     - publish_all_models
 
-
 commands:
   - name: login
     help: "Login for wandb and huggingface-cli"
@@ -60,10 +57,10 @@ commands:
     help: "Installs dependencies and drivers for NVIDIA GPU"
     script:
       - "bash server_setup.sh"
- 
+
   - name: fetch_assets
     help: "Downloads DANSK to assets/"
-    script: 
+    script:
       - "python fetch_assets.py"
       - "rm -rf assets/downloads"
       - "rm -rf assets/assets*"
@@ -77,20 +74,20 @@ commands:
     script:
       - "mkdir -p training/${vars.size}"
       - "python -m spacy train configs/config_${vars.size}.cfg --output training/${vars.size} --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
-      
+
     deps:
       - "corpus/train.spacy"
       - "corpus/dev.spacy"
       - "configs/config_${vars.size}.cfg"
     outputs:
       - "training/${vars.size}/model-last"
-    
+
   - name: evaluate
     help: "Evaluate the ${vars.size} model on the test.spacy and save the metrics. "
     script:
       - "python -m spacy evaluate ./training/${vars.size}/model-last corpus/test.spacy --output ./metrics/last_dacy_${vars.size}_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/${vars.size}/model-best corpus/test.spacy --output ./metrics/best_dacy_${vars.size}_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      
+
     deps:
       - "training/${vars.size}/model-last"
       - "training/${vars.size}/model-best"
@@ -107,15 +104,15 @@ commands:
       - "rm packages/da_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/README.md"
       - "python -m spacy package training/${vars.size}/model-best packages --name dacy_${vars.size}_ner_fine_grained --version ${vars.package_version} --meta-path template_meta_${vars.size}.json --build wheel --force"
       - "rm template_meta_${vars.size}.json"
-      
+
     deps:
       - "training/${vars.size}/model-best"
 
   - name: publish
     help: "Publish ${vars.size} package to huggingface model hub. "
     script:
-      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}-py3-none-any.whl"  #-o '${vars.organization}' -m 'update dacy pipeline'
-      
+      - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}-py3-none-any.whl" #-o '${vars.organization}' -m 'update dacy pipeline'
+
     deps:
       - "packages/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_${vars.size}_ner_fine_grained-${vars.package_version}-py3-none-any.whl"
 
@@ -124,10 +121,10 @@ commands:
     script:
       - "mkdir -p training/small"
       - "python -m spacy train configs/config_small.cfg --output training/small --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
-      
+
       - "mkdir -p training/medium"
       - "python -m spacy train configs/config_medium.cfg --output training/medium --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
-      
+
       - "mkdir -p training/large"
       - "python -m spacy train configs/config_large.cfg --output training/large --gpu-id ${vars.gpu_id} --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --nlp.lang=${vars.lang}"
 
@@ -147,14 +144,13 @@ commands:
     script:
       - "python -m spacy evaluate ./training/small/model-last corpus/test.spacy --output ./metrics/last_dacy_small_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/small/model-best corpus/test.spacy --output ./metrics/best_dacy_small_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      
+
       - "python -m spacy evaluate ./training/medium/model-last corpus/test.spacy --output ./metrics/last_dacy_medium_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/medium/model-best corpus/test.spacy --output ./metrics/best_dacy_medium_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
-      
+
       - "python -m spacy evaluate ./training/large/model-last corpus/test.spacy --output ./metrics/last_dacy_large_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
       - "python -m spacy evaluate ./training/large/model-best corpus/test.spacy --output ./metrics/best_dacy_large_ner_fine_grained-${vars.package_version}.json --gpu-id ${vars.gpu_id}"
 
-      
     deps:
       - "training/small/model-last"
       - "training/small/model-best"
@@ -219,7 +215,6 @@ commands:
 
       - "python -m spacy huggingface-hub push packages/${vars.lang}_dacy_large_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_large_ner_fine_grained-${vars.package_version}-py3-none-any.whl -o '${vars.organization}' -m 'update dacy pipeline'"
 
-      
     deps:
       - "packages/${vars.lang}_dacy_small_ner_fine_grained-${vars.package_version}/dist/${vars.lang}_dacy_small_ner_fine_grained-${vars.package_version}-py3-none-any.whl"
 

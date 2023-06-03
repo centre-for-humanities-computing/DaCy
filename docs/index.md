@@ -17,6 +17,7 @@ hide-toc: true
 This website contains the documentation for DaCy as well as an introduction to how to
 get started using DaCy and its various features.
 
+
 ---
 
 ````{grid} 1 1 2 2
