@@ -1,4 +1,4 @@
-News and Changelog
+News and Updates
 ---------------------------------
 
 **2.7.0 (15/05/23)** 

@@ -5,25 +5,25 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="Named Entity Recognition" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="tutorials/dont_run/performance_ner.html" />
+<meta property="og:url" content="performance_ner.html" />
 <meta property="og:site_name" content="DaCy" />
 <meta property="og:description" content="This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to accuracy, but also includes domain generalization, b..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_tutorials_dont_run_performance_ner_2249ba84.png" />
+<meta property="og:image" content="/_images/social_previews/summary_performance_ner_2249ba84.png" />
 <meta property="og:image:alt" content="This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to accuracy, bu..." />
 <meta name="description" content="This page examines the performance of competing models for Danish named entity recognition over multiple datasets. Performance is not limited to accuracy, but also includes domain generalization, b..." />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="News and Changelog" href="../../news.html" /><link rel="prev" title="Robustness and Biases" href="../../performance.robustness.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
+    <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
         <title>Named Entity Recognition - DaCy</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
 
@@ -143,7 +143,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">DaCy</div></a>
+      <a href="index.html"><div class="brand">DaCy</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -163,66 +163,64 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/icon.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/icon_dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/icon_dark.png" alt="Dark Logo"/>
   </div>
   
   <span class="sidebar-brand-text">DaCy</span>
   
-</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html">Getting started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#named-entity-recognition">Named Entity Recognition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#named-entity-linking">Named Entity Linking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#dependency-parsing">Dependency Parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#sentence-segmentation">Sentence Segmentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#noun-chunks">Noun Chunks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#lemmatization">Lemmatization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../basic.html#coreference-resolution">Coreference Resolution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sentiment.html">Sentiment Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#subjectivity">Subjectivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#polarity">Polarity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#emotion">Emotion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hate-speech.html">Hate Speech</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Using DaCy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#named-entity-recognition">Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#named-entity-linking">Named Entity Linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#parts-of-speech-tagging">Parts-of-speech Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#dependency-parsing">Dependency Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#sentence-segmentation">Sentence Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#noun-chunks">Noun Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#lemmatization">Lemmatization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/basic.html#coreference-resolution">Coreference Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html">Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#subjectivity">Subjectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#polarity">Polarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#emotion">Emotion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sentiment.html#dictionary-based-sentiment">Dictionary-Based Sentiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/hate-speech.html">Hate Speech</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../robustness.html">Evaluating Robustness</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../performance.html">Performance</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../performance.general.html">State of the Art Comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../performance.robustness.html">Robustness and Biases</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Named Entity Recognition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../robustness.html">Evaluating Robustness</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.general.html">State of the Art Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.robustness.html">Robustness and Biases</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../news.html">News and Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Updates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.download.html">Downloading and Loading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.datasets.html">Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.score.html">Score</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.download.html">Downloading and Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dacy.score.html">Score</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy/CHANGELOG.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/blob/main/CHANGELOG.md">Changelog</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
 </ul>
 
@@ -244,7 +242,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/tutorials/dont_run/performance_ner.ipynb" title="Edit this page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/performance_ner.ipynb" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -274,9 +272,9 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 <h2>State-of-the-Art comparison<a class="headerlink" href="#state-of-the-art-comparison" title="Permalink to this heading">#</a></h2>
 <p>To our knowledge there exists three datasets for Danish named entity recognition;</p>
 <ol class="arabic simple">
-<li><p>DaNE <span id="id1">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, which uses the simple annotation scheme of CoNLL 2003 <span id="id2">[<a class="reference internal" href="#id15" title="Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. arXiv preprint cs/0306050, 2003.">Sang and De Meulder, 2003</a>]</span> with the entities; <em>person</em>, <em>location</em>, <em>organization</em>, and <em>miscellaneus</em>.</p></li>
-<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[<a class="reference internal" href="#id14" title="Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. Linguistic Data Consortium, Philadelphia, PA, 2013.">Weischedel <em>et al.</em>, 2013</a>]</span> including more that 16 entity types.</p></li>
-<li><p>and DAN+ <span id="id4">[<a class="reference internal" href="#id16" title="Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. arXiv preprint arXiv:2105.11301, 2021.">Plank <em>et al.</em>, 2021</a>]</span>, which also uses the annotation scheme of CoNLL 2003, but allows for nested entities for instance <em>Aarhus Universitet</em>, where <em>Aarhus</em> is a location and <em>Aarhus Universitet</em> is an organization.</p></li>
+<li><p>DaNE <span id="id1">[]</span>, which uses the simple annotation scheme of CoNLL 2003 <span id="id2">[]</span> with the entities; <em>person</em>, <em>location</em>, <em>organization</em>, and <em>miscellaneus</em>.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[]</span> including more that 16 entity types.</p></li>
+<li><p>and DAN+ <span id="id4">[]</span>, which also uses the annotation scheme of CoNLL 2003, but allows for nested entities for instance <em>Aarhus Universitet</em>, where <em>Aarhus</em> is a location and <em>Aarhus Universitet</em> is an organization.</p></li>
 </ol>
 <p>In this comparison we will be examing performance on DaNE and DANSK, but as no known models have been trained on Danish nested entities, we will not be comparing performance on DAN+.</p>
 <div class="admonition-measuring-performance admonition">
@@ -286,7 +284,7 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 </div>
 <section id="dane-simple-named-entity-recognition">
 <h3>DaNE: Simple Named Entity Recognition<a class="headerlink" href="#dane-simple-named-entity-recognition" title="Permalink to this heading">#</a></h3>
-<p>As already stated DaNE uses an extraction from the CoNLL 2003 dataset, which is as follows <span id="id5">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>:</p>
+<p>As already stated DaNE uses an extraction from the CoNLL 2003 dataset, which is as follows <span id="id5">[]</span>:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
@@ -461,7 +459,7 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 </section>
 <section id="dansk-fine-grained-named-entity-recognition">
 <h3>DANSK: Fine-grained Named Entity Recognition<a class="headerlink" href="#dansk-fine-grained-named-entity-recognition" title="Permalink to this heading">#</a></h3>
-<p>DANSK is annotated from the Danish Gigaword Corpus <span id="id6">[<a class="reference internal" href="#id13" title="Leon Derczynski, Manuel R Ciosici, Rebekah Baglini, Morten H Christiansen, Jacob Aarup Dalsgaard, Riccardo Fusaroli, Peter Juel Henrichsen, Rasmus Hvingelby, Andreas Kirkedal, Alex Speed Kjeldsen, and others. The danish gigaword corpus. In Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa), 413–421. 2021.">Derczynski <em>et al.</em>, 2021</a>]</span> and a wide variety of domains including conversational, legal, news, social media, web content,  wiki’s and Books. Dansk follows includes the following labels:</p>
+<p>DANSK is annotated from the Danish Gigaword Corpus <span id="id6">[]</span> and a wide variety of domains including conversational, legal, news, social media, web content,  wiki’s and Books. Dansk follows includes the following labels:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
@@ -919,8 +917,8 @@ labels.</p>
 </section>
 <section id="biases">
 <h2>Biases<a class="headerlink" href="#biases" title="Permalink to this heading">#</a></h2>
-<p>To examine the biases in Danish models we use augmentation to replace names in the Danish dataset DaNE <span id="id7">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, this approach
-is similar to that introduced in the initial DaCy paper <span id="id8">[<a class="reference internal" href="#id12" title="Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. arXiv preprint arXiv:2107.05295, 2021.">Enevoldsen <em>et al.</em>, 2021</a>]</span>.</p>
+<p>To examine the biases in Danish models we use augmentation to replace names in the Danish dataset DaNE <span id="id7">[]</span>, this approach
+is similar to that introduced in the initial DaCy paper <span id="id8">[]</span>.</p>
 <p>Here is a short example of how the augmentation might look like:</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
@@ -1051,7 +1049,7 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[<a class
 </section>
 <section id="robustness">
 <h2>Robustness<a class="headerlink" href="#robustness" title="Permalink to this heading">#</a></h2>
-<p>In the paper <em>‘DaCy: A Unified Framework for Danish NLP’</em> <span id="id9">[<a class="reference internal" href="#id12" title="Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. arXiv preprint arXiv:2107.05295, 2021.">Enevoldsen <em>et al.</em>, 2021</a>]</span> we conducted a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pipelines. This page represents only parts of the paper. We recommend reading the paper for a more thorough and nuanced overview.</p>
+<p>In the paper <em>‘DaCy: A Unified Framework for Danish NLP’</em> <span id="id9">[]</span> we conducted a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pipelines. This page represents only parts of the paper. We recommend reading the paper for a more thorough and nuanced overview.</p>
 <p>The augmentation we will be using in this test are performed on the DaNE test set and include the following:</p>
 <ul class="simple">
 <li><p><strong>Spelling Error</strong>: Intended to similar domains with inconsistent spelling, OCR errors, conversational data, etc.. The augmentation includes a series of smaller augmentation:</p>
@@ -1298,37 +1296,7 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[<a class
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<div class="docutils container" id="id10">
-<div role="list" class="citation-list">
-<div class="citation" id="id13" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">1</a><span class="fn-bracket">]</span></span>
-<p>Leon Derczynski, Manuel R Ciosici, Rebekah Baglini, Morten H Christiansen, Jacob Aarup Dalsgaard, Riccardo Fusaroli, Peter Juel Henrichsen, Rasmus Hvingelby, Andreas Kirkedal, Alex Speed Kjeldsen, and others. The danish gigaword corpus. In <em>Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa)</em>, 413–421. 2021.</p>
-</div>
-<div class="citation" id="id12" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id8">1</a>,<a role="doc-backlink" href="#id9">2</a>)</span>
-<p>Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. <em>arXiv preprint arXiv:2107.05295</em>, 2021.</p>
-</div>
-<div class="citation" id="id11" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
-<p>Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 4597–4604. 2020.</p>
-</div>
-<div class="citation" id="id16" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
-<p>Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. <em>arXiv preprint arXiv:2105.11301</em>, 2021.</p>
-</div>
-<div class="citation" id="id15" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">5</a><span class="fn-bracket">]</span></span>
-<p>Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. <em>arXiv preprint cs/0306050</em>, 2003.</p>
-</div>
-<div class="citation" id="id14" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">6</a><span class="fn-bracket">]</span></span>
-<p>Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. <em>Linguistic Data Consortium, Philadelphia, PA</em>, 2013.</p>
-</div>
-</div>
-</div>
-</section>
+<span class="target" id="id10"></span></section>
 </section>
 
         </article>
@@ -1336,26 +1304,8 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[<a class
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../../news.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">News and Changelog</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="../../performance.robustness.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">Robustness and Biases</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -1418,12 +1368,12 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[<a class
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/scripts/furo.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

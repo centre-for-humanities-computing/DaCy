@@ -57,7 +57,7 @@ Named entity recognition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The performance comparisons for robustness of NER models have all been moved to the its own section together to easily allow for comparison. Please
-see the `Named Entity Recognition <https://centre-for-humanities-computing.github.io/DaCy/tutorials/dont_run_performance_ner.html>`__ section for more details.
+see the `Named Entity Recognition <https://centre-for-humanities-computing.github.io/DaCy/performance_ner.html>`__ section for more details.
 
   
 
