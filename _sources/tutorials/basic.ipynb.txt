@@ -291,7 +291,11 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "hide-output"
+    ]
+   },
    "outputs": [
     {
      "data": {
@@ -339,8 +343,15 @@
     "\n",
     "nlp = dacy.load(\"small\")\n",
     "text = \"Danmarks dronning bor i København\"\n",
-    "\n",
-    "doc = nlp(text)\n",
+    "doc = nlp(text)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "\n",
     "displacy.render(doc, style=\"ent\")\n",
     "\n",
