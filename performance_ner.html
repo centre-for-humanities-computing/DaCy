@@ -335,29 +335,6 @@ accuracy, but also includes domain generalization, biases and robustness. This p
  kan udvikles uden en &quot;jernnæve&quot;.</div></span></div></div>
 </div>
 <p>The table below shows the performance of Danish language processing pipelines scored on the DaNE test set. The best scores in each category are highlighted with bold and the second best is underlined.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># normalize labels to match the dataset</span>
-<span class="k">for</span> <span class="n">mdl</span> <span class="ow">in</span> <span class="n">dane</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;openai&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mdl</span><span class="p">:</span>
-        <span class="k">continue</span>
-    <span class="n">examples</span> <span class="o">=</span> <span class="n">dane</span><span class="p">[</span><span class="n">mdl</span><span class="p">][</span><span class="s2">&quot;examples&quot;</span><span class="p">]</span>
-    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;PERSON&quot;</span><span class="p">:</span> <span class="s2">&quot;PER&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ORGANISATION&quot;</span><span class="p">:</span> <span class="s2">&quot;ORG&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;LOCATION&quot;</span><span class="p">:</span> <span class="s2">&quot;LOC&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
-        <span class="n">ents</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">ents</span>
-        <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">ents</span><span class="p">:</span>
-            <span class="n">ent</span><span class="o">.</span><span class="n">label_</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">]</span>
-
-        <span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">ents</span> <span class="o">=</span> <span class="n">ents</span>
-    
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
@@ -585,6 +562,8 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 <span class="n">MODELS_</span> <span class="o">=</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">MODELS_</span><span class="p">[</span><span class="s2">&quot;openai/gpt-3.5-turbo (02/05/23)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">openai_model_loader_fine_ner</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">)</span>
 <span class="n">MODELS_</span><span class="p">[</span><span class="s2">&quot;openai/gpt-4 (02/05/23)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">openai_model_loader_fine_ner</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">)</span>
+<span class="n">MODELS</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;openai/gpt-3.5-turbo (02/05/23)&quot;</span><span class="p">)</span>
+<span class="n">MODELS</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;openai/gpt-4 (02/05/23)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

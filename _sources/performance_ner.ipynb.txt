@@ -192,7 +192,11 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
    "outputs": [],
    "source": [
     "# normalize labels to match the dataset\n",
@@ -528,12 +532,14 @@
     "from evaluation.models import openai_model_loader_fine_ner\n",
     "MODELS_ = MODELS.copy()\n",
     "MODELS_[\"openai/gpt-3.5-turbo (02/05/23)\"] = partial(openai_model_loader_fine_ner, model=\"gpt-3.5-turbo\")\n",
-    "MODELS_[\"openai/gpt-4 (02/05/23)\"] = partial(openai_model_loader_fine_ner, model=\"gpt-4\")\n"
+    "MODELS_[\"openai/gpt-4 (02/05/23)\"] = partial(openai_model_loader_fine_ner, model=\"gpt-4\")\n",
+    "MODELS.pop(\"openai/gpt-3.5-turbo (02/05/23)\")\n",
+    "MODELS.pop(\"openai/gpt-4 (02/05/23)\")\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 7,
    "metadata": {
     "tags": [
      "remove-cell"
@@ -580,7 +586,7 @@
       "dansk (train): Loading prediction for da_core_news_sm-3.5.0\n",
       "dansk (dev): Loading prediction for da_core_news_sm-3.5.0\n",
       "dansk (test): Loading prediction for da_core_news_sm-3.5.0\n",
-      "dansk (train): Running openai/gpt-3.5-turbo (02/05/23)\n"
+      "dansk (test): Running openai/gpt-3.5-turbo (02/05/23)\n"
      ]
     },
     {
