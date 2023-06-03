@@ -273,9 +273,9 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 <h2>State-of-the-Art comparison<a class="headerlink" href="#state-of-the-art-comparison" title="Permalink to this heading">#</a></h2>
 <p>To our knowledge there exists three datasets for Danish named entity recognition;</p>
 <ol class="arabic simple">
-<li><p>DaNE <span id="id1">[]</span>, which uses the simple annotation scheme of CoNLL 2003 <span id="id2">[]</span> with the entities; <em>person</em>, <em>location</em>, <em>organization</em>, and <em>miscellaneus</em>.</p></li>
-<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[]</span> including more that 16 entity types.</p></li>
-<li><p>and DAN+ <span id="id4">[]</span>, which also uses the annotation scheme of CoNLL 2003, but allows for nested entities for instance <em>Aarhus Universitet</em>, where <em>Aarhus</em> is a location and <em>Aarhus Universitet</em> is an organization.</p></li>
+<li><p>DaNE <span id="id1">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, which uses the simple annotation scheme of CoNLL 2003 <span id="id2">[<a class="reference internal" href="#id15" title="Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. arXiv preprint cs/0306050, 2003.">Sang and De Meulder, 2003</a>]</span> with the entities; <em>person</em>, <em>location</em>, <em>organization</em>, and <em>miscellaneus</em>.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[<a class="reference internal" href="#id14" title="Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. Linguistic Data Consortium, Philadelphia, PA, 2013.">Weischedel <em>et al.</em>, 2013</a>]</span> including more that 16 entity types.</p></li>
+<li><p>and DAN+ <span id="id4">[<a class="reference internal" href="#id16" title="Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. arXiv preprint arXiv:2105.11301, 2021.">Plank <em>et al.</em>, 2021</a>]</span>, which also uses the annotation scheme of CoNLL 2003, but allows for nested entities for instance <em>Aarhus Universitet</em>, where <em>Aarhus</em> is a location and <em>Aarhus Universitet</em> is an organization.</p></li>
 </ol>
 <p>In this comparison we will be examing performance on DaNE and DANSK, but as no known models have been trained on Danish nested entities, we will not be comparing performance on DAN+.</p>
 <div class="admonition-measuring-performance admonition">
@@ -285,7 +285,7 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 </div>
 <section id="dane-simple-named-entity-recognition">
 <h3>DaNE: Simple Named Entity Recognition<a class="headerlink" href="#dane-simple-named-entity-recognition" title="Permalink to this heading">#</a></h3>
-<p>As already stated DaNE uses an extraction from the CoNLL 2003 dataset, which is as follows <span id="id5">[]</span>:</p>
+<p>As already stated DaNE uses an extraction from the CoNLL 2003 dataset, which is as follows <span id="id5">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
@@ -476,7 +476,7 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 </section>
 <section id="dansk-fine-grained-named-entity-recognition">
 <h3>DANSK: Fine-grained Named Entity Recognition<a class="headerlink" href="#dansk-fine-grained-named-entity-recognition" title="Permalink to this heading">#</a></h3>
-<p>DANSK is annotated from the Danish Gigaword Corpus <span id="id6">[]</span> and a wide variety of domains including conversational, legal, news, social media, web content,  wiki’s and Books. Dansk follows includes the following labels:</p>
+<p>DANSK is annotated from the Danish Gigaword Corpus <span id="id6">[<a class="reference internal" href="#id13" title="Leon Derczynski, Manuel R Ciosici, Rebekah Baglini, Morten H Christiansen, Jacob Aarup Dalsgaard, Riccardo Fusaroli, Peter Juel Henrichsen, Rasmus Hvingelby, Andreas Kirkedal, Alex Speed Kjeldsen, and others. The danish gigaword corpus. In Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa), 413–421. 2021.">Derczynski <em>et al.</em>, 2021</a>]</span> and a wide variety of domains including conversational, legal, news, social media, web content,  wiki’s and Books. Dansk follows includes the following labels:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
@@ -947,8 +947,8 @@ labels.</p>
 </section>
 <section id="biases">
 <h2>Biases<a class="headerlink" href="#biases" title="Permalink to this heading">#</a></h2>
-<p>To examine the biases in Danish models we use augmentation to replace names in the Danish dataset DaNE <span id="id7">[]</span>, this approach
-is similar to that introduced in the initial DaCy paper <span id="id8">[]</span>.</p>
+<p>To examine the biases in Danish models we use augmentation to replace names in the Danish dataset DaNE <span id="id7">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, this approach
+is similar to that introduced in the initial DaCy paper <span id="id8">[<a class="reference internal" href="#id12" title="Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. arXiv preprint arXiv:2107.05295, 2021.">Enevoldsen <em>et al.</em>, 2021</a>]</span>.</p>
 <p>Here is a short example of how the augmentation might look like:</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
@@ -1079,7 +1079,7 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[]</span>
 </section>
 <section id="robustness">
 <h2>Robustness<a class="headerlink" href="#robustness" title="Permalink to this heading">#</a></h2>
-<p>In the paper <em>‘DaCy: A Unified Framework for Danish NLP’</em> <span id="id9">[]</span> we conducted a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pipelines. This page represents only parts of the paper. We recommend reading the paper for a more thorough and nuanced overview.</p>
+<p>In the paper <em>‘DaCy: A Unified Framework for Danish NLP’</em> <span id="id9">[<a class="reference internal" href="#id12" title="Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. arXiv preprint arXiv:2107.05295, 2021.">Enevoldsen <em>et al.</em>, 2021</a>]</span> we conducted a series on augmentation on the DaNE test set to estimate the robustness and biases of DaCy and other Danish language processing pipelines. This page represents only parts of the paper. We recommend reading the paper for a more thorough and nuanced overview.</p>
 <p>The augmentation we will be using in this test are performed on the DaNE test set and include the following:</p>
 <ul class="simple">
 <li><p><strong>Spelling Error</strong>: Intended to similar domains with inconsistent spelling, OCR errors, conversational data, etc.. The augmentation includes a series of smaller augmentation:</p>
@@ -1326,7 +1326,37 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[]</span>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<span class="target" id="id10"></span></section>
+<div class="docutils container" id="id10">
+<div role="list" class="citation-list">
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">1</a><span class="fn-bracket">]</span></span>
+<p>Leon Derczynski, Manuel R Ciosici, Rebekah Baglini, Morten H Christiansen, Jacob Aarup Dalsgaard, Riccardo Fusaroli, Peter Juel Henrichsen, Rasmus Hvingelby, Andreas Kirkedal, Alex Speed Kjeldsen, and others. The danish gigaword corpus. In <em>Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa)</em>, 413–421. 2021.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id8">1</a>,<a role="doc-backlink" href="#id9">2</a>)</span>
+<p>Kenneth Enevoldsen, Lasse Hansen, and Kristoffer Nielbo. Dacy: a unified framework for danish nlp. <em>arXiv preprint arXiv:2107.05295</em>, 2021.</p>
+</div>
+<div class="citation" id="id11" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
+<p>Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In <em>Proceedings of the 12th Language Resources and Evaluation Conference</em>, 4597–4604. 2020.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. <em>arXiv preprint arXiv:2105.11301</em>, 2021.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">5</a><span class="fn-bracket">]</span></span>
+<p>Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. <em>arXiv preprint cs/0306050</em>, 2003.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">6</a><span class="fn-bracket">]</span></span>
+<p>Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. <em>Linguistic Data Consortium, Philadelphia, PA</em>, 2013.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
         </article>
