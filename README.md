@@ -9,7 +9,7 @@
 [![Tests](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/tests.yml/badge.svg)][tests]
 
 [pypi status]: https://pypi.org/project/dacy/
-[documentation]: https://centre-for-humanities-computing.github.io/dacy/
+[documentation]: https://centre-for-humanities-computing.github.io/DaCy/
 [tests]: https://github.com/centre-for-humanities-computing/dacy/actions?workflow=Tests
 [black]: https://github.com/psf/black
 
@@ -60,7 +60,7 @@ To see more examples, see the [documentation].
 
 
 [Installation]: https://centre-for-humanities-computing.github.io/DaCy/installation.html
-[Getting started]: https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html
+[Getting started]: https://centre-for-humanities-computing.github.io/DaCy/tutorials/basic.html
 [api references]: https://centre-for-humanities-computing.github.io/DaCy/
 [News and changelog]: https://centre-for-humanities-computing.github.io/DaCy/news.html
 [FAQ]: https://centre-for-humanities-computing.github.io/DaCy/faq.html
@@ -96,7 +96,7 @@ Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Oth
 | 👩‍💻 **Usage Questions**          | [GitHub Discussions]   |
 | 🗯 **General Discussion**       | [GitHub Discussions]   |
 
-[Documentation]: https://centre-for-humanities-computing.github.io/dacy/index.html
+[Documentation]: https://centre-for-humanities-computing.github.io/DaCy/
 [Installation]: https://centre-for-humanities-computing.github.io/dacy/installation.html
 [Tutorials]: https://centre-for-humanities-computing.github.io/dacy/tutorials.html
 [API Reference]: https://centre-for-humanities-computing.github.io/dacy/references.html
