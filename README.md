@@ -15,7 +15,7 @@
 
 
 <!-- start short-description -->
-DaCy is a Danish natural language preprocessing framework made with SpaCy. Its largest pipeline has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish. Feel free to try out the [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.). This repository contains material for using DaCy, reproducing the results and guides on usage of the package. Furthermore, it also contains behavioural tests for biases and robustness of Danish NLP pipelines.
+DaCy is a Danish natural language preprocessing framework made with SpaCy. Its largest pipeline has achieved State-of-the-Art performance on Named entity recognition, part-of-speech tagging and dependency parsing for Danish. Feel free to try out the [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing.). This repository contains material for using DaCy, reproducing the results and guides on the usage of the package. Furthermore, it also contains behavioral tests for biases and robustness of Danish NLP pipelines.
 <!-- end short-description -->
 
 ## 🔧 Installation
@@ -85,8 +85,8 @@ Want to learn more about how DaCy initially came to be, check out this [blog pos
 
 
 # 💬 Where to ask questions
-To ask report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues).
-Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Otherwise, please use the discussion Forums.
+To report issues or request features, please use the [GitHub Issue Tracker](https://github.com/centre-for-humanities-computing/DaCy/issues).
+Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Otherwise, please use the Discussion Forums.
 
 | Type                           |                        |
 | ------------------------------ | ---------------------- |
