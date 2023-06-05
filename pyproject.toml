@@ -78,7 +78,7 @@ docs = [
     # not possible to upgrade to >0.20.0 as sphinx <7 is required
     # for most of the extensions and it is not compatible with
     # docutils >0.20.0
-    "docutils==0.17.1",
+    "docutils==0.20.1",
     # for tutorials
     "jupyter>=1.0.0",
     "wikidata>=0.7.0",
