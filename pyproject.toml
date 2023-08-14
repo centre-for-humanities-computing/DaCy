@@ -38,7 +38,7 @@ dependencies = [
     "spacy-experimental >= 0.6.2",
     "spacy[transformers]>=3.2.0,<3.7.0",
     "pandas>=1.0.0,<2.0.0",
-    "tqdm>=4.42.1,<4.66.0",
+    "tqdm>=4.42.1,<4.67.0",
 ]
 
 
