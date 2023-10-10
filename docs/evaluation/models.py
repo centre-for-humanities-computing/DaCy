@@ -4,10 +4,9 @@ List of models using for testing
 
 from functools import partial
 
+import dacy
 import spacy
 from spacy.language import Language
-
-import dacy
 
 
 def scandiner_loader() -> Language:
@@ -117,7 +116,7 @@ MODELS = {
     "da_core_news_md-3.5.0": partial(spacy.load, "da_core_news_md"),
     "da_core_news_sm-3.5.0": partial(spacy.load, "da_core_news_sm"),
     "openai/gpt-3.5-turbo (02/05/23)": partial(
-        openai_model_loader_simple_ner, model="gpt-3.5-turbo"
+        openai_model_loader_simple_ner, model="gpt-3.5-turbo",
     ),
     "openai/gpt-4 (02/05/23)": partial(openai_model_loader_simple_ner, model="gpt-4"),
 }
