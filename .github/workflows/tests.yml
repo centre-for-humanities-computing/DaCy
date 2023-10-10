@@ -30,9 +30,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+
+      - name: Cache tox
+        uses: actions/cache@v3.2.6
+        id: cache_tox
+        with:
+          path: |
+            .tox
+          key: ${{ runner.os }}-${{ matrix.python-version }}-tests
+
       - name: Set up Python
         uses: actions/setup-python@v4
-        id: setup_python
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip' # caching pip dependencies
@@ -40,13 +48,16 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          pip install .[tests]
+          pip install invoke tox
 
       - name: Run and write pytest
         shell: bash
         run: |
-          python -m pytest --durations=0 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
-
+          source .venv/bin/activate
+          pytest --durations=0 -n 2 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
+          # Specifying two sets of "--pytest-args" is required for invoke to parse it as a list
+          inv test --pytest-args="--durations=0" --pytest-args="--junitxml=pytest.xml --cov-report=term-missing --cov=src/"
+         
       - name: Test report on failures
         uses: EnricoMi/publish-unit-test-result-action@v2
         id: test_report_with_annotations
@@ -62,6 +73,6 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' &&  github.actor != 'dependabot[bot]' && github.event_name == 'pull_request' && (success() || failure()) }}
         with:
           create-new-comment: false
-          report-only-changed-files: true
+          report-only-changed-files: false
           pytest-coverage-path: pytest-coverage.txt
           junitxml-path: ./pytest.xml

@@ -64,7 +64,7 @@ jobs:
             🏎️ Get results locally by running `pre-commit run --all-files`
             🕵️ Examine the results in the `Run pre-commit` section of this workflow `pre-commit` 
 
-            We also strongly recommend setting up the `ruff` and `black` extensions to auto-format on save in your chosen editor.
+            We also recommend setting up the `ruff` and `black` extensions to auto-format on save in your chosen editor.
 
       - name: Commit formatting
         if: ${{ steps.pre_commit.outputs.pre_commit_failed == 1 && github.event_name == 'pull_request' }}

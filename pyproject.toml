@@ -25,6 +25,8 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
 ]
 
 keywords = ["nlp", "danish", "spacy-universe"]
@@ -46,13 +48,7 @@ repository = "https://github.com/centre-for-humanities-computing/DaCy"
 file = "LICENSE"
 name = "Apache License 2.0"
 [project.optional-dependencies]
-dev = [
-  "cruft",
-  "mypy",
-  "pre-commit>=2.20.0",
-  "ruff>=0.0.262",
-  "black[jupyter]>=23.3.0",
-]
+dev = ["cruft", "pre-commit>=2.20.0", "ruff>=0.0.262", "black[jupyter]>=23.3.0"]
 tests = [
   "pytest>=7.1.2",
   "pytest-cov>=3.0.0",
@@ -109,10 +105,9 @@ where = ["src"]
 [tool.coverage.run]
 omit = ["**/tests/*", "**/about.py", "**/dev/*"]
 
-[tool.mypy]
-ignore_missing_imports = true
-no_implicit_optional = true
-warn_unreachable = true
+[tool.pyright]
+exclude = [".*venv*", ".tox"]
+pythonPlatform = "Darwin"
 
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
@@ -164,7 +159,6 @@ exclude = [
   ".eggs",
   ".git",
   ".hg",
-  ".mypy_cache",
   ".nox",
   ".pants.d",
   ".pytype",
@@ -206,10 +200,38 @@ max-complexity = 10
 
 [tool.semantic_release]
 branch = "main"
-version_variable = ["pyproject.toml:version"]
-upload_to_pypi = true
-upload_to_release = true
+version_toml = ["pyproject.toml:project.version"]
 build_command = "python -m pip install build; python -m build"
 
 [tool.setuptools]
 include-package-data = true
+
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{39,310}
+
+[testenv]
+description: run unit tests
+extras = tests
+use_develop = true
+commands =
+  pytest -n auto {posargs:test}
+
+[testenv:type]
+description: run type checks
+extras = tests, dev
+basepython = py39 # Setting these explicitly avoid recreating env if your shell is set to a different version
+use_develop = true
+commands =
+  pyright src/
+
+[testenv:docs]
+description: build docs
+extras = docs
+basepython = py39 # Setting these explicitly avoid recreating env if your shell is set to a different version
+use_develop = true
+commands =
+  sphinx-build -b html docs docs/_build/html
+"""
