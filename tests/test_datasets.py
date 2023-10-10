@@ -1,13 +1,12 @@
+import dacy
+from dacy.datasets import dane, female_names, male_names, muslim_names
 from spacy.lang.da import Danish
 from spacy.training import Example
 from spacy.training.corpus import Corpus
 
-import dacy
-from dacy.datasets import dane, female_names, male_names, muslim_names
-
 
 def test_dane():
-    train, dev, test = dane(open_unverified_connection=True) # type: ignore
+    train, dev, test = dane(open_unverified_connection=True)  # type: ignore
     all_ = dacy.datasets.dane(splits=["all"])  # type: ignore
     for d in [train, dev, test, all_]:
         assert isinstance(d, Corpus)
