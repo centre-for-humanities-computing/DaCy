@@ -54,8 +54,11 @@ jobs:
         shell: bash
         run: |
           # Specifying two sets of "--pytest-args" is required for invoke to parse it as a list
-          inv test --pytest-args="--durations=0" --pytest-args="--junitxml=pytest.xml --cov-report=term-missing --cov=src/"
-         
+          # inv test --pytest-args="--durations=0" --pytest-args="--junitxml=pytest.xml --cov-report=term-missing --cov=src/"
+          export DACY_CACHE_DIR=/tmp/dacy_cache
+          pytest
+
+
       - name: Test report on failures
         uses: EnricoMi/publish-unit-test-result-action@v2
         id: test_report_with_annotations
