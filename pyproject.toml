@@ -219,7 +219,7 @@ description: run unit tests
 extras = tests
 use_develop = true
 commands =
-  pytest -n auto {posargs:test}
+  pytest {posargs:test}
 
 [testenv:type]
 allowlist_externals = pyright
