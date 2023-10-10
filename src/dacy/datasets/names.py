@@ -51,6 +51,7 @@ def load_names(
         names = names.groupby(["name", "gender", "first_name"]).agg({"count": "sum"})
         # Change: groupby state_office and divide by sum
         names = names.groupby(level=0).apply(lambda x: x / float(x.sum().iloc[0]))
+        names = names.reset_index(level=0, drop=True)
         names = names.reset_index()
         names = names.loc[
             (names["gender"] == gender) & (names["count"] >= min_prop_gender)
