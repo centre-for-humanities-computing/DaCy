@@ -48,7 +48,14 @@ repository = "https://github.com/centre-for-humanities-computing/DaCy"
 file = "LICENSE"
 name = "Apache License 2.0"
 [project.optional-dependencies]
-dev = ["cruft", "pre-commit>=2.20.0", "ruff>=0.0.262", "black[jupyter]>=23.3.0"]
+dev = [
+  "cruft>=2.0.0",
+  "pyright==1.1.305",
+  "pyright-polite>=0.0.1",
+  "pre-commit>=2.20.0",
+  "ruff>=0.0.262",
+  "black[jupyter]>=23.3.0",
+]
 tests = [
   "pytest>=7.1.2",
   "pytest-cov>=3.0.0",
