@@ -86,8 +86,8 @@ def dane(  # noqa
                 "-m",
                 "spacy",
                 "convert",
-                cpath,
-                save_path,  # type: ignore
+                str(cpath),
+                str(save_path),
                 "--converter",
                 "conllu",
                 "--merge-subtokens",
