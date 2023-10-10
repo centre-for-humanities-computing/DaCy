@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          pip install invoke tox
+          pip install invoke tox pyright
 
       - name: Run static type checker
         id: pyright
@@ -95,7 +95,7 @@ jobs:
         id: tester
         run: |
           pyright src/ 
-          
+
       - name: Show pyright output
         id: fail_run
         if: ${{steps.pyright.outputs.pyright_failed == 1}}
