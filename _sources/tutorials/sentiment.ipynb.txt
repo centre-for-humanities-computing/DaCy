@@ -5,7 +5,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/dacy/blob/master/docs/tutorials/sentiment-neural.ipynb#scrollTo=5ZQ9ZQ2QZQ2Q)\n",
+    "[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/centre-for-humanities-computing/dacy/blob/master/docs/tutorials/sentiment.ipynb)\n",
     "\n",
     "# Sentiment Analysis\n",
     "\n",

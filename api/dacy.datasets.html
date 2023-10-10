@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <meta property="og:title" content="Datasets" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="api/dacy.datasets.html" />
@@ -16,13 +16,13 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Score" href="dacy.score.html" /><link rel="prev" title="Downloading and Loading" href="dacy.download.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 7.1.0 and Furo 2023.03.27 -->
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
         <title>Datasets - DaCy</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -274,7 +274,7 @@
 <span class="sig-prename descclassname"><span class="pre">dacy.datasets.dane.</span></span><span class="sig-name descname"><span class="pre">dane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['train',</span> <span class="pre">'dev',</span> <span class="pre">'test']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_unverified_connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/datasets/dane.html#dane"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.dane.dane" title="Permalink to this definition">#</a></dt>
 <dd><p>Reads the DaNE dataset as a spacy Corpus.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the DaNE dataset If it does not contain the
 dataset it is downloaded to the folder. Defaults to None corresponding to
@@ -292,10 +292,10 @@ unverified connection. Defaults to False.</p></li>
 whether it already exists. Defaults to False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Returns a SpaCy corpus or a list thereof.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Union[List[Corpus], Corpus]</p>
 </dd>
 </dl>
@@ -315,12 +315,12 @@ whether it already exists. Defaults to False.</p></li>
 <span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">danish_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/datasets/names.html#danish_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.danish_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a dictionary of Danish names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A dictionary of Danish names containing the keys
 “first_name” and “last_name”. The list is derived from Danmarks statistik
 (2021).</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict[str, List[str]]</p>
 </dd>
 </dl>
@@ -338,14 +338,14 @@ whether it already exists. Defaults to False.</p></li>
 <span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">female_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/datasets/names.html#female_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.female_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a dictionary of Danish female names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>A dictionary of names containing the keys “first_name”</dt><dd><p>and “last_name”. The list is derived from Danmarks statistik (2021).</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict[str, List[str]]</p>
 </dd>
 </dl>
@@ -365,7 +365,7 @@ whether it already exists. Defaults to False.</p></li>
 Muslim names are from Meldgaard (2005),
 <a class="reference external" href="https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/">https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>min_count</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum number of occurences of the name for it to
 be included. Defaults to 0.</p></li>
@@ -380,14 +380,14 @@ proportion of people with the given name of that gender. Only used when
 gender is set. Defaults to 0.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>A dictionary of Muslim names containing the keys</dt><dd><p>”first_name” and “last_name”.</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Dict[str, List[str]]</p>
 </dd>
 </dl>
@@ -398,14 +398,14 @@ gender is set. Defaults to 0.</p></li>
 <span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">male_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/datasets/names.html#male_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.male_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a dictionary of Danish male names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>A dictionary of names containing the keys “first_name”</dt><dd><p>and “last_name”. The list is derived from Danmarks statistik (2021).</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict[str, List[str]]</p>
 </dd>
 </dl>
@@ -423,7 +423,7 @@ gender is set. Defaults to 0.</p></li>
 <span class="sig-prename descclassname"><span class="pre">dacy.datasets.names.</span></span><span class="sig-name descname"><span class="pre">muslim_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/datasets/names.html#muslim_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.datasets.names.muslim_names" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a dictionary of Muslim names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>A dictionary of Muslim names containing the keys</dt><dd><p>”first_name” and “last_name”. The list is derived from Meldgaard (2005),
 <a class="reference external" href="https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/">https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/</a>.</p>
@@ -431,7 +431,7 @@ gender is set. Defaults to 0.</p></li>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Dict[str, List[str]]</p>
 </dd>
 </dl>
@@ -533,12 +533,15 @@ gender is set. Defaults to 0.</p></li>
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=4d6b7745"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script src="../_static/scripts/furo.js?v=2c7c1115"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     </body>
 </html>
