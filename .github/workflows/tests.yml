@@ -37,7 +37,7 @@ jobs:
         with:
           path: |
             .tox
-          key: ${{ runner.os }}-${{ matrix.python-version }}-tests
+          key: ${{ runner.os }}-${{ matrix.python-version }}-tests-1
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -53,8 +53,6 @@ jobs:
       - name: Run and write pytest
         shell: bash
         run: |
-          source .venv/bin/activate
-          pytest --durations=0 -n 2 -x --junitxml=pytest.xml --cov-report=term-missing --cov=src/ tests/
           # Specifying two sets of "--pytest-args" is required for invoke to parse it as a list
           inv test --pytest-args="--durations=0" --pytest-args="--junitxml=pytest.xml --cov-report=term-missing --cov=src/"
          
