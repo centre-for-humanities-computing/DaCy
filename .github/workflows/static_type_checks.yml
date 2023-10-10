@@ -90,12 +90,6 @@ jobs:
           message: |
             🌟 pyright succeeds! 🌟
 
-
-      - name: test
-        id: tester
-        run: |
-          pyright src/ 
-
       - name: Show pyright output
         id: fail_run
         if: ${{steps.pyright.outputs.pyright_failed == 1}}
