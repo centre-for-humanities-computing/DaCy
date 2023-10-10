@@ -9,5 +9,5 @@ def test_ner():
     doc = nlp("Jeg hedder Peter og bor i København")
     assert doc.ents[0].text == "Peter"
     assert doc.ents[0].label_ == "PER"
-    assert doc.ents[1].text == "København"
-    assert doc.ents[1].label_ == "LOC"
+    assert doc.ents[1].text == "København"  # type: ignore
+    assert doc.ents[1].label_ == "LOC"  # type: ignore

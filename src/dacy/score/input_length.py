@@ -55,4 +55,4 @@ def n_sents_score(
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)  # type: ignore
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)  # type: ignore
         scores = pd.concat([scores, scores_]) if i != 0 else scores_  # type: ignore # noqa
-    return scores
+    return scores  # type: ignore

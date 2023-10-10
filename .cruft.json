@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/MartinBernstorff/swift-python-cookiecutter",
-  "commit": "691543da74e08c82a24f26eae89536b1c5581673",
+  "commit": "7fdb02999e8596c525377c208ca902645d134f97",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -12,7 +12,6 @@
       "github_user": "centre-for-humanities-computing",
       "version": "2.4.2",
       "copyright_year": "2023",
-      "add_makefile": "y",
       "license": "MIT",
       "_copy_without_render": [
         "*.github"

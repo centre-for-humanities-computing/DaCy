@@ -3,7 +3,6 @@
         "*.github"
     ],
     "_template": "https://github.com/MartinBernstorff/swift-python-cookiecutter",
-    "add_makefile": "y",
     "author": "Kenneth Enevoldsen",
     "copyright_year": "2023",
     "email": "kennethcenevoldsen@gmail.com",

@@ -10,7 +10,9 @@ import pandas as pd
 from spacy.language import Language
 from spacy.scorer import Scorer
 from spacy.tokens import Doc, Span
-from spacy.training import Corpus, Example, dont_augment
+from spacy.training import Example
+from spacy.training.augment import dont_augment
+from spacy.training.corpus import Corpus
 
 from ..utils import flatten_dict
 
@@ -102,7 +104,7 @@ def score(  # noqa
 
     if isinstance(apply_fn, Language):
         nlp_ = apply_fn
-        apply_fn = __apply_nlp
+        apply_fn = __apply_nlp  # type: ignore
 
     if nlp is None:
         from spacy.lang.da import Danish
@@ -149,7 +151,7 @@ def score(  # noqa
         scores_ls = []
         for _i in range(k):
             s = time()
-            examples = apply_fn(corpus_(nlp))
+            examples = apply_fn(corpus_(nlp))  # type: ignore
             speed = time() - s
             scores = {"wall_time": speed}
             for fn in score_fn:
@@ -160,14 +162,14 @@ def score(  # noqa
             scores_ls.append(scores)
 
         # and collapse list to dict
-        for key in scores:
-            scores[key] = [s[key] if key in s else None for s in scores_ls]
+        for key in scores:  # type: ignore
+            scores[key] = [s[key] if key in s else None for s in scores_ls]  # type: ignore
 
-        scores["k"] = list(range(k))
+        scores["k"] = list(range(k))  # type: ignore
 
-        return pd.DataFrame(scores)
+        return pd.DataFrame(scores)  # type: ignore
 
     for i, aug in enumerate(augmenters):
         scores_ = __score(aug)
         scores = pd.concat([scores, scores_]) if i != 0 else scores_  # type: ignore  # noqa
-    return scores
+    return scores  # type: ignore

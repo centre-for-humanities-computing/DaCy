@@ -7,7 +7,7 @@ from os import PathLike
 from pathlib import Path
 from typing import List, Optional, Union
 
-from spacy.training import Corpus
+from spacy.training.corpus import Corpus
 
 from ..download import DEFAULT_CACHE_DIR, download_url
 from .constants import DATASETS
@@ -86,8 +86,8 @@ def dane(  # noqa
                 "-m",
                 "spacy",
                 "convert",
-                cpath,
-                save_path,  # type: ignore
+                str(cpath),
+                str(save_path),
                 "--converter",
                 "conllu",
                 "--merge-subtokens",
