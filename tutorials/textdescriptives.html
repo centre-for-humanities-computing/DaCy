@@ -385,7 +385,7 @@ Name: count, dtype: int64
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fc6a3857a90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f1d96e5fc10&gt;
 </pre></div>
 </div>
 </div>
@@ -404,13 +404,24 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="c1"># extract the metrics as a dataframe</span>
 <span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (161 &gt; 128). Running this sequence through the model will result in indexing errors
+</pre></div>
+</div>
+</div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -441,32 +452,32 @@ Name: count, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
-      <th>flesch_reading_ease</th>
-      <th>flesch_kincaid_grade</th>
-      <th>smog</th>
-      <th>gunning_fog</th>
-      <th>...</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
       <th>sentence_length_median</th>
       <th>sentence_length_std</th>
       <th>syllables_per_token_mean</th>
       <th>syllables_per_token_median</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
+      <th>...</th>
+      <th>smog</th>
+      <th>gunning_fog</th>
+      <th>automated_readability_index</th>
+      <th>coleman_liau_index</th>
+      <th>lix</th>
+      <th>rix</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>3206</th>
+      <th>1174</th>
       <td>ham</td>
-      <td>This phone has the weirdest auto correct.</td>
+      <td>Yay! You better not have told that to 5 other ...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -488,9 +499,9 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4935</th>
+      <th>1818</th>
       <td>ham</td>
-      <td>K..k.:)congratulation ..</td>
+      <td>Am i that much dirty fellow?</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -512,9 +523,9 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3104</th>
+      <th>4902</th>
       <td>ham</td>
-      <td>Or remind me in a few hrs.</td>
+      <td>\I;m reaching in another 2 stops.\""</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -536,9 +547,9 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>802</th>
-      <td>spam</td>
-      <td>FREE for 1st week! No1 Nokia tone 4 ur mobile ...</td>
+      <th>2762</th>
+      <td>ham</td>
+      <td>ARR birthday today:) i wish him to get more os...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -560,28 +571,28 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4302</th>
+      <th>499</th>
       <td>ham</td>
-      <td>Yup i'm free...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>Dear i have reache room</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>2.366432</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1.8</td>
+      <td>1.0</td>
       <td>...</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>18.0</td>
+      <td>4.62</td>
+      <td>7.68</td>
+      <td>25.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.333333</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
@@ -604,7 +615,7 @@ Name: count, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/18b87e8a0e4285f98ccc8a396f99d541024fd7fd34ca2324626fe63d8e91c5ca.png" src="../_images/18b87e8a0e4285f98ccc8a396f99d541024fd7fd34ca2324626fe63d8e91c5ca.png" />
+<img alt="../_images/4d019fc4a47f0fe5c45927dfee62b34c76802e5d8953a308ec57ba51ce7c9f52.png" src="../_images/4d019fc4a47f0fe5c45927dfee62b34c76802e5d8953a308ec57ba51ce7c9f52.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -619,16 +630,22 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                     -0.422376
-prop_adjacent_dependency_relation_mean   -0.420110
-proportion_unique_tokens                 -0.214320
-n_sentences                               0.157779
-coleman_liau_index                        0.150233
-dependency_distance_std                   0.110204
-syllables_per_token_mean                  0.110006
-flesch_reading_ease                      -0.103732
-syllables_per_token_std                   0.089197
-n_tokens                                  0.080994
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2898: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>token_length_median          -0.188698
+gunning_fog                  -0.163164
+syllables_per_token_median    0.115249
+n_unique_tokens               0.110283
+n_characters                  0.105183
+lix                          -0.104429
+token_length_std             -0.101153
+token_length_mean            -0.097317
+n_tokens                      0.093519
+coleman_liau_index           -0.082565
 dtype: float64
 </pre></div>
 </div>
@@ -646,7 +663,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/cc7388873348c8916f3c4a15f468b1cd7b265496073d1b6bd655169957c9f64a.png" src="../_images/cc7388873348c8916f3c4a15f468b1cd7b265496073d1b6bd655169957c9f64a.png" />
+<img alt="../_images/f79e296e71e36aec82caa835c6cf2d572d4c66068414416e2b013c37a1e19809.png" src="../_images/f79e296e71e36aec82caa835c6cf2d572d4c66068414416e2b013c37a1e19809.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -660,7 +677,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/5579e2c65df3ce08890d369d3f2ee184fd9b958128d2d5be68df5adb6201dd2a.png" src="../_images/5579e2c65df3ce08890d369d3f2ee184fd9b958128d2d5be68df5adb6201dd2a.png" />
+<img alt="../_images/59236854fe696b763445de2f21550bb39cfcb3640b4edd0a7273c3b5f8327e76.png" src="../_images/59236854fe696b763445de2f21550bb39cfcb3640b4edd0a7273c3b5f8327e76.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
