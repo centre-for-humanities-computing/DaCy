@@ -7,38 +7,34 @@ name = "dacy"
 version = "2.7.1"
 description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
 authors = [
-  {name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com"}, 
-  {name = "Lasse Hansen"},
-  {name = "Emil Jessen"}
+  { name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com" },
+  { name = "Lasse Hansen" },
+  { name = "Emil Jessen" },
 ]
 
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Operating System :: POSIX :: Linux",
-    "Operating System :: MacOS :: MacOS X",
-    "Operating System :: Microsoft :: Windows",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
 ]
 
-keywords = [
-    "nlp",
-    "danish",
-    "spacy-universe",
-]
+keywords = ["nlp", "danish", "spacy-universe"]
 requires-python = ">=3.9"
 dependencies = [
-    "spacy-wrap>=1.4.1,<1.5.0",
-    "spacy-experimental >= 0.6.2",
-    "spacy[transformers]>=3.2.0,<3.7.0",
-    "pandas>=1.0.0,<2.0.0",
-    "tqdm>=4.42.1,<4.67.0",
+  "spacy-wrap>=1.4.1",
+  "spacy-experimental>=0.6.2",
+  "spacy[transformers]>=3.2.0",
+  "pandas>=1.0.0",
+  "tqdm>=4.42.1",
 ]
 
 
@@ -64,33 +60,33 @@ tests = [
   "pytest-instafail>=0.4.2",
 ]
 docs = [
-    "sphinx>=5.3.0",
-    "furo>=2022.12.7",  # theme
-    "sphinx-copybutton>=0.5.1",
-    "sphinxext-opengraph>=0.7.3",
-    "sphinx_design>=0.3.0",
-    "sphinx_togglebutton>=0.2.3",
-    "myst-nb>=0.6.0",  # for rendering notebooks
-    "sphinxcontrib-bibtex>=2.0.0",
-    # required for building the docs with references
-    # potentially see https://sourceforge.net/p/docutils/patches/195/
-    # and related issues
-    # not possible to upgrade to >0.20.0 as sphinx <7 is required
-    # for most of the extensions and it is not compatible with
-    # docutils >0.20.0
-    "docutils==0.17.1",
-    # for tutorials
-    "jupyter>=1.0.0",
-    "wikidata>=0.7.0",
-    # sentiment analysis
-    "asent>=0.4.2",
-    "augmenty>=1.0.2",
-    # for the textdescriptives tutorial
-    "textdescriptives>=2.1.0",
-    "seaborn>=0.11.2",
-    # for performance notebooks
-    "altair>=4.1.0",
-    "datasets>=1.14.0",
+  "sphinx>=5.3.0",
+  "furo>=2022.12.7",             # theme
+  "sphinx-copybutton>=0.5.1",
+  "sphinxext-opengraph>=0.7.3",
+  "sphinx_design>=0.3.0",
+  "sphinx_togglebutton>=0.2.3",
+  "myst-nb>=0.6.0",              # for rendering notebooks
+  "sphinxcontrib-bibtex>=2.0.0",
+  # required for building the docs with references
+  # potentially see https://sourceforge.net/p/docutils/patches/195/
+  # and related issues
+  # not possible to upgrade to >0.20.0 as sphinx <7 is required
+  # for most of the extensions and it is not compatible with
+  # docutils >0.20.0
+  "docutils==0.17.1",
+  # for tutorials
+  "jupyter>=1.0.0",
+  "wikidata>=0.7.0",
+  # sentiment analysis
+  "asent>=0.4.2",
+  "augmenty>=1.0.2",
+  # for the textdescriptives tutorial
+  "textdescriptives>=2.1.0",
+  "seaborn>=0.11.2",
+  # for performance notebooks
+  "altair>=4.1.0",
+  "datasets>=1.14.0",
 
 ]
 
@@ -111,11 +107,7 @@ content-type = "text/markdown"
 where = ["src"]
 
 [tool.coverage.run]
-omit = [
-    "**/tests/*",
-    "**/about.py",
-    "**/dev/*",
-]
+omit = ["**/tests/*", "**/about.py", "**/dev/*"]
 
 [tool.mypy]
 ignore_missing_imports = true
@@ -150,7 +142,7 @@ select = [
   "RET",
   "RUF",
   "SIM",
-  "W"
+  "W",
 ]
 ignore = [
   "ANN101",
@@ -196,7 +188,7 @@ exclude = [
   "training/main/**",
   "training/ner_fine_grained/**",
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
-  "docs/performance_testing_utils/**"
+  "docs/performance_testing_utils/**",
 ]
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
@@ -214,9 +206,7 @@ max-complexity = 10
 
 [tool.semantic_release]
 branch = "main"
-version_variable = [
-  "pyproject.toml:version"
-]
+version_variable = ["pyproject.toml:version"]
 upload_to_pypi = true
 upload_to_release = true
 build_command = "python -m pip install build; python -m build"
