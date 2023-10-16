@@ -58,7 +58,7 @@ dev = [
 ]
 tests = ["pytest>=7.1.2", "pytest-cov>=3.0.0", "pytest-instafail>=0.4.2"]
 docs = [
-  "sphinx==5.3.0",
+  "sphinx==7.2.6",
   "furo>=2022.12.7",             # theme
   "sphinx-copybutton>=0.5.1",
   "sphinxext-opengraph>=0.7.3",
