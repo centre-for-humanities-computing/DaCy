@@ -50,7 +50,7 @@ name = "Apache License 2.0"
 [project.optional-dependencies]
 dev = [
   "cruft>=2.0.0",
-  "pyright==1.1.305",
+  "pyright==1.1.331",
   "pyright-polite>=0.0.1",
   "pre-commit>=2.20.0",
   "ruff>=0.0.262",
