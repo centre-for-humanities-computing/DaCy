@@ -50,9 +50,8 @@ name = "Apache License 2.0"
 [project.optional-dependencies]
 dev = [
   "cruft>=2.0.0",
-  "pyright==1.1.328",
-  "ruff>=0.0.262",
-  "pyproject-parser[cli, readme]>=0.9.1",
+  "pyright>=1.1.328",
+  "ruff>=0.0.270",
 ]
 tests = ["pytest>=7.1.2", "pytest-cov>=3.0.0", "pytest-instafail>=0.4.2"]
 docs = [
@@ -190,8 +189,9 @@ exclude = [
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 target-version = "py38"
 
-tool.ruff.lint.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
+
 [tool.ruff.flake8-annotations]
 mypy-init-return = true
 suppress-none-returning = true
