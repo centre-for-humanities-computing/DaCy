@@ -70,8 +70,8 @@
    "outputs": [],
    "source": [
     "import spacy\n",
-    "from spacy.tokens import Span\n",
     "from spacy import displacy\n",
+    "from spacy.tokens import Span\n",
     "\n",
     "text = \"\"\"To kendte russiske historikere Andronik Mirganjan og Igor Klamkin tror ikke, at Rusland kan udvikles uden en \"jernnæve\".\"\"\"\n",
     "nlp = spacy.blank(\"da\")\n",
@@ -549,6 +549,7 @@
    ],
    "source": [
     "from functools import partial\n",
+    "\n",
     "from evaluation.models import openai_model_loader_fine_ner\n",
     "\n",
     "MODELS_ = MODELS.copy()\n",

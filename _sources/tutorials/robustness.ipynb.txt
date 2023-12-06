@@ -63,8 +63,8 @@
    },
    "outputs": [],
    "source": [
-    "import spacy\n",
     "import dacy\n",
+    "import spacy\n",
     "\n",
     "# load models\n",
     "spacy_small = spacy.load(\"da_core_news_sm\")\n",
