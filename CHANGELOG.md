@@ -2,6 +2,31 @@
 
 
 
+## v2.7.3 (2023-12-06)
+
+### Ci
+
+* ci: fix misspelled cmmand ([`72afda1`](https://github.com/centre-for-humanities-computing/DaCy/commit/72afda1c2eccfb1b3b17887cc3e2c5bc97e2c0fc))
+
+### Fix
+
+* fix: updated docs ([`57c20d2`](https://github.com/centre-for-humanities-computing/DaCy/commit/57c20d2638a116df64489c60258606b6707c049f))
+
+### Unknown
+
+* Merge pull request #278 from centre-for-humanities-computing/update-cruft
+
+Updated cruft template ([`7fac8a1`](https://github.com/centre-for-humanities-computing/DaCy/commit/7fac8a19aaba8fe272451c752144a6a4f54b5c3e))
+
+* changed type checker to pyright ([`cac4d92`](https://github.com/centre-for-humanities-computing/DaCy/commit/cac4d92fc50569f5658dfae2039584c1c5ddbbff))
+
+* lint: ran ruff ([`ee7e318`](https://github.com/centre-for-humanities-computing/DaCy/commit/ee7e318ee49f5a020d2225c4111e27802a655e06))
+
+* Updated cruft template ([`6cbeb42`](https://github.com/centre-for-humanities-computing/DaCy/commit/6cbeb42270bf6c8d97af36352465decc2b0a718d))
+
+* Update cruft reference ([`6e0f04f`](https://github.com/centre-for-humanities-computing/DaCy/commit/6e0f04f73f7c4581f8a3922807e2558e6a873743))
+
+
 ## v2.7.2 (2023-10-10)
 
 ### Ci
