@@ -31,4 +31,4 @@ jobs:
       - name: Run static type checker
         shell: bash
         run: |
-          make static-type-checks
+          make static-type-check
