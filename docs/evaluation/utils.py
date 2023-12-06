@@ -6,12 +6,11 @@ from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 import pandas as pd
 import spacy
+from evaluation.datasets import datasets
 from spacy.language import Language
 from spacy.scorer import Scorer
 from spacy.tokens import Doc
 from spacy.training import Example
-
-from evaluation.datasets import datasets
 
 
 def bootstrap(
@@ -74,7 +73,13 @@ def compute_mean_and_ci(scores: List[Dict[str, Any]]) -> Dict[str, Any]:
         "MISC": "Misc.",
     }
 
-    labels = {label for score in scores for label in score["ents_per_type"]}
+    def get_ents_per_type(score):
+        x = score["ents_per_type"]
+        if x is None:
+            return []
+        return x
+
+    labels = {label for score in scores for label in get_ents_per_type(score)}
 
     for label in labels:
         label_f = [
