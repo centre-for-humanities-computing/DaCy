@@ -258,7 +258,7 @@
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a DaCy model as a SpaCy text processing pipeline. If the model is</span>
 <span class="sd">    not downloaded it will also download the model.</span>
@@ -284,7 +284,7 @@
     <span class="k">return</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>
+<div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a path to where DaCy models are located. The default the model</span>
 <span class="sd">    location can be configured with the environmental variable</span>
 <span class="sd">    `DACY_CACHE_DIR`.</span>

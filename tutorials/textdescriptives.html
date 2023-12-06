@@ -366,7 +366,8 @@ Name: count, dtype: int64
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span> <span class="c1"># load the latest version of the small model</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>  <span class="c1"># load the latest version of the small model</span>
 
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
@@ -379,13 +380,19 @@ Name: count, dtype: int64
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_trf&#39; (0.2.0) was trained with spaCy v3.5.2 and may not be 100% compatible with the current version (3.6.1). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_ner_fine_grained&#39; (0.1.0) was trained with spaCy v3.5.0 and may not be 100% compatible with the current version (3.7.2). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
   warnings.warn(warn_msg)
-/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_ner_fine_grained&#39; (0.1.0) was trained with spaCy v3.5.0 and may not be 100% compatible with the current version (3.6.1). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
+/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_trf&#39; (0.2.0) was trained with spaCy v3.5.2 and may not be 100% compatible with the current version (3.7.2). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f1d96e5fc10&gt;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy_transformers/layers/hf_shim.py:137: UserWarning: Error loading saved torch state_dict with strict=True, likely due to differences between &#39;transformers&#39; versions. Attempting to load with strict=False as a fallback...
+
+If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current &#39;transformers&#39; and &#39;spacy-transformers&#39; versions. For more details and available updates, run: python -m spacy validate
+  warnings.warn(warn_msg)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f36f6f339a0&gt;
 </pre></div>
 </div>
 </div>
@@ -404,24 +411,14 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input above-output-prompt docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+
 <span class="c1"># extract the metrics as a dataframe</span>
 <span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<details class="hide below-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell output</span>
-<span class="expanded">Hide code cell output</span>
-</summary>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (161 &gt; 128). Running this sequence through the model will result in indexing errors
-</pre></div>
-</div>
-</div>
-</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -452,32 +449,32 @@ Name: count, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>token_length_mean</th>
-      <th>token_length_median</th>
-      <th>token_length_std</th>
-      <th>sentence_length_mean</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
-      <th>...</th>
-      <th>smog</th>
-      <th>gunning_fog</th>
-      <th>automated_readability_index</th>
-      <th>coleman_liau_index</th>
-      <th>lix</th>
-      <th>rix</th>
       <th>dependency_distance_mean</th>
       <th>dependency_distance_std</th>
       <th>prop_adjacent_dependency_relation_mean</th>
       <th>prop_adjacent_dependency_relation_std</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
+      <th>smog</th>
+      <th>gunning_fog</th>
+      <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>1174</th>
+      <th>930</th>
       <td>ham</td>
-      <td>Yay! You better not have told that to 5 other ...</td>
+      <td>I'm really sorry i won't b able 2 do this frid...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -499,9 +496,9 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1818</th>
+      <th>5410</th>
       <td>ham</td>
-      <td>Am i that much dirty fellow?</td>
+      <td>Daddy, shu shu is looking 4 u... U wan me 2 te...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -523,9 +520,9 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4902</th>
+      <th>2087</th>
       <td>ham</td>
-      <td>\I;m reaching in another 2 stops.\""</td>
+      <td>\alright babe</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -547,9 +544,9 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2762</th>
+      <th>1423</th>
       <td>ham</td>
-      <td>ARR birthday today:) i wish him to get more os...</td>
+      <td>Lol great now im getting hungry.</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -571,28 +568,28 @@ Name: count, dtype: int64
       <td>NaN</td>
     </tr>
     <tr>
-      <th>499</th>
+      <th>3112</th>
       <td>ham</td>
-      <td>Dear i have reache room</td>
-      <td>5.0</td>
-      <td>4.0</td>
-      <td>2.366432</td>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>0.0</td>
-      <td>1.8</td>
-      <td>1.0</td>
+      <td>Wat time liao, where still got.</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>...</td>
       <td>NaN</td>
-      <td>18.0</td>
-      <td>4.62</td>
-      <td>7.68</td>
-      <td>25.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>0.333333</td>
-      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -607,6 +604,7 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -615,7 +613,7 @@ Name: count, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/4d019fc4a47f0fe5c45927dfee62b34c76802e5d8953a308ec57ba51ce7c9f52.png" src="../_images/4d019fc4a47f0fe5c45927dfee62b34c76802e5d8953a308ec57ba51ce7c9f52.png" />
+<img alt="../_images/e3a7fa233801e5a30ff608dfd733c60fff223784480f9f61c79d09f853d0bc05.png" src="../_images/e3a7fa233801e5a30ff608dfd733c60fff223784480f9f61c79d09f853d0bc05.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -624,28 +622,24 @@ Name: count, dtype: int64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># encode the label as a boolean</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ham&quot;</span>
 <span class="c1"># compute the correlation between all metrics and the label</span>
-<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 <span class="n">metrics_correlations</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
-  c /= stddev[:, None]
-/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2898: RuntimeWarning: invalid value encountered in divide
-  c /= stddev[None, :]
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>token_length_median          -0.188698
-gunning_fog                  -0.163164
-syllables_per_token_median    0.115249
-n_unique_tokens               0.110283
-n_characters                  0.105183
-lix                          -0.104429
-token_length_std             -0.101153
-token_length_mean            -0.097317
-n_tokens                      0.093519
-coleman_liau_index           -0.082565
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                     0.218718
+sentence_length_std                      0.159106
+n_sentences                              0.139047
+syllables_per_token_median               0.136743
+token_length_std                        -0.124872
+proportion_unique_tokens                -0.124389
+n_tokens                                 0.113538
+n_unique_tokens                          0.098892
+prop_adjacent_dependency_relation_std    0.097613
+syllables_per_token_mean                 0.096794
 dtype: float64
 </pre></div>
 </div>
@@ -663,7 +657,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/f79e296e71e36aec82caa835c6cf2d572d4c66068414416e2b013c37a1e19809.png" src="../_images/f79e296e71e36aec82caa835c6cf2d572d4c66068414416e2b013c37a1e19809.png" />
+<img alt="../_images/f71f1fe76c51ce18e709c21cc0930c49e90e6d3b0a9159fc950f9bd7a79d282e.png" src="../_images/f71f1fe76c51ce18e709c21cc0930c49e90e6d3b0a9159fc950f9bd7a79d282e.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -677,7 +671,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/59236854fe696b763445de2f21550bb39cfcb3640b4edd0a7273c3b5f8327e76.png" src="../_images/59236854fe696b763445de2f21550bb39cfcb3640b4edd0a7273c3b5f8327e76.png" />
+<img alt="../_images/96707594883fde22df42d077bd33b0be223a3706c3a7fdd5b68e116ac308cc9a.png" src="../_images/96707594883fde22df42d077bd33b0be223a3706c3a7fdd5b68e116ac308cc9a.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>

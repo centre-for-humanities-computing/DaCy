@@ -250,7 +250,7 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span> <span class="nn">spacy.util</span> <span class="kn">import</span> <span class="n">get_installed_models</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>  <span class="c1"># type: ignore</span>
 
 <span class="n">DACY_DEFAULT_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;.dacy&quot;</span>
 
@@ -286,10 +286,10 @@
     <span class="n">versions</span> <span class="o">=</span> <span class="p">[</span><span class="n">mdl</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">mdl</span> <span class="ow">in</span> <span class="n">models_url</span> <span class="k">if</span> <span class="n">mdl</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">model</span><span class="p">)]</span>
     <span class="n">versions</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
         <span class="n">versions</span><span class="p">,</span>
-        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)],</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)],</span>  <span class="c1"># type: ignore</span>
         <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore</span></div>
 
 
 <div class="viewcode-block" id="models"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.download.models">[docs]</a><span class="k">def</span> <span class="nf">models</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -315,7 +315,7 @@
         <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
         <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">miniters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
         <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">output_path</span><span class="p">,</span> <span class="n">reporthook</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">update_to</span><span class="p">)</span>
 
@@ -350,7 +350,7 @@
     <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;small&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;large&quot;</span><span class="p">}:</span>
         <span class="n">latest_version</span> <span class="o">=</span> <span class="n">get_latest_version</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
         <span class="n">model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;da_dacy_</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">_trf-</span><span class="si">{</span><span class="n">latest_version</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">mdl_version</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">mdl_version</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
     <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">models_url</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -358,7 +358,7 @@
             <span class="o">+</span> <span class="s2">&quot; list of all models&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="n">mdl</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mdl</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># type: ignore</span>
     <span class="k">if</span> <span class="n">mdl</span> <span class="ow">in</span> <span class="n">get_installed_models</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">version</span><span class="p">(</span><span class="n">mdl</span><span class="p">)</span> <span class="o">==</span> <span class="n">mdl_version</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">mdl</span>
     <span class="n">install</span><span class="p">(</span><span class="n">models_url</span><span class="p">[</span><span class="n">model</span><span class="p">])</span>

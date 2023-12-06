@@ -260,13 +260,13 @@
 
 
 <div class="viewcode-block" id="dane"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.dane.dane">[docs]</a><span class="k">def</span> <span class="nf">dane</span><span class="p">(</span>  <span class="c1"># noqa</span>
-    <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">splits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span>  <span class="c1"># noqa</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+    <span class="n">splits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span>  <span class="c1"># noqa  # type: ignore</span>
     <span class="n">redownload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">n_sents</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>  <span class="c1"># noqa</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Corpus</span><span class="p">],</span> <span class="n">Corpus</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Corpus</span><span class="p">],</span> <span class="n">Corpus</span><span class="p">]:</span>   <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reads the DaNE dataset as a spacy Corpus.</span>
 
 <span class="sd">    Args:</span>
@@ -356,7 +356,7 @@
     <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
         <span class="n">corpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Corpus</span><span class="p">(</span><span class="n">save_path</span> <span class="o">/</span> <span class="n">paths</span><span class="p">[</span><span class="n">split</span><span class="p">]))</span>  <span class="c1"># type: ignore</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpora</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">corpora</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">corpora</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>       <span class="c1"># type: ignore</span>
     <span class="k">return</span> <span class="n">corpora</span></div>
 </pre></div>
         </article>
