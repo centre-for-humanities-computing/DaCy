@@ -20,7 +20,7 @@ def dane(  # noqa
     n_sents: int = 1,
     open_unverified_connection: bool = False,
     **kwargs,  # noqa
-) -> Union[List[Corpus], Corpus]:   # type: ignore
+) -> Union[List[Corpus], Corpus]:  # type: ignore
     """Reads the DaNE dataset as a spacy Corpus.
 
     Args:
@@ -110,5 +110,5 @@ def dane(  # noqa
     for split in splits:
         corpora.append(Corpus(save_path / paths[split]))  # type: ignore
     if len(corpora) == 1:
-        return corpora[0]       # type: ignore
+        return corpora[0]  # type: ignore
     return corpora

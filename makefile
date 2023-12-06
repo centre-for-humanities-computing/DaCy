@@ -9,7 +9,7 @@ static-type-check:
 lint:
 	@echo "--- 🧹 Running linters ---"
 	ruff format .  								# running ruff formatting
-	ruff . --fix  								# running ruff linting
+	ruff src/ --fix  						    # running ruff linting
 
 test:
 	@echo "--- 🧪 Running tests ---"

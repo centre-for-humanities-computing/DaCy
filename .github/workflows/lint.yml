@@ -1,6 +1,6 @@
 # GitHub action to run linting
 
-name: run-pre-commit
+name: run linting
 
 on:
   pull_request:
@@ -19,7 +19,7 @@ jobs:
           python-version: "3.9"
           cache: "pip"
 
-      - name: Install pre-commit
+      - name: Install dependencies
         run: make install
 
       - name: Lint

@@ -81,7 +81,7 @@ def muslim_names() -> Dict[str, List[str]]:  # type: ignore
     return load_names(ethnicity="muslim")
 
 
-def danish_names() -> Dict[str, List[str]]: # type: ignore
+def danish_names() -> Dict[str, List[str]]:  # type: ignore
     """Returns a dictionary of Danish names.
 
     Returns:
@@ -98,7 +98,7 @@ def danish_names() -> Dict[str, List[str]]: # type: ignore
     return load_names(ethnicity="danish")
 
 
-def female_names() -> Dict[str, List[str]]:     # type: ignore
+def female_names() -> Dict[str, List[str]]:  # type: ignore
     """Returns a dictionary of Danish female names.
 
     Returns:
@@ -114,7 +114,7 @@ def female_names() -> Dict[str, List[str]]:     # type: ignore
     return load_names(ethnicity="danish", gender="female", min_prop_gender=0.5)
 
 
-def male_names() -> Dict[str, List[str]]:   # type: ignore
+def male_names() -> Dict[str, List[str]]:  # type: ignore
     """Returns a dictionary of Danish male names.
 
     Returns:

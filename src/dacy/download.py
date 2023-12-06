@@ -112,7 +112,7 @@ def download_model(
             + " list of all models",
         )
 
-    mdl = model.split("-")[0]   # type: ignore
+    mdl = model.split("-")[0]  # type: ignore
     if mdl in get_installed_models() and not force and version(mdl) == mdl_version:
         return mdl
     install(models_url[model])

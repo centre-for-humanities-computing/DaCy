@@ -6,11 +6,12 @@ from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 import pandas as pd
 import spacy
-from evaluation.datasets import datasets
 from spacy.language import Language
 from spacy.scorer import Scorer
 from spacy.tokens import Doc
 from spacy.training import Example
+
+from evaluation.datasets import datasets
 
 
 def bootstrap(

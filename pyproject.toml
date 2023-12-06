@@ -105,11 +105,11 @@ where = ["src"]
 omit = ["**/tests/*", "**/about.py", "**/dev/*"]
 
 [tool.pyright]
-exclude = [".*venv*", ".tox"]
+exclude = [".*venv*"]
 pythonPlatform = "Darwin"
 
 [tool.ruff]
-extend-include = ["*.ipynb"]
+# extend-include = ["*.ipynb"]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = [
   "A",

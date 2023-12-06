@@ -1,4 +1,4 @@
-import dacy  # noqa
+import dacy
 import spacy
 
 
