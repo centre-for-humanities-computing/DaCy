@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from copy import copy
 from functools import partial
-from time import time
+from time import time  # type: ignore
 from typing import Callable, Iterable
 
 import pandas as pd
@@ -17,7 +17,7 @@ from spacy.training.corpus import Corpus
 from ..utils import flatten_dict
 
 
-def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
+def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:  # type: ignore
     """A utility getter for scoring entities without including MISC.
 
     Args:
@@ -27,7 +27,7 @@ def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
     Returns:
         Iterable[Span]
     """
-    spans = getattr(doc, attr)
+    spans = getattr(doc, attr)  # type: ignore
     for span in spans:
         if span.label_ == "MISC":
             continue
@@ -35,7 +35,7 @@ def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
 
 
 def dep_getter(token, attr):  # noqa
-    dep = getattr(token, attr)
+    dep = getattr(token, attr)  # type: ignore
     dep = token.vocab.strings.as_string(dep).lower()
     return dep
 
@@ -149,7 +149,7 @@ def score(  # noqa
         corpus_ = copy(corpus)
         corpus_.augmenter = augmenter
         scores_ls = []
-        for _i in range(k):
+        for _i in range(k):  # type: ignore
             s = time()
             examples = apply_fn(corpus_(nlp))  # type: ignore
             speed = time() - s

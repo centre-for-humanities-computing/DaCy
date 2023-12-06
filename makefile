@@ -4,7 +4,7 @@ install:
 
 static-type-check:
 	@echo "--- 🔍 Running static type check ---"
-	pyright .
+	pyright src/
 
 lint:
 	@echo "--- 🧹 Running linters ---"

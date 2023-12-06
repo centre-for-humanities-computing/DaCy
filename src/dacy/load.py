@@ -12,7 +12,7 @@ from .download import DEFAULT_CACHE_DIR, download_model, models_url
 def load(
     model: str,
     force: bool = False,
-    **kwargs: Any,
+    **kwargs: Any,  # type: ignore
 ) -> Language:
     """Load a DaCy model as a SpaCy text processing pipeline. If the model is
     not downloaded it will also download the model.
@@ -38,7 +38,7 @@ def load(
     return spacy.load(path, **kwargs)
 
 
-def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:
+def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:  # type: ignore
     """Returns a path to where DaCy models are located. The default the model
     location can be configured with the environmental variable
     `DACY_CACHE_DIR`.

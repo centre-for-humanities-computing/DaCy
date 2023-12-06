@@ -8,10 +8,10 @@ import pandas as pd
 
 def load_names(
     min_count: int = 0,
-    ethnicity: Optional[str] = None,
-    gender: Optional[str] = None,
+    ethnicity: Optional[str] = None,  # type: ignore
+    gender: Optional[str] = None,  # type: ignore
     min_prop_gender: float = 0,
-) -> Dict[str, List[str]]:
+) -> Dict[str, List[str]]:  # type: ignore
     """Loads the names lookup table. Danish are from Danmarks statistik (2021).
     Muslim names are from Meldgaard (2005),
     https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
@@ -64,7 +64,7 @@ def load_names(
     }
 
 
-def muslim_names() -> Dict[str, List[str]]:
+def muslim_names() -> Dict[str, List[str]]:  # type: ignore
     """Returns a dictionary of Muslim names.
 
     Returns:
@@ -81,7 +81,7 @@ def muslim_names() -> Dict[str, List[str]]:
     return load_names(ethnicity="muslim")
 
 
-def danish_names() -> Dict[str, List[str]]:
+def danish_names() -> Dict[str, List[str]]: # type: ignore
     """Returns a dictionary of Danish names.
 
     Returns:
@@ -98,7 +98,7 @@ def danish_names() -> Dict[str, List[str]]:
     return load_names(ethnicity="danish")
 
 
-def female_names() -> Dict[str, List[str]]:
+def female_names() -> Dict[str, List[str]]:     # type: ignore
     """Returns a dictionary of Danish female names.
 
     Returns:
@@ -114,7 +114,7 @@ def female_names() -> Dict[str, List[str]]:
     return load_names(ethnicity="danish", gender="female", min_prop_gender=0.5)
 
 
-def male_names() -> Dict[str, List[str]]:
+def male_names() -> Dict[str, List[str]]:   # type: ignore
     """Returns a dictionary of Danish male names.
 
     Returns:

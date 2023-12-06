@@ -18,10 +18,10 @@ import dacy
 def create_finegrained_ner_component(
     nlp: Language,
     name: str,
-    size: Literal["small", "medium", "large"],
+    size: Literal["small", "medium", "large"],  # type: ignore
     transformer_name: str,
-    version: Optional[str],
-) -> Callable[[Doc], Doc]:
+    version: Optional[str],  # type: ignore
+) -> Callable[[Doc], Doc]:  # type: ignore
     """Create a fine grained NER component using the dacy models.
 
     Args:
