@@ -4,14 +4,14 @@
 [![PyPI](https://img.shields.io/pypi/v/dacy.svg)][pypi status]
 [![pip downloads](https://img.shields.io/pypi/dm/dacy.svg)](https://pypi.org/project/dacy/)
 [![Python Version](https://img.shields.io/pypi/pyversions/dacy)][pypi status]
-[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)]([ruff])
 [![documentation](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/documentation.yml/badge.svg)][documentation]
 [![Tests](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/tests.yml/badge.svg)][tests]
 
 [pypi status]: https://pypi.org/project/dacy/
 [documentation]: https://centre-for-humanities-computing.github.io/DaCy/
 [tests]: https://github.com/centre-for-humanities-computing/dacy/actions?workflow=Tests
-[black]: https://github.com/psf/black
+[ruff]: https://github.com/astral-sh/ruff
 
 
 <!-- start short-description -->

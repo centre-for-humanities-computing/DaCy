@@ -11,7 +11,7 @@ Here is a list of important resources for contributors:
 - [Issue Tracker]
 - [Code of Conduct]
 
-[mit license]: https://opensource.org/licenses/MIT
+[Apache-2.0 license]: https://opensource.org/license/apache-2-0/
 [source code]: https://github.com/centre-for-humanities-computing/dacy
 [documentation]: https://dacy.readthedocs.io/
 [issue tracker]: https://github.com/centre-for-humanities-computing/dacy/issues
@@ -37,24 +37,22 @@ Request features on the [Issue Tracker].
 
 ## How to set up your development environment
 
-Install the package with development requirements:
+To install all the development dependencies, you can use the [make] command:
 
 ```console
-$ pip install -e ."[dev,tests]"
+$ make install
 ```
+
 
 ## How to test the project
 
 Run the full test suite:
 
 ```console
-$ pytest
+$ make test
 ```
 
-Unit tests are located in the _tests_ directory,
-and are written using the [pytest] testing framework.
-
-[pytest]: https://pytest.readthedocs.io/
+Unit tests are located in the _tests_ directory.
 
 ## How to submit changes
 
@@ -62,22 +60,23 @@ Open a [pull request] to submit changes to this project.
 
 Your pull request needs to meet the following guidelines for acceptance:
 
-- The Nox test suite must pass without errors and warnings.
-- Include unit tests. This project maintains 100% code coverage.
+- The test suite should ideally pass without errors and warnings.
+- Ideally add tests for your changes.
 - If your changes add functionality, update the documentation accordingly.
 
 Feel free to submit early, though—we can always iterate on this.
 
-To run linting and code formatting checks before committing your change, you can install pre-commit as a Git hook by running the following command:
+To run linting and code formatting checks before committing your change, you can run the following [make] command:
 
 ```console
-$ nox --session=pre-commit -- install
+$ make lint
 ```
 
-It is recommended to open an issue before starting work on anything.
+It is recommended to open an issue before starting work on any major changes.
 This will allow a chance to talk it over with the owners and validate your approach.
 
 [pull request]: https://github.com/centre-for-humanities-computing/dacy/pulls
+[make]: https://makefiletutorial.com
 
 <!-- github-only -->
 
