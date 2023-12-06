@@ -10,11 +10,11 @@ from .score import score
 
 
 def n_sents_score(
-    n_sents: Union[int, List[int]],
-    apply_fn: Callable,
+    n_sents: Union[int, List[int]],  # type: ignore
+    apply_fn: Callable,  # type: ignore
     dataset: str = "dane",
     split: str = "test",
-    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa
+    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa # type: ignore
     verbose: bool = True,
     **kwargs,  # noqa
 ) -> pd.DataFrame:

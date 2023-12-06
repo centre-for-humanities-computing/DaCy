@@ -133,11 +133,11 @@ def make_emotion_transformer(
     nlp: Language,
     name: str,
     model: Model[List[Doc], FullTransformerBatch],
-    set_extra_annotations: Callable[[List[Doc], FullTransformerBatch], None],
+    set_extra_annotations: Callable[[List[Doc], FullTransformerBatch], None],  # type: ignore
     max_batch_items: int,
     doc_extension_trf_data: str,
     doc_extension_prediction: str,
-    labels: List[str],
+    labels: List[str],  # type: ignore
 ) -> SequenceClassificationTransformer:
     if not Doc.has_extension("dacy/emotionally_laden"):
         warn(
@@ -164,11 +164,11 @@ def make_emotion_transformer(
     # an emotion
     if Doc.has_extension("dacy/emotionally_laden"):
 
-        def label_getter(doc) -> Optional[str]:  # noqa: ANN001
+        def label_getter(doc) -> Optional[str]:  # noqa: ANN001  # type: ignore
             if doc._.emotionally_laden == "emotional":
-                prob = getattr(doc._, f"{doc_extension_prediction}_prob")
+                prob = getattr(doc._, f"{doc_extension_prediction}_prob")  # type: ignore
                 if prob["prob"] is not None:
-                    return labels[int(prob["prob"].argmax())]
+                    return labels[int(prob["prob"].argmax())]  # type: ignore
             return doc._.emotionally_laden
 
         Doc.set_extension(doc_extension_prediction, getter=label_getter, force=True)
