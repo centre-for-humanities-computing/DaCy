@@ -2,6 +2,17 @@
 
 
 
+## v2.7.5 (2023-12-07)
+
+### Fix
+
+* fix: ignore static type error ([`831d281`](https://github.com/centre-for-humanities-computing/DaCy/commit/831d2810051010be4a94672377e95c453c6f3544))
+
+### Unknown
+
+* Merge branch &#39;main&#39; of https://github.com/centre-for-humanities-computing/DaCy ([`0b797c0`](https://github.com/centre-for-humanities-computing/DaCy/commit/0b797c0dbfe1ec8a7b21d5e1688aae6aa01e2e79))
+
+
 ## v2.7.4 (2023-12-06)
 
 ### Fix
