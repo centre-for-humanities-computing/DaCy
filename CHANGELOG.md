@@ -2,6 +2,13 @@
 
 
 
+## v2.7.4 (2023-12-06)
+
+### Fix
+
+* fix: ran linting ([`76abfdd`](https://github.com/centre-for-humanities-computing/DaCy/commit/76abfdd0bf418b8310835a5779bcffdee64b65ca))
+
+
 ## v2.7.3 (2023-12-06)
 
 ### Ci
