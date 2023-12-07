@@ -2,6 +2,17 @@
 
 
 
+## v2.7.6 (2023-12-07)
+
+### Fix
+
+* fix: update pypi ([`d95e1d6`](https://github.com/centre-for-humanities-computing/DaCy/commit/d95e1d6db75cc3b36adb46e4dff010e0769b6f33))
+
+### Unknown
+
+* Merge branch &#39;main&#39; of https://github.com/centre-for-humanities-computing/DaCy ([`256297a`](https://github.com/centre-for-humanities-computing/DaCy/commit/256297ae71b83b74abf24a8baa0d3020dd9611da))
+
+
 ## v2.7.5 (2023-12-07)
 
 ### Fix
