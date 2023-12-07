@@ -392,7 +392,7 @@ If you see errors or degraded performance, download a newer compatible model or 
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f089c7339d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f62e030fe20&gt;
 </pre></div>
 </div>
 </div>
@@ -411,7 +411,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
 
 <span class="c1"># extract the metrics as a dataframe</span>
@@ -419,6 +419,17 @@ If you see errors or degraded performance, download a newer compatible model or 
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (159 &gt; 128). Running this sequence through the model will result in indexing errors
+</pre></div>
+</div>
+</div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -449,6 +460,17 @@ If you see errors or degraded performance, download a newer compatible model or 
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -457,48 +479,13 @@ If you see errors or degraded performance, download a newer compatible model or 
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>288</th>
-      <td>ham</td>
-      <td>My life Means a lot to me, Not because I love ...</td>
-      <td>121.22</td>
-      <td>-3.4</td>
-      <td>NaN</td>
-      <td>0.4</td>
-      <td>-11.51</td>
-      <td>-33.64</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>2517</th>
-      <td>ham</td>
-      <td>Sorry, I'll call later</td>
+      <th>2419</th>
+      <td>spam</td>
+      <td>SMS SERVICES For your inclusive text credits p...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -520,9 +507,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2497</th>
+      <th>4531</th>
       <td>ham</td>
-      <td>Dai what this da.. Can i send my resume to thi...</td>
+      <td>Ok both our days. So what are you making for d...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -544,9 +531,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2523</th>
+      <th>722</th>
       <td>ham</td>
-      <td>Sorry, I'll call later</td>
+      <td>That is wondar full flim.</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -568,9 +555,33 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>5001</th>
+      <th>2359</th>
+      <td>spam</td>
+      <td>Spook up your mob with a Halloween collection ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3353</th>
       <td>ham</td>
-      <td>You still around? Looking to pick up later</td>
+      <td>R u sure they'll understand that! Wine * good ...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -613,7 +624,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/ce22931521a5f5683ea2fc760cfe9bbb19c16a6cd552e6396e2646584267a137.png" src="../_images/ce22931521a5f5683ea2fc760cfe9bbb19c16a6cd552e6396e2646584267a137.png" />
+<img alt="../_images/e76df1b44c12bd9e2573a38a053fa30676e5c9b30f53a6436d1192f4439c433f.png" src="../_images/e76df1b44c12bd9e2573a38a053fa30676e5c9b30f53a6436d1192f4439c433f.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -630,16 +641,16 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                    -0.361025
-n_tokens                                -0.206256
-n_unique_tokens                         -0.204698
-prop_adjacent_dependency_relation_std    0.177198
-token_length_mean                        0.171900
-sentence_length_mean                    -0.166370
-token_length_median                      0.161739
-dependency_distance_std                  0.151801
-sentence_length_std                     -0.149760
-lix                                      0.146498
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>token_length_std                          0.238188
+prop_adjacent_dependency_relation_mean   -0.218472
+n_unique_tokens                           0.217926
+dependency_distance_std                   0.214042
+sentence_length_std                       0.210502
+n_tokens                                  0.203945
+n_sentences                               0.194410
+prop_adjacent_dependency_relation_std     0.187598
+n_characters                              0.186222
+smog                                     -0.140424
 dtype: float64
 </pre></div>
 </div>
@@ -657,7 +668,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/86fe3e799e95feee8148e87121e46bc48a85b6f3c67ffeb89d8d191d6a1bc709.png" src="../_images/86fe3e799e95feee8148e87121e46bc48a85b6f3c67ffeb89d8d191d6a1bc709.png" />
+<img alt="../_images/d6a209335eb85cee843693d5f2beb53581420fcdc6a2147b8c791abc8a03cd03.png" src="../_images/d6a209335eb85cee843693d5f2beb53581420fcdc6a2147b8c791abc8a03cd03.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -671,7 +682,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/a18ba7fa2500fa5f8079b8199274a7ae2690b785d56cc9f5a5d14bb4cbb7ad75.png" src="../_images/a18ba7fa2500fa5f8079b8199274a7ae2690b785d56cc9f5a5d14bb4cbb7ad75.png" />
+<img alt="../_images/01b6dfe0f89b9078be8e59d2b4f6e98bdeee6e9c6ff1893b082d6e18114229ce.png" src="../_images/01b6dfe0f89b9078be8e59d2b4f6e98bdeee6e9c6ff1893b082d6e18114229ce.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
