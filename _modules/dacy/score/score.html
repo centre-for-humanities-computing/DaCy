@@ -403,7 +403,7 @@
             <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">score_fn</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="n">fn</span> <span class="o">=</span> <span class="n">def_scorers</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span>  <span class="c1"># noqa</span>
-                <span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">examples</span><span class="p">))</span>
+                <span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">examples</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
             <span class="n">scores</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
             <span class="n">scores_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 

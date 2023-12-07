@@ -392,7 +392,7 @@ If you see errors or degraded performance, download a newer compatible model or 
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f695404b9d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f778c323e20&gt;
 </pre></div>
 </div>
 </div>
@@ -449,21 +449,21 @@ If you see errors or degraded performance, download a newer compatible model or 
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>flesch_reading_ease</th>
-      <th>flesch_kincaid_grade</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>...</th>
       <th>smog</th>
       <th>gunning_fog</th>
       <th>automated_readability_index</th>
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
       <th>dependency_distance_mean</th>
       <th>dependency_distance_std</th>
       <th>prop_adjacent_dependency_relation_mean</th>
@@ -472,9 +472,9 @@ If you see errors or degraded performance, download a newer compatible model or 
   </thead>
   <tbody>
     <tr>
-      <th>5118</th>
+      <th>2987</th>
       <td>ham</td>
-      <td>Are you driving or training?</td>
+      <td>Do you still have the grinder?</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -496,9 +496,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2375</th>
+      <th>3274</th>
       <td>ham</td>
-      <td>Thanx 4 2day! U r a goodmate I THINK UR RITE S...</td>
+      <td>Hurry home u big butt. Hang up on your last ca...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -520,9 +520,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3688</th>
+      <th>5158</th>
       <td>ham</td>
-      <td>You still coming tonight?</td>
+      <td>I will come with karnan car. Please wait till ...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -544,9 +544,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2349</th>
+      <th>5477</th>
       <td>ham</td>
-      <td>Yar else i'll thk of all sorts of funny things.</td>
+      <td>What Today-sunday..sunday is holiday..so no wo...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -568,9 +568,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4988</th>
-      <td>ham</td>
-      <td>So your telling me I coulda been your real Val...</td>
+      <th>2729</th>
+      <td>spam</td>
+      <td>Urgent! Please call 09066612661 from your land...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -613,7 +613,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/38d1469220ed84d85d484b6f8f1a356337fa74308cc504285292a59f305b2db8.png" src="../_images/38d1469220ed84d85d484b6f8f1a356337fa74308cc504285292a59f305b2db8.png" />
+<img alt="../_images/102e78040ff456694f0069c23d106300b6047f1c7b9b0a212eb5aecf969dd07b.png" src="../_images/102e78040ff456694f0069c23d106300b6047f1c7b9b0a212eb5aecf969dd07b.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -630,16 +630,22 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>flesch_reading_ease                       0.186524
-flesch_kincaid_grade                     -0.183163
-syllables_per_token_mean                 -0.178149
-gunning_fog                              -0.169049
-syllables_per_token_std                  -0.166020
-smog                                     -0.156076
-prop_adjacent_dependency_relation_mean    0.134804
-proportion_unique_tokens                 -0.091524
-token_length_median                      -0.075341
-prop_adjacent_dependency_relation_std    -0.074477
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2898: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n_unique_tokens                          0.226968
+n_tokens                                 0.214254
+dependency_distance_std                  0.213008
+sentence_length_std                      0.211721
+prop_adjacent_dependency_relation_std    0.194998
+n_characters                             0.185756
+n_sentences                              0.182463
+syllables_per_token_median              -0.167621
+token_length_std                         0.153314
+token_length_median                     -0.133126
 dtype: float64
 </pre></div>
 </div>
@@ -657,7 +663,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/0f9be4bc798826a7715b548421e591c4a6528547a97c8350c9f8113676b8cd59.png" src="../_images/0f9be4bc798826a7715b548421e591c4a6528547a97c8350c9f8113676b8cd59.png" />
+<img alt="../_images/4998ba1fe3108b7cbf7f1a637ed0a893985c53b5fe12dbc7b65acdfb567f9b80.png" src="../_images/4998ba1fe3108b7cbf7f1a637ed0a893985c53b5fe12dbc7b65acdfb567f9b80.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -671,7 +677,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/80d8f5ea4364e618ca9620a3b1cbb525c23ad4a3bd80652d02453eca44b61fe3.png" src="../_images/80d8f5ea4364e618ca9620a3b1cbb525c23ad4a3bd80652d02453eca44b61fe3.png" />
+<img alt="../_images/43c8357fc985747deaaaa078aee54fc4146152e054fbd8b7265f9fed7be2a9da.png" src="../_images/43c8357fc985747deaaaa078aee54fc4146152e054fbd8b7265f9fed7be2a9da.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
