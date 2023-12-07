@@ -157,7 +157,7 @@ def score(  # noqa
             for fn in score_fn:
                 if isinstance(fn, str):
                     fn = def_scorers[fn]  # noqa
-                scores.update(fn(examples))
+                scores.update(fn(examples))  # type: ignore
             scores = flatten_dict(scores)
             scores_ls.append(scores)
 
