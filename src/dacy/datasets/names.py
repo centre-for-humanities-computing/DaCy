@@ -30,7 +30,7 @@ def load_names(
             gender is set. Defaults to 0.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of Muslim names containing the keys
+        Dict[str, List[str]]: A dictionary of names containing the keys
             "first_name" and "last_name".
     """
     path = os.path.join(  # noqa
