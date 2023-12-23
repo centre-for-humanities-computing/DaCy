@@ -36,5 +36,5 @@ view-docs:
 update-from-template:
 	@echo "--- 🔄 Updating from template ---"
 	@echo "This will update the project from the template, make sure to resolve any .rej files"
-	cruft update
+	cruft update --skip-apply-ask
 	
