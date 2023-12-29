@@ -10,6 +10,8 @@ lint:
 	@echo "--- 🧹 Running linters ---"
 	ruff format .  								# running ruff formatting
 	ruff src/ --fix  						    # running ruff linting
+	ruff tests/ --fix
+	ruff docs/conf.py --fix
 
 test:
 	@echo "--- 🧪 Running tests ---"
@@ -34,5 +36,5 @@ view-docs:
 update-from-template:
 	@echo "--- 🔄 Updating from template ---"
 	@echo "This will update the project from the template, make sure to resolve any .rej files"
-	cruft update
+	cruft update --skip-apply-ask
 	

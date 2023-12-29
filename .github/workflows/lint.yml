@@ -1,6 +1,6 @@
 # GitHub action to run linting
 
-name: run linting
+name: run-linting
 
 on:
   pull_request:

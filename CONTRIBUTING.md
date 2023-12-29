@@ -13,7 +13,7 @@ Here is a list of important resources for contributors:
 
 [Apache-2.0 license]: https://opensource.org/license/apache-2-0/
 [source code]: https://github.com/centre-for-humanities-computing/dacy
-[documentation]: https://dacy.readthedocs.io/
+[documentation]: https://centre-for-humanities-computing.github.io/dacy/index.html
 [issue tracker]: https://github.com/centre-for-humanities-computing/dacy/issues
 
 ## How to report a bug
