@@ -139,7 +139,7 @@ def make_emotion_transformer(
     doc_extension_prediction: str,
     labels: List[str],  # type: ignore
 ) -> SequenceClassificationTransformer:
-    if not Doc.has_extension("dacy/emotionally_laden"):
+    if not Doc.has_extension("emotionally_laden"):
         warn(
             "The 'emotion' component assumes the 'emotionally_laden' extension is set."
             + " To set it you can run  nlp.add_pipe('dacy/emotionally_laden')",
@@ -162,7 +162,7 @@ def make_emotion_transformer(
 
     # overwrite extension such that it return no emotion if the document does not have
     # an emotion
-    if Doc.has_extension("dacy/emotionally_laden"):
+    if Doc.has_extension("emotionally_laden"):
 
         def label_getter(doc) -> Optional[str]:  # noqa: ANN001  # type: ignore
             if doc._.emotionally_laden == "emotional":

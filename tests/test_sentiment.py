@@ -36,8 +36,10 @@ def test_add_berttone_polarity():
 def test_add_bertemotion_laden():
     nlp = spacy.blank("da")
     nlp.add_pipe("dacy/emotionally_laden")
+    nlp.add_pipe("dacy/emotion")
     doc = nlp("Der er et træ i haven")
     assert doc._.emotionally_laden == "no emotion"
+    assert doc._.emotion == "no emotion"
 
 
 def test_add_bertemotion_emo():
