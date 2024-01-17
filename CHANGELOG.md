@@ -2,6 +2,33 @@
 
 
 
+## v2.7.7 (2024-01-17)
+
+### Ci
+
+* ci: Updated makefile ([`f6dd006`](https://github.com/centre-for-humanities-computing/DaCy/commit/f6dd0068dfafb871e93fa956e1a6a686795fd3e8))
+
+### Fix
+
+* fix: check for correct &#39;emotionally_laden&#39; doc extension when creating emotion classifier ([`c2b6c93`](https://github.com/centre-for-humanities-computing/DaCy/commit/c2b6c930a3ef98893c73916dab2daaa9e095731e))
+
+### Unknown
+
+* Merge pull request #286 from centre-for-humanities-computing/fix-emotionally-laden-extension-bug
+
+fix: check for correct &#39;emotionally_laden&#39; doc extension when creating emotion classifier ([`7fe60a4`](https://github.com/centre-for-humanities-computing/DaCy/commit/7fe60a4a3612de61a5ee2c155d7678b241dfbd8b))
+
+* Merge pull request #280 from centre-for-humanities-computing/cruft-update
+
+Update based on cruft template ([`017e13d`](https://github.com/centre-for-humanities-computing/DaCy/commit/017e13d3d50d02d8f7ce36d1cc1d1289b1501c78))
+
+* Updated based on cruft template ([`24feedd`](https://github.com/centre-for-humanities-computing/DaCy/commit/24feedd247271ae0ad8e02d5760fedcc19cede32))
+
+* Merge pull request #279 from centre-for-humanities-computing/sarakolding-patch-1 ([`af7d33b`](https://github.com/centre-for-humanities-computing/DaCy/commit/af7d33b986834dd71458de9fa7adf2261ab9079f))
+
+* Update names.py ([`c74e75a`](https://github.com/centre-for-humanities-computing/DaCy/commit/c74e75ab223d4bf6dcbe398dd7f443ab62b5cbef))
+
+
 ## v2.7.6 (2023-12-07)
 
 ### Fix
