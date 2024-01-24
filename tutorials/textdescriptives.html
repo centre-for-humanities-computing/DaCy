@@ -392,7 +392,7 @@ If you see errors or degraded performance, download a newer compatible model or 
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f21cae3fa60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fe24d56cbe0&gt;
 </pre></div>
 </div>
 </div>
@@ -425,7 +425,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (156 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (159 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
 </div>
@@ -483,9 +483,9 @@ If you see errors or degraded performance, download a newer compatible model or 
   </thead>
   <tbody>
     <tr>
-      <th>1463</th>
+      <th>936</th>
       <td>ham</td>
-      <td>Ok good then i later come find Ì_... C lucky i...</td>
+      <td>Since when, which side, any fever, any vomitin.</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -507,9 +507,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1682</th>
+      <th>2598</th>
       <td>ham</td>
-      <td>HI BABE U R MOST LIKELY TO BE IN BED BUT IM SO...</td>
+      <td>Okie... Thanx...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -531,9 +531,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>5073</th>
+      <th>3635</th>
       <td>ham</td>
-      <td>I want to sent  &amp;lt;#&amp;gt; mesages today. Thats...</td>
+      <td>\ME 2 BABE I FEEL THE SAME LETS JUST 4GET ABOU...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -555,9 +555,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1801</th>
+      <th>4345</th>
       <td>ham</td>
-      <td>I wanna watch that movie</td>
+      <td>You still around? I could use a half-8th</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -579,9 +579,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3042</th>
-      <td>ham</td>
-      <td>Your bill at 3 is å£33.65 so thats not bad!</td>
+      <th>592</th>
+      <td>spam</td>
+      <td>PRIVATE! Your 2003 Account Statement for 07753...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -621,10 +621,14 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/seaborn/categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.
+  positions = grouped.grouper.result_index.to_numpy(dtype=float)
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/edc241710a20b105717d88ec0583f4f7a71a04b690118971dcb3b32660ef56fb.png" src="../_images/edc241710a20b105717d88ec0583f4f7a71a04b690118971dcb3b32660ef56fb.png" />
+<img alt="../_images/dbd6eff77ac28793a8cbadbf078e0bbad2aca7dc8864ed3912b87cef0e8fea12.png" src="../_images/dbd6eff77ac28793a8cbadbf078e0bbad2aca7dc8864ed3912b87cef0e8fea12.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -641,22 +645,16 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
-  c /= stddev[:, None]
-/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2898: RuntimeWarning: invalid value encountered in divide
-  c /= stddev[None, :]
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sentence_length_median                  -0.262901
-sentence_length_mean                    -0.255403
-gunning_fog                             -0.191620
-n_sentences                              0.172291
-syllables_per_token_median              -0.168783
-token_length_median                     -0.167896
-dependency_distance_mean                -0.156164
-flesch_kincaid_grade                    -0.155040
-automated_readability_index             -0.154673
-prop_adjacent_dependency_relation_std    0.143054
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sentence_length_std           -0.303042
+coleman_liau_index             0.212275
+n_unique_tokens               -0.174772
+token_length_mean              0.172780
+syllables_per_token_median     0.169951
+flesch_reading_ease           -0.166157
+syllables_per_token_mean       0.165625
+n_tokens                      -0.163977
+dependency_distance_std       -0.163154
+automated_readability_index    0.153635
 dtype: float64
 </pre></div>
 </div>
@@ -671,10 +669,18 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/seaborn/_base.py:949: FutureWarning: When grouping with a length-1 list-like, you will need to pass a length-1 tuple to get_group in a future version of pandas. Pass `(name,)` instead of `name` to silence this warning.
+  data_subset = grouped_data.get_group(pd_key)
+/home/runner/.local/lib/python3.10/site-packages/seaborn/_base.py:949: FutureWarning: When grouping with a length-1 list-like, you will need to pass a length-1 tuple to get_group in a future version of pandas. Pass `(name,)` instead of `name` to silence this warning.
+  data_subset = grouped_data.get_group(pd_key)
+/home/runner/.local/lib/python3.10/site-packages/seaborn/_base.py:949: FutureWarning: When grouping with a length-1 list-like, you will need to pass a length-1 tuple to get_group in a future version of pandas. Pass `(name,)` instead of `name` to silence this warning.
+  data_subset = grouped_data.get_group(pd_key)
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/3bdc10ef6c908d70adc31a0a18cc7aea00611a88753432f39bccf8abf478ac2e.png" src="../_images/3bdc10ef6c908d70adc31a0a18cc7aea00611a88753432f39bccf8abf478ac2e.png" />
+<img alt="../_images/51f23a1f5014ae0972b7430a4c140f161eecc64cd828c6e6257d148e8e8f4c8c.png" src="../_images/51f23a1f5014ae0972b7430a4c140f161eecc64cd828c6e6257d148e8e8f4c8c.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -685,10 +691,18 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/seaborn/_base.py:949: FutureWarning: When grouping with a length-1 list-like, you will need to pass a length-1 tuple to get_group in a future version of pandas. Pass `(name,)` instead of `name` to silence this warning.
+  data_subset = grouped_data.get_group(pd_key)
+/home/runner/.local/lib/python3.10/site-packages/seaborn/_base.py:949: FutureWarning: When grouping with a length-1 list-like, you will need to pass a length-1 tuple to get_group in a future version of pandas. Pass `(name,)` instead of `name` to silence this warning.
+  data_subset = grouped_data.get_group(pd_key)
+/home/runner/.local/lib/python3.10/site-packages/seaborn/_base.py:949: FutureWarning: When grouping with a length-1 list-like, you will need to pass a length-1 tuple to get_group in a future version of pandas. Pass `(name,)` instead of `name` to silence this warning.
+  data_subset = grouped_data.get_group(pd_key)
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/4a4157a71d19a0767e8878834030a19390a621936d87257fced0815d2dbcbd2e.png" src="../_images/4a4157a71d19a0767e8878834030a19390a621936d87257fced0815d2dbcbd2e.png" />
+<img alt="../_images/78de1a22bf6c37db0d61a35ba47d7006a8d19d8339156c272349623866088bc7.png" src="../_images/78de1a22bf6c37db0d61a35ba47d7006a8d19d8339156c272349623866088bc7.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
