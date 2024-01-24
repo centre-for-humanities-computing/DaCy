@@ -171,3 +171,6 @@ tutorials/*.py
 
 temp_files/*
 training/dane_plus/*
+projects/pos-tagging/corpus/*
+projects/pos-tagging/training/*
+projects/pos-tagging/wandb/*

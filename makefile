@@ -27,11 +27,12 @@ pr:
 build-docs:
 	@echo "--- 📚 Building docs ---"
 	@echo "Builds the docs and puts them in the 'site' folder"
-	mkdocs build
+	sphinx-build -M html docs/ docs/_build
 
 view-docs:
 	@echo "--- 👀 Viewing docs ---"
-	mkdocs serve
+	@echo You might need to rebuild the docs first"
+	open docs/_build/html/index.html
 	
 update-from-template:
 	@echo "--- 🔄 Updating from template ---"
