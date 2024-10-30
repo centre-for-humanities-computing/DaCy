@@ -2,6 +2,27 @@
 
 
 
+## v2.7.8 (2024-10-30)
+
+### Documentation
+
+* docs: hide code block in ner benchmark ([`d07547c`](https://github.com/centre-for-humanities-computing/DaCy/commit/d07547c2fa3e7a699365533b579274630d80660b))
+
+### Fix
+
+* fix: Allow for newest version of pip
+
+fixes #288 ([`0d088b6`](https://github.com/centre-for-humanities-computing/DaCy/commit/0d088b6e96f3699e34f186153172db335a652133))
+
+### Unknown
+
+* Merge pull request #290 from centre-for-humanities-computing/fix--Allow-for-newest-version-of-pip
+
+fix: Allow for newest version of pip ([`ea0a07d`](https://github.com/centre-for-humanities-computing/DaCy/commit/ea0a07d155ee3beb63905d460d26063a58cd534c))
+
+* Merge branch &#39;main&#39; of https://github.com/centre-for-humanities-computing/DaCy ([`d990deb`](https://github.com/centre-for-humanities-computing/DaCy/commit/d990deb52cb56510d299aaf5e31c79e964e3aaae))
+
+
 ## v2.7.7 (2024-01-17)
 
 ### Ci
