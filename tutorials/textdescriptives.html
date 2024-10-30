@@ -408,7 +408,7 @@ If you see errors or degraded performance, download a newer compatible model or 
   model.load_state_dict(torch.load(filelike, map_location=device))
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f72b1d41cc0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f192ccb5ed0&gt;
 </pre></div>
 </div>
 </div>
@@ -441,6 +441,9 @@ If you see errors or degraded performance, download a newer compatible model or 
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (200 &gt; 128). Running this sequence through the model will result in indexing errors
+</pre></div>
+</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/thinc/shims/pytorch.py:114: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast(&#39;cuda&#39;, args...)` instead.
   with torch.cuda.amp.autocast(self._mixed_precision):
 </pre></div>
@@ -485,28 +488,28 @@ If you see errors or degraded performance, download a newer compatible model or 
       <th>dependency_distance_std</th>
       <th>prop_adjacent_dependency_relation_mean</th>
       <th>prop_adjacent_dependency_relation_std</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
       <th>gunning_fog</th>
-      <th>...</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
+      <th>automated_readability_index</th>
+      <th>coleman_liau_index</th>
+      <th>lix</th>
+      <th>rix</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>3801</th>
+      <th>5417</th>
       <td>ham</td>
-      <td>No da. I am happy that we sit together na</td>
+      <td>Nope. I just forgot. Will show next week</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -528,9 +531,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1132</th>
+      <th>1585</th>
       <td>ham</td>
-      <td>Good morning princess! How are you?</td>
+      <td>I was wondering if it would be okay for you to...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -552,9 +555,33 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>819</th>
+      <th>372</th>
       <td>ham</td>
-      <td>\BOO BABE! U ENJOYIN YOURJOB? U SEEMED 2 B GET...</td>
+      <td>I'm going for bath will msg you next  &amp;lt;#&amp;gt...</td>
+      <td>0.833333</td>
+      <td>0.849837</td>
+      <td>0.277778</td>
+      <td>0.20787</td>
+      <td>3.666667</td>
+      <td>3.0</td>
+      <td>1.374369</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>28.0</td>
+      <td>3.0</td>
+      <td>106.105</td>
+      <td>-1.043333</td>
+      <td>3.1291</td>
+      <td>0.8</td>
+      <td>-3.16</td>
+      <td>-9.04</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5284</th>
+      <td>ham</td>
+      <td>Sent me ur email id soon</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -576,33 +603,9 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4457</th>
+      <th>5480</th>
       <td>ham</td>
-      <td>Die... I accidentally deleted e msg i suppose ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>908</th>
-      <td>ham</td>
-      <td>WHITE FUDGE OREOS ARE IN STORES</td>
+      <td>Have you seen who's back at Holby?!</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -645,7 +648,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/ed35a0c8e64b72dc7f15fa37691df6d98f9267d745465daf5d08657cef6beae5.png" src="../_images/ed35a0c8e64b72dc7f15fa37691df6d98f9267d745465daf5d08657cef6beae5.png" />
+<img alt="../_images/ed3b67d4e489506eb41193bb5d38261dfe967a1f9659d53742070a1e1c926d35.png" src="../_images/ed3b67d4e489506eb41193bb5d38261dfe967a1f9659d53742070a1e1c926d35.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -662,22 +665,16 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
-  c /= stddev[:, None]
-/home/runner/.local/lib/python3.10/site-packages/numpy/lib/function_base.py:2898: RuntimeWarning: invalid value encountered in divide
-  c /= stddev[None, :]
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>coleman_liau_index                        0.431110
-flesch_reading_ease                      -0.430877
-flesch_kincaid_grade                      0.426553
-syllables_per_token_std                   0.422885
-syllables_per_token_mean                  0.391701
-lix                                       0.283081
-dependency_distance_mean                  0.282075
-automated_readability_index               0.279452
-prop_adjacent_dependency_relation_mean   -0.268088
-gunning_fog                               0.232528
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                          -0.303062
+gunning_fog                   -0.190270
+syllables_per_token_std        0.187259
+token_length_median           -0.181500
+syllables_per_token_median    -0.180081
+proportion_unique_tokens      -0.177067
+automated_readability_index   -0.175048
+sentence_length_mean          -0.173964
+rix                            0.153082
+dependency_distance_std        0.141533
 dtype: float64
 </pre></div>
 </div>
@@ -692,14 +689,10 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2013/158303313.py:1: UserWarning: Dataset has 0 variance; skipping density estimate. Pass `warn_singular=False` to disable this warning.
-  sns.kdeplot(df, x=&quot;dependency_distance_mean&quot;, hue=&quot;label&quot;, fill=True)
-</pre></div>
-</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/aab1b47aec9c044b8bf7fa3a47b08a09637b72f499015e2b1265d48ddfa94076.png" src="../_images/aab1b47aec9c044b8bf7fa3a47b08a09637b72f499015e2b1265d48ddfa94076.png" />
+<img alt="../_images/86b7cde4044140740d4db7f90dcadb96832794d4c1f8fcd9a834222b86a59db4.png" src="../_images/86b7cde4044140740d4db7f90dcadb96832794d4c1f8fcd9a834222b86a59db4.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -710,14 +703,10 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2013/2071789216.py:1: UserWarning: Dataset has 0 variance; skipping density estimate. Pass `warn_singular=False` to disable this warning.
-  sns.kdeplot(df, x=&quot;lix&quot;, hue=&quot;label&quot;, fill=True)
-</pre></div>
-</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/2df960dfcab738fccf8ed3ccfc7eccc5c2577cde639848e57a423c763749348a.png" src="../_images/2df960dfcab738fccf8ed3ccfc7eccc5c2577cde639848e57a423c763749348a.png" />
+<img alt="../_images/41786d1bab11ad46f0b70eaf13b0b376d7293934a5a3e7d2e83a716fd3a5fce2.png" src="../_images/41786d1bab11ad46f0b70eaf13b0b376d7293934a5a3e7d2e83a716fd3a5fce2.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
