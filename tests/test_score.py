@@ -1,8 +1,9 @@
 import pandas as pd
-from dacy.datasets import dane
-from dacy.score import n_sents_score, score
 from spacy.lang.da import Danish
 from spacy.training.augment import create_lower_casing_augmenter
+
+from dacy.datasets import dane
+from dacy.score import n_sents_score, score
 
 
 def test_score():

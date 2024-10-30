@@ -1,8 +1,9 @@
-import dacy
-from dacy.datasets import dane, female_names, male_names, muslim_names
 from spacy.lang.da import Danish
 from spacy.training import Example
 from spacy.training.corpus import Corpus
+
+import dacy
+from dacy.datasets import dane, female_names, male_names, muslim_names
 
 
 def test_dane():

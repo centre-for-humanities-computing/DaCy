@@ -1,9 +1,11 @@
-# This workflow will:
-# 1) install Python dependencies
-# 2) run make test
+# THIS ACTION WILL:
+  # 1) install Python dependencies
+  # 2) run make test
 
+# SETUP:
+  # None required except for the Makefile
 
-name: Tests
+name: test
 on:
   push:
     branches: [main]
@@ -11,7 +13,7 @@ on:
     branches: [main]
 
 jobs:
-  pytest:
+  test:
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read

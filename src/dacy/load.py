@@ -1,4 +1,5 @@
 """Functionality for loading and locating DaCy models."""
+
 import warnings
 from pathlib import Path
 from typing import Any, Union

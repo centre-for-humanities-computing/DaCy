@@ -1,5 +1,6 @@
-import dacy
 import spacy
+
+import dacy
 
 
 def test_add_hate_speech_detection():

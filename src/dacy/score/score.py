@@ -1,4 +1,5 @@
 """This includes function for scoring models applied to a SpaCy corpus."""
+
 from __future__ import annotations
 
 from copy import copy
@@ -163,7 +164,7 @@ def score(  # noqa
 
         # and collapse list to dict
         for key in scores:  # type: ignore
-            scores[key] = [s[key] if key in s else None for s in scores_ls]  # type: ignore
+            scores[key] = [s.get([key], None) for s in scores_ls]  # type: ignore
 
         scores["k"] = list(range(k))  # type: ignore
 

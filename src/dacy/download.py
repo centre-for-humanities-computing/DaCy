@@ -1,4 +1,5 @@
 """Functions for downloading DaCy models."""
+
 import os
 from importlib.metadata import version
 from pathlib import Path
