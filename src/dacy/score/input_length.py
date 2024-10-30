@@ -1,5 +1,6 @@
 """Contains functions for testing the performance of models on varying input
 length."""
+
 from typing import Callable, List, Union
 
 import pandas as pd

@@ -11,7 +11,7 @@ lint:
 	ruff format .  								# running ruff formatting
 	ruff check src/ --fix  						    # running ruff linting
 	ruff check tests/ --fix
-	ruff docs/conf.py --fix
+	ruff check docs/conf.py --fix
 
 test:
 	@echo "--- 🧪 Running tests ---"
