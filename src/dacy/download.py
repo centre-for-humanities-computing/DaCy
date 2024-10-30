@@ -74,12 +74,12 @@ def download_url(url: str, output_path: str) -> None:
         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
 
-def install(package):  # noqa
+def install(package: str, url: str) -> None:
     import subprocess
     import sys
 
     subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", package, "--no-deps"],
+        [sys.executable, "-m", "pip", "install", f"{package} @ {url}", "--no-deps"],
     )
 
 
@@ -115,5 +115,7 @@ def download_model(
     mdl = model.split("-")[0]  # type: ignore
     if mdl in get_installed_models() and not force and version(mdl) == mdl_version:
         return mdl
-    install(models_url[model])
+
+    package = model.split("-")[0]
+    install(package, models_url[model])
     return mdl
