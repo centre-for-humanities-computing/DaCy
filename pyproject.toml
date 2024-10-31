@@ -139,7 +139,7 @@ exclude = [
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
   "docs/performance_testing_utils/**",
 ]
-target-version = "py38"
+target-version = "py39"
 
 [tool.ruff.lint]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.

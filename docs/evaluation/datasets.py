@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import random
-from typing import Any, Dict, List
+from typing import Any
 
 import augmenty
 import catalogue
@@ -15,7 +17,7 @@ datasets = catalogue.create("dacy", "datasets")
 
 
 @datasets.register("dane")
-def dane() -> Dict[str, List[Example]]:
+def dane() -> dict[str, list[Example]]:
     from dacy.datasets import dane as _dane
 
     train, dev, test = _dane(splits=["train", "dev", "test"])  # type: ignore
@@ -34,7 +36,7 @@ def augment_dataset(
     augmenters: dict,
     n_rep: int = 20,
     split: str = "test",
-) -> List[Example]:
+) -> list[Example]:
     # ensure seed
     random.seed(42)
     np.random.seed(42)
@@ -63,17 +65,17 @@ def augment_dataset(
 
 
 @datasets.register("gender_bias_dane")
-def dane_gender_bias() -> Dict[str, List[Example]]:
+def dane_gender_bias() -> dict[str, list[Example]]:
     return {"test": augment_dataset("dane", augmenters=get_gender_bias_augmenters())}
 
 
 @datasets.register("robustness_dane")
-def dane_robustness() -> Dict[str, List[Example]]:
+def dane_robustness() -> dict[str, list[Example]]:
     return {"test": augment_dataset("dane", augmenters=get_robustness_augmenters())}
 
 
 @datasets.register("dansk")
-def dansk(**kwargs: Any) -> Dict[str, List[Example]]:
+def dansk(**kwargs: Any) -> dict[str, list[Example]]:
     splits = ["train", "dev", "test"]
 
     if not Doc.has_extension("meta"):
@@ -81,7 +83,7 @@ def dansk(**kwargs: Any) -> Dict[str, List[Example]]:
 
     nlp = spacy.blank("da")
 
-    def convert_to_doc(example: Dict) -> Doc:
+    def convert_to_doc(example: dict) -> Doc:
         doc = Doc(nlp.vocab).from_json(example)
         # set metadata
         for k in ["dagw_source", "dagw_domain", "dagw_source_full"]:

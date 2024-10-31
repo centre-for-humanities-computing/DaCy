@@ -1,7 +1,7 @@
 import json
 import random
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Optional
 
 import numpy as np
 import pandas as pd
@@ -15,11 +15,11 @@ from evaluation.datasets import datasets
 
 
 def bootstrap(
-    examples: List[Example],
+    examples: list[Example],
     n_rep: int = 100,
     n_samples: Optional[int] = None,
     getter: Optional[Callable] = None,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     random.seed(42)
     scorer = Scorer()
     scores = []
@@ -35,7 +35,7 @@ def bootstrap(
     return scores
 
 
-def compute_mean_and_ci(scores: List[Dict[str, Any]]) -> Dict[str, Any]:
+def compute_mean_and_ci(scores: list[dict[str, Any]]) -> dict[str, Any]:
     ent_f = [score["ents_f"] for score in scores]
     # filter out None
     ent_f = [x for x in ent_f if x is not None]
@@ -116,7 +116,7 @@ def doc_from_json(json_obj: dict, nlp: Language) -> Doc:
 
 def predictions_to_disk(
     save_path: Path,
-    examples: List[Example],
+    examples: list[Example],
     mdl_name: str,
     time_in_seconds: float,
 ) -> dict:
@@ -199,7 +199,7 @@ def apply_models(
 
 
 def create_dataframe(
-    examples: List[Example],
+    examples: list[Example],
     mdl_name: str,
     decimals: int = 1,
     n_rep: int = 100,
@@ -212,7 +212,7 @@ def create_dataframe(
         "Models": mdl_name,
     }
 
-    def score_to_string(score: Dict[str, Any], decimals: int = 1) -> str:
+    def score_to_string(score: dict[str, Any], decimals: int = 1) -> str:
         if score["mean"] == 0:
             return " "
         return f"{100*score['mean']:.{decimals}f} ({100*score['ci'][0]:.{decimals}f}, {100*score['ci'][1]:.{decimals}f})"

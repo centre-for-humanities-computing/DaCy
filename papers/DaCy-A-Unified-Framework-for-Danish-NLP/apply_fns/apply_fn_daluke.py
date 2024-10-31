@@ -1,5 +1,5 @@
 ### pip install daluke==0.0.5
-from typing import Iterable, List
+from typing import Iterable
 
 from daluke import AutoNERDaLUKE, predict_ner
 from spacy.lang.da import Danish
@@ -18,7 +18,7 @@ def apply_daluke(
     examples: Iterable[Example],
     use_spacy: bool = True,
     batch_size: int = 16,
-) -> List[Example]:
+) -> list[Example]:
     docs_y, sentences = list(), list()
     for example in examples:
         # Tokenization using spacy or nltk

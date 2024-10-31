@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional
+from typing import Callable, Optional
 from warnings import warn
 
 from spacy.lang.da import Danish
@@ -132,12 +132,12 @@ Danish.factory(
 def make_emotion_transformer(
     nlp: Language,
     name: str,
-    model: Model[List[Doc], FullTransformerBatch],
-    set_extra_annotations: Callable[[List[Doc], FullTransformerBatch], None],  # type: ignore
+    model: Model[list[Doc], FullTransformerBatch],
+    set_extra_annotations: Callable[[list[Doc], FullTransformerBatch], None],  # type: ignore
     max_batch_items: int,
     doc_extension_trf_data: str,
     doc_extension_prediction: str,
-    labels: List[str],  # type: ignore
+    labels: list[str],  # type: ignore
 ) -> SequenceClassificationTransformer:
     if not Doc.has_extension("emotionally_laden"):
         warn(

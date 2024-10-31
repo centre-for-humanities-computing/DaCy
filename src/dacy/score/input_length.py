@@ -1,7 +1,7 @@
 """Contains functions for testing the performance of models on varying input
 length."""
 
-from typing import Callable, List, Union
+from typing import Callable, Union
 
 import pandas as pd
 from wasabi import msg
@@ -11,11 +11,11 @@ from .score import score
 
 
 def n_sents_score(
-    n_sents: Union[int, List[int]],  # type: ignore
+    n_sents: Union[int, list[int]],  # type: ignore
     apply_fn: Callable,  # type: ignore
     dataset: str = "dane",
     split: str = "test",
-    score_fn: List[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa # type: ignore
+    score_fn: list[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa # type: ignore
     verbose: bool = True,
     **kwargs,  # noqa
 ) -> pd.DataFrame:
@@ -23,7 +23,7 @@ def n_sents_score(
     sentences.
 
     Args:
-        n_sents (Union[int, List[int]]): Number of sentences which the performance
+        n_sents (Union[int, list[int]]): Number of sentences which the performance
             should be applied to.
         apply_fn (Callable):  A wrapper function for the model you wish to score. The
             model should take in a spacy Example and output a tagged version of it.
@@ -31,7 +31,7 @@ def n_sents_score(
             options include "dane". Defaults to "dane".
         split (str, optional): Which splits of the dataset should be used. Possible
             options include "train", "dev", "test", "all". Defaults to "test".
-        score_fn (List[Union[str, Callable]], optional): A scoring function which takes
+        score_fn (list[Union[str, Callable]], optional): A scoring function which takes
             in a list of examples and return a dictionary of the form {"score_name":
             score}. Four potiential strings are valid. "ents" for measuring the
             performance of entity spans. "pos" for measuring the performance of

@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from copy import copy
 from functools import partial
 from time import time  # type: ignore
-from typing import Callable, Iterable
+from typing import Callable
 
 import pandas as pd
 from spacy.language import Language
@@ -64,7 +65,7 @@ def score(  # noqa
             to score. The model should take in a list of spacy Examples
             (Iterable[Example]) and output a tagged version of it (Iterable[Example]). A
             SpaCy pipeline (Language) can be provided as is.
-        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A
+        score_fn (list[Union[Callable[[Iterable[Example]], dict], str]], optional): A
             scoring function which takes in a list of examples (Iterable[Example]) and
             return a dictionary of performance scores. Four potiential strings are
             valid. "ents" for measuring the performance of entity spans. "pos" for
@@ -73,7 +74,7 @@ def score(  # noqa
             "dep" for measuring the performance of dependency parsing. "nlp" for
             measuring the performance of all components in the specified nlp pipeline.
             Defaults to ["token", "pos", "ents", "dep"].
-        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A
+        augmenters (list[Callable[[Language, Example], Iterable[Example]]], optional): A
             spaCy style augmenters which should be applied to the corpus or a list
             thereof. defaults to [], indicating no augmenters.
         k (int, optional): Number of times it should run the augmentation and test the
