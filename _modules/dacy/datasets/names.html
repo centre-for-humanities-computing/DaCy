@@ -247,7 +247,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;Helper functions for loading name dictionaries for person augmentation.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -257,7 +257,7 @@
     <span class="n">ethnicity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
     <span class="n">gender</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
     <span class="n">min_prop_gender</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads the names lookup table. Danish are from Danmarks statistik (2021).</span>
 <span class="sd">    Muslim names are from Meldgaard (2005),</span>
 <span class="sd">    https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.</span>
@@ -276,7 +276,7 @@
 <span class="sd">            gender is set. Defaults to 0.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str, List[str]]: A dictionary of names containing the keys</span>
+<span class="sd">        dict[str, list[str]]: A dictionary of names containing the keys</span>
 <span class="sd">            &quot;first_name&quot; and &quot;last_name&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>  <span class="c1"># noqa</span>
@@ -310,11 +310,11 @@
     <span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="muslim_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.muslim_names">[docs]</a><span class="k">def</span> <span class="nf">muslim_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="muslim_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.muslim_names">[docs]</a><span class="k">def</span> <span class="nf">muslim_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Muslim names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str, List[str]]: A dictionary of Muslim names containing the keys</span>
+<span class="sd">        dict[str, list[str]]: A dictionary of Muslim names containing the keys</span>
 <span class="sd">            &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Meldgaard (2005),</span>
 <span class="sd">            https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.</span>
 
@@ -327,11 +327,11 @@
     <span class="k">return</span> <span class="n">load_names</span><span class="p">(</span><span class="n">ethnicity</span><span class="o">=</span><span class="s2">&quot;muslim&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="danish_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.danish_names">[docs]</a><span class="k">def</span> <span class="nf">danish_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="danish_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.danish_names">[docs]</a><span class="k">def</span> <span class="nf">danish_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str, List[str]]: A dictionary of Danish names containing the keys</span>
+<span class="sd">        dict[str, list[str]]: A dictionary of Danish names containing the keys</span>
 <span class="sd">        &quot;first_name&quot; and &quot;last_name&quot;. The list is derived from Danmarks statistik</span>
 <span class="sd">        (2021).</span>
 
@@ -344,11 +344,11 @@
     <span class="k">return</span> <span class="n">load_names</span><span class="p">(</span><span class="n">ethnicity</span><span class="o">=</span><span class="s2">&quot;danish&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="female_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.female_names">[docs]</a><span class="k">def</span> <span class="nf">female_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="female_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.female_names">[docs]</a><span class="k">def</span> <span class="nf">female_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish female names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str, List[str]]: A dictionary of names containing the keys &quot;first_name&quot;</span>
+<span class="sd">        dict[str, list[str]]: A dictionary of names containing the keys &quot;first_name&quot;</span>
 <span class="sd">            and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
 
 <span class="sd">    Example:</span>
@@ -360,11 +360,11 @@
     <span class="k">return</span> <span class="n">load_names</span><span class="p">(</span><span class="n">ethnicity</span><span class="o">=</span><span class="s2">&quot;danish&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s2">&quot;female&quot;</span><span class="p">,</span> <span class="n">min_prop_gender</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="male_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.male_names">[docs]</a><span class="k">def</span> <span class="nf">male_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="male_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.male_names">[docs]</a><span class="k">def</span> <span class="nf">male_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish male names.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Dict[str, List[str]]: A dictionary of names containing the keys &quot;first_name&quot;</span>
+<span class="sd">        dict[str, list[str]]: A dictionary of names containing the keys &quot;first_name&quot;</span>
 <span class="sd">            and &quot;last_name&quot;. The list is derived from Danmarks statistik (2021).</span>
 
 <span class="sd">    Example:</span>

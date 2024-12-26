@@ -303,7 +303,7 @@ augmentations applied to it.</p>
 to score. The model should take in a list of spacy Examples
 (Iterable[Example]) and output a tagged version of it (Iterable[Example]). A
 SpaCy pipeline (Language) can be provided as is.</p></li>
-<li><p><strong>score_fn</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>, </em><em>dict</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A
+<li><p><strong>score_fn</strong> (<em>list</em><em>[</em><em>Union</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>, </em><em>dict</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A
 scoring function which takes in a list of examples (Iterable[Example]) and
 return a dictionary of performance scores. Four potiential strings are
 valid. “ents” for measuring the performance of entity spans. “pos” for
@@ -312,7 +312,7 @@ measuring the performance of fine-grained (tag_acc), and coarse-grained
 “dep” for measuring the performance of dependency parsing. “nlp” for
 measuring the performance of all components in the specified nlp pipeline.
 Defaults to [“token”, “pos”, “ents”, “dep”].</p></li>
-<li><p><strong>augmenters</strong> (<em>List</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Language</em><em>, </em><em>Example</em><em>]</em><em>, </em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A
+<li><p><strong>augmenters</strong> (<em>list</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>Language</em><em>, </em><em>Example</em><em>]</em><em>, </em><em>Iterable</em><em>[</em><em>Example</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A
 spaCy style augmenters which should be applied to the corpus or a list
 thereof. defaults to [], indicating no augmenters.</p></li>
 <li><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times it should run the augmentation and test the
@@ -354,7 +354,7 @@ sentences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_sents</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Number of sentences which the performance
+<li><p><strong>n_sents</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>list</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Number of sentences which the performance
 should be applied to.</p></li>
 <li><p><strong>apply_fn</strong> (<em>Callable</em>) – A wrapper function for the model you wish to score. The
 model should take in a spacy Example and output a tagged version of it.</p></li>
@@ -362,7 +362,7 @@ model should take in a spacy Example and output a tagged version of it.</p></li>
 options include “dane”. Defaults to “dane”.</p></li>
 <li><p><strong>split</strong> (<em>str</em><em>, </em><em>optional</em>) – Which splits of the dataset should be used. Possible
 options include “train”, “dev”, “test”, “all”. Defaults to “test”.</p></li>
-<li><p><strong>score_fn</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A scoring function which takes
+<li><p><strong>score_fn</strong> (<em>list</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A scoring function which takes
 in a list of examples and return a dictionary of the form {“score_name”:
 score}. Four potiential strings are valid. “ents” for measuring the
 performance of entity spans. “pos” for measuring the performance of

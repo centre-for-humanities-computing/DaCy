@@ -245,12 +245,14 @@
         <article role="main">
           <h1>Source code for dacy.score.score</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;This includes function for scoring models applied to a SpaCy corpus.&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>  <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
@@ -309,7 +311,7 @@
 <span class="sd">            to score. The model should take in a list of spacy Examples</span>
 <span class="sd">            (Iterable[Example]) and output a tagged version of it (Iterable[Example]). A</span>
 <span class="sd">            SpaCy pipeline (Language) can be provided as is.</span>
-<span class="sd">        score_fn (List[Union[Callable[[Iterable[Example]], dict], str]], optional): A</span>
+<span class="sd">        score_fn (list[Union[Callable[[Iterable[Example]], dict], str]], optional): A</span>
 <span class="sd">            scoring function which takes in a list of examples (Iterable[Example]) and</span>
 <span class="sd">            return a dictionary of performance scores. Four potiential strings are</span>
 <span class="sd">            valid. &quot;ents&quot; for measuring the performance of entity spans. &quot;pos&quot; for</span>
@@ -318,7 +320,7 @@
 <span class="sd">            &quot;dep&quot; for measuring the performance of dependency parsing. &quot;nlp&quot; for</span>
 <span class="sd">            measuring the performance of all components in the specified nlp pipeline.</span>
 <span class="sd">            Defaults to [&quot;token&quot;, &quot;pos&quot;, &quot;ents&quot;, &quot;dep&quot;].</span>
-<span class="sd">        augmenters (List[Callable[[Language, Example], Iterable[Example]]], optional): A</span>
+<span class="sd">        augmenters (list[Callable[[Language, Example], Iterable[Example]]], optional): A</span>
 <span class="sd">            spaCy style augmenters which should be applied to the corpus or a list</span>
 <span class="sd">            thereof. defaults to [], indicating no augmenters.</span>
 <span class="sd">        k (int, optional): Number of times it should run the augmentation and test the</span>
@@ -409,7 +411,7 @@
 
         <span class="c1"># and collapse list to dict</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-            <span class="n">scores</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">s</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores_ls</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores_ls</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
         <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
 

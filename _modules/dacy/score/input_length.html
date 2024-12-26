@@ -246,7 +246,8 @@
           <h1>Source code for dacy.score.input_length</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Contains functions for testing the performance of models on varying input</span>
 <span class="sd">length.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">wasabi</span> <span class="kn">import</span> <span class="n">msg</span>
@@ -256,11 +257,11 @@
 
 
 <div class="viewcode-block" id="n_sents_score"><a class="viewcode-back" href="../../../api/dacy.score.html#dacy.score.input_length.n_sents_score">[docs]</a><span class="k">def</span> <span class="nf">n_sents_score</span><span class="p">(</span>
-    <span class="n">n_sents</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>  <span class="c1"># type: ignore</span>
+    <span class="n">n_sents</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>  <span class="c1"># type: ignore</span>
     <span class="n">apply_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
     <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dane&quot;</span><span class="p">,</span>
     <span class="n">split</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="n">score_fn</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;token&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;ents&quot;</span><span class="p">,</span> <span class="s2">&quot;dep&quot;</span><span class="p">],</span>  <span class="c1"># noqa # type: ignore</span>
+    <span class="n">score_fn</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;token&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;ents&quot;</span><span class="p">,</span> <span class="s2">&quot;dep&quot;</span><span class="p">],</span>  <span class="c1"># noqa # type: ignore</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>  <span class="c1"># noqa</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -268,7 +269,7 @@
 <span class="sd">    sentences.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        n_sents (Union[int, List[int]]): Number of sentences which the performance</span>
+<span class="sd">        n_sents (Union[int, list[int]]): Number of sentences which the performance</span>
 <span class="sd">            should be applied to.</span>
 <span class="sd">        apply_fn (Callable):  A wrapper function for the model you wish to score. The</span>
 <span class="sd">            model should take in a spacy Example and output a tagged version of it.</span>
@@ -276,7 +277,7 @@
 <span class="sd">            options include &quot;dane&quot;. Defaults to &quot;dane&quot;.</span>
 <span class="sd">        split (str, optional): Which splits of the dataset should be used. Possible</span>
 <span class="sd">            options include &quot;train&quot;, &quot;dev&quot;, &quot;test&quot;, &quot;all&quot;. Defaults to &quot;test&quot;.</span>
-<span class="sd">        score_fn (List[Union[str, Callable]], optional): A scoring function which takes</span>
+<span class="sd">        score_fn (list[Union[str, Callable]], optional): A scoring function which takes</span>
 <span class="sd">            in a list of examples and return a dictionary of the form {&quot;score_name&quot;:</span>
 <span class="sd">            score}. Four potiential strings are valid. &quot;ents&quot; for measuring the</span>
 <span class="sd">            performance of entity spans. &quot;pos&quot; for measuring the performance of</span>
