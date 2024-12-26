@@ -5,7 +5,7 @@ import subprocess
 import sys
 from os import PathLike
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 from spacy.training.corpus import Corpus
 
@@ -15,19 +15,19 @@ from .constants import DATASETS
 
 def dane(  # noqa
     save_path: Optional[PathLike] = None,  # type: ignore
-    splits: List[str] = ["train", "dev", "test"],  # noqa  # type: ignore
+    splits: list[str] = ["train", "dev", "test"],  # noqa  # type: ignore
     redownload: bool = False,
     n_sents: int = 1,
     open_unverified_connection: bool = False,
     **kwargs,  # noqa
-) -> Union[List[Corpus], Corpus]:  # type: ignore
+) -> Union[list[Corpus], Corpus]:  # type: ignore
     """Reads the DaNE dataset as a spacy Corpus.
 
     Args:
         save_path (str, optional): Path to the DaNE dataset If it does not contain the
             dataset it is downloaded to the folder. Defaults to None corresponding to
             dacy.where_is_my_dacy() in the datasets subfolder.
-        splits (List[str], optional): Which splits of the dataset should be returned.
+        splits (list[str], optional): Which splits of the dataset should be returned.
             Possible options include "train", "dev", "test", "all". Defaults to
             ["train", "dev", "test"].
         redownload (bool, optional): Should the dataset be redownloaded. Defaults to
@@ -40,7 +40,7 @@ def dane(  # noqa
             whether it already exists. Defaults to False.
 
     Returns:
-        Union[List[Corpus], Corpus]: Returns a SpaCy corpus or a list thereof.
+        Union[list[Corpus], Corpus]: Returns a SpaCy corpus or a list thereof.
 
     Example:
         >>> from dacy.datasets import dane

@@ -48,11 +48,7 @@ repository = "https://github.com/centre-for-humanities-computing/DaCy"
 file = "LICENSE"
 name = "Apache License 2.0"
 [project.optional-dependencies]
-dev = [
-  "cruft>=2.0.0",
-  "pyright>=1.1.339",
-  "ruff>=0.0.270",
-]
+dev = ["cruft>=2.0.0", "pyright>=1.1.339", "ruff==0.7.1"]
 tests = ["pytest>=7.1.2", "pytest-cov>=3.0.0", "pytest-instafail>=0.4.2"]
 docs = [
   "sphinx==5.3.0",
@@ -110,6 +106,40 @@ pythonPlatform = "Darwin"
 
 [tool.ruff]
 # extend-include = ["*.ipynb"]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".hg",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "venv",
+  "__init__.py",
+  ".env",
+  "__pycache__",
+  "dev/**",
+  "training/main/**",
+  "training/ner_fine_grained/**",
+  "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
+  "docs/performance_testing_utils/**",
+]
+target-version = "py39"
+
+[tool.ruff.lint]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = [
   "A",
@@ -150,54 +180,23 @@ ignore = [
   "ANN202",
   "COM812",
 ]
-ignore-init-module-imports = true
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 unfixable = ["ERA"]
-# Exclude a variety of commonly ignored directories.
-exclude = [
-  ".bzr",
-  ".direnv",
-  ".eggs",
-  ".git",
-  ".hg",
-  ".nox",
-  ".pants.d",
-  ".pytype",
-  ".ruff_cache",
-  ".svn",
-  ".tox",
-  ".venv",
-  "__pypackages__",
-  "_build",
-  "buck-out",
-  "build",
-  "dist",
-  "node_modules",
-  "venv",
-  "__init__.py",
-  ".venv",
-  ".env",
-  ".git",
-  "__pycache__",
-  "dev/**",
-  "training/main/**",
-  "training/ner_fine_grained/**",
-  "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
-  "docs/performance_testing_utils/**",
-]
+
+
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-target-version = "py38"
+
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.ruff.flake8-annotations]
+[tool.ruff.lint.flake8-annotations]
 mypy-init-return = true
 suppress-none-returning = true
 
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
 

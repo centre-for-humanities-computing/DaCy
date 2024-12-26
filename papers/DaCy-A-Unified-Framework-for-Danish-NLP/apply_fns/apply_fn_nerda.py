@@ -1,6 +1,6 @@
 # to download the danlp and nerda you will have to set up a certificate:
 import ssl
-from typing import Iterable, List
+from typing import Iterable, list
 
 from NERDA.precooked import DA_BERT_ML
 from spacy.lang.da import Danish
@@ -17,7 +17,7 @@ model.load_network()
 nlp_da = Danish()
 
 
-def apply_nerda(examples: Iterable[Example], use_spacy: bool = True) -> List[Example]:
+def apply_nerda(examples: Iterable[Example], use_spacy: bool = True) -> list[Example]:
     sentences = []
     docs_y = []
     for example in examples:

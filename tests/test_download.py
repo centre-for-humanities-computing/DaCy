@@ -1,5 +1,6 @@
-import dacy
 import pytest
+
+import dacy
 from dacy.load import load
 
 

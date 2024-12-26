@@ -9,9 +9,9 @@ static-type-check:
 lint:
 	@echo "--- 🧹 Running linters ---"
 	ruff format .  								# running ruff formatting
-	ruff src/ --fix  						    # running ruff linting
-	ruff tests/ --fix
-	ruff docs/conf.py --fix
+	ruff check src/ --fix  						    # running ruff linting
+	ruff check tests/ --fix
+	ruff check docs/conf.py --fix
 
 test:
 	@echo "--- 🧪 Running tests ---"

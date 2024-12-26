@@ -5,9 +5,11 @@ to allow for a more detailed model card.
 
 """
 
+from __future__ import annotations
+
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any,  Optional, Union
 
 import typer
 import yaml
@@ -16,7 +18,7 @@ TOKEN_CLASSIFICATION_COMPONENTS = ["ner", "tagger", "morphologizer"]
 TEXT_CLASSIFICATION_COMPONENTS = ["textcat", "textcat_multilabel"]
 
 
-def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
+def _create_model_card(repo_name: str, repo_dir: Path) -> dict[str, Any]:
     meta_path = repo_dir / "meta.json"
     with meta_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
@@ -86,10 +88,10 @@ def _create_model_card(repo_name: str, repo_dir: Path) -> Dict[str, Any]:
 
 
 def _insert_value(
-    metadata: Dict[str, Any],
+    metadata: dict[str, Any],
     name: str,
     value: Optional[Any],
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     if value is None or value == "":
         return metadata
     metadata[name] = value
@@ -97,10 +99,10 @@ def _insert_value(
 
 
 def _insert_values_as_list(
-    metadata: Dict[str, Any],
+    metadata: dict[str, Any],
     name: str,
     values: Optional[Any],
-) -> Dict[str, List[Any]]:
+) -> dict[str, list[Any]]:
     if values is None:
         return metadata
     if isinstance(values, str):
@@ -111,7 +113,7 @@ def _insert_values_as_list(
     return metadata
 
 
-def _create_metric(name: str, t: str, value: float) -> Dict[str, Union[str, float]]:
+def _create_metric(name: str, t: str, value: float) -> dict[str, Union[str, float]]:
     return {"name": name, "type": t, "value": value}
 
 
@@ -120,14 +122,14 @@ def _create_p_r_f_list(
     precision: float,
     recall: float,
     f_score: float,
-) -> List[Dict[str, Union[str, float]]]:
+) -> list[dict[str, Union[str, float]]]:
     precision = _create_metric(f"{metric_name} Precision", "precision", precision)  # type: ignore
     recall = _create_metric(f"{metric_name} Recall", "recall", recall)  # type: ignore
     f_score = _create_metric(f"{metric_name} F Score", "f_score", f_score)  # type: ignore
     return [precision, recall, f_score]  # type: ignore
 
 
-def _create_model_index(repo_name: str, data: Dict[str, Any]) -> List[Dict[str, Any]]:
+def _create_model_index(repo_name: str, data: dict[str, Any]) -> list[dict[str, Any]]:
     # TODO: add some more metrics here
     model_index = {"name": repo_name}
     results = []

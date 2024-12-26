@@ -7,7 +7,6 @@ TODO:
 import json
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List
 
 import spacy
 from conllu import parse
@@ -142,7 +141,7 @@ def combine_docs(cdt_sentences, ddt_dane):
             sent_id_to_doc_instance[doc._.sent_id] = doc
 
     # combine documents
-    doc_to_be_created: Dict[str, List[str]] = {}
+    doc_to_be_created: dict[str, list[str]] = {}
     sent_id_to_sent = {}
     for sent in cdt_sentences:
         sent_id = sent.metadata["sent_id"]

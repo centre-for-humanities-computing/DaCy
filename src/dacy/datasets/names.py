@@ -1,7 +1,7 @@
 """Helper functions for loading name dictionaries for person augmentation."""
 
 import os
-from typing import Dict, List, Optional
+from typing import Optional
 
 import pandas as pd
 
@@ -11,7 +11,7 @@ def load_names(
     ethnicity: Optional[str] = None,  # type: ignore
     gender: Optional[str] = None,  # type: ignore
     min_prop_gender: float = 0,
-) -> Dict[str, List[str]]:  # type: ignore
+) -> dict[str, list[str]]:  # type: ignore
     """Loads the names lookup table. Danish are from Danmarks statistik (2021).
     Muslim names are from Meldgaard (2005),
     https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
@@ -30,7 +30,7 @@ def load_names(
             gender is set. Defaults to 0.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of names containing the keys
+        dict[str, list[str]]: A dictionary of names containing the keys
             "first_name" and "last_name".
     """
     path = os.path.join(  # noqa
@@ -64,11 +64,11 @@ def load_names(
     }
 
 
-def muslim_names() -> Dict[str, List[str]]:  # type: ignore
+def muslim_names() -> dict[str, list[str]]:  # type: ignore
     """Returns a dictionary of Muslim names.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of Muslim names containing the keys
+        dict[str, list[str]]: A dictionary of Muslim names containing the keys
             "first_name" and "last_name". The list is derived from Meldgaard (2005),
             https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
 
@@ -81,11 +81,11 @@ def muslim_names() -> Dict[str, List[str]]:  # type: ignore
     return load_names(ethnicity="muslim")
 
 
-def danish_names() -> Dict[str, List[str]]:  # type: ignore
+def danish_names() -> dict[str, list[str]]:  # type: ignore
     """Returns a dictionary of Danish names.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of Danish names containing the keys
+        dict[str, list[str]]: A dictionary of Danish names containing the keys
         "first_name" and "last_name". The list is derived from Danmarks statistik
         (2021).
 
@@ -98,11 +98,11 @@ def danish_names() -> Dict[str, List[str]]:  # type: ignore
     return load_names(ethnicity="danish")
 
 
-def female_names() -> Dict[str, List[str]]:  # type: ignore
+def female_names() -> dict[str, list[str]]:  # type: ignore
     """Returns a dictionary of Danish female names.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of names containing the keys "first_name"
+        dict[str, list[str]]: A dictionary of names containing the keys "first_name"
             and "last_name". The list is derived from Danmarks statistik (2021).
 
     Example:
@@ -114,11 +114,11 @@ def female_names() -> Dict[str, List[str]]:  # type: ignore
     return load_names(ethnicity="danish", gender="female", min_prop_gender=0.5)
 
 
-def male_names() -> Dict[str, List[str]]:  # type: ignore
+def male_names() -> dict[str, list[str]]:  # type: ignore
     """Returns a dictionary of Danish male names.
 
     Returns:
-        Dict[str, List[str]]: A dictionary of names containing the keys "first_name"
+        dict[str, list[str]]: A dictionary of names containing the keys "first_name"
             and "last_name". The list is derived from Danmarks statistik (2021).
 
     Example:

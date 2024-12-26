@@ -5,7 +5,6 @@ import json
 import ssl
 from collections import defaultdict
 from pathlib import Path
-from typing import List
 
 import numpy as np
 import spacy
@@ -24,7 +23,7 @@ project_path = Path(__file__).parent.parent
 def main(
     trf_name: str,
     save_path_kb: Path = project_path / "assets/knowledge_bases/knowledge_base.kb",
-    langs_to_fetch: List[str] = ["da", "en"],
+    langs_to_fetch: list[str] = ["da", "en"],
 ):
     """Step 1: create the Knowledge Base in spaCy and write it to file"""
     spacy.require_gpu()  # type: ignore
@@ -131,7 +130,7 @@ def _fetch_wikidata_description(qid: str):
     return item.description.get("da", item.description.get("en", ""))  # type: ignore
 
 
-def _fetch_wikidata_aliases(qid, langs: List[str] = ["da", "en"]):
+def _fetch_wikidata_aliases(qid, langs: list[str] = ["da", "en"]):
     """
     Fetch the aliases of a Wikidata item.
     """
@@ -148,7 +147,7 @@ def _fetch_wikidata_aliases(qid, langs: List[str] = ["da", "en"]):
     return aliases
 
 
-def _load_ents_from_data(nlp: Language, splits: List[str] = ["dev", "train"]):
+def _load_ents_from_data(nlp: Language, splits: list[str] = ["dev", "train"]):
     """
     Load in the data from the training set.
     """
