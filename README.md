@@ -2,7 +2,6 @@
 # DaCy: An efficient and unified framework for danish NLP
 
 [![PyPI](https://img.shields.io/pypi/v/dacy.svg)][pypi status]
-[![pip downloads](https://img.shields.io/pypi/dm/dacy.svg)](https://pypi.org/project/dacy/)
 [![Python Version](https://img.shields.io/pypi/pyversions/dacy)][pypi status]
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)]([ruff])
 [![documentation](https://github.com/centre-for-humanities-computing/dacy/actions/workflows/documentation.yml/badge.svg)][documentation]
