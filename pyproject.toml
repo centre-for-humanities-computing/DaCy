@@ -45,7 +45,7 @@ homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
 documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
 repository = "https://github.com/centre-for-humanities-computing/DaCy"
 [dependency-groups]
-dev = ["cruft>=2.0.0", "pyright>=1.1.339", "ruff==0.7.1"]
+dev = ["cruft>=2.0.0", "ty>=0.0.46", "ruff==0.7.1"]
 tests = ["pytest>=7.1.2", "pytest-cov>=3.0.0", "pytest-instafail>=0.4.2"]
 docs = [
   "sphinx==5.3.0",
@@ -167,15 +167,7 @@ select = [
   "SIM",
   "W",
 ]
-ignore = [
-  "ANN401",
-  "E402",
-  "E501",
-  "F841",
-  "RET504",
-  "ANN202",
-  "COM812",
-]
+ignore = ["ANN401", "E402", "E501", "F841", "RET504", "ANN202", "COM812"]
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 unfixable = ["ERA"]
 

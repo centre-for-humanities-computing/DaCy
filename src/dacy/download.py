@@ -5,7 +5,7 @@ from importlib.metadata import version
 from pathlib import Path
 
 from spacy.util import get_installed_models
-from tqdm import tqdm  # type: ignore
+from tqdm import tqdm
 
 DACY_DEFAULT_PATH = Path.home() / ".dacy"
 
@@ -41,10 +41,10 @@ def get_latest_version(model: str) -> str:
     versions = [mdl.split("-")[-1] for mdl in models_url if mdl.startswith(model)]
     versions = sorted(
         versions,
-        key=lambda s: [int(u) for u in s.split(".")],  # type: ignore
+        key=lambda s: [int(u) for u in s.split(".")],
         reverse=True,
     )
-    return versions[0]  # type: ignore
+    return versions[0]
 
 
 def models() -> list[str]:
@@ -70,7 +70,7 @@ def download_url(url: str, output_path: str) -> None:
         unit="B",
         unit_scale=True,
         miniters=1,
-        desc=url.split("/")[-1],  # type: ignore
+        desc=url.split("/")[-1],
     ) as t:
         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
@@ -105,7 +105,7 @@ def download_model(
     if model in {"small", "medium", "large"}:
         latest_version = get_latest_version(model)
         model = f"da_dacy_{model}_trf-{latest_version}"
-    mdl_version = model.split("-")[-1]  # type: ignore
+    mdl_version = model.split("-")[-1]
 
     if model not in models_url:
         raise ValueError(
@@ -113,10 +113,10 @@ def download_model(
             + " list of all models",
         )
 
-    mdl = model.split("-")[0]  # type: ignore
+    mdl = model.split("-")[0]
     if mdl in get_installed_models() and not force and version(mdl) == mdl_version:
         return mdl
 
     package = model.split("-")[0]
-    install(package, models_url[model])
+    install(package, models_url[model])  # type: ignore
     return mdl

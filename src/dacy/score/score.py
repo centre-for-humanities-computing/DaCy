@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable, Iterable
 from copy import copy
 from functools import partial
-from time import time  # type: ignore
+from time import time
 
 import pandas as pd
 from spacy.language import Language
@@ -18,7 +18,7 @@ from spacy.training.corpus import Corpus
 from ..utils import flatten_dict
 
 
-def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:  # type: ignore
+def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:
     """A utility getter for scoring entities without including MISC.
 
     Args:
@@ -28,7 +28,7 @@ def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:  # type: ignore
     Returns:
         Iterable[Span]
     """
-    spans = getattr(doc, attr)  # type: ignore
+    spans = getattr(doc, attr)
     for span in spans:
         if span.label_ == "MISC":
             continue
@@ -36,7 +36,7 @@ def no_misc_getter(doc: Doc, attr: str) -> Iterable[Span]:  # type: ignore
 
 
 def dep_getter(token, attr):  # noqa
-    dep = getattr(token, attr)  # type: ignore
+    dep = getattr(token, attr)
     dep = token.vocab.strings.as_string(dep).lower()
     return dep
 
@@ -94,7 +94,7 @@ def score(  # noqa
         >>>                apply_fn = nlp)
     """
     if callable(augmenters):
-        augmenters = [augmenters]
+        augmenters = [augmenters] # type: ignore
     if len(augmenters) == 0:
         augmenters = [dont_augment]
 
@@ -105,7 +105,7 @@ def score(  # noqa
 
     if isinstance(apply_fn, Language):
         nlp_ = apply_fn
-        apply_fn = __apply_nlp  # type: ignore
+        apply_fn = __apply_nlp
 
     if nlp is None:
         from spacy.lang.da import Danish
@@ -150,27 +150,27 @@ def score(  # noqa
         corpus_ = copy(corpus)
         corpus_.augmenter = augmenter
         scores_ls = []
-        for _i in range(k):  # type: ignore
+        for _i in range(k):
             s = time()
-            examples = apply_fn(corpus_(nlp))  # type: ignore
+            examples = apply_fn(corpus_(nlp))
             speed = time() - s
             scores = {"wall_time": speed}
             for fn in score_fn:
                 if isinstance(fn, str):
                     fn = def_scorers[fn]  # noqa
-                scores.update(fn(examples))  # type: ignore
+                scores.update(fn(examples))
             scores = flatten_dict(scores)
             scores_ls.append(scores)
 
         # and collapse list to dict
-        for key in scores:  # type: ignore
-            scores[key] = [s.get(key, None) for s in scores_ls]  # type: ignore
+        for key in scores:
+            scores[key] = [s.get(key, None) for s in scores_ls]
 
-        scores["k"] = list(range(k))  # type: ignore
+        scores["k"] = list(range(k))
 
-        return pd.DataFrame(scores)  # type: ignore
+        return pd.DataFrame(scores)
 
     for i, aug in enumerate(augmenters):
         scores_ = __score(aug)
-        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # type: ignore  # noqa
-    return scores  # type: ignore
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # noqa
+    return scores

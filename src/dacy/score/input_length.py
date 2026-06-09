@@ -12,11 +12,11 @@ from .score import score
 
 
 def n_sents_score(
-    n_sents: int | list[int],  # type: ignore
-    apply_fn: Callable,  # type: ignore
+    n_sents: int | list[int],
+    apply_fn: Callable,
     dataset: str = "dane",
     split: str = "test",
-    score_fn: list[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa # type: ignore
+    score_fn: list[Union[str, Callable]] = ["token", "pos", "ents", "dep"],  # noqa
     verbose: bool = True,
     **kwargs,  # noqa
 ) -> pd.DataFrame:
@@ -56,5 +56,5 @@ def n_sents_score(
             msg.info(f"Calculating score using {n} sentences")
         corpus = dataset_fn[dataset](splits=split, n_sents=n, **kwargs)  # type: ignore
         scores_ = score(corpus, apply_fn=apply_fn, score_fn=score_fn, **kwargs)  # type: ignore
-        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # type: ignore # noqa
-    return scores  # type: ignore
+        scores = pd.concat([scores, scores_]) if i != 0 else scores_  # noqa
+    return scores

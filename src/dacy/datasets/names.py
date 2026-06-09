@@ -7,10 +7,10 @@ import pandas as pd
 
 def load_names(
     min_count: int = 0,
-    ethnicity: str | None = None,  # type: ignore
-    gender: str | None = None,  # type: ignore
+    ethnicity: str | None = None,
+    gender: str | None = None,
     min_prop_gender: float = 0,
-) -> dict[str, list[str]]:  # type: ignore
+) -> dict[str, list[str]]:
     """Loads the names lookup table. Danish are from Danmarks statistik (2021).
     Muslim names are from Meldgaard (2005),
     https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.
@@ -63,7 +63,7 @@ def load_names(
     }
 
 
-def muslim_names() -> dict[str, list[str]]:  # type: ignore
+def muslim_names() -> dict[str, list[str]]:
     """Returns a dictionary of Muslim names.
 
     Returns:
@@ -80,7 +80,7 @@ def muslim_names() -> dict[str, list[str]]:  # type: ignore
     return load_names(ethnicity="muslim")
 
 
-def danish_names() -> dict[str, list[str]]:  # type: ignore
+def danish_names() -> dict[str, list[str]]:
     """Returns a dictionary of Danish names.
 
     Returns:
@@ -97,7 +97,7 @@ def danish_names() -> dict[str, list[str]]:  # type: ignore
     return load_names(ethnicity="danish")
 
 
-def female_names() -> dict[str, list[str]]:  # type: ignore
+def female_names() -> dict[str, list[str]]:
     """Returns a dictionary of Danish female names.
 
     Returns:
@@ -113,7 +113,7 @@ def female_names() -> dict[str, list[str]]:  # type: ignore
     return load_names(ethnicity="danish", gender="female", min_prop_gender=0.5)
 
 
-def male_names() -> dict[str, list[str]]:  # type: ignore
+def male_names() -> dict[str, list[str]]:
     """Returns a dictionary of Danish male names.
 
     Returns:

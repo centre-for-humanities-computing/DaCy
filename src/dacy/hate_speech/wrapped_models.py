@@ -77,11 +77,11 @@ def make_offensive_transformer(
     nlp: Language,
     name: str,
     model: Model[list[Doc], FullTransformerBatch],
-    set_extra_annotations: Callable[[list[Doc], FullTransformerBatch], None],  # type: ignore
+    set_extra_annotations: Callable[[list[Doc], FullTransformerBatch], None],
     max_batch_items: int,
     doc_extension_trf_data: str,
     doc_extension_prediction: str,
-    labels: list[str],  # type: ignore
+    labels: list[str],
 ) -> SequenceClassificationTransformer:
     if not Doc.has_extension("is_offensive"):
         warn(
@@ -108,11 +108,11 @@ def make_offensive_transformer(
     # offensive
     if Doc.has_extension("is_offensive"):
 
-        def label_getter(doc) -> Optional[str]:  # noqa  # type: ignore
+        def label_getter(doc) -> Optional[str]:  # noqa
             if doc._.is_offensive == "offensive":
-                prob = getattr(doc._, f"{doc_extension_prediction}_prob")  # type: ignore
+                prob = getattr(doc._, f"{doc_extension_prediction}_prob")
                 if prob["prob"] is not None:
-                    return labels[int(prob["prob"].argmax())]  # type: ignore
+                    return labels[int(prob["prob"].argmax())]
             return doc._.is_offensive
 
         Doc.set_extension(doc_extension_prediction, getter=label_getter, force=True)

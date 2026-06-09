@@ -4,7 +4,7 @@ install:
 
 static-type-check:
 	@echo "--- 🔍 Running static type check ---"
-	uv run --group dev pyright src/
+	uv run --group dev ty check src/
 
 lint:
 	@echo "--- 🧹 Running linters ---"
