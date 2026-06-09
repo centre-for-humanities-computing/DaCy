@@ -145,9 +145,6 @@ training/*/metrics/*
 data
 *.zip
 
-# project specific
-*.lock
-
 # mac
 .DS_store
 
