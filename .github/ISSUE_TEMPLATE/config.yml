@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: 🗯 Discussions forum
-    url: https://centre-for-humanities-computing/DaCy/discussions
+    url: https://github.com/centre-for-humanities-computing/DaCy/discussions
     about: Usage questions, general discussion and anything else that isn't a bug report or a feature request.
   - name: 🇩🇰 DaCy usage guides & package references
     url: https://centre-for-humanities-computing.github.io/DaCy/
