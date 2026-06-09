@@ -215,7 +215,7 @@ def create_dataframe(
     def score_to_string(score: dict[str, Any], decimals: int = 1) -> str:
         if score["mean"] == 0:
             return " "
-        return f"{100*score['mean']:.{decimals}f} ({100*score['ci'][0]:.{decimals}f}, {100*score['ci'][1]:.{decimals}f})"
+        return f"{100 * score['mean']:.{decimals}f} ({100 * score['ci'][0]:.{decimals}f}, {100 * score['ci'][1]:.{decimals}f})"
 
     for key, value in score.items():
         row[key] = score_to_string(value, decimals=decimals)
