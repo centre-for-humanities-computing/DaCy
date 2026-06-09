@@ -36,7 +36,7 @@ def create_finegrained_ner_component(
         version = dacy.get_latest_version(f"da_dacy_{size}_ner_fine_grained")
     nlp_ner = dacy.load(f"da_dacy_{size}_ner_fine_grained-{version}")
     nlp.add_pipe(factory_name="transformer", name=transformer_name, source=nlp_ner)
-    name_, component = nlp_ner.components[-1]  # noqa
+    name_, component = nlp_ner.components[-1]
     component.tok2vec.layers[0].layers[0].upstream_name = transformer_name  # type: ignore
     component.name = name  # type: ignore
     return component

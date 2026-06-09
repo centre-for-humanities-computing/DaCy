@@ -94,7 +94,7 @@ def score(  # noqa
         >>>                apply_fn = nlp)
     """
     if callable(augmenters):
-        augmenters = [augmenters] # type: ignore
+        augmenters = [augmenters]  # type: ignore
     if len(augmenters) == 0:
         augmenters = [dont_augment]
 
