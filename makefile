@@ -33,9 +33,3 @@ view-docs:
 	@echo "--- 👀 Viewing docs ---"
 	@echo "You might need to rebuild the docs first"
 	open docs/_build/html/index.html
-
-update-from-template:
-	@echo "--- 🔄 Updating from template ---"
-	@echo "This will update the project from the template, make sure to resolve any .rej files"
-	uv run cruft update --skip-apply-ask
-	
