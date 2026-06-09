@@ -1,7 +1,6 @@
 """Helper functions for loading name dictionaries for person augmentation."""
 
 import os
-from typing import Optional
 
 import pandas as pd
 

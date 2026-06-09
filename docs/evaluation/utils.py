@@ -1,7 +1,8 @@
 import json
 import random
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -17,8 +18,8 @@ from evaluation.datasets import datasets
 def bootstrap(
     examples: list[Example],
     n_rep: int = 100,
-    n_samples: Optional[int] = None,
-    getter: Optional[Callable] = None,
+    n_samples: int | None = None,
+    getter: Callable | None = None,
 ) -> list[dict[str, Any]]:
     random.seed(42)
     scorer = Scorer()
@@ -147,7 +148,7 @@ def predictions_from_disk(path: Path) -> dict:
     predicted = [doc_from_json(d, nlp) for d in meta["predicted"]]
 
     examples = []
-    for ref, pred in zip(reference, predicted):
+    for ref, pred in zip(reference, predicted, strict=False):
         example = Example(reference=ref, predicted=pred)
         examples.append(example)
 
@@ -180,7 +181,7 @@ def apply_models(
 
             start = time()
             docs = nlp.pipe(example.reference.text for example in examples)
-            for doc, example in zip(docs, examples):
+            for doc, example in zip(docs, examples, strict=False):
                 example.predicted = doc
             end = time()
             time_in_seconds = end - start
@@ -203,7 +204,7 @@ def create_dataframe(
     mdl_name: str,
     decimals: int = 1,
     n_rep: int = 100,
-    n_samples: Optional[int] = None,
+    n_samples: int | None = None,
 ) -> pd.DataFrame:
     score = bootstrap(examples, getter=None, n_rep=n_rep, n_samples=n_samples)
     score = compute_mean_and_ci(score)
@@ -233,7 +234,7 @@ def _create_row(
     domain: str,
     examples: list[Example],
     n_rep: int = 100,
-    n_samples: Optional[int] = None,
+    n_samples: int | None = None,
 ):
     bs_score = bootstrap(examples, n_rep=n_rep, n_samples=n_samples)
     score = compute_mean_and_ci(bs_score)
@@ -253,7 +254,7 @@ def evaluate_generalization(
     mdl_name: str,
     examples: list[Example],
     n_rep: int = 100,
-    n_samples: Optional[int] = None,
+    n_samples: int | None = None,
     create_row_fn: Callable = _create_row,
 ) -> pd.DataFrame:
     domains = {}
@@ -313,7 +314,7 @@ def create_row_conll2003(
     domain: str,
     examples: list[Example],
     n_rep: int = 100,
-    n_samples: Optional[int] = None,
+    n_samples: int | None = None,
 ) -> dict:
     def string_repr(score: dict) -> str | None:
         if score["mean"] is None:

@@ -24,7 +24,7 @@ def dane() -> dict[str, list[Example]]:
     nlp_da = spacy.blank("da")
 
     datasets = {}
-    for nam, split in zip(["train", "dev", "test"], [train, dev, test]):  # type: ignore
+    for nam, split in zip(["train", "dev", "test"], [train, dev, test], strict=False):  # type: ignore
         examples = list(split(nlp_da))
         datasets[nam] = examples
 

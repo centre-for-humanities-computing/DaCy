@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from typing import Optional
 from warnings import warn
 
 from spacy.lang.da import Danish

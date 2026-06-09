@@ -1,7 +1,5 @@
 import spacy
 
-import dacy
-
 
 def test_add_subjectivity():
     nlp = spacy.blank("da")

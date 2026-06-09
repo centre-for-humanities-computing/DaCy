@@ -5,7 +5,6 @@ import subprocess
 import sys
 from os import PathLike
 from pathlib import Path
-from typing import Optional, Union
 
 from spacy.training.corpus import Corpus
 

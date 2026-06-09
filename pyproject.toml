@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
+requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -93,6 +93,9 @@ content-type = "text/markdown"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [tool.coverage.run]
 omit = ["**/tests/*", "**/about.py", "**/dev/*"]
 
@@ -168,7 +171,6 @@ ignore = [
   "ANN401",
   "E402",
   "E501",
-  "F401",
   "F841",
   "RET504",
   "ANN202",

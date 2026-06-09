@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Literal, Optional
+from typing import Literal
 
 from spacy.lang.da import Danish
 from spacy.language import Language
