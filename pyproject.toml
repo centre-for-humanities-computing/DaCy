@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dacy"
 version = "2.7.8"
-description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
+description = "A Danish State-of-the-Art SpaCy pipeline for dependency parsing, named entity recognition, parts-of-speech tagging and more."
 authors = [
   { name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com" },
   { name = "Lasse Hansen" },
@@ -207,3 +207,9 @@ build_command = "python -m pip install build; python -m build"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.uv]
+required-environments = [
+  "sys_platform == 'darwin' and platform_machine == 'arm64'",
+  "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
