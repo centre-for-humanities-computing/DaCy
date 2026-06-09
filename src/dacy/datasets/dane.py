@@ -14,13 +14,13 @@ from .constants import DATASETS
 
 
 def dane(  # noqa
-    save_path: Optional[PathLike] = None,  # type: ignore
+    save_path: PathLike | None = None,  # type: ignore
     splits: list[str] = ["train", "dev", "test"],  # noqa  # type: ignore
     redownload: bool = False,
     n_sents: int = 1,
     open_unverified_connection: bool = False,
     **kwargs,  # noqa
-) -> Union[list[Corpus], Corpus]:  # type: ignore
+) -> list[Corpus] | Corpus:  # type: ignore
     """Reads the DaNE dataset as a spacy Corpus.
 
     Args:

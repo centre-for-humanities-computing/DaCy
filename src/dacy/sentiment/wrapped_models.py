@@ -1,4 +1,5 @@
-from typing import Callable, Optional
+from collections.abc import Callable
+from typing import Optional
 from warnings import warn
 
 from spacy.lang.da import Danish
@@ -164,7 +165,7 @@ def make_emotion_transformer(
     # an emotion
     if Doc.has_extension("emotionally_laden"):
 
-        def label_getter(doc) -> Optional[str]:  # noqa: ANN001  # type: ignore
+        def label_getter(doc) -> str | None:  # noqa: ANN001  # type: ignore
             if doc._.emotionally_laden == "emotional":
                 prob = getattr(doc._, f"{doc_extension_prediction}_prob")  # type: ignore
                 if prob["prob"] is not None:

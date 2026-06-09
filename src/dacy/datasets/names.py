@@ -8,8 +8,8 @@ import pandas as pd
 
 def load_names(
     min_count: int = 0,
-    ethnicity: Optional[str] = None,  # type: ignore
-    gender: Optional[str] = None,  # type: ignore
+    ethnicity: str | None = None,  # type: ignore
+    gender: str | None = None,  # type: ignore
     min_prop_gender: float = 0,
 ) -> dict[str, list[str]]:  # type: ignore
     """Loads the names lookup table. Danish are from Danmarks statistik (2021).

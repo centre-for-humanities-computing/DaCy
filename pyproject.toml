@@ -23,17 +23,15 @@ classifiers = [
   "Operating System :: MacOS :: MacOS X",
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
 ]
 
 keywords = ["nlp", "danish", "spacy-universe"]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
   "spacy-wrap>=1.4.1",
-  "spacy-experimental>=0.6.2",
   "spacy[transformers]>=3.2.0",
   "pandas>=1.0.0",
   "tqdm>=4.42.1",
@@ -47,7 +45,7 @@ repository = "https://github.com/centre-for-humanities-computing/DaCy"
 [project.license]
 file = "LICENSE"
 name = "Apache License 2.0"
-[project.optional-dependencies]
+[dependency-groups]
 dev = ["cruft>=2.0.0", "pyright>=1.1.339", "ruff==0.7.1"]
 tests = ["pytest>=7.1.2", "pytest-cov>=3.0.0", "pytest-instafail>=0.4.2"]
 docs = [
@@ -78,7 +76,6 @@ docs = [
   # for performance notebooks
   "altair>=4.1.0",
   "datasets>=1.14.0",
-
 ]
 
 [project.readme]
@@ -137,7 +134,7 @@ exclude = [
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
   "docs/performance_testing_utils/**",
 ]
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.lint]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.

@@ -1,7 +1,8 @@
 """Contains functions for testing the performance of models on varying input
 length."""
 
-from typing import Callable, Union
+from collections.abc import Callable
+from typing import Union
 
 import pandas as pd
 from wasabi import msg
@@ -11,7 +12,7 @@ from .score import score
 
 
 def n_sents_score(
-    n_sents: Union[int, list[int]],  # type: ignore
+    n_sents: int | list[int],  # type: ignore
     apply_fn: Callable,  # type: ignore
     dataset: str = "dane",
     split: str = "test",

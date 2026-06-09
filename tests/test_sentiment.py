@@ -13,7 +13,7 @@ def test_add_subjectivity():
     ]
     actual = ["objective", "subjective", None]
     docs = list(nlp.pipe(texts))
-    for d, a in zip(docs, actual):
+    for d, a in zip(docs, actual, strict=False):
         if a is None:
             assert d._.subjectivity is None
         else:

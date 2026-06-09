@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from copy import copy
 from functools import partial
 from time import time  # type: ignore
-from typing import Callable
 
 import pandas as pd
 from spacy.language import Language

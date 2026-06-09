@@ -39,7 +39,7 @@ def load(
     return spacy.load(path, **kwargs)
 
 
-def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:  # type: ignore
+def where_is_my_dacy(verbose: bool = True) -> str | Path:  # type: ignore
     """Returns a path to where DaCy models are located. The default the model
     location can be configured with the environmental variable
     `DACY_CACHE_DIR`.
