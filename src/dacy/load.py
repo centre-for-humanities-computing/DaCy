@@ -57,10 +57,9 @@ def where_is_my_dacy(verbose: bool = True) -> str | Path:
     """
     if verbose is True:
         warnings.warn(  # noqa: B028
-            "DaCy pipelines above and including version 0.1.0 are installed as a "
-            + "python module and are thus located in your python environment under "
-            + "the respective names. To get a list of installed models use "
-            + "spacy.util.get_installed_models()",
+            "DaCy pipelines are downloaded (not pip installed) to the DaCy cache "
+            + "directory. This location can be configured using the environmental "
+            + "variable `DACY_CACHE_DIR`.",
         )
     return DEFAULT_CACHE_DIR
 
