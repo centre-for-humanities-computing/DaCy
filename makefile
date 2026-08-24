@@ -27,7 +27,7 @@ pr:
 build-docs:
 	@echo "--- 📚 Building docs ---"
 	@echo "Builds the docs and puts them in the 'site' folder"
-	uv run --group docs sphinx-build -M html docs/ docs/_build
+	uv run --python 3.11 --extra coref --group docs sphinx-build -M html docs/ docs/_build
 
 view-docs:
 	@echo "--- 👀 Viewing docs ---"

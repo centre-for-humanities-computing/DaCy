@@ -79,6 +79,9 @@ docs = [
   "docutils==0.17.1",
   # for tutorials
   "jupyter>=1.0.0",
+  # spacy <3.8 (pulled in by the `coref` extra, which the tutorials need)
+  # imports `display` from `IPython.core.display`, which IPython 9 removed.
+  "ipython<9",
   "wikidata>=0.7.0",
   # sentiment analysis
   "asent>=0.4.2",
