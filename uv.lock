@@ -1210,7 +1210,6 @@ wheels = [
 
 [[package]]
 name = "dacy"
-version = "2.7.8"
 source = { editable = "." }
 dependencies = [
     { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },

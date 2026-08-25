@@ -24,7 +24,10 @@ jobs:
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          # setuptools-scm derives the version from the git tags.
+          fetch-depth: 0
 
       - name: Install uv
         uses: astral-sh/setup-uv@v3

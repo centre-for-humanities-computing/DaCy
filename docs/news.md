@@ -1,5 +1,11 @@
 # News and Updates
 
+**2.8.0** 
+
+- Removed support for python 3.9 and added support for python 3.13
+- Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your environment but loaded. Thus some pipelines (e.g. the ones containing coreference models) will require additional optional dependencies (`pip install dacy[coref]`). `dacy.load` will let you know if you need optional dependencies for specific models otherwise see installation documentation for more.   
+
+
 **2.7.0 (15/05/23)**
 
 - Updated the DaCy models to version 0.2.0, including a small, medium and large

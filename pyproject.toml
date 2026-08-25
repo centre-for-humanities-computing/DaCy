@@ -1,10 +1,11 @@
 [build-system]
-requires = ["setuptools>=61.0.0", "wheel"]
+requires = ["setuptools>=64.0.0", "setuptools-scm>=8.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "dacy"
-version = "2.7.8"
+# Derived from the latest git tag by setuptools-scm
+dynamic = ["version"]
 description = "A Danish State-of-the-Art SpaCy pipeline for dependency parsing, named entity recognition, parts-of-speech tagging and more."
 authors = [
   { name = "Kenneth Enevoldsen", email = "dacy.plasma625@passfwd.com" },
@@ -207,8 +208,10 @@ max-complexity = 10
 
 
 [tool.semantic_release]
-version_toml = ["pyproject.toml:project.version"]
-build_command = "python -m pip install build; python -m build"
+# PSR builds *before* it creates the tag, so setuptools-scm cannot see the new
+# version in the git history yet. PSR injects NEW_VERSION into the build
+# environment; hand it to setuptools-scm so the artifacts are stamped correctly.
+build_command = "python -m pip install build && SETUPTOOLS_SCM_PRETEND_VERSION_FOR_DACY=$NEW_VERSION python -m build"
 
 # `branch = "main"` was v7 syntax and is silently ignored from v8 onwards.
 [tool.semantic_release.branches.main]
@@ -216,6 +219,13 @@ match = "main"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.setuptools_scm]
+# `v2.8.0` -> `2.8.0`, matching the tags semantic-release already creates.
+tag_regex = "^v(?P<version>[0-9]+\\.[0-9]+\\.[0-9]+)$"
+# PyPI rejects local version segments (`+g1a2b3c4`), which the default scheme
+# adds for any commit that is not exactly on a tag.
+local_scheme = "no-local-version"
 
 [tool.uv]
 required-environments = [
