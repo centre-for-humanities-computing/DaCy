@@ -80,7 +80,6 @@ html_context = {
 }
 
 source_suffix = {
-    ".rst": "restructuredtext",
     ".md": "myst-nb",
     ".ipynb": "myst-nb",
 }

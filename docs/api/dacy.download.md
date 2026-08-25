@@ -1,24 +1,22 @@
-Downloading and Loading
-----------------------------------------------------
+# Downloading and Loading
 
 These include methods for downloading DaCy models and loading them into memory.
 
+## dacy.download
 
-dacy.download
-~~~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. automodule:: dacy.download
    :members:
    :undoc-members:
    :show-inheritance:
    :exclude-members: DownloadProgressBar, download_url
+```
 
+## dacy.load
 
-dacy.load
-~~~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. automodule:: dacy.load
    :members:
    :undoc-members:
    :show-inheritance:
-
+```

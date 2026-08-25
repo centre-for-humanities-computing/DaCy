@@ -56,15 +56,6 @@ def get_latest_version(model: str) -> str:
     return versions[0]
 
 
-def models() -> list[str]:
-    """Returns a list of valid DaCy models.
-
-    Returns:
-        list: list of valid DaCy models
-    """
-    return list(models_url.keys())
-
-
 class DownloadProgressBar(tqdm):
     def update_to(self, b: int = 1, bsize: int = 1, tsize=None) -> None:  # noqa
         if tsize is not None:
@@ -84,7 +75,7 @@ def download_url(url: str, output_path: str) -> None:
         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
 
-def check_coref_dependencies(package: str) -> None:
+def _check_coref_dependencies(package: str) -> None:
     """Raises an informative ImportError if `package` requires the `dacy[coref]`
     extra (`spacy-experimental`) and it is not installed.
     """
@@ -136,7 +127,7 @@ def download_model(
         )
 
     package = model.split("-")[0]
-    check_coref_dependencies(package)
+    _check_coref_dependencies(package)
 
     model_dir = Path(DEFAULT_CACHE_DIR) / model
     pipeline_dir = model_dir / package / model
