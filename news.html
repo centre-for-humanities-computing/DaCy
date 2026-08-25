@@ -3,21 +3,21 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="News and Updates" />
+<meta property="og:title" content="News" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="news.html" />
 <meta property="og:site_name" content="DaCy" />
-<meta property="og:description" content="2.8.0 Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your enviro..." />
+<meta property="og:description" content="2.8.0 (25/08/26): DaCy is Back!: Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_news_53d6a4c7.png" />
-<meta property="og:image:alt" content="2.8.0 Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines..." />
-<meta name="description" content="2.8.0 Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your enviro..." />
+<meta property="og:image" content="/_images/social_previews/summary_news_4a40f775.png" />
+<meta property="og:image:alt" content="2.8.0 (25/08/26): DaCy is Back!: Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term suppo..." />
+<meta name="description" content="2.8.0 (25/08/26): DaCy is Back!: Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="FAQ" href="faq.html" /><link rel="prev" title="Named Entity Recognition" href="performance_ner.html" />
 
     <link rel="shortcut icon" href="_static/favicon.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
-        <title>News and Updates - DaCy</title>
+        <title>News - DaCy</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -154,7 +154,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -209,7 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="performance_ner.html">Named Entity Recognition</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">News and Updates</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">News</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
@@ -257,20 +257,23 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="news-and-updates">
-<h1>News and Updates<a class="headerlink" href="#news-and-updates" title="Permalink to this heading">#</a></h1>
-<p><strong>2.8.0</strong></p>
+          <section id="news">
+<h1>News<a class="headerlink" href="#news" title="Permalink to this heading">#</a></h1>
+<section id="dacy-is-back">
+<h2>2.8.0 (25/08/26): DaCy is Back!<a class="headerlink" href="#dacy-is-back" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Removed support for python 3.9 and added support for python 3.13</p></li>
 <li><p>Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your environment but loaded. Thus some pipelines (e.g. the ones containing coreference models) will require additional optional dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dacy[coref]</span></code>). <code class="docutils literal notranslate"><span class="pre">dacy.load</span></code> will let you know if you need optional dependencies for specific models otherwise see installation documentation for more.</p></li>
 </ul>
-<p><strong>2.7.0 (15/05/23)</strong></p>
+</section>
+<section id="id1">
+<h2>2.7.0 (15/05/23)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Updated the DaCy models to version 0.2.0, including a small, medium and large</p>
 <ul>
@@ -357,7 +360,9 @@
 </ul>
 </li>
 </ul>
-<p><strong>2.6.0 (10/04/23)</strong></p>
+</section>
+<section id="id2">
+<h2>2.6.0 (10/04/23)<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩</p>
 <ul>
@@ -365,15 +370,21 @@
 </ul>
 </li>
 </ul>
-<p><strong>2.5.0 (10/04/23)</strong></p>
+</section>
+<section id="id3">
+<h2>2.5.0 (10/04/23)<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Removed support for <code class="docutils literal notranslate"><span class="pre">0.0.0</span></code> models. To use these models you will now have to use <code class="docutils literal notranslate"><span class="pre">DaCy=&lt;2.4.3</span></code></p></li>
 </ul>
-<p><strong>2.3.0 (05/01/23)</strong></p>
+</section>
+<section id="id4">
+<h2>2.3.0 (05/01/23)<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>New tutorial added for using DaCy with <code class="docutils literal notranslate"><span class="pre">textdescriptives</span></code>. You can find it <a class="reference external" href="https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html">here</a></p></li>
 </ul>
-<p><strong>2.2.10 (05/01/23)</strong></p>
+</section>
+<section id="id5">
+<h2>2.2.10 (05/01/23)<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Added support for spaCy 3.4.0</p>
 <ul>
@@ -386,7 +397,9 @@
 </ul>
 </li>
 </ul>
-<p><strong>2.0.0 (27/06/22): The Spandaur Update</strong></p>
+</section>
+<section id="the-spandaur-update">
+<h2>2.0.0 (27/06/22): The Spandaur Update<a class="headerlink" href="#the-spandaur-update" title="Permalink to this heading">#</a></h2>
 <a class="reference internal image-reference" href="_images/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png"><img alt="_images/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png" src="_images/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png" style="width: 100px;" /></a>
 <ul class="simple">
 <li><p>Added models for hate-speech detection and classification</p></li>
@@ -407,19 +420,25 @@
 </li>
 <li><p>Multiple bugfixes</p></li>
 </ul>
-<p><strong>1.2.0 (04/11/21)</strong></p>
+</section>
+<section id="id6">
+<h2>1.2.0 (04/11/21)<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface’s model hub which is faster and more stable 🌟.</p></li>
 <li><p>Removed the readability module, we instead recommend you use the more extensive <a class="reference external" href="https://github.com/hlasse/TextDescriptives">textdescriptives</a> package developed by <a class="reference external" href="https://github.com/HLasse">HLasse</a> and I for extracting readability and other text metrics.</p></li>
 <li><p>Added support for the configuring the default the model location with the environmental variable ‘DACY_CACHE_DIR’ thanks to a PR by <a class="reference external" href="https://github.com/dhpollack">dhpullack</a> 🙏.</p></li>
 </ul>
-<p><strong>1.1.0 (23/07/21)</strong></p>
+</section>
+<section id="id7">
+<h2>1.1.0 (23/07/21)<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy in now available on the <a class="reference external" href="https://huggingface.co/models?search=dacy">Huggingface model hub</a> 🤗 . Including detailed performance descriptions of biases and robustness.</p></li>
 <li><p>It also got a brand new online <a class="reference external" href="https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing">demo</a> - try it out!</p></li>
 <li><p>And more, including documentation update and prettier prints.</p></li>
 </ul>
-<p><strong>1.0.0 (09/07/21)</strong></p>
+</section>
+<section id="id8">
+<h2>1.0.0 (09/07/21)<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy version 1.0.0 releases as the first version to pypi! 📦</p>
 <ul>
@@ -433,32 +452,45 @@
 <li><p>DaCy is now officially supported by the <a class="reference external" href="https://chcaa.io/#/">Centre for Humanities Computing</a> at Aarhus University</p></li>
 <li><p>The first paper on DaCy; check it out as a preprint and code for reproducing it <a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/tree/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP">here</a>! 🌟</p></li>
 </ul>
-<p><strong>0.4.1 (03/06/21)</strong></p>
+</section>
+<section id="id9">
+<h2>0.4.1 (03/06/21)<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy now has a stunningly looking documentation site 🌟</p></li>
 </ul>
-<p><strong>0.3.1 (01/06/21)</strong></p>
+</section>
+<section id="id10">
+<h2>0.3.1 (01/06/21)<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy’s tests now cover 99% of its codebase 🎉</p></li>
 <li><p>DaCy’s test suite is now being applied for all major operating systems instead of just Linux 👩‍💻</p></li>
 </ul>
-<p><strong>0.2.2 (25/05/21)</strong></p>
+</section>
+<section id="id11">
+<h2>0.2.2 (25/05/21)<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The new Danish Model Senda was added to DaCy</p></li>
 </ul>
-<p><strong>0.2.1 (30/03/21)</strong></p>
+</section>
+<section id="id12">
+<h2>0.2.1 (30/03/21)<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy now includes a small model for efficient processing based on the Danish Ælæctra 🏃</p></li>
 </ul>
-<p><strong>0.1.1 (24/03/21)</strong></p>
+</section>
+<section id="id13">
+<h2>0.1.1 (24/03/21)<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy includes a wrapped version of major Danish sentiment analysis software including the models by DaNLP, as well as code for wrapping any sequence classification model into its pipeline 🤩</p></li>
 <li><p>Tutorials is added to introduce the above functionality</p></li>
 </ul>
-<p><strong>0.0.1 (25/02/21)</strong></p>
+</section>
+<section id="id14">
+<h2>0.0.1 (25/02/21)<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰</p></li>
 </ul>
+</section>
 </section>
 
         </article>
@@ -511,8 +543,42 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">News</a><ul>
+<li><a class="reference internal" href="#dacy-is-back">2.8.0 (25/08/26): DaCy is Back!</a></li>
+<li><a class="reference internal" href="#id1">2.7.0 (15/05/23)</a></li>
+<li><a class="reference internal" href="#id2">2.6.0 (10/04/23)</a></li>
+<li><a class="reference internal" href="#id3">2.5.0 (10/04/23)</a></li>
+<li><a class="reference internal" href="#id4">2.3.0 (05/01/23)</a></li>
+<li><a class="reference internal" href="#id5">2.2.10 (05/01/23)</a></li>
+<li><a class="reference internal" href="#the-spandaur-update">2.0.0 (27/06/22): The Spandaur Update</a></li>
+<li><a class="reference internal" href="#id6">1.2.0 (04/11/21)</a></li>
+<li><a class="reference internal" href="#id7">1.1.0 (23/07/21)</a></li>
+<li><a class="reference internal" href="#id8">1.0.0 (09/07/21)</a></li>
+<li><a class="reference internal" href="#id9">0.4.1 (03/06/21)</a></li>
+<li><a class="reference internal" href="#id10">0.3.1 (01/06/21)</a></li>
+<li><a class="reference internal" href="#id11">0.2.2 (25/05/21)</a></li>
+<li><a class="reference internal" href="#id12">0.2.1 (30/03/21)</a></li>
+<li><a class="reference internal" href="#id13">0.1.1 (24/03/21)</a></li>
+<li><a class="reference internal" href="#id14">0.0.1 (25/02/21)</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
