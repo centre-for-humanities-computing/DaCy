@@ -7,12 +7,12 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="news.html" />
 <meta property="og:site_name" content="DaCy" />
-<meta property="og:description" content="2.7.0 (15/05/23) Updated the DaCy models to version 0.2.0, including a small, medium and large- Added beta support for Coreference Resolution! 🤩, Added beta support for Named Entity Linking!, Updat..." />
+<meta property="og:description" content="2.8.0 Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your enviro..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_news_f6b0378d.png" />
-<meta property="og:image:alt" content="2.7.0 (15/05/23) Updated the DaCy models to version 0.2.0, including a small, medium and large- Added beta support for Coreference Resolution! 🤩, Added beta..." />
-<meta name="description" content="2.7.0 (15/05/23) Updated the DaCy models to version 0.2.0, including a small, medium and large- Added beta support for Coreference Resolution! 🤩, Added beta support for Named Entity Linking!, Updat..." />
+<meta property="og:image" content="/_images/social_previews/summary_news_53d6a4c7.png" />
+<meta property="og:image:alt" content="2.8.0 Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines..." />
+<meta name="description" content="2.8.0 Removed support for python 3.9 and added support for python 3.13, Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your enviro..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="FAQ" href="faq.html" /><link rel="prev" title="Named Entity Recognition" href="performance_ner.html" />
 
@@ -265,6 +265,11 @@
         <article role="main">
           <section id="news-and-updates">
 <h1>News and Updates<a class="headerlink" href="#news-and-updates" title="Permalink to this heading">#</a></h1>
+<p><strong>2.8.0</strong></p>
+<ul class="simple">
+<li><p>Removed support for python 3.9 and added support for python 3.13</p></li>
+<li><p>Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your environment but loaded. Thus some pipelines (e.g. the ones containing coreference models) will require additional optional dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dacy[coref]</span></code>). <code class="docutils literal notranslate"><span class="pre">dacy.load</span></code> will let you know if you need optional dependencies for specific models otherwise see installation documentation for more.</p></li>
+</ul>
 <p><strong>2.7.0 (15/05/23)</strong></p>
 <ul class="simple">
 <li><p>Updated the DaCy models to version 0.2.0, including a small, medium and large</p>
