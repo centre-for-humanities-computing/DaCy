@@ -1,7 +1,5 @@
 import spacy
 
-import dacy
-
 
 def test_add_hate_speech_detection():
     nlp = spacy.blank("da")
@@ -9,7 +7,7 @@ def test_add_hate_speech_detection():
     texts = ["senile gamle idiot", "hej har du haft en god dag"]
     actual = ["offensive", "not offensive"]
     docs = list(nlp.pipe(texts))
-    for d, a in zip(docs, actual):
+    for d, a in zip(docs, actual, strict=False):
         if a is None:
             assert d._.is_offensive is None
         else:

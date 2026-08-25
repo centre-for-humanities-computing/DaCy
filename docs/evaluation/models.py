@@ -4,9 +4,10 @@ List of models using for testing
 
 from functools import partial
 
-import dacy
 import spacy
 from spacy.language import Language
+
+import dacy
 
 
 def scandiner_loader() -> Language:

@@ -1,18 +1,27 @@
 """Functions for downloading DaCy models."""
 
 import os
-from importlib.metadata import version
+import shutil
+import zipfile
 from pathlib import Path
 
-from spacy.util import get_installed_models
-from tqdm import tqdm  # type: ignore
+from tqdm import tqdm
 
 DACY_DEFAULT_PATH = Path.home() / ".dacy"
 
-DEFAULT_CACHE_DIR = os.getenv(
-    "DACY_CACHE_DIR",
-    DACY_DEFAULT_PATH,
+DEFAULT_CACHE_DIR = Path(
+    os.getenv(
+        "DACY_CACHE_DIR",
+        DACY_DEFAULT_PATH,
+    ),
 )
+
+# Models bundling a coref component, which needs the `dacy[coref]` extra.
+COREF_MODELS = {
+    "da_dacy_small_trf",
+    "da_dacy_medium_trf",
+    "da_dacy_large_trf",
+}
 
 models_url = {
     "da_dacy_small_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/0eadea074d5f637e76357c46bbd56451471d0154/da_dacy_small_trf-any-py3-none-any.whl",
@@ -41,10 +50,10 @@ def get_latest_version(model: str) -> str:
     versions = [mdl.split("-")[-1] for mdl in models_url if mdl.startswith(model)]
     versions = sorted(
         versions,
-        key=lambda s: [int(u) for u in s.split(".")],  # type: ignore
+        key=lambda s: [int(u) for u in s.split(".")],
         reverse=True,
     )
-    return versions[0]  # type: ignore
+    return versions[0]
 
 
 def models() -> list[str]:
@@ -70,25 +79,39 @@ def download_url(url: str, output_path: str) -> None:
         unit="B",
         unit_scale=True,
         miniters=1,
-        desc=url.split("/")[-1],  # type: ignore
+        desc=url.split("/")[-1],
     ) as t:
         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
 
-def install(package: str, url: str) -> None:
-    import subprocess
-    import sys
-
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", f"{package} @ {url}", "--no-deps"],
-    )
+def check_coref_dependencies(package: str) -> None:
+    """Raises an informative ImportError if `package` requires the `dacy[coref]`
+    extra (`spacy-experimental`) and it is not installed.
+    """
+    if package not in COREF_MODELS:
+        return
+    try:
+        import spacy_experimental  # type: ignore # noqa: F401
+    except ImportError as e:
+        raise ImportError(
+            f"The DaCy model '{package}' includes a coreference resolution "
+            "component that requires the optional 'spacy-experimental' "
+            "dependency. Install it with `pip install dacy[coref]` (only "
+            "available for Python <3.12), or use a DaCy model that does not "
+            "include coreference resolution.",
+        ) from e
 
 
 def download_model(
     model: str,
     force: bool = False,
 ) -> str:
-    """Downloads and install a specified DaCy pipeline.
+    """Downloads a specified DaCy pipeline to the DaCy cache
+    (`dacy.download.DEFAULT_CACHE_DIR`, configurable via the `DACY_CACHE_DIR`
+    environment variable) and returns the path to the pipeline. The returned
+    path can be loaded using `spacy.load`. Unlike installing the model as a
+    python package, this does not touch the environment's installed
+    dependencies.
 
     Args:
         model: string indicating DaCy model, use dacy.models() to get a list of
@@ -105,7 +128,6 @@ def download_model(
     if model in {"small", "medium", "large"}:
         latest_version = get_latest_version(model)
         model = f"da_dacy_{model}_trf-{latest_version}"
-    mdl_version = model.split("-")[-1]  # type: ignore
 
     if model not in models_url:
         raise ValueError(
@@ -113,10 +135,30 @@ def download_model(
             + " list of all models",
         )
 
-    mdl = model.split("-")[0]  # type: ignore
-    if mdl in get_installed_models() and not force and version(mdl) == mdl_version:
-        return mdl
-
     package = model.split("-")[0]
-    install(package, models_url[model])
-    return mdl
+    check_coref_dependencies(package)
+
+    model_dir = Path(DEFAULT_CACHE_DIR) / model
+    pipeline_dir = model_dir / package / model
+
+    if pipeline_dir.exists() and not force:
+        return str(pipeline_dir)
+
+    if model_dir.exists():
+        shutil.rmtree(model_dir)
+    model_dir.mkdir(parents=True, exist_ok=True)
+
+    whl_path = model_dir / f"{model}.whl"
+    download_url(models_url[model], str(whl_path))  # type: ignore
+
+    with zipfile.ZipFile(whl_path) as whl:
+        whl.extractall(model_dir)
+    whl_path.unlink()
+
+    if not pipeline_dir.exists():
+        raise ValueError(
+            f"Could not locate the pipeline data for '{model}' after extracting "
+            + "the downloaded model.",
+        )
+
+    return str(pipeline_dir)

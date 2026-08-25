@@ -1,21 +1,21 @@
 install:
 	@echo "--- 🚀 Installing project ---"
-	pip install -e ".[dev, docs, tests]" 
+	uv sync --group dev --group tests --group docs
 
 static-type-check:
 	@echo "--- 🔍 Running static type check ---"
-	pyright src/
+	uv run --group dev ty check src/
 
 lint:
 	@echo "--- 🧹 Running linters ---"
-	ruff format .  								# running ruff formatting
-	ruff check src/ --fix  						    # running ruff linting
-	ruff check tests/ --fix
-	ruff check docs/conf.py --fix
+	uv run --group dev ruff format .  							# running ruff formatting
+	uv run --group dev ruff check src/ --fix  					# running ruff linting
+	uv run --group dev ruff check tests/ --fix
+	uv run --group dev ruff check docs/conf.py --fix
 
 test:
 	@echo "--- 🧪 Running tests ---"
-	pytest tests/
+	uv run --group tests pytest tests/
 
 pr:
 	@echo "--- 🚀 Running PR checks ---"
@@ -27,15 +27,9 @@ pr:
 build-docs:
 	@echo "--- 📚 Building docs ---"
 	@echo "Builds the docs and puts them in the 'site' folder"
-	sphinx-build -M html docs/ docs/_build
+	uv run --python 3.11 --extra coref --group docs sphinx-build -M html docs/ docs/_build
 
 view-docs:
 	@echo "--- 👀 Viewing docs ---"
-	@echo You might need to rebuild the docs first"
+	@echo "You might need to rebuild the docs first"
 	open docs/_build/html/index.html
-	
-update-from-template:
-	@echo "--- 🔄 Updating from template ---"
-	@echo "This will update the project from the template, make sure to resolve any .rej files"
-	cruft update --skip-apply-ask
-	

@@ -1,6 +1,4 @@
-# GitHub action to run linting
-
-name: run-linting
+name: lint
 
 on:
   pull_request:
@@ -14,13 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: "3.9"
-          cache: "pip"
+          enable-cache: true
 
-      - name: Install dependencies
-        run: make install
+      - name: Install Python
+        run: uv python install 3.12
 
       - name: Lint
         id: lint

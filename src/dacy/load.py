@@ -2,7 +2,7 @@
 
 import warnings
 from pathlib import Path
-from typing import Any, Union
+from typing import Any
 
 import spacy
 from spacy.language import Language
@@ -13,7 +13,7 @@ from .download import DEFAULT_CACHE_DIR, download_model, models_url
 def load(
     model: str,
     force: bool = False,
-    **kwargs: Any,  # type: ignore
+    **kwargs: Any,
 ) -> Language:
     """Load a DaCy model as a SpaCy text processing pipeline. If the model is
     not downloaded it will also download the model.
@@ -39,7 +39,7 @@ def load(
     return spacy.load(path, **kwargs)
 
 
-def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:  # type: ignore
+def where_is_my_dacy(verbose: bool = True) -> str | Path:
     """Returns a path to where DaCy models are located. The default the model
     location can be configured with the environmental variable
     `DACY_CACHE_DIR`.
@@ -57,10 +57,9 @@ def where_is_my_dacy(verbose: bool = True) -> Union[str, Path]:  # type: ignore
     """
     if verbose is True:
         warnings.warn(  # noqa: B028
-            "DaCy pipelines above and including version 0.1.0 are installed as a "
-            + "python module and are thus located in your python environment under "
-            + "the respective names. To get a list of installed models use "
-            + "spacy.util.get_installed_models()",
+            "DaCy pipelines are downloaded (not pip installed) to the DaCy cache "
+            + "directory. This location can be configured using the environmental "
+            + "variable `DACY_CACHE_DIR`.",
         )
     return DEFAULT_CACHE_DIR
 

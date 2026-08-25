@@ -1,13 +1,13 @@
 [build-system]
-requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
+requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "dacy"
 version = "2.7.8"
-description = "A Danish pipeline trained in SpaCy that has achieved State-of-the-Art performance on all dependency parsing, NER and POS-tagging for Danish"
+description = "A Danish State-of-the-Art SpaCy pipeline for dependency parsing, named entity recognition, parts-of-speech tagging and more."
 authors = [
-  { name = "Kenneth Enevoldsen", email = "kennethcenevoldsen@gmail.com" },
+  { name = "Kenneth Enevoldsen", email = "dacy.plasma625@passfwd.com" },
   { name = "Lasse Hansen" },
   { name = "Emil Jessen" },
 ]
@@ -23,20 +23,30 @@ classifiers = [
   "Operating System :: MacOS :: MacOS X",
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
 ]
 
 keywords = ["nlp", "danish", "spacy-universe"]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
   "spacy-wrap>=1.4.1",
-  "spacy-experimental>=0.6.2",
   "spacy[transformers]>=3.2.0",
   "pandas>=1.0.0",
   "tqdm>=4.42.1",
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+
+[project.optional-dependencies]
+# Required to load DaCy's trf models (small/medium/large), which include a
+# coreference resolution component. Only available for Python <3.12, as
+# spacy-experimental has no wheels for newer Python versions.
+coref = [
+  "spacy-experimental>=0.6.2,<0.7.0; python_version<'3.12'",
+  # thinc <8.3 (pulled in by spacy <3.8) is not numpy 2.x compatible
+  "numpy<2; python_version<'3.12'",
 ]
 
 
@@ -44,11 +54,12 @@ dependencies = [
 homepage = "https://centre-for-humanities-computing.github.io/DaCy/"
 documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
 repository = "https://github.com/centre-for-humanities-computing/DaCy"
-[project.license]
-file = "LICENSE"
-name = "Apache License 2.0"
-[project.optional-dependencies]
-dev = ["cruft>=2.0.0", "pyright>=1.1.339", "ruff==0.7.1"]
+[dependency-groups]
+dev = [
+    "cruft>=2.0.0",
+    "ty>=0.0.46",
+    "ruff==0.7.1",
+]
 tests = ["pytest>=7.1.2", "pytest-cov>=3.0.0", "pytest-instafail>=0.4.2"]
 docs = [
   "sphinx==5.3.0",
@@ -68,6 +79,9 @@ docs = [
   "docutils==0.17.1",
   # for tutorials
   "jupyter>=1.0.0",
+  # spacy <3.8 (pulled in by the `coref` extra, which the tutorials need)
+  # imports `display` from `IPython.core.display`, which IPython 9 removed.
+  "ipython<9",
   "wikidata>=0.7.0",
   # sentiment analysis
   "asent>=0.4.2",
@@ -78,7 +92,6 @@ docs = [
   # for performance notebooks
   "altair>=4.1.0",
   "datasets>=1.14.0",
-
 ]
 
 [project.readme]
@@ -96,6 +109,9 @@ content-type = "text/markdown"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.coverage.run]
 omit = ["**/tests/*", "**/about.py", "**/dev/*"]
@@ -137,10 +153,9 @@ exclude = [
   "papers/DaCy-A-Unified-Framework-for-Danish-NLP/**",
   "docs/performance_testing_utils/**",
 ]
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.lint]
-# Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = [
   "A",
   "ANN",
@@ -169,16 +184,7 @@ select = [
   "SIM",
   "W",
 ]
-ignore = [
-  "ANN401",
-  "E402",
-  "E501",
-  "F401",
-  "F841",
-  "RET504",
-  "ANN202",
-  "COM812",
-]
+ignore = ["ANN401", "E402", "E501", "F841", "RET504", "ANN202", "COM812"]
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 unfixable = ["ERA"]
 
@@ -196,7 +202,6 @@ suppress-none-returning = true
 
 
 [tool.ruff.lint.mccabe]
-# Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
 
 
@@ -207,3 +212,9 @@ build_command = "python -m pip install build; python -m build"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.uv]
+required-environments = [
+  "sys_platform == 'darwin' and platform_machine == 'arm64'",
+  "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]

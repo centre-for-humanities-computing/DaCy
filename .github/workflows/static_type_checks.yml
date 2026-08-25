@@ -16,24 +16,16 @@ on:
 jobs:
   static_type_checks:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.9"]
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        id: setup_python
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: ${{ matrix.python-version}}
-          cache: pip
+          enable-cache: true
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          make install
+      - name: Install Python
+        run: uv python install 3.12
 
       - name: Run static type checker
         shell: bash

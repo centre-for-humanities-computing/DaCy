@@ -1,5 +1,6 @@
 import augmenty
 import spacy
+
 from dacy.datasets import danish_names, female_names, male_names, muslim_names
 
 

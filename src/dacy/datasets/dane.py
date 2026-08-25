@@ -5,7 +5,6 @@ import subprocess
 import sys
 from os import PathLike
 from pathlib import Path
-from typing import Optional, Union
 
 from spacy.training.corpus import Corpus
 
@@ -14,13 +13,13 @@ from .constants import DATASETS
 
 
 def dane(  # noqa
-    save_path: Optional[PathLike] = None,  # type: ignore
-    splits: list[str] = ["train", "dev", "test"],  # noqa  # type: ignore
+    save_path: PathLike | None = None,
+    splits: list[str] = ["train", "dev", "test"],  # noqa
     redownload: bool = False,
     n_sents: int = 1,
     open_unverified_connection: bool = False,
     **kwargs,  # noqa
-) -> Union[list[Corpus], Corpus]:  # type: ignore
+) -> list[Corpus] | Corpus:
     """Reads the DaNE dataset as a spacy Corpus.
 
     Args:
@@ -49,7 +48,7 @@ def dane(  # noqa
     if open_unverified_connection:
         import ssl
 
-        ssl._create_default_https_context = ssl._create_unverified_context
+        ssl._create_default_https_context = ssl._create_unverified_context  # type: ignore
 
     if save_path is None:
         save_path_ = Path(DEFAULT_CACHE_DIR) / "datasets"
@@ -97,8 +96,8 @@ def dane(  # noqa
             check=True,
         )
         cpath.unlink()
-    if isinstance(splits, str):  # type: ignore
-        splits = [splits]  # type: ignore
+    if isinstance(splits, str):
+        splits = [splits]
     corpora = []
     paths = {
         "all": f"dane_{n_sents}.spacy",
@@ -108,7 +107,7 @@ def dane(  # noqa
     }
 
     for split in splits:
-        corpora.append(Corpus(save_path / paths[split]))  # type: ignore
+        corpora.append(Corpus(save_path / paths[split]))
     if len(corpora) == 1:
-        return corpora[0]  # type: ignore
+        return corpora[0]
     return corpora

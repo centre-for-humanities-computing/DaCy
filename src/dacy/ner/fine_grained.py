@@ -1,4 +1,5 @@
-from typing import Callable, Literal, Optional
+from collections.abc import Callable
+from typing import Literal
 
 from spacy.lang.da import Danish
 from spacy.language import Language
@@ -18,10 +19,10 @@ import dacy
 def create_finegrained_ner_component(
     nlp: Language,
     name: str,
-    size: Literal["small", "medium", "large"],  # type: ignore
+    size: Literal["small", "medium", "large"],
     transformer_name: str,
-    version: Optional[str],  # type: ignore
-) -> Callable[[Doc], Doc]:  # type: ignore
+    version: str | None,
+) -> Callable[[Doc], Doc]:
     """Create a fine grained NER component using the dacy models.
 
     Args:

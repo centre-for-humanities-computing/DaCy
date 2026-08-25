@@ -1,10 +1,3 @@
-# THIS ACTION WILL:
-  # 1) install Python dependencies
-  # 2) run make test
-
-# SETUP:
-  # None required except for the Makefile
-
 name: test
 on:
   push:
@@ -23,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.9", "3.10"]
+        python-version: ["3.10", "3.12"]
 
     # This allows a subsequently queued workflow run to interrupt previous runs
     concurrency:
@@ -33,16 +26,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip' # caching pip dependencies
+          enable-cache: true
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          make install
+      - name: Install Python
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Run tests
         shell: bash
