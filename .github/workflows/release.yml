@@ -6,13 +6,12 @@
 
 name: Release
 on:
-  push:
-    branches: [main]
   workflow_run:
-    workflows: ["tests"]
+    workflows: ["test"]
+    branches: [main]
     types:
       - completed
-  
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -22,16 +21,16 @@ jobs:
       # a guide on how to set it up is available here: https://blog.pypi.org/posts/2023-04-20-introducing-trusted-publishers/
        
 
-    if: ${{ github.ref == 'refs/heads/main' && github.event.workflow_run.conclusion == 'success'}}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       # Checkout action is required for token to persist
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT }}
 
       - name: Python Semantic Release
-        uses: python-semantic-release/python-semantic-release@v8.0.4
+        uses: python-semantic-release/python-semantic-release@v10.6.1
         id: release
         with:
           github_token: ${{ secrets.PAT }}
@@ -44,7 +43,8 @@ jobs:
         # publisher must already be configured on PyPI.
       
       - name: Publish package distributions to GitHub Releases
-        uses: python-semantic-release/upload-to-gh-release@main
+        uses: python-semantic-release/publish-action@v10.6.1
         if: steps.release.outputs.released == 'true'
         with:
           github_token: ${{ secrets.PAT }}
+          tag: ${{ steps.release.outputs.tag }}

@@ -1,5 +1,7 @@
 # CHANGELOG
 
+<!-- version list -->
+
 
 
 ## v2.7.8 (2024-10-30)
