@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -246,27 +246,26 @@
           <h1>Source code for dacy.datasets.dane</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;This includes the DaNE dataset wrapped and read in as a SpaCy corpus.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span> <span class="nn">spacy.training.corpus</span> <span class="kn">import</span> <span class="n">Corpus</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.training.corpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Corpus</span>
 
-<span class="kn">from</span> <span class="nn">..download</span> <span class="kn">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_url</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">DATASETS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..download</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_url</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATASETS</span>
 
 
-<div class="viewcode-block" id="dane"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.dane.dane">[docs]</a><span class="k">def</span> <span class="nf">dane</span><span class="p">(</span>  <span class="c1"># noqa</span>
-    <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
-    <span class="n">splits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span>  <span class="c1"># noqa  # type: ignore</span>
+<div class="viewcode-block" id="dane"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.dane.dane">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">dane</span><span class="p">(</span>  <span class="c1"># noqa</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">splits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span>  <span class="c1"># noqa</span>
     <span class="n">redownload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">n_sents</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">open_unverified_connection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>  <span class="c1"># noqa</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Corpus</span><span class="p">],</span> <span class="n">Corpus</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Corpus</span><span class="p">]</span> <span class="o">|</span> <span class="n">Corpus</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reads the DaNE dataset as a spacy Corpus.</span>
 
 <span class="sd">    Args:</span>
@@ -293,9 +292,9 @@
 <span class="sd">        &gt;&gt;&gt; train, dev, test = dane(splits=[&quot;train&quot;, &quot;dev&quot;, &quot;test&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">open_unverified_connection</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">ssl</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
 
-        <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+        <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>  <span class="c1"># type: ignore</span>
 
     <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">save_path_</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">DEFAULT_CACHE_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;datasets&quot;</span>
@@ -343,8 +342,8 @@
             <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">cpath</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
-        <span class="n">splits</span> <span class="o">=</span> <span class="p">[</span><span class="n">splits</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">[</span><span class="n">splits</span><span class="p">]</span>
     <span class="n">corpora</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;dane_</span><span class="si">{</span><span class="n">n_sents</span><span class="si">}</span><span class="s2">.spacy&quot;</span><span class="p">,</span>
@@ -354,9 +353,9 @@
     <span class="p">}</span>
 
     <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
-        <span class="n">corpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Corpus</span><span class="p">(</span><span class="n">save_path</span> <span class="o">/</span> <span class="n">paths</span><span class="p">[</span><span class="n">split</span><span class="p">]))</span>  <span class="c1"># type: ignore</span>
+        <span class="n">corpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Corpus</span><span class="p">(</span><span class="n">save_path</span> <span class="o">/</span> <span class="n">paths</span><span class="p">[</span><span class="n">split</span><span class="p">]))</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpora</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">corpora</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">corpora</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">corpora</span></div>
 </pre></div>
         </article>
@@ -370,7 +369,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

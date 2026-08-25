@@ -21,7 +21,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -273,7 +273,7 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 <p>To our knowledge there exists three datasets for Danish named entity recognition;</p>
 <ol class="arabic simple">
 <li><p>DaNE <span id="id1">[<a class="reference internal" href="#id11" title="Rasmus Hvingelby, Amalie Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse Malm Lidegaard, and Anders Søgaard. Dane: a named entity resource for danish. In Proceedings of the 12th Language Resources and Evaluation Conference, 4597–4604. 2020.">Hvingelby <em>et al.</em>, 2020</a>]</span>, which uses the simple annotation scheme of CoNLL 2003 <span id="id2">[<a class="reference internal" href="#id15" title="Erik F Sang and Fien De Meulder. Introduction to the conll-2003 shared task: language-independent named entity recognition. arXiv preprint cs/0306050, 2003.">Sang and De Meulder, 2003</a>]</span> with the entities; <em>person</em>, <em>location</em>, <em>organization</em>, and <em>miscellaneus</em>.</p></li>
-<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[<a class="reference internal" href="#id14" title="Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. Linguistic Data Consortium, Philadelphia, PA, 2013.">Weischedel <em>et al.</em>, 2013</a>]</span> including more that 16 entity types.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK-ner">DANSK</a>, which uses the extensive annotation scheme similar to that of OntoNotes 5.0 <span id="id3">[<a class="reference internal" href="#id14" title="Ralph Weischedel, Martha Palmer, Mitchell Marcus, Eduard Hovy, Sameer Pradhan, Lance Ramshaw, Nianwen Xue, Ann Taylor, Jeff Kaufman, Michelle Franchini, and others. Ontonotes release 5.0 ldc2013t19. Linguistic Data Consortium, Philadelphia, PA, 2013.">Weischedel <em>et al.</em>, 2013</a>]</span> including more that 16 entity types.</p></li>
 <li><p>and DAN+ <span id="id4">[<a class="reference internal" href="#id16" title="Barbara Plank, Kristian Nørgaard Jensen, and Rob van der Goot. Dan+: danish nested named entities and lexical normalization. arXiv preprint arXiv:2105.11301, 2021.">Plank <em>et al.</em>, 2021</a>]</span>, which also uses the annotation scheme of CoNLL 2003, but allows for nested entities for instance <em>Aarhus Universitet</em>, where <em>Aarhus</em> is a location and <em>Aarhus Universitet</em> is an organization.</p></li>
 </ol>
 <p>In this comparison we will be examing performance on DaNE and DANSK, but as no known models have been trained on Danish nested entities, we will not be comparing performance on DAN+.</p>
@@ -785,7 +785,7 @@ accuracy, but also includes domain generalization, biases and robustness. This p
 </section>
 <section id="domain-generalization">
 <h2>Domain Generalization<a class="headerlink" href="#domain-generalization" title="Permalink to this heading">#</a></h2>
-<p>For the domains generalization benchmark we utilize the <a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK">DANSK</a> dataset. This dataset is annotated across many different domains including fiction, web content, social media, wikis, news, legal and conversational data.
+<p>For the domains generalization benchmark we utilize the <a class="reference external" href="https://huggingface.co/datasets/chcaa/DANSK-ner">DANSK</a> dataset. This dataset is annotated across many different domains including fiction, web content, social media, wikis, news, legal and conversational data.
 As some models are trained on DANSK (<code class="docutils literal notranslate"><span class="pre">da_dacy_{size}_ner_fine_grained-{version}</span></code>) these models are tested on the test set using all of the
 labels.</p>
 <div class="cell tag_remove-input docutils container">
@@ -1366,7 +1366,7 @@ is similar to that introduced in the initial DaCy paper <span id="id8">[<a class
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

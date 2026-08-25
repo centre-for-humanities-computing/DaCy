@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -246,26 +246,25 @@
           <h1>Source code for dacy.score.score</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;This includes function for scoring models applied to a SpaCy corpus.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>  <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">time</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
-<span class="kn">from</span> <span class="nn">spacy.scorer</span> <span class="kn">import</span> <span class="n">Scorer</span>
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
-<span class="kn">from</span> <span class="nn">spacy.training</span> <span class="kn">import</span> <span class="n">Example</span>
-<span class="kn">from</span> <span class="nn">spacy.training.augment</span> <span class="kn">import</span> <span class="n">dont_augment</span>
-<span class="kn">from</span> <span class="nn">spacy.training.corpus</span> <span class="kn">import</span> <span class="n">Corpus</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.language</span><span class="w"> </span><span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.scorer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scorer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.tokens</span><span class="w"> </span><span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">Example</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.training.augment</span><span class="w"> </span><span class="kn">import</span> <span class="n">dont_augment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.training.corpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Corpus</span>
 
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">flatten_dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">flatten_dict</span>
 
 
-<div class="viewcode-block" id="no_misc_getter"><a class="viewcode-back" href="../../../api/dacy.score.html#dacy.score.score.no_misc_getter">[docs]</a><span class="k">def</span> <span class="nf">no_misc_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Span</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="no_misc_getter"><a class="viewcode-back" href="../../../api/dacy.score.html#dacy.score.score.no_misc_getter">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">no_misc_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Span</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility getter for scoring entities without including MISC.</span>
 
 <span class="sd">    Args:</span>
@@ -275,20 +274,20 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        Iterable[Span]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">spans</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="n">spans</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">span</span> <span class="ow">in</span> <span class="n">spans</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">span</span><span class="o">.</span><span class="n">label_</span> <span class="o">==</span> <span class="s2">&quot;MISC&quot;</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">yield</span> <span class="n">span</span></div>
 
 
-<span class="k">def</span> <span class="nf">dep_getter</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>  <span class="c1"># noqa</span>
-    <span class="n">dep</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dep_getter</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="n">dep</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
     <span class="n">dep</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">as_string</span><span class="p">(</span><span class="n">dep</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">dep</span>
 
 
-<div class="viewcode-block" id="score"><a class="viewcode-back" href="../../../api/dacy.score.html#dacy.score.score.score">[docs]</a><span class="k">def</span> <span class="nf">score</span><span class="p">(</span>  <span class="c1"># noqa</span>
+<div class="viewcode-block" id="score"><a class="viewcode-back" href="../../../api/dacy.score.html#dacy.score.score.score">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span>  <span class="c1"># noqa</span>
     <span class="n">corpus</span><span class="p">:</span> <span class="n">Corpus</span><span class="p">,</span>
     <span class="n">apply_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Example</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Example</span><span class="p">]]]</span> <span class="o">|</span> <span class="n">Language</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
     <span class="n">score_fn</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Example</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># noqa</span>
@@ -341,27 +340,27 @@
 <span class="sd">        &gt;&gt;&gt;                apply_fn = nlp)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">augmenters</span><span class="p">):</span>
-        <span class="n">augmenters</span> <span class="o">=</span> <span class="p">[</span><span class="n">augmenters</span><span class="p">]</span>
+        <span class="n">augmenters</span> <span class="o">=</span> <span class="p">[</span><span class="n">augmenters</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">augmenters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">augmenters</span> <span class="o">=</span> <span class="p">[</span><span class="n">dont_augment</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__apply_nlp</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__apply_nlp</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
         <span class="n">examples</span> <span class="o">=</span> <span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">)</span>
         <span class="n">doc_tuples</span> <span class="o">=</span> <span class="n">nlp_</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">as_tuples</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Example</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">doc_tuples</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">apply_fn</span><span class="p">,</span> <span class="n">Language</span><span class="p">):</span>
         <span class="n">nlp_</span> <span class="o">=</span> <span class="n">apply_fn</span>
-        <span class="n">apply_fn</span> <span class="o">=</span> <span class="n">__apply_nlp</span>  <span class="c1"># type: ignore</span>
+        <span class="n">apply_fn</span> <span class="o">=</span> <span class="n">__apply_nlp</span>
 
     <span class="k">if</span> <span class="n">nlp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">spacy.lang.da</span> <span class="kn">import</span> <span class="n">Danish</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">spacy.lang.da</span><span class="w"> </span><span class="kn">import</span> <span class="n">Danish</span>
 
         <span class="n">nlp</span> <span class="o">=</span> <span class="n">Danish</span><span class="p">()</span>
 
     <span class="n">scorer</span> <span class="o">=</span> <span class="n">Scorer</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">ents_scorer</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ents_scorer</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
         <span class="n">scores</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_spans</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">&quot;ents&quot;</span><span class="p">)</span>
         <span class="n">scores_no_misc</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_spans</span><span class="p">(</span>
             <span class="n">examples</span><span class="p">,</span>
@@ -373,7 +372,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">scores</span>
 
-    <span class="k">def</span> <span class="nf">pos_scorer</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pos_scorer</span><span class="p">(</span><span class="n">examples</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
         <span class="n">scores</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_token_attr</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
         <span class="n">scores_</span> <span class="o">=</span> <span class="n">Scorer</span><span class="o">.</span><span class="n">score_token_attr</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">scores_</span><span class="p">:</span>
@@ -393,34 +392,34 @@
         <span class="p">),</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__score</span><span class="p">(</span><span class="n">augmenter</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__score</span><span class="p">(</span><span class="n">augmenter</span><span class="p">):</span>  <span class="c1"># noqa: ANN001</span>
         <span class="n">corpus_</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
         <span class="n">corpus_</span><span class="o">.</span><span class="n">augmenter</span> <span class="o">=</span> <span class="n">augmenter</span>
         <span class="n">scores_ls</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-            <span class="n">examples</span> <span class="o">=</span> <span class="n">apply_fn</span><span class="p">(</span><span class="n">corpus_</span><span class="p">(</span><span class="n">nlp</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
+            <span class="n">examples</span> <span class="o">=</span> <span class="n">apply_fn</span><span class="p">(</span><span class="n">corpus_</span><span class="p">(</span><span class="n">nlp</span><span class="p">))</span>
             <span class="n">speed</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">s</span>
             <span class="n">scores</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;wall_time&quot;</span><span class="p">:</span> <span class="n">speed</span><span class="p">}</span>
             <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">score_fn</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="n">fn</span> <span class="o">=</span> <span class="n">def_scorers</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span>  <span class="c1"># noqa</span>
-                <span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">examples</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
+                <span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">examples</span><span class="p">))</span>
             <span class="n">scores</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
             <span class="n">scores_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 
         <span class="c1"># and collapse list to dict</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-            <span class="n">scores</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores_ls</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">:</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores_ls</span><span class="p">]</span>
 
-        <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
+        <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">aug</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">augmenters</span><span class="p">):</span>
         <span class="n">scores_</span> <span class="o">=</span> <span class="n">__score</span><span class="p">(</span><span class="n">aug</span><span class="p">)</span>
-        <span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scores</span><span class="p">,</span> <span class="n">scores_</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">scores_</span>  <span class="c1"># type: ignore  # noqa</span>
-    <span class="k">return</span> <span class="n">scores</span>  <span class="c1"># type: ignore</span></div>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scores</span><span class="p">,</span> <span class="n">scores_</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">scores_</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">scores</span></div>
 </pre></div>
         </article>
       </div>
@@ -433,7 +432,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

@@ -21,7 +21,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -154,7 +154,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -258,7 +258,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -297,21 +297,12 @@ While this allows for easier comparisons of modules and architectures, it inflat
 the performance you can expect when you apply the model. Therefore, we measure the performance using the models own tokenizer or SpaCy’s tokenizer if it performs better.
 Polyglot and Stanza performed better with their own tokenizers while the remaining models performed best with SpaCy’s.</p>
 </div>
-<section id="state-of-the-art">
-<h2>State-of-the-Art<a class="headerlink" href="#state-of-the-art" title="Permalink to this heading">#</a></h2>
-<p>While the above tables are convenient and give and quick overview over the natural
-language processing landscape for Danish NLP it isn’t continually updated. Thus the following
-three badges denotes the current ranking of DaCy.</p>
-<p><a class="reference external" href="https://paperswithcode.com/sota/named-entity-recognition-on-dane?p=dacy-a-unified-framework-for-danish-nlp"><img alt="ner" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/named-entity-recognition-on-dane" style="width: 160pt;" /></a></p>
-<p><a class="reference external" href="https://paperswithcode.com/sota/part-of-speech-tagging-on-dane?p=dacy-a-unified-framework-for-danish-nlp"><img alt="pos" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/part-of-speech-tagging-on-dane" style="width: 160pt;" /></a></p>
-<p><a class="reference external" href="https://paperswithcode.com/sota/dependency-parsing-on-dane?p=dacy-a-unified-framework-for-danish-nlp"><img alt="dep" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dacy-a-unified-framework-for-danish-nlp/dependency-parsing-on-dane" style="width: 160pt;" /></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note that striving for state-of-the-art performance isn’t always ideal often inference speed, model robustness and model biases is important too.
 DaCy strive to strike a balance between these categories when selecting its candidate models.
 For more information on this check out the section on model <a class="reference external" href="https://centre-for-humanities-computing.github.io/DaCy/robustness.html">robustness and biases</a>.</p>
 </div>
-</section>
 </section>
 
         </article>
@@ -343,7 +334,7 @@ For more information on this check out the section on model <a class="reference 
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -364,27 +355,8 @@ For more information on this check out the section on model <a class="reference 
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">State of the Art Comparison</a><ul>
-<li><a class="reference internal" href="#state-of-the-art">State-of-the-Art</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -246,18 +246,17 @@
           <h1>Source code for dacy.datasets.names</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Helper functions for loading name dictionaries for person augmentation.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="load_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.load_names">[docs]</a><span class="k">def</span> <span class="nf">load_names</span><span class="p">(</span>
+<div class="viewcode-block" id="load_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.load_names">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">load_names</span><span class="p">(</span>
     <span class="n">min_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">ethnicity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
-    <span class="n">gender</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+    <span class="n">ethnicity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gender</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">min_prop_gender</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads the names lookup table. Danish are from Danmarks statistik (2021).</span>
 <span class="sd">    Muslim names are from Meldgaard (2005),</span>
 <span class="sd">    https://nors.ku.dk/publikationer/webpublikationer/muslimske_fornavne/.</span>
@@ -310,7 +309,7 @@
     <span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="muslim_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.muslim_names">[docs]</a><span class="k">def</span> <span class="nf">muslim_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="muslim_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.muslim_names">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">muslim_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Muslim names.</span>
 
 <span class="sd">    Returns:</span>
@@ -327,7 +326,7 @@
     <span class="k">return</span> <span class="n">load_names</span><span class="p">(</span><span class="n">ethnicity</span><span class="o">=</span><span class="s2">&quot;muslim&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="danish_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.danish_names">[docs]</a><span class="k">def</span> <span class="nf">danish_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="danish_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.danish_names">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">danish_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish names.</span>
 
 <span class="sd">    Returns:</span>
@@ -344,7 +343,7 @@
     <span class="k">return</span> <span class="n">load_names</span><span class="p">(</span><span class="n">ethnicity</span><span class="o">=</span><span class="s2">&quot;danish&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="female_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.female_names">[docs]</a><span class="k">def</span> <span class="nf">female_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="female_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.female_names">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">female_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish female names.</span>
 
 <span class="sd">    Returns:</span>
@@ -360,7 +359,7 @@
     <span class="k">return</span> <span class="n">load_names</span><span class="p">(</span><span class="n">ethnicity</span><span class="o">=</span><span class="s2">&quot;danish&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s2">&quot;female&quot;</span><span class="p">,</span> <span class="n">min_prop_gender</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="male_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.male_names">[docs]</a><span class="k">def</span> <span class="nf">male_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="male_names"><a class="viewcode-back" href="../../../api/dacy.datasets.html#dacy.datasets.names.male_names">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">male_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of Danish male names.</span>
 
 <span class="sd">    Returns:</span>
@@ -386,7 +385,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -246,20 +246,20 @@
           <h1>Source code for dacy.load</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Functionality for loading and locating DaCy models.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">import</span> <span class="nn">spacy</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">spacy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.language</span><span class="w"> </span><span class="kn">import</span> <span class="n">Language</span>
 
-<span class="kn">from</span> <span class="nn">.download</span> <span class="kn">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_model</span><span class="p">,</span> <span class="n">models_url</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.download</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="n">download_model</span><span class="p">,</span> <span class="n">models_url</span>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.load">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a DaCy model as a SpaCy text processing pipeline. If the model is</span>
 <span class="sd">    not downloaded it will also download the model.</span>
@@ -285,7 +285,7 @@
     <span class="k">return</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span> <span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="where_is_my_dacy"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.where_is_my_dacy">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">where_is_my_dacy</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a path to where DaCy models are located. The default the model</span>
 <span class="sd">    location can be configured with the environmental variable</span>
 <span class="sd">    `DACY_CACHE_DIR`.</span>
@@ -303,15 +303,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>  <span class="c1"># noqa: B028</span>
-            <span class="s2">&quot;DaCy pipelines above and including version 0.1.0 are installed as a &quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;python module and are thus located in your python environment under &quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;the respective names. To get a list of installed models use &quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;spacy.util.get_installed_models()&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DaCy pipelines are downloaded (not pip installed) to the DaCy cache &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;directory. This location can be configured using the environmental &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;variable `DACY_CACHE_DIR`.&quot;</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">DEFAULT_CACHE_DIR</span></div>
 
 
-<div class="viewcode-block" id="models"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.models">[docs]</a><span class="k">def</span> <span class="nf">models</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="models"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.load.models">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">models</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a list of valid DaCy models.</span>
 
 <span class="sd">    Returns:</span>
@@ -334,7 +333,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

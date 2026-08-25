@@ -21,7 +21,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -271,9 +271,29 @@
 <span id="dacy-download"></span><h2>dacy.download<a class="headerlink" href="#module-dacy.download" title="Permalink to this heading">#</a></h2>
 <p>Functions for downloading DaCy models.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="dacy.download.check_coref_dependencies">
+<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">check_coref_dependencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/download.html#check_coref_dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.check_coref_dependencies" title="Permalink to this definition">#</a></dt>
+<dd><p>Raises an informative ImportError if <cite>package</cite> requires the <cite>dacy[coref]</cite>
+extra (<cite>spacy-experimental</cite>) and it is not installed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>package</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="dacy.download.download_model">
 <span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/download.html#download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.download_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Downloads and install a specified DaCy pipeline.</p>
+<dd><p>Downloads a specified DaCy pipeline to the DaCy cache
+(<cite>dacy.download.DEFAULT_CACHE_DIR</cite>, configurable via the <cite>DACY_CACHE_DIR</cite>
+environment variable) and returns the path to the pipeline. The returned
+path can be loaded using <cite>spacy.load</cite>. Unlike installing the model as a
+python package, this does not touch the environment’s installed
+dependencies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -309,22 +329,6 @@ being present? Defaults to False.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dacy.download.install">
-<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/download.html#install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.install" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>package</strong> (<em>str</em>) – </p></li>
-<li><p><strong>url</strong> (<em>str</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -370,7 +374,7 @@ already downloaded? Default to False.</p></li>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dacy</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">dacy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_dacy_medium_trf-0.1.0&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># or equivalently</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
@@ -391,7 +395,7 @@ already downloaded? Default to False.</p></li>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dacy</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">dacy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dacy</span><span class="o">.</span><span class="n">models</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -416,7 +420,7 @@ True.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dacy</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">dacy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dacy</span><span class="o">.</span><span class="n">where_is_my_dacy</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -454,7 +458,7 @@ True.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -489,9 +493,9 @@ True.</p>
             <ul>
 <li><a class="reference internal" href="#">Downloading and Loading</a><ul>
 <li><a class="reference internal" href="#module-dacy.download">dacy.download</a><ul>
+<li><a class="reference internal" href="#dacy.download.check_coref_dependencies"><code class="docutils literal notranslate"><span class="pre">check_coref_dependencies()</span></code></a></li>
 <li><a class="reference internal" href="#dacy.download.download_model"><code class="docutils literal notranslate"><span class="pre">download_model()</span></code></a></li>
 <li><a class="reference internal" href="#dacy.download.get_latest_version"><code class="docutils literal notranslate"><span class="pre">get_latest_version()</span></code></a></li>
-<li><a class="reference internal" href="#dacy.download.install"><code class="docutils literal notranslate"><span class="pre">install()</span></code></a></li>
 <li><a class="reference internal" href="#dacy.download.models"><code class="docutils literal notranslate"><span class="pre">models()</span></code></a></li>
 </ul>
 </li>

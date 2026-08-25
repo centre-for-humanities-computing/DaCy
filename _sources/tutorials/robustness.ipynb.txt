@@ -63,8 +63,9 @@
    },
    "outputs": [],
    "source": [
-    "import dacy\n",
     "import spacy\n",
+    "\n",
+    "import dacy\n",
     "\n",
     "# load models\n",
     "spacy_small = spacy.load(\"da_core_news_sm\")\n",
@@ -330,8 +331,9 @@
    "outputs": [],
    "source": [
     "from augmenty.span.entities import create_per_replace_augmenter_v1\n",
-    "from dacy.datasets import female_names\n",
-    "from spacy.training.augment import create_lower_casing_augmenter"
+    "from spacy.training.augment import create_lower_casing_augmenter\n",
+    "\n",
+    "from dacy.datasets import female_names"
    ]
   },
   {

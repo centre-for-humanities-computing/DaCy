@@ -79,7 +79,6 @@
     }
    ],
    "source": [
-    "import dacy\n",
     "import spacy\n",
     "\n",
     "nlp = spacy.blank(\"da\")  # create an empty pipeline\n",

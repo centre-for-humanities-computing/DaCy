@@ -21,7 +21,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -284,7 +284,7 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 <h2>Loading models and data<a class="headerlink" href="#loading-models-and-data" title="Permalink to this heading">#</a></h2>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="kn">import</span> <span class="n">dane</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dacy.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">dane</span>
 
 <span class="c1"># load the DaNE test set</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">dane</span><span class="p">(</span><span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">])</span>
@@ -294,8 +294,9 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </div>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
-<span class="kn">import</span> <span class="nn">spacy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spacy</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dacy</span>
 
 <span class="c1"># load models</span>
 <span class="n">spacy_small</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;da_core_news_sm&quot;</span><span class="p">)</span>
@@ -310,7 +311,7 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 <p>Evaluating models already in the <code class="docutils literal notranslate"><span class="pre">SpaCy</span></code> framework is very straightforward. Simply call the <code class="docutils literal notranslate"><span class="pre">score</span></code> function on your nlp pipeline and choose which metrics you want to calculate performance for. <code class="docutils literal notranslate"><span class="pre">score</span></code> is a wrapper for <code class="docutils literal notranslate"><span class="pre">SpaCy.scorer.Scorer</span></code> that outputs a nicely formatted dataframe. <code class="docutils literal notranslate"><span class="pre">score</span></code> calculates performance for NER, POS, tokenization, and dependency parsing by default, which can be changed with the score_fn argument.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dacy.score</span> <span class="kn">import</span> <span class="n">score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dacy.score</span><span class="w"> </span><span class="kn">import</span> <span class="n">score</span>
 
 <span class="n">spacy_baseline</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">apply_fn</span><span class="o">=</span><span class="n">spacy_small</span><span class="p">,</span> <span class="n">score_fn</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ents&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">])</span>
 <span class="n">dacy_baseline</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">apply_fn</span><span class="o">=</span><span class="n">dacy_small</span><span class="p">,</span> <span class="n">score_fn</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ents&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">])</span>
@@ -479,9 +480,10 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 <p>To obtain performance estimates on augmented data, simply provide a list of augmenters as the <code class="docutils literal notranslate"><span class="pre">augmenters</span></code> argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">augmenty.span.entities</span> <span class="kn">import</span> <span class="n">create_per_replace_augmenter_v1</span>
-<span class="kn">from</span> <span class="nn">dacy.datasets</span> <span class="kn">import</span> <span class="n">female_names</span>
-<span class="kn">from</span> <span class="nn">spacy.training.augment</span> <span class="kn">import</span> <span class="n">create_lower_casing_augmenter</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">augmenty.span.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_per_replace_augmenter_v1</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.training.augment</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_lower_casing_augmenter</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dacy.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">female_names</span>
 </pre></div>
 </div>
 </div>
@@ -515,10 +517,10 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 </pre></div>
 </div>
 </div>
-<details class="hide below-input">
+<details class="admonition hide below-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell output</span>
-<span class="expanded">Hide code cell output</span>
+<p class="collapsed admonition-title">Show code cell output</p>
+<p class="expanded admonition-title">Hide code cell output</p>
 </summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/au561649/Github/DaCy/src/dacy/datasets/names.py:53: FutureWarning: Not prepending group keys to the result index of transform-like apply. In the future, the group keys will be included in the index, regardless of whether the applied function returns a like-indexed object.
@@ -537,7 +539,7 @@ To adopt the future behavior and silence this warning, use
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">spacy_baseline</span><span class="p">,</span> <span class="n">spacy_aug</span><span class="p">])</span>
 </pre></div>
@@ -793,7 +795,7 @@ To adopt the future behavior and silence this warning, use
 <p>To better estimate the effect of stochastic augmenters such as those changing names or adding keystroke errors we can use the <code class="docutils literal notranslate"><span class="pre">k</span></code> argument in <code class="docutils literal notranslate"><span class="pre">score</span></code> to run the augmenter multiple times.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">augmenty.character.replace</span> <span class="kn">import</span> <span class="n">create_keystroke_error_augmenter_v1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">augmenty.character.replace</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_keystroke_error_augmenter_v1</span>
 
 <span class="n">key_05_aug</span> <span class="o">=</span> <span class="n">create_keystroke_error_augmenter_v1</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">keyboard</span><span class="o">=</span><span class="s2">&quot;da_qwerty_v1&quot;</span><span class="p">)</span>
 
@@ -1012,7 +1014,7 @@ To adopt the future behavior and silence this warning, use
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

@@ -21,7 +21,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -283,7 +283,7 @@ hopefully inspire you to use the tools on your own (Danish) data.</p>
 <p>To start, let’s load a dataset and get a bit familiar with it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">textdescriptives.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_sms_data</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">load_sms_data</span><span class="p">()</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -365,7 +365,7 @@ Name: count, dtype: int64
 <p>Because we are using a DaCy model, the <code class="docutils literal notranslate"><span class="pre">dependency_distance</span></code> component will use the dependency parser from DaCy for its calculations.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dacy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dacy</span>
 
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">dacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>  <span class="c1"># load the latest version of the small model</span>
 
@@ -374,41 +374,23 @@ Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
-<details class="hide below-input">
+<details class="admonition hide below-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell output</span>
-<span class="expanded">Hide code cell output</span>
+<p class="collapsed admonition-title">Show code cell output</p>
+<p class="expanded admonition-title">Hide code cell output</p>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
-  _torch_pytree._register_pytree_node(
-/home/runner/.local/lib/python3.10/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
-  _torch_pytree._register_pytree_node(
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_trf&#39; (0.2.0) was trained with spaCy v3.5.2 and may not be 100% compatible with the current version (3.7.5). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
-  warnings.warn(warn_msg)
-/home/runner/.local/lib/python3.10/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_ner_fine_grained&#39; (0.1.0) was trained with spaCy v3.5.0 and may not be 100% compatible with the current version (3.7.5). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/DaCy/DaCy/.venv/lib/python3.11/site-packages/spacy/util.py:910: UserWarning: [W095] Model &#39;da_dacy_small_trf&#39; (0.2.0) was trained with spaCy v3.5.2 and may not be 100% compatible with the current version (3.7.5). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
   warnings.warn(warn_msg)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/transformers/utils/generic.py:309: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
-  _torch_pytree._register_pytree_node(
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/spacy_transformers/layers/hf_shim.py:124: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  self._model.load_state_dict(torch.load(filelike, map_location=device))
-/home/runner/.local/lib/python3.10/site-packages/spacy_transformers/layers/hf_shim.py:137: UserWarning: Error loading saved torch state_dict with strict=True, likely due to differences between &#39;transformers&#39; versions. Attempting to load with strict=False as a fallback...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/DaCy/DaCy/.venv/lib/python3.11/site-packages/spacy_transformers/layers/hf_shim.py:137: UserWarning: Error loading saved torch state_dict with strict=True, likely due to differences between &#39;transformers&#39; versions. Attempting to load with strict=False as a fallback...
 
 If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current &#39;transformers&#39; and &#39;spacy-transformers&#39; versions. For more details and available updates, run: python -m spacy validate
   warnings.warn(warn_msg)
-/home/runner/.local/lib/python3.10/site-packages/spacy_transformers/layers/hf_shim.py:139: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  b = torch.load(filelike, map_location=device)
-/home/runner/.local/lib/python3.10/site-packages/thinc/shims/pytorch.py:253: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don&#39;t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  model.load_state_dict(torch.load(filelike, map_location=device))
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f0940188c70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f431beecbd0&gt;
 </pre></div>
 </div>
 </div>
@@ -428,27 +410,23 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">textdescriptives</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">td</span>
 
 <span class="c1"># extract the metrics as a dataframe</span>
 <span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<details class="hide below-input">
+<details class="admonition hide below-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell output</span>
-<span class="expanded">Hide code cell output</span>
+<p class="collapsed admonition-title">Show code cell output</p>
+<p class="expanded admonition-title">Hide code cell output</p>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (156 &gt; 128). Running this sequence through the model will result in indexing errors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (135 &gt; 128). Running this sequence through the model will result in indexing errors
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/thinc/shims/pytorch.py:114: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast(&#39;cuda&#39;, args...)` instead.
-  with torch.cuda.amp.autocast(self._mixed_precision):
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/thinc/shims/pytorch.py:114: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast(&#39;cuda&#39;, args...)` instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/DaCy/DaCy/.venv/lib/python3.11/site-packages/thinc/shims/pytorch.py:114: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast(&#39;cuda&#39;, args...)` instead.
   with torch.cuda.amp.autocast(self._mixed_precision):
 </pre></div>
 </div>
@@ -507,9 +485,9 @@ If you see errors or degraded performance, download a newer compatible model or 
   </thead>
   <tbody>
     <tr>
-      <th>3266</th>
+      <th>5281</th>
       <td>ham</td>
-      <td>Ok then i come n pick u at engin?</td>
+      <td>And how you will do that, princess? :)</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -531,100 +509,100 @@ If you see errors or degraded performance, download a newer compatible model or 
       <td>NaN</td>
     </tr>
     <tr>
-      <th>71</th>
+      <th>2174</th>
       <td>ham</td>
-      <td>Finished class where are you.</td>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>0.454545</td>
-      <td>0.0</td>
-      <td>64.924545</td>
-      <td>6.936364</td>
+      <td>See? I thought it all through</td>
       <td>NaN</td>
-      <td>11.672727</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>...</td>
-      <td>11.0</td>
-      <td>0.0</td>
-      <td>1.545455</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1226</th>
+      <td>spam</td>
+      <td>Reply with your name and address and YOU WILL ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>407</th>
+      <td>ham</td>
+      <td>Hello! Good week? Fancy a drink or something l...</td>
+      <td>1.500000</td>
+      <td>0.408248</td>
+      <td>0.261111</td>
+      <td>0.054997</td>
+      <td>72.190000</td>
+      <td>3.935556</td>
+      <td>6.427356</td>
+      <td>5.644444</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>0.816497</td>
+      <td>1.555556</td>
       <td>1.0</td>
-      <td>0.78203</td>
-      <td>11.0</td>
-      <td>11.0</td>
+      <td>0.684935</td>
+      <td>9.0</td>
+      <td>9.0</td>
+      <td>1.00000</td>
+      <td>38.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>ham</td>
+      <td>Yes I started to send requests to make it but ...</td>
+      <td>1.771729</td>
+      <td>1.001249</td>
+      <td>0.410773</td>
+      <td>0.196585</td>
+      <td>90.697848</td>
+      <td>3.382910</td>
+      <td>7.168622</td>
+      <td>6.257711</td>
+      <td>...</td>
+      <td>8.5</td>
+      <td>9.685327</td>
+      <td>1.238806</td>
       <td>1.0</td>
-      <td>45.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>1915</th>
-      <td>ham</td>
-      <td>Its not that time of the month nor mid of the ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1324</th>
-      <td>ham</td>
-      <td>Can you call me plz. Your number shows out of ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>5339</th>
-      <td>ham</td>
-      <td>You'd like that wouldn't you? Jerk!</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.520893</td>
+      <td>67.0</td>
+      <td>54.0</td>
+      <td>0.80597</td>
+      <td>256.0</td>
+      <td>6.0</td>
     </tr>
   </tbody>
 </table>
@@ -638,7 +616,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 <p>With the metrics extracted, let’s do some quick exploratory data analysis to get a sense of the data. Let us start of by taking a look at the distribution of the readability metrics, <code class="docutils literal notranslate"><span class="pre">lix</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
@@ -648,7 +626,7 @@ If you see errors or degraded performance, download a newer compatible model or 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/7611e95a005ef911731859b407203d94ff91866f2e8fbb2a9f2ffeffa487d502.png" src="../_images/7611e95a005ef911731859b407203d94ff91866f2e8fbb2a9f2ffeffa487d502.png" />
+<img alt="../_images/52d6095438522aaa804dda9a75c17d75667754af4bbf6076016ad8d5966c3de8.png" src="../_images/52d6095438522aaa804dda9a75c17d75667754af4bbf6076016ad8d5966c3de8.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -665,16 +643,16 @@ If you see errors or degraded performance, download a newer compatible model or 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smog                                     -0.499689
-n_characters                             -0.275878
-sentence_length_std                      -0.249043
-n_tokens                                 -0.231495
-n_unique_tokens                          -0.220204
-token_length_median                      -0.200472
-prop_adjacent_dependency_relation_mean   -0.184031
-proportion_unique_tokens                  0.167268
-coleman_liau_index                       -0.161663
-token_length_mean                        -0.147740
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sentence_length_std                      -0.131269
+prop_adjacent_dependency_relation_mean    0.122689
+proportion_unique_tokens                  0.117622
+gunning_fog                              -0.106943
+n_sentences                               0.095979
+flesch_reading_ease                       0.092556
+rix                                      -0.090598
+flesch_kincaid_grade                     -0.089668
+syllables_per_token_mean                 -0.088541
+syllables_per_token_std                  -0.087869
 dtype: float64
 </pre></div>
 </div>
@@ -692,7 +670,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;dependency_distance_mean&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/e2580a2a6bdf6ed4eb3dd31ca2729a11b9905d6a0b3f700e1fdee9e78d9b1fb7.png" src="../_images/e2580a2a6bdf6ed4eb3dd31ca2729a11b9905d6a0b3f700e1fdee9e78d9b1fb7.png" />
+<img alt="../_images/0e5db27ff52a78d0ec10f9ec001021eada7270cd0e1da0a081ce1cbd4e32d496.png" src="../_images/0e5db27ff52a78d0ec10f9ec001021eada7270cd0e1da0a081ce1cbd4e32d496.png" />
 </div>
 </div>
 <p>We can do a similar thing for the <code class="docutils literal notranslate"><span class="pre">lix</span></code> score, where we see that here isn’t a big difference between the two classes:</p>
@@ -706,7 +684,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;lix&#39;, ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/ac03920328fd55ac284f6bf4ad528458946b386b235f7a2b9692537347957924.png" src="../_images/ac03920328fd55ac284f6bf4ad528458946b386b235f7a2b9692537347957924.png" />
+<img alt="../_images/ea5b2e3dad8936ee4dfb00233a0f12afd36eaae0d90e698a211acf71603a79d7.png" src="../_images/ea5b2e3dad8936ee4dfb00233a0f12afd36eaae0d90e698a211acf71603a79d7.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found some differences in the distributions of some readability and dependency-distance metrics between the actual SMS’s and spam.</p>
@@ -743,7 +721,7 @@ dtype: float64
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Kenneth Enevoldsen
+                Copyright &#169; 2026, Kenneth Enevoldsen
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

@@ -6,11 +6,15 @@ You can install `dacy` via pip from [PyPI]:
 pip install dacy
 ```
 
-or from [GitHub] using:
+## Coreference resolution (small/medium/large models)
+
+The `0.2.0` DaCy models include a coreference resolution component that depends on `spacy-experimental`. 
+This package requires Python <3.12 and requires as so it is an optional extra which can be installed as follows:
 
 ```bash
-pip install git+https://github.com/centre-for-humanities-computing/dacy
+pip install "dacy[coref]"
 ```
+
 
 [pip]: https://pip.pypa.io/en/stable/
 [PyPI]: https://pypi.org/project/dacy/
