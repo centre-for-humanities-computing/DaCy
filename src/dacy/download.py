@@ -7,7 +7,7 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-DACY_DEFAULT_PATH = Path.home() / ".dacy"
+DACY_DEFAULT_PATH = Path.home() / ".cache" / "dacy"
 
 DEFAULT_CACHE_DIR = Path(
     os.getenv(
