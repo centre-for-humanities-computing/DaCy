@@ -5,8 +5,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Extracting Metrics from text using TextDescriptives\n",
-    "\n",
+    "# Extracting Descriptive Statistics\n",
     "\n",
     "<a target=\"_blank\" href=\"https://colab.research.google.com/github/centre-for-humanities-computing/DaCy/blob/main/textdescriptives_integration.ipynb\">\n",
     "  <img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/>\n",

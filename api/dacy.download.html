@@ -200,7 +200,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/robustness.html">Evaluating Robustness</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/textdescriptives.html">Extracting Descriptive Statistics</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -242,7 +242,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/api/dacy.download.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/centre-for-humanities-computing/dacy/edit/main/docs/api/dacy.download.md" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -270,21 +270,6 @@
 <section id="module-dacy.download">
 <span id="dacy-download"></span><h2>dacy.download<a class="headerlink" href="#module-dacy.download" title="Permalink to this heading">#</a></h2>
 <p>Functions for downloading DaCy models.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="dacy.download.check_coref_dependencies">
-<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">check_coref_dependencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/download.html#check_coref_dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.check_coref_dependencies" title="Permalink to this definition">#</a></dt>
-<dd><p>Raises an informative ImportError if <cite>package</cite> requires the <cite>dacy[coref]</cite>
-extra (<cite>spacy-experimental</cite>) and it is not installed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>package</strong> (<em>str</em>) – </p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="dacy.download.download_model">
 <span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/download.html#download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.download_model" title="Permalink to this definition">#</a></dt>
@@ -329,20 +314,6 @@ being present? Defaults to False.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dacy.download.models">
-<span class="sig-prename descclassname"><span class="pre">dacy.download.</span></span><span class="sig-name descname"><span class="pre">models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dacy/download.html#models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dacy.download.models" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns a list of valid DaCy models.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list of valid DaCy models</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -493,10 +464,8 @@ True.</p>
             <ul>
 <li><a class="reference internal" href="#">Downloading and Loading</a><ul>
 <li><a class="reference internal" href="#module-dacy.download">dacy.download</a><ul>
-<li><a class="reference internal" href="#dacy.download.check_coref_dependencies"><code class="docutils literal notranslate"><span class="pre">check_coref_dependencies()</span></code></a></li>
 <li><a class="reference internal" href="#dacy.download.download_model"><code class="docutils literal notranslate"><span class="pre">download_model()</span></code></a></li>
 <li><a class="reference internal" href="#dacy.download.get_latest_version"><code class="docutils literal notranslate"><span class="pre">get_latest_version()</span></code></a></li>
-<li><a class="reference internal" href="#dacy.download.models"><code class="docutils literal notranslate"><span class="pre">models()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-dacy.load">dacy.load</a><ul>

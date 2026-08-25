@@ -188,7 +188,7 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../adv_tutorials.html">Advanced Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/robustness.html">Evaluating Robustness</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/textdescriptives.html">Extracting Metrics from text using TextDescriptives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/textdescriptives.html">Extracting Descriptive Statistics</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../performance.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -302,15 +302,6 @@
     <span class="k">return</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="models"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.download.models">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">models</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a list of valid DaCy models.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        list: list of valid DaCy models</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">models_url</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
-
-
 <span class="k">class</span><span class="w"> </span><span class="nc">DownloadProgressBar</span><span class="p">(</span><span class="n">tqdm</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa</span>
         <span class="k">if</span> <span class="n">tsize</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -330,7 +321,7 @@
         <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">output_path</span><span class="p">,</span> <span class="n">reporthook</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">update_to</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="check_coref_dependencies"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.download.check_coref_dependencies">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">check_coref_dependencies</span><span class="p">(</span><span class="n">package</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_coref_dependencies</span><span class="p">(</span><span class="n">package</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raises an informative ImportError if `package` requires the `dacy[coref]`</span>
 <span class="sd">    extra (`spacy-experimental`) and it is not installed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -345,7 +336,7 @@
             <span class="s2">&quot;dependency. Install it with `pip install dacy[coref]` (only &quot;</span>
             <span class="s2">&quot;available for Python &lt;3.12), or use a DaCy model that does not &quot;</span>
             <span class="s2">&quot;include coreference resolution.&quot;</span><span class="p">,</span>
-        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
 
 <div class="viewcode-block" id="download_model"><a class="viewcode-back" href="../../api/dacy.download.html#dacy.download.download_model">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">download_model</span><span class="p">(</span>
@@ -382,7 +373,7 @@
         <span class="p">)</span>
 
     <span class="n">package</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">check_coref_dependencies</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
+    <span class="n">_check_coref_dependencies</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
 
     <span class="n">model_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">DEFAULT_CACHE_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="n">model</span>
     <span class="n">pipeline_dir</span> <span class="o">=</span> <span class="n">model_dir</span> <span class="o">/</span> <span class="n">package</span> <span class="o">/</span> <span class="n">model</span>

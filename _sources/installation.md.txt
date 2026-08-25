@@ -6,7 +6,7 @@ You can install `dacy` via pip from [PyPI]:
 pip install dacy
 ```
 
-## Coreference resolution (small/medium/large models)
+## Advanced installation
 
 The `0.2.0` DaCy models include a coreference resolution component that depends on `spacy-experimental`. 
 This package requires Python <3.12 and requires as so it is an optional extra which can be installed as follows:
