@@ -13,11 +13,8 @@ and test utilities defined in the extras_require section of the :code:`pyproject
 # clone the repository
 git clone https://github.com/centre-for-humanities-computing/dacy
 
-# install package and test dependencies
-pip install -e ".[tests]"
-
-# run all tests
-python -m pytest
+# install package and test dependencies and run tests
+make test
 ```
 
 which will run all the test in the `tests` folder.
@@ -25,13 +22,13 @@ which will run all the test in the `tests` folder.
 Specific tests can be run using:
 
 ```bash
-python -m pytest tests/desired_test.py
+pytest tests/desired_test.py
 ```
 
 If you want to check code coverage you can run the following:
 
 ```bash
-python -m pytest --cov=src
+pytest --cov=src
 ```
 
 ## How is the documentation generated?
@@ -43,18 +40,18 @@ To make the documentation you can run:
 
 
 ```bash
-# install sphinx, themes and extensions
-pip install -e ".[docs]"
+# install dependecies and build docs
+make build-docs
 
-# generate html from documentations
-sphinx-build -b html docs docs/_build/html
+# inspect docs
+make view-docs
 ```
 
 ## How do I cite this work?
 If you use this library in your research, it would be much appreciated it if you would cite:
 
 ```
-@inproceedings{f975f4ce65944e3ea958578003cee622,
+@inproceedings{dacy,
     title = {{{DaCy}}: {{A}} Unified Framework for Danish {{NLP}}},
     booktitle = {Ceur Workshop Proceedings},
     author = {Enevoldsen, Kenneth and Hansen, Lasse and Nielbo, Kristoffer L.},
