@@ -1,12 +1,12 @@
-# News and Updates
+# News
 
-**2.8.0** 
+### 2.8.0 (25/08/26): DaCy is Back!
+
 
 - Removed support for python 3.9 and added support for python 3.13
 - Multiple fixes to improve maintainance and long-term support, most notably pipelines are no longer installed into your environment but loaded. Thus some pipelines (e.g. the ones containing coreference models) will require additional optional dependencies (`pip install dacy[coref]`). `dacy.load` will let you know if you need optional dependencies for specific models otherwise see installation documentation for more.   
 
-
-**2.7.0 (15/05/23)**
+### 2.7.0 (15/05/23)
 
 - Updated the DaCy models to version 0.2.0, including a small, medium and large
 
@@ -76,21 +76,21 @@
   - Examine model generalization using DANSK and whether we can improve the generalization
   - and more!
 
-**2.6.0 (10/04/23)**
+### 2.6.0 (10/04/23)
 
 - Added support three new models (small, medium, large) for fine-grained NER, which lets you do NER on up to 18 different entities! 🤩
 
   - You can add these models to your pipeline using `nlp.add_pipe("dacy/ner-fine-grained", config={"size": "small"})`
 
-**2.5.0 (10/04/23)**
+### 2.5.0 (10/04/23)
 
 - Removed support for `0.0.0` models. To use these models you will now have to use `DaCy=<2.4.3`
 
-**2.3.0 (05/01/23)**
+### 2.3.0 (05/01/23)
 
 - New tutorial added for using DaCy with `textdescriptives`. You can find it [here](https://centre-for-humanities-computing.github.io/DaCy/using_dacy.html)
 
-**2.2.10 (05/01/23)**
+### 2.2.10 (05/01/23)
 
 - Added support for spaCy 3.4.0
 
@@ -100,7 +100,7 @@
 
   - You can add this model to your pipeline using `nlp.add_pipe("dacy/ner")`
 
-**2.0.0 (27/06/22): The Spandaur Update**
+### 2.0.0 (27/06/22): The Spandaur Update
 
 ```{image} _static/DALL-E_2022-07-27_A_minimalistic_2d_depiction_of_a_danish_cream_pastry.png
 :width: 100
@@ -122,19 +122,19 @@
 
 - Multiple bugfixes
 
-**1.2.0 (04/11/21)**
+### 1.2.0 (04/11/21)
 
 - Removed DaNLP dependency, now DaNLP models is downloaded directly from Huggingface's model hub which is faster and more stable 🌟.
 - Removed the readability module, we instead recommend you use the more extensive [textdescriptives](https://github.com/hlasse/TextDescriptives) package developed by [HLasse](https://github.com/HLasse) and I for extracting readability and other text metrics.
 - Added support for the configuring the default the model location with the environmental variable 'DACY_CACHE_DIR' thanks to a PR by [dhpullack](https://github.com/dhpollack) 🙏.
 
-**1.1.0 (23/07/21)**
+### 1.1.0 (23/07/21)
 
 - DaCy in now available on the [Huggingface model hub](https://huggingface.co/models?search=dacy) 🤗 . Including detailed performance descriptions of biases and robustness.
 - It also got a brand new online [demo](https://huggingface.co/chcaa/da_dacy_medium_trf?text=DaCy+er+en+pipeline+til+anvendelse+af+dansk+sprogteknologi+lavet+af+K.+Enevoldsen%2C+L.+Hansen+og+K.+Nielbo+fra+Center+for+Humanities+Computing) - try it out!
 - And more, including documentation update and prettier prints.
 
-**1.0.0 (09/07/21)**
+### 1.0.0 (09/07/21)
 
 - DaCy version 1.0.0 releases as the first version to pypi! 📦
 
@@ -147,28 +147,28 @@
 - DaCy is now officially supported by the [Centre for Humanities Computing](https://chcaa.io/#/) at Aarhus University
 - The first paper on DaCy; check it out as a preprint and code for reproducing it [here](https://github.com/centre-for-humanities-computing/DaCy/tree/main/papers/DaCy-A-Unified-Framework-for-Danish-NLP)! 🌟
 
-**0.4.1 (03/06/21)**
+### 0.4.1 (03/06/21)
 
 - DaCy now has a stunningly looking documentation site 🌟
 
-**0.3.1 (01/06/21)**
+### 0.3.1 (01/06/21)
 
 - DaCy's tests now cover 99% of its codebase 🎉
 - DaCy's test suite is now being applied for all major operating systems instead of just Linux 👩‍💻
 
-**0.2.2 (25/05/21)**
+### 0.2.2 (25/05/21)
 
 - The new Danish Model Senda was added to DaCy
 
-**0.2.1 (30/03/21)**
+### 0.2.1 (30/03/21)
 
 - DaCy now includes a small model for efficient processing based on the Danish Ælæctra 🏃
 
-**0.1.1 (24/03/21)**
+### 0.1.1 (24/03/21)
 
 - DaCy includes a wrapped version of major Danish sentiment analysis software including the models by DaNLP, as well as code for wrapping any sequence classification model into its pipeline 🤩
 - Tutorials is added to introduce the above functionality
 
-**0.0.1 (25/02/21)**
+### 0.0.1 (25/02/21)
 
 - DaCy launches with a medium-sized and a large language model obtaining state-of-the-art on Named entity recognition, part-of-speech tagging and dependency parsing for Danish 🇩🇰
