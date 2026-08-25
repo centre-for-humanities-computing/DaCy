@@ -7,19 +7,17 @@ DaCy/spaCy we recommend starting with the first guide.
 
 These tutorials include state-of-the-art models _trained as a part of_ DaCy:
 
-```{eval-rst}
-.. toctree::
-   :maxdepth: 3
+```{toctree}
+:maxdepth: 3
 
-   tutorials/basic
+tutorials/basic
 ```
 
 And tutorials on how to use state-of-the-art models trained by others but _wrapped and accecible_ in DaCy:
 
-```{eval-rst}
-.. toctree::
-   :maxdepth: 3
+```{toctree}
+:maxdepth: 3
 
-   tutorials/sentiment
-   tutorials/hate-speech
+tutorials/sentiment
+tutorials/hate-speech
 ```
