@@ -274,20 +274,17 @@ and test utilities defined in the extras_require section of the :code:<code clas
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># clone the repository</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/centre-for-humanities-computing/dacy
 
-<span class="c1"># install package and test dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[tests]&quot;</span>
-
-<span class="c1"># run all tests</span>
-python<span class="w"> </span>-m<span class="w"> </span>pytest
+<span class="c1"># install package and test dependencies and run tests</span>
+make<span class="w"> </span><span class="nb">test</span>
 </pre></div>
 </div>
 <p>which will run all the test in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> folder.</p>
 <p>Specific tests can be run using:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/desired_test.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>tests/desired_test.py
 </pre></div>
 </div>
 <p>If you want to check code coverage you can run the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>src
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--cov<span class="o">=</span>src
 </pre></div>
 </div>
 </section>
@@ -296,18 +293,18 @@ python<span class="w"> </span>-m<span class="w"> </span>pytest
 <p>This package use <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a> to generate documentation. It uses the <a class="reference external" href="https://github.com/pradyunsg/furo">Furo</a> theme with
 custom styling.</p>
 <p>To make the documentation you can run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install sphinx, themes and extensions</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install dependecies and build docs</span>
+make<span class="w"> </span>build-docs
 
-<span class="c1"># generate html from documentations</span>
-sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>docs<span class="w"> </span>docs/_build/html
+<span class="c1"># inspect docs</span>
+make<span class="w"> </span>view-docs
 </pre></div>
 </div>
 </section>
 <section id="how-do-i-cite-this-work">
 <h2>How do I cite this work?<a class="headerlink" href="#how-do-i-cite-this-work" title="Permalink to this heading">#</a></h2>
 <p>If you use this library in your research, it would be much appreciated it if you would cite:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@inproceedings</span><span class="p">{</span><span class="n">f975f4ce65944e3ea958578003cee622</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@inproceedings</span><span class="p">{</span><span class="n">dacy</span><span class="p">,</span>
     <span class="n">title</span> <span class="o">=</span> <span class="p">{{{</span><span class="n">DaCy</span><span class="p">}}:</span> <span class="p">{{</span><span class="n">A</span><span class="p">}}</span> <span class="n">Unified</span> <span class="n">Framework</span> <span class="k">for</span> <span class="n">Danish</span> <span class="p">{{</span><span class="n">NLP</span><span class="p">}}},</span>
     <span class="n">booktitle</span> <span class="o">=</span> <span class="p">{</span><span class="n">Ceur</span> <span class="n">Workshop</span> <span class="n">Proceedings</span><span class="p">},</span>
     <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Enevoldsen</span><span class="p">,</span> <span class="n">Kenneth</span> <span class="ow">and</span> <span class="n">Hansen</span><span class="p">,</span> <span class="n">Lasse</span> <span class="ow">and</span> <span class="n">Nielbo</span><span class="p">,</span> <span class="n">Kristoffer</span> <span class="n">L</span><span class="o">.</span><span class="p">},</span>
