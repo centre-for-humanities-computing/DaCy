@@ -58,7 +58,6 @@ documentation = "https://centre-for-humanities-computing.github.io/DaCy/"
 repository = "https://github.com/centre-for-humanities-computing/DaCy"
 [dependency-groups]
 dev = [
-    "cruft>=2.0.0",
     "ty>=0.0.46",
     "ruff==0.7.1",
 ]
