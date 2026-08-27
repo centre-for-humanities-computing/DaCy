@@ -231,3 +231,17 @@ required-environments = [
   "sys_platform == 'darwin' and platform_machine == 'arm64'",
   "sys_platform == 'linux' and platform_machine == 'x86_64'",
 ]
+# Floors that keep `uv lock --upgrade` from resolving to versions that only
+# ship as source distributions, which then fail to compile in CI.
+constraint-dependencies = [
+  # Nothing else depends on huggingface-hub, so an unconstrained upgrade picks
+  # up 1.x and then has to walk transformers back to 4.12.2 (the last release
+  # without a `<1.0` bound). That drags in tokenizers 0.10.3, which has no
+  # wheels for Python >=3.11 and fails to build from its Rust source.
+  "transformers>=4.49.0",
+  # spacy-experimental (the `coref` extra) requires spacy <3.8, but it is only
+  # installed on Python <3.12. Without this floor uv collapses the resolution
+  # onto spacy 3.7.x everywhere, whose thinc/blis have no wheels for Python
+  # 3.13 and fail to build from source.
+  "spacy>=3.8.0; python_version>='3.12'",
+]

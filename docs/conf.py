@@ -66,6 +66,7 @@ autodoc_class_signature = "separated"
 html_title = "DaCy"
 html_theme = "furo"
 html_static_path = ["_static"]
+html_css_files = ["css/pandas-tables.css"]
 html_favicon = "_static/favicon.ico"
 
 html_show_sourcelink = True

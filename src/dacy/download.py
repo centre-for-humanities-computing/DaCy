@@ -18,9 +18,9 @@ DEFAULT_CACHE_DIR = Path(
 
 # Models bundling a coref component, which needs the `dacy[coref]` extra.
 COREF_MODELS = {
-    "da_dacy_small_trf",
-    "da_dacy_medium_trf",
-    "da_dacy_large_trf",
+    "da_dacy_small_trf-0.2.0",
+    "da_dacy_medium_trf-0.2.0",
+    "da_dacy_large_trf-0.2.0",
 }
 
 models_url = {
@@ -126,9 +126,9 @@ def download_model(
             + " list of all models",
         )
 
-    package = model.split("-")[0]
-    _check_coref_dependencies(package)
+    _check_coref_dependencies(model)
 
+    package = model.split("-")[0]
     model_dir = Path(DEFAULT_CACHE_DIR) / model
     pipeline_dir = model_dir / package / model
 
