@@ -1,0 +1,46 @@
+/* Styling for pandas/Styler tables rendered as notebook outputs.
+ *
+ * myst-nb used to ship these rules itself (as "Pandas tables. Pulled from the
+ * Jupyter / nbsphinx CSS"), but dropped them in v1.x. Without them the tables in
+ * e.g. performance_ner.ipynb render without cell padding, header rule or
+ * striping, since a Styler <table> carries no `docutils` class for Furo to
+ * style. Restored here, using Furo's theme variables so it also works in dark
+ * mode.
+ */
+div.cell_output table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: var(--color-foreground-primary);
+  font-size: 1em;
+  table-layout: fixed;
+}
+
+div.cell_output thead {
+  border-bottom: 1px solid var(--color-foreground-primary);
+  vertical-align: bottom;
+}
+
+div.cell_output tr,
+div.cell_output th,
+div.cell_output td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+
+div.cell_output th {
+  font-weight: bold;
+}
+
+div.cell_output tbody tr:nth-child(odd) {
+  background: var(--color-background-secondary);
+}
+
+div.cell_output tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}

@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/pandas-tables.css" />
     
     
 
@@ -207,7 +208,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/blob/main/CHANGELOG.md">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/DaCy/releases">Changelog</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/centre-for-humanities-computing/dacy">GitHub</a></li>
 </ul>
 
@@ -263,9 +264,9 @@
 
 <span class="c1"># Models bundling a coref component, which needs the `dacy[coref]` extra.</span>
 <span class="n">COREF_MODELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;da_dacy_small_trf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;da_dacy_medium_trf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;da_dacy_large_trf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;da_dacy_small_trf-0.2.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;da_dacy_medium_trf-0.2.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;da_dacy_large_trf-0.2.0&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">models_url</span> <span class="o">=</span> <span class="p">{</span>
@@ -371,9 +372,9 @@
             <span class="o">+</span> <span class="s2">&quot; list of all models&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="n">package</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">_check_coref_dependencies</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
+    <span class="n">_check_coref_dependencies</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
+    <span class="n">package</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">model_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">DEFAULT_CACHE_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="n">model</span>
     <span class="n">pipeline_dir</span> <span class="o">=</span> <span class="n">model_dir</span> <span class="o">/</span> <span class="n">package</span> <span class="o">/</span> <span class="n">model</span>
 
