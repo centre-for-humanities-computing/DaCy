@@ -27,7 +27,7 @@ models_url = {
     "da_dacy_small_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_small_trf/resolve/0eadea074d5f637e76357c46bbd56451471d0154/da_dacy_small_trf-any-py3-none-any.whl",
     "da_dacy_medium_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/e7dba91f855a1d26679dc1ef3aa49f7874b50543/da_dacy_medium_trf-any-py3-none-any.whl",
     "da_dacy_large_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/963232f378190476503a1bfc35b520cb142e9e41/da_dacy_large_trf-any-py3-none-any.whl",
-    "da_dacy_medium_trf-0.2.9": "https://huggingface.co/CogSciMikkel/da_dacy_medium_trf/blob/main/da_dacy_medium_trf-any-py3-none-any.whl",
+    "da_dacy_medium_trf-1.0.0": "https://huggingface.co/chcaa/da_dacy_medium_trf_1.0.0/resolve/a792a0b337b9eefbdb2cfd3c0182c46e690474a0/da_dacy_medium_trf-any-py3-none-any.whl",
     "small": None,
     "medium": None,
     "large": None,
