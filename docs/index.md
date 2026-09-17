@@ -94,6 +94,7 @@ faq
 
 api/dacy.download
 api/dacy.datasets
+api/dacy.resources
 api/dacy.score
 ```
 
