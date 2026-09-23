@@ -28,7 +28,7 @@ models_url = {
     "da_dacy_medium_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_medium_trf/resolve/e7dba91f855a1d26679dc1ef3aa49f7874b50543/da_dacy_medium_trf-any-py3-none-any.whl",
     "da_dacy_large_trf-0.2.0": "https://huggingface.co/chcaa/da_dacy_large_trf/resolve/963232f378190476503a1bfc35b520cb142e9e41/da_dacy_large_trf-any-py3-none-any.whl",
     "da_dacy_small_trf-1.0.0": "https://huggingface.co/chcaa/da_dacy_small_trf_1.0.0/resolve/7527f4511624f4363a951dfc65418625a55018b0/da_dacy_small_trf-1.0.0-py3-none-any.whl",
-    "da_dacy_medium_trf-1.0.0": "https://huggingface.co/chcaa/da_dacy_medium_trf_1.0.0/resolve/a792a0b337b9eefbdb2cfd3c0182c46e690474a0/da_dacy_medium_trf-any-py3-none-any.whl",
+    "da_dacy_medium_trf-1.0.0": "https://huggingface.co/chcaa/da_dacy_medium_trf_1.0.0/resolve/503d77913b37a39e7d8ed4efa4e92b662ec1e5c8/da_dacy_medium_trf-any-py3-none-any.whl",
     "da_dacy_large_trf-1.0.0": "https://huggingface.co/chcaa/da_dacy_large_trf_1.0.0/resolve/68b932e669f78c65fa708779f5ad6185a1375569/da_dacy_large_trf-1.0.0-py3-none-any.whl",
     "da_dacy_edge-0.1.0": "https://huggingface.co/chcaa/da_dacy_edge/resolve/6db08f0782c642bbcc825cb450af0e9710ab0064/da_dacy_edge-0.1.0-py3-none-any.whl",
     "da_dacy_tiny-0.1.0": "https://huggingface.co/chcaa/da_dacy_tiny/resolve/8cbb70def3301b3eb5257593f85a92e62bcca46b/da_dacy_tiny-0.1.0-py3-none-any.whl",
