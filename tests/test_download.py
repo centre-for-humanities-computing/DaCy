@@ -10,6 +10,7 @@ def test_load():
 
 
 def test_load_coref_model_requires_extra():
+    """tests is loading dacy models clearly requires the dacy[coref] extra to be installed"""
     try:
         import spacy_experimental  # type: ignore # noqa: F401
     except ImportError:
@@ -18,7 +19,7 @@ def test_load_coref_model_requires_extra():
         pytest.skip("spacy-experimental is installed; coref guard is not triggered")
 
     with pytest.raises(ImportError, match="dacy\\[coref\\]"):
-        dacy.download_model("small")
+        dacy.download_model("da_dacy_small_trf-0.2.0")
 
 
 def test_models():
