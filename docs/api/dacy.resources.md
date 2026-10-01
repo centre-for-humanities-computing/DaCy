@@ -9,12 +9,10 @@
    :show-inheritance:
 ```
 
-## dacy.resources.ods
-
-[ODS](https://korpus.dsl.dk/resources/details/ods-fullforms.html) is a historical Danish dictionary.
+## dacy.resources.dictionaries
 
 ```{eval-rst}
-.. automodule:: dacy.resources.ods
+.. automodule:: dacy.resources.dictionaries
    :members:
    :undoc-members:
    :show-inheritance:

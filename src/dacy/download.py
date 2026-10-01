@@ -65,7 +65,7 @@ class DownloadProgressBar(tqdm):
         self.update(b * bsize - self.n)
 
 
-def download_url(url: str, output_path: str) -> None:
+def download_url(url: str, output_path: str | Path) -> None:
     import urllib.request
 
     with DownloadProgressBar(
