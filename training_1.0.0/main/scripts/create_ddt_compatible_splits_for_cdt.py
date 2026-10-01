@@ -1,7 +1,7 @@
-# Code borrowed from DaCy (Kenneth)
-
 """
-A script for creating splits for the copenhagen dependency treebank which align with DDT.
+A script for creating splits for the Copenhagen Dependency Treebank which align with DDT.
+
+Original code by Kenneth from training_0.2.0/main/scripts/create_ddt_compatible_splits_for_cdt.py
 """
 
 import json
@@ -14,7 +14,7 @@ def load_cdt(
     assets_path=Path(__file__).parent.parent / "assets",
 ):
     """
-    Load the copenhagen dependency treebank / DaCoref dataset
+    Load the Copenhagen Dependency Treebank (CDT) / DaCoref dataset
     """
     cdt_path = assets_path / "dacoref" / "CDT_coref.conllu"
     with cdt_path.open(encoding="utf-8") as f:

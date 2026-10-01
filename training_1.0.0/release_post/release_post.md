@@ -1,9 +1,3 @@
-# STILL TO BE ADDED
-
-- Future directions section
-- Johana's super duper cool DaCy v2.9.0 logo
-- Other stuff?
-
 # Announcing DaCy v2.9.0: Efficient models and simpler dependencies
 
 ![POS, morph, dep, and NER metrics by model size](release_post_imgs/bar_grid.png)
@@ -53,7 +47,3 @@ Previous versions of DaCy have been a bit of a challenge to install. This is in 
 | dacy_edge | 94.53 | 72.56 | 94.27 | 94.56 | 93.38 | 76.06 | 81.01 |
 
 ![Pareto Frontier plot, harmonic mean of metrics versus speed](release_post_imgs/pareto_hmean.png)
-
-## Future directions
-
-TO BE WRITTEN...

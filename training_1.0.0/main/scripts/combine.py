@@ -1,10 +1,38 @@
-# Code borrowed from DaCy (Kenneth)
-
-
 """
-TODO:
-- Save data to HF datasets
-- save as docbin using # docbin.to_disk(path, store_user_data=True)
+Combine DDT, DaNE, and CDT into spaCy DocBins with document structure and
+coreference.
+
+Steps:
+    1. Load DDT (syntax) and DaNE (NER), which share the same sentences, and
+       copy DaNE's entities onto the DDT docs.
+    2. Load CDT (DaCoref) and assign each DDT sentence its CDT doc_id where
+       sent_ids match.
+    3. Merge sentences that share a doc_id into multi-sentence docs and add
+       coreference clusters (doc.spans["coref_clusters_*"] and
+       "coref_head_clusters_*"). DDT sentences with no CDT counterpart stay
+       single-sentence docs with doc_id=None.
+
+Inputs:
+    corpus/da_ddt/{train,dev,test}.spacy, assets/da_ddt/{split}.conllu
+    corpus/dane/{train,dev,test}.spacy, assets/dane/{split}.conllu
+    assets/dacoref/CDT_coref.conllu
+    assets/CDT_ddt_compatible_splits.json (from
+        create_ddt_compatible_splits_for_cdt.py)
+
+Outputs:
+    corpus/cdt_ddt/data.spacy: all docs, unsplit (CDT docs and remaining
+        DDT sentences)
+    corpus/cdt/{train,dev,test}.spacy: CDT docs only, split by the
+        DDT-compatible splits
+
+The remaining DDT sentences are split and merged with CDT afterwards in
+merge_ddt_sents_with_cdt.py. QID linking (add_qid) is currently disabled.
+
+Original code (Kenneth) from training_0.2.0/main/scripts/combine.py
+
+Usage:
+- Run via `spacy project run combine`. Paths are resolved relative to the 
+  project root, assumed to be the parent of this script's folder.
 """
 
 import json
@@ -30,7 +58,7 @@ Token.set_extension("qid", default=None)
 
 def load_cdt(custom_split_ids: bool = True):
     """
-    Load the copenhagen dependency treebank / DaCoref dataset
+    Load the Copenhagen Dependency Treebank (CDT) / DaCoref dataset
     """
     cdt_path = assets_path / "dacoref" / "CDT_coref.conllu"
     with cdt_path.open(encoding="utf-8") as f:
@@ -104,7 +132,7 @@ def load_da_ddt():
 
 def load_dane():
     """
-    Loads the UD Danish Dependency Treebank
+    Loads DaNE
     """
     nlp = spacy.blank("da")
     dane_path = corpus_path / "dane"
@@ -123,14 +151,14 @@ def load_dane():
 
 def add_dane_to_ddt(ddt, dane):
     """
-    Add the dane data to the ddt data
+    Add the DaNE data to the DDT data
     """
     for split in ["train", "dev", "test"]:
         assert len(ddt[split]) == len(dane[split])
         for doc, dane_doc in zip(ddt[split], dane[split]):
             
-            # assert doc.text.strip() == dane_doc.text.strip() <-- Removed to not crash script because of whitespace misalignment. Mikkel
-            # Claude recommended this check instead due to benign whitespace misalignment (see diagnose_dane_to_ddt_mismatch.py):
+            # assert doc.text.strip() == dane_doc.text.strip()
+            # ^ Removed to not crash script because of whitespace misalignment. Instead:
             assert [t.text for t in doc] == [t.text for t in dane_doc], (
                 f"token mismatch at {doc._.sent_id}: "
                 f"{[t.text for t in doc]!r} vs {[t.text for t in dane_doc]!r}"

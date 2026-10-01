@@ -1,16 +1,17 @@
-# Claude
 """
 Build a spacy-llm `spacy.NER.v3` few-shot YAML skeleton from a gold .spacy corpus.
 
-Selects sentences from a DocBin under per-label quotas (MISC-heavy by default),
-writes their gold entities as positive spans, adds heuristic distractors as
-`==NONE==` spans, and leaves every `reason` field blank for you to fill in.
+Selects sentences from a DocBin under per-label quotas (MISC-heavy by default, 
+but can be changed as per usage), writes their gold entities as positive spans, 
+adds heuristic distractors as `==NONE==` spans, and leaves every `reason` field
+blank for the user to fill in.
+
+Drafted with Claude. Reviewed and tested by Mikkel.
 
 Usage:
-    python scripts/build_fewshot.py corpus/dane/train.spacy -o assets/dane_fewshot.yml
-    python scripts/build_fewshot.py corpus/dane/train.spacy --quota MISC=8,PER=3,LOC=3,ORG=3
+    python scripts/build_fewshot.py TRAIN_DATA.spacy -o assets/dane_fewshot.yml
+    python scripts/build_fewshot.py TRAIN_DATA.spacy --quota MISC=8,PER=3,LOC=3,ORG=3
 """
-
 import argparse
 import json
 import random

@@ -10,11 +10,11 @@ description: >
 
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
-  config: "llm_ner"
+  config: "dacy_large"
   lang: "da"
   treebank: "UD_Danish-DDT"
   corpus: "cdt_ddt"
-  model: "llm_ner"
+  model: "dacy_large"
   train_name: "da_ddt-ud-train"
   dev_name: "da_ddt-ud-dev"
   test_name: "da_ddt-ud-test"
@@ -52,10 +52,10 @@ workflows:
     - preprocess_ddt
     - combine
     - merge_cdt_ddt
-#    - train
-#    - evaluate
-    - evaluate_llm
-#    - package
+    - train
+    - evaluate
+#    - evaluate_llm
+    - package
 
 commands:
 # check if GPU is available
@@ -114,8 +114,7 @@ commands:
 # Create DDT assets and corpus directories
 # The python spacy convert commands are standard to project.yml.
 # Rename corpus files to conform to the requirements of combine().
-# Moving (actually copying, was unsure) assets files from ${vars.treebank}
-# to da_ddt (also requirement of combine.py)
+# Copying assets files from ${vars.treebank} to da_ddt (also requirement of combine.py)
   - name: preprocess_ddt
     help: "Convert the DDT data to spaCy's format"
     script:
@@ -287,7 +286,8 @@ commands:
     outputs:
       - "metrics/llm-ner.json"
 
-# NOTE --build wheel (to override sdist default as per HF's recs: https://huggingface.co/docs/hub/main/en/spacy#using-the-spacy-cli-recommended)
+# NOTE --build wheel to override sdist default as per HF's recs: 
+# https://huggingface.co/docs/hub/main/en/spacy#using-the-spacy-cli-recommended
   - name: package
     help: "Package the trained model so it can be installed"
     script:
