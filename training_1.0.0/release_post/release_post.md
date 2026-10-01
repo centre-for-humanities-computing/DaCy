@@ -1,4 +1,7 @@
-# Announcing DaCy v2.9.0: Efficient models and simpler dependencies
+<h1>
+  <img src="release_post_imgs/img_cinnamon_snail.png" alt="cinnamon snail logo" width="135" align="left">
+  Announcing DaCy v2.9.0: Efficient models and simpler dependencies
+</h1>
 
 ![POS, morph, dep, and NER metrics by model size](release_post_imgs/bar_grid.png)
 
