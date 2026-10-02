@@ -205,6 +205,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/dacy.download.html">Downloading and Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/dacy.datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/dacy.resources.html">Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">GitHub</span></p>
 <ul>
@@ -311,7 +312,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">bsize</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
 
     <span class="k">with</span> <span class="n">DownloadProgressBar</span><span class="p">(</span>
