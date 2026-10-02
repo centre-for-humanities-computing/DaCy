@@ -8,12 +8,3 @@
    :undoc-members:
    :show-inheritance:
 ```
-
-## dacy.datasets.names
-
-```{eval-rst}
-.. automodule:: dacy.datasets.names
-   :members:
-   :undoc-members:
-   :show-inheritance:
-```
