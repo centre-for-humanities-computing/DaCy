@@ -1,7 +1,7 @@
 import augmenty
 import spacy
 
-from dacy.datasets import danish_names, female_names, male_names, muslim_names
+from dacy.resources import danish_names, female_names, male_names, muslim_names
 
 
 def get_gender_bias_augmenters() -> dict:

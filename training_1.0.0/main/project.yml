@@ -1,12 +1,31 @@
-title: "DDT, DaNE, and CDT model"
-description: >
- Note: DDT and DaNE share the same sentences. 
- DaNE adds NER annotations to some sentences in DDT.
- CDT is a separate treebank with its own texts. 
- But some CDT sentences overlap with DDT sentences (sent_id matching works for those).
- "remaining docs" in combine.py are DDT sentences that have no corresponding CDT document.
- DDT and DaNE: same sentences, different annotations (syntax, NER)
- CDT: overlaps with DDT, adds document structure
+title: "DaCy: NLP for Danish"
+description: |
+ Train, evaluate, and package DaCy v0.2.9 models.  
+ 
+ Built on:  
+ 
+ | Dataset | Source | Adds | Unit |
+ |---|---|---|---|
+ | [**DDT**](https://github.com/UniversalDependencies/UD_Danish-DDT) | UniversalDependencies | POS, morphology, lemmas, dependencies | sentences |
+ | [**DaNE**](https://danlp-alexandra.readthedocs.io/en/latest/docs/datasets.html#dane) | Alexandra Institute | Named entities on DDT | same sentences as DDT |
+ | [**CDT (DaCoref)**](https://danlp-alexandra.readthedocs.io/en/latest/docs/datasets.html#dacoref) | Alexandra Institute | Coreference, document boundaries | documents, some sentences overlap with DDT |
+ 
+ **Building the corpus**
+ 1. DDT and DaNE are converted to `.spacy`.
+ 2. CDT documents are reassigned to splits compatible with DDT.
+    (`create_ddt_compatible_splits_for_cdt.py`).
+ 3. `combine.py` matches CDT and DDT/DaNE on `sent_id`. It writes CDT documents to `corpus/cdt/` and DDT sentences with no CDT document to `corpus/cdt_ddt/data.spacy`.
+ 4. `merge_ddt_sents_with_cdt.py` adds those single-sentence docs to the CDT splits giving `corpus/cdt_ddt/{train,dev,test}.spacy`.
+ 
+ Run everything with `spacy project run all`. 
+ 
+ `project.yml` also has a function to `evaluate_llm` to evaluate LLM-based components from [spacy-llm](https://spacy.io/usage/large-language-models).
+ 
+ Note on data: 
+ - DDT and DaNE share the same sentences. 
+ - DaNE adds NER annotations to some sentences in DDT.
+ - CDT is a separate treebank with its own texts. But some CDT sentences overlap with DDT sentences (sent_id matching works for those).
+ - "remaining docs" in combine.py are DDT sentences that have no corresponding CDT document.
 
 # Variables can be referenced across the project.yml using ${vars.var_name}
 vars:
@@ -45,7 +64,7 @@ assets:
 # tried to imitate the workflow of combine.py
 workflows:
   all:
-#    - install_vectors_lg
+    - install_vectors_lg # vectors for DaCy tiny
     - prepare_dane
     - prepare_dacoref
     - preprocess_dane
@@ -60,12 +79,12 @@ workflows:
 commands:
 # check if GPU is available
   - name: verify_gpu
-    help: "Check if GPU is available and set GPU accordingly"
+    help: "Check if GPU is available to spaCy and CuPy"
     script:
       - "python scripts/verify_gpu.py"
 
   - name: install_vectors_lg
-    help: "Installs pretrained vectors from assets/da_core_news_lg"
+    help: "Installs pretrained vectors from assets/da_core_news_lg for DaCy tiny"
     script:
       - "pip install assets/da_core_news_lg-3.8.0-py3-none-any.whl --no-deps"
       - "touch assets/.da_core_news_lg_installed" # for spacy to check if reinstall is needed
@@ -80,7 +99,7 @@ commands:
 # renaming the unzipped files 
 # using mv so as to conform to the requirements of combine()
   - name: prepare_dane
-    help: "Prepare DaNE data for preprocessing"
+    help: "Prepare DaNE data"
     script:
       - "unzip assets/dane.zip -d assets/dane"
       - "mv assets/dane/ddt.train.conllu assets/dane/train.conllu"
@@ -99,7 +118,7 @@ commands:
 # CDT comes in one .conllu and three .json files.
 # I think combine.py handles that
   - name: prepare_dacoref
-    help: "Prepare dacoref (CDT) data for preprocessing"
+    help: "Prepare dacoref (CDT) data"
     script:
       - "unzip assets/dacoref.zip -d assets/dacoref"
     deps:
@@ -116,7 +135,7 @@ commands:
 # Rename corpus files to conform to the requirements of combine().
 # Copying assets files from ${vars.treebank} to da_ddt (also requirement of combine.py)
   - name: preprocess_ddt
-    help: "Convert the DDT data to spaCy's format"
+    help: "Convert the DDT data to `.spacy`"
     script:
       - "mkdir -p assets/da_ddt"
       - "mkdir -p corpus/da_ddt"
@@ -159,7 +178,7 @@ commands:
 # preprocess DaNE
 # Pretty standard project.yml code
   - name: preprocess_dane
-    help: "Convert the DaNE data to spaCy's format"
+    help: "Convert the DaNE data to `.spacy`"
     script:
           - "mkdir -p corpus/dane"
           - >-
@@ -192,7 +211,7 @@ commands:
 # command for running first create_ddt_compatible_splits_for_cdt.py
 # and then combine.py. But there's no splits for data.spacy?
   - name: combine
-    help: "Combine CDT and DDT data for training"
+    help: "Combine CDT and DDT data"
     script:
       - "python scripts/create_ddt_compatible_splits_for_cdt.py"
       - "python scripts/combine.py"
@@ -251,7 +270,7 @@ commands:
       - "training/${vars.model}/model-best"
 
   - name: evaluate
-    help: "Evaluate on the test data and save the metrics"
+    help: "Evaluate trained pipeline and save the metrics"
     script:
       - >-
         python -m spacy evaluate 
@@ -266,7 +285,7 @@ commands:
       - "metrics/${vars.model}.json"
 
   - name: evaluate_llm
-    help: "Evaluate the LLM NER pipeline on the same test data"
+    help: "Evaluate LLM-based pipeline and save the metrics"
     script:
       - >-
         python -m spacy assemble
@@ -289,7 +308,7 @@ commands:
 # NOTE --build wheel to override sdist default as per HF's recs: 
 # https://huggingface.co/docs/hub/main/en/spacy#using-the-spacy-cli-recommended
   - name: package
-    help: "Package the trained model so it can be installed"
+    help: "Package trained model (NOTE: uses `--build wheel` to override `sdist` default as per [HuggingFace recommendations](https://huggingface.co/docs/hub/main/en/spacy#using-the-spacy-cli-recommended))"
     script:
       - >-
         python -m spacy package 
