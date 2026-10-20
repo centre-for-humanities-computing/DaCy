@@ -22,7 +22,7 @@
 # (set below), has no sudo, and can't read your home folder or drive.
 
 # Folder the restricted "codex" user may work in (it can't read anything else of yours)
-CODEX_WORK="/work/UCLOUD_USERNAME/training_practice"
+CODEX_WORK="/work/UCLOUD_USERNAME/folder_to_work_in"
 
 _ellf_setup() {
   # --- Locations ---------------------------------------------------------
