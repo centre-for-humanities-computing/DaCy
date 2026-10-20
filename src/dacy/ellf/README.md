@@ -18,7 +18,7 @@ You need:
 1. Copy `setup-ellf-ucloud.sh` into your **persistent** UCloud folder, e.g. `/work/<your-username>/`. Don't put it in the job's own `/work` folder, which is wiped on restart (I think?).
 2. Edit `CODEX_WORK` near the top of the script so it points to the folder Codex may work in:
 ```bash
-   CODEX_WORK="/work/<your-username>/training_practice"
+   CODEX_WORK="/work/<your-username>/folder_to_work_in"
 ```
 3. Never commit the `.ellf-dacy/` folder the script creates. It holds your SSH key, tokens and login state.
 
