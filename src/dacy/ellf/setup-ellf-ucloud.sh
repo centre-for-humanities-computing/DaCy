@@ -89,7 +89,7 @@ _ellf_setup() {
     if ! ping -c1 -W2 "$VM_IP" >/dev/null 2>&1; then
       echo "  ✘ Can't reach $VM_IP. If the VM restarted, its address may have changed:"
       echo "    run 'ip -brief addr | grep enp6s0' on the VM and pass the new address alongside this command."
-      echo "    Example: setup-ellf.sh 10.36.121.60"
+      echo "    Example: source setup-ellf-ucloud.sh 10.36.121.60"
       echo "    Otherwise, re-add the private network link in the UCloud console."
       return 1
     fi
