@@ -1,28 +1,32 @@
 #!/usr/bin/env bash
-# Restore Ellf + Codex on a VS Code job after a restart.
-#
-# Remember to make sure that the VM (ellf_vm) is powered on.
+# Restore Ellf + Codex on the dacy job after a restart.
 #
 # Keep this script in your persistent UCloud folder. Everything it needs is
-# should be stored in a ".ellf-dacy" folder next to it, so nothing depends on the job's
+# stored in a ".ellf-dacy" folder next to it, so nothing depends on the job's
 # own /work folder (which is wiped when the job restarts).
 #
-# Usage (bash, from any directory; quote the path because of the "#" in UCloud usernames):
-#   source "/work/UCLOUD_USERNAME/setup-ellf.sh"              # uses the saved VM address
-#   source "/work/UCLOUD_USERNAME/setup-ellf.sh" 10.36.147.8  # VM address changed
-#                                     (find it on the VM: ip -brief addr | grep enp6s0)
+# Usage (bash, from any directory; quote the path because of the "#"):
+#   source "/work/UCLOUD#USERNAME/setup-ellf-ucloud.sh"
 #
 # "source" (not "bash") matters: it sets PATH, the venv and env vars in your shell.
 #
-# The first run installs ellf-cli and Codex automatically and tells you about
-# the few one-time manual steps (SSH key, CA certificate, logins).
+# The cluster is reached over its public hostname, so no SSH tunnel or
+# private-network link to the VM is needed. If the VM's public IP ever
+# changes, update ELLF_HOST below, and on the cluster side rerun the Helm
+# upgrade (cluster.fqdn) and `ellf clusters update ellf-cluster --address ...`.
 #
-# Start Codex afterwards with: codex-safe
+# The first run installs ellf-cli and Codex automatically and tells you about
+# the few one-time manual steps (CA certificate, logins).
+#
+# Start Codex afterwards with:  codex-safe
 # It runs as a restricted "codex" user that can only write in $CODEX_WORK
 # (set below), has no sudo, and can't read your home folder or drive.
 
+# Public address of the Ellf cluster
+ELLF_HOST="https://130-225-164-142.sslip.io"
+
 # Folder the restricted "codex" user may work in (it can't read anything else of yours)
-CODEX_WORK="/work/UCLOUD_USERNAME/folder_to_work_in"
+CODEX_WORK="/work/UCLOUD#USERNAME/DIR_FOR_AGENT_TO_WORK_IN"
 
 _ellf_setup() {
   # --- Locations ---------------------------------------------------------
@@ -34,89 +38,37 @@ _ellf_setup() {
   chmod 700 "$store"
   ln -sfn "$store" "$D"
 
-  local VM_IP_FILE="$D/vm-ip"
-  local VM_IP="${1:-$(cat "$VM_IP_FILE" 2>/dev/null)}"
-  local VM_USER="ucloud"
-  local SSH_KEY="$D/ssh/id_ellf"
-  local KNOWN_HOSTS="$D/ssh/known_hosts"
   local CA_FILE="$D/ca.crt"
   local VENV="$D/venv"
   local CODEX_BIN="$D/codex-cli/bin"
   local CODEX_DIR="$D/codex"
   local STATE_DIR="$D/state"
-  mkdir -p "$D/ssh" "$CODEX_DIR/skills" "$STATE_DIR"
-  chmod 700 "$D/ssh"
+  mkdir -p "$CODEX_DIR/skills" "$STATE_DIR"
 
   # --- 1. One-time prerequisites ------------------------------------------
-  echo "== 1/8 One-time prerequisites"
-  local missing=0
-  [ -n "$1" ] && echo "$VM_IP" > "$VM_IP_FILE"   # remember a newly passed address right away
-  if [ ! -f "$SSH_KEY" ]; then
-    if ssh-keygen -q -t ed25519 -f "$SSH_KEY" -N "" -C "dacy-ellf"; then
-      echo "  ✘ New SSH key created. On the VM, run this (it is one line):"
-      echo "      echo '$(cat "$SSH_KEY.pub")' >> ~/.ssh/authorized_keys"
-    else
-      echo "  ✘ Couldn't create an SSH key (is ssh-keygen installed?)"
-    fi
-    missing=1
-  fi
-  [ -f "$SSH_KEY" ] && chmod 600 "$SSH_KEY"
+  echo "== 1/7 One-time prerequisites"
   if [ ! -f "$CA_FILE" ]; then
     echo "  ✘ CA certificate missing. On the VM run:  base64 -w0 /home/ucloud/.prodigy-teams/ca.crt; echo"
     echo "    then here:  echo 'PASTED_LINE' | base64 -d > ~/.ellf-dacy/ca.crt"
-    missing=1
-  fi
-  if [ -z "$VM_IP" ]; then
-    echo "  ✘ No VM address known. Pass it as an argument (see the usage line at the top)."
-    missing=1
-  fi
-  if [ "$missing" = 1 ]; then
-    echo "  Fix the items above, then source this script again."
+    echo "  Fix this, then source this script again."
     return 1
   fi
-  echo "  ✔ SSH key, CA and VM address ($VM_IP) present"
+  echo "  ✔ CA certificate present"
 
   # --- 2. CA trust --------------------------------------------------------
-  echo "== 2/8 CA certificate"
+  echo "== 2/7 CA certificate"
   sudo cp "$CA_FILE" /usr/local/share/ca-certificates/prodigy-teams-ca.crt
   sudo update-ca-certificates >/dev/null && echo "  ✔ CA trusted"
 
-  # --- 3. SSH tunnel ------------------------------------------------------
-  echo "== 3/8 SSH tunnel"
-  if (exec 3<>/dev/tcp/127.0.0.1/443) 2>/dev/null; then
-    echo "  ✔ already running"
-  else
-    if ! ping -c1 -W2 "$VM_IP" >/dev/null 2>&1; then
-      echo "  ✘ Can't reach $VM_IP. If the VM restarted, its address may have changed:"
-      echo "    run 'ip -brief addr | grep enp6s0' on the VM and pass the new address alongside this command."
-      echo "    Example: source setup-ellf-ucloud.sh 10.36.121.60"
-      echo "    Otherwise, re-add the private network link in the UCloud console."
-      return 1
-    fi
-    if sudo ssh -f -N \
-        -o ExitOnForwardFailure=yes \
-        -o StrictHostKeyChecking=accept-new \
-        -o UserKnownHostsFile="$KNOWN_HOSTS" \
-        -o ServerAliveInterval=30 \
-        -o ConnectTimeout=10 \
-        -i "$SSH_KEY" \
-        -L 443:localhost:443 "$VM_USER@$VM_IP"; then
-      echo "  ✔ tunnel opened"
-    else
-      echo "  ✘ tunnel failed (is this key in ~/.ssh/authorized_keys on the VM?)"
-      return 1
-    fi
-  fi
-
-  # --- 4. Login state -----------------------------------------------------
-  echo "== 4/8 Login state"
+  # --- 3. Login state -----------------------------------------------------
+  echo "== 3/7 Login state"
   _ellf_persist "$HOME/.config/ellf" "$STATE_DIR/config-ellf"
   _ellf_persist "$HOME/.claude.json" "$STATE_DIR/claude.json"
   _ellf_persist "$HOME/.claude"      "$STATE_DIR/claude-dir"
   echo "  ✔ login files linked from storage"
 
-  # --- 5. ellf venv -------------------------------------------------------
-  echo "== 5/8 ellf-cli"
+  # --- 4. ellf venv -------------------------------------------------------
+  echo "== 4/7 ellf-cli"
   if ! "$VENV/bin/python" -c 'import sys' >/dev/null 2>&1; then
     echo "  ℹ installing ellf-cli (first run, ~1 min)..."
     rm -rf "$VENV"
@@ -125,11 +77,11 @@ _ellf_setup() {
   fi
   # shellcheck disable=SC1091
   source "$VENV/bin/activate"
-  unset ELLF_BROKER_HOST   # tunnel uses port 443, so the default https://localhost is correct
-  echo "  ✔ ellf $(ellf --version 2>/dev/null) active"
+  export ELLF_BROKER_HOST="$ELLF_HOST"
+  echo "  ✔ ellf $(ellf --version 2>/dev/null) active, cluster at $ELLF_BROKER_HOST"
 
-  # --- 6. Codex -----------------------------------------------------------
-  echo "== 6/8 Codex"
+  # --- 5. Codex -----------------------------------------------------------
+  echo "== 5/7 Codex"
   if [ ! -x "$CODEX_BIN/codex" ]; then
     echo "  ℹ installing Codex (first run)..."
     npm install -g -s --prefix "$D/codex-cli" @openai/codex \
@@ -186,26 +138,27 @@ PY
   fi
   [ "$todo" = 0 ] && echo "  ✔ $(codex --version) ready, Ellf + UCloud tokens loaded"
 
-  # --- 7. Cluster check ---------------------------------------------------
-  echo "== 7/8 Cluster check"
+  # --- 6. Cluster check ---------------------------------------------------
+  echo "== 6/7 Cluster check"
   if [ "$todo" = 1 ]; then
     echo "  ℹ skipped until the logins above are done"
     return 1
   fi
   if ! ellf clusters check; then
-    echo "  ✘ Check failed. If you're logged out, run 'ellf login --claude --no-browser', then source this again."
+    echo "  ✘ Check failed. Is the VM running with its public IP attached?"
+    echo "    If you're logged out, run 'ellf login --claude --no-browser', then source this again."
     return 1
   fi
 
-  # --- 8. Restricted Codex user -------------------------------------------
+  # --- 7. Restricted Codex user -------------------------------------------
   # Codex runs as its own Linux user "codex" (no sudo) that can write only in
   # $CODEX_WORK. Codex's built-in sandbox can't run in this container, so the
   # separate user is the sandbox instead.
-  echo "== 8/8 Restricted Codex user"
+  echo "== 7/7 Restricted Codex user"
   local CU="codex" CG="codexwork" CID=5050
   local CH="/home/$CU/.codex"
 
-  # 8a. User and group (fixed IDs, so file ownership stays stable across restarts)
+  # 7a. User and group (fixed IDs, so file ownership stays stable across restarts)
   getent group "$CG" >/dev/null || sudo groupadd -g "$CID" "$CG" \
     || { echo "  ✘ couldn't create group $CG"; return 1; }
   id "$CU" >/dev/null 2>&1 || sudo useradd -m -u "$CID" -g "$CG" -s /bin/bash "$CU" \
@@ -217,11 +170,10 @@ PY
     return 1
   fi
 
-  # 8b. Share only the work folder with the group.
-  # First let the group pass through /work (traverse only: it can't list /work,
-  # and the other folders in /work keep their own ucloud-only permissions).
+  # 7b. Share only the work folder with the group.
   # Let the group pass through every folder from /work down to CODEX_WORK
-  # (traverse only: x without r, so it can't list or read them)
+  # (traverse only: x without r, so it can't list or read them; the other
+  # folders in /work keep their own ucloud-only permissions)
   local d="$(dirname "$CODEX_WORK")"
   while :; do
     sudo chgrp "$CG" "$d" && sudo chmod g=x "$d" \
@@ -233,7 +185,7 @@ PY
   sudo find "$CODEX_WORK" -type d ! -perm -2070 -exec chmod g+rwxs {} +
   sudo find "$CODEX_WORK" -type f ! -perm -g+rw -exec chmod g+rw {} +
 
-  # 8c. Tools in /opt (root-owned, so Codex can use but not change them)
+  # 7c. Tools in /opt (root-owned, so Codex can use but not change them)
   if [ ! -x /opt/codex-cli/bin/codex ]; then
     sudo cp -a "$D/codex-cli" /opt/codex-cli && sudo chown -R root:root /opt/codex-cli
   fi
@@ -245,7 +197,7 @@ PY
       || { echo "  ✘ ellf-cli install for codex user failed"; return 1; }
   fi
 
-  # 8d. Codex user's own config: UCloud provider, Ellf login, skills, MCP server
+  # 7d. Codex user's own config: UCloud provider, Ellf login, skills, MCP server
   sudo install -d -o "$CU" -g "$CG" -m 700 "$CH" "$CH/skills" "/home/$CU/.config/ellf"
   # Optional: keep OpenAI login for manually switching back to that provider.
   if [ -f "$CODEX_DIR/auth.json" ]; then
@@ -255,7 +207,7 @@ PY
   sudo cp -r "$CODEX_DIR/skills/." "$CH/skills/"
   sudo cp -rL "$HOME/.config/ellf/." "/home/$CU/.config/ellf/"
   sudo tee "$CH/config.toml" >/dev/null <<'EOF'
-# Written by setup-ellf.sh on every run; edit the script, not this file.
+# Written by setup-ellf-ucloud.sh on every run; edit the script, not this file.
 # Codex's own sandbox can't run in this container. The "codex" Linux user
 # (write access only to the work folder, no sudo) is the sandbox instead.
 model = "zai-org/GLM-5.3"
@@ -277,7 +229,7 @@ requires_openai_auth = false
 EOF
   sudo chown -R "$CU:$CG" "/home/$CU"
 
-  # 8e. Verify the isolation
+  # 7e. Verify the isolation
   local ok=1 p
   sudo -u "$CU" test -w "$CODEX_WORK" \
     || { echo "  ✘ codex user can't write $CODEX_WORK"; ok=0; }
@@ -288,7 +240,10 @@ EOF
     [ "${p%/}" = "$CODEX_WORK" ] && continue
     sudo -u "$CU" test -r "$p" && echo "  ⚠ codex user can read ${p%/} (check that this is OK)"
   done
-  if ! sudo -u "$CU" -H env PATH=/opt/ellf-venv/bin:/usr/bin:/bin ellf clusters check >/dev/null 2>&1; then
+  if ! sudo -u "$CU" -H env \
+      ELLF_BROKER_HOST="$ELLF_BROKER_HOST" \
+      PATH=/opt/ellf-venv/bin:/usr/bin:/bin \
+      ellf clusters check >/dev/null 2>&1; then
     echo "  ✘ codex user can't reach the cluster with ellf"; ok=0
   fi
   [ "$ok" = 1 ] || { echo "  Not starting Codex until the items above are fixed."; return 1; }
@@ -299,11 +254,12 @@ EOF
 # Start Codex as the restricted "codex" user, in the work folder.
 codex-safe() {
   if [ -z "${UCLOUD_INFERENCE_TOK:-}" ]; then
-    echo "UCloud key missing: source setup-ellf.sh after loading or saving the key." >&2
+    echo "UCloud key missing: source setup-ellf-ucloud.sh after loading or saving the key." >&2
     return 1
   fi
   sudo -u codex -H env \
     ELLF_KB_TOKEN="$ELLF_KB_TOKEN" \
+    ELLF_BROKER_HOST="$ELLF_HOST" \
     UCLOUD_INFERENCE_TOK="$UCLOUD_INFERENCE_TOK" \
     CODEX_HOME=/home/codex/.codex \
     PATH=/opt/ellf-venv/bin:/opt/codex-cli/bin:/usr/local/bin:/usr/bin:/bin \
