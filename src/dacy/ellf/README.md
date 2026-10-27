@@ -1,6 +1,6 @@
-# setup-ellf.sh
+# setup-ellf-ucloud.sh
 
-Restores/initialises an ellf + Codex working environment on a UCloud VS Code job. It opens an SSH tunnel to the Ellf VM, activates `ellf-cli`, and sets up Codex to run as a restricted `codex` user that can only write in one work folder.
+Restores/initialises an ellf + Codex working environment on a UCloud VS Code job. It trusts the Ellf cluster's CA certificate, activates `ellf-cli` pointed at the cluster's public address, and sets up Codex to run as a restricted `codex` user that can only write in one work folder.
 
 > **Note:** This is largely written with Claude. It has only been tested on one setup and likely contains bugs and rough edges. Please report or fix any issues you find.
 
@@ -8,36 +8,26 @@ Restores/initialises an ellf + Codex working environment on a UCloud VS Code job
 
 You need:
 
-- **Shell access to the Ellf VM** (`ellf_vm`). The VM must be powered on before you run the script. You'll use the VM to add your SSH key and fetch the CA certificate.
-- **A private network link** between your VS Code job and `ellf_vm`, set up in the UCloud job console.
+- **The Ellf VM (`ellf_vm`) running with its public IP attached.** The cluster is reached at `https://130-225-164-142.sslip.io`, a hostname that resolves to that IP. No SSH tunnel or private network link is needed.
+- **The cluster's CA certificate**, from someone with shell access to the VM (or your own access). See [First-time setup](#first-time-setup).
 - **An ellf account** with access to the cluster.
 - **A UCloud inference token**, which Codex uses to call the model. See your [UCloud API keys](https://cloud.sdu.dk/app/api-tokens).
 
 ## Installation
 
-1. Copy `setup-ellf-ucloud.sh` into your **persistent** UCloud folder, e.g. `/work/<your-username>/`. Don't put it in the job's own `/work` folder, which is wiped on restart (I think?).
+1. Copy `setup-ellf-ucloud.sh` into your **persistent** UCloud folder, e.g. `/work/<your-ucloud-username>/`. Don't put it in the job's own `/work` folder, which is wiped on restart.
 2. Edit `CODEX_WORK` near the top of the script so it points to the folder Codex may work in:
 ```bash
-   CODEX_WORK="/work/<your-username>/folder_to_work_in"
+   CODEX_WORK="/work/<your-ucloud-username>/folder_to_work_in"
 ```
-3. Never commit the `.ellf-dacy/` folder the script creates. It holds your SSH key, tokens and login state.
+3. Never commit the `.ellf-dacy/` folder the script creates. It holds your tokens and login state.
 
 ## Usage
 
 Always run the script with `source`, not `bash`, so that PATH, the venv and the environment variables stay set in your shell. Quote the path, because UCloud usernames contain `#`.
 
 ```bash
-# First run, or whenever the VM's address has changed:
-source "/work/<your-username>/setup-ellf-ucloud.sh" <VM_IP>
-
-# Later runs (uses the saved address):
-source "/work/<your-username>/setup-ellf-ucloud.sh"
-```
-
-To find the VM's address, run this **on the VM**:
-
-```bash
-ip -brief addr | grep enp6s0
+source "/work/<your-ucloud-username>/setup-ellf-ucloud.sh"
 ```
 
 When the script finishes, start Codex with:
@@ -48,10 +38,9 @@ codex-safe
 
 ## First-time setup
 
-On the first run the script stops and prints the manual steps it needs. Do them, then source the script again. Repeat until it gets through all eight steps.
+On the first run the script stops and prints the manual steps it needs. Do them, then source the script again. Repeat until it gets through all seven steps.
 
-1. **SSH key.** The script generates a key and prints a one-line command. Run that command **on the VM**; it adds the key to `~/.ssh/authorized_keys`.
-2. **CA certificate.** On the VM, run:
+1. **CA certificate.** On the VM, run:
 ```bash
    base64 -w0 /home/ucloud/.prodigy-teams/ca.crt; echo
 ```
@@ -59,11 +48,12 @@ On the first run the script stops and prints the manual steps it needs. Do them,
 ```bash
    echo 'PASTED_LINE' | base64 -d > ~/.ellf-dacy/ca.crt
 ```
-3. **Ellf login.** Run:
+   Redo this step if the cluster's CA is ever regenerated (e.g. after `ellf infra tls --self-signed` on the VM).
+2. **Ellf login.** Run:
 ```bash
    ellf login --claude --no-browser
 ```
-4. **UCloud inference token.** Either export it in your shell:
+3. **UCloud inference token.** Either export it in your shell:
 ```bash
    export UCLOUD_INFERENCE_TOK=...
 ```
@@ -77,14 +67,13 @@ The script installs `ellf-cli` and Codex itself.
 
 ## What the script does
 
-1. Checks for the SSH key, CA certificate and VM address.
+1. Checks that the CA certificate is present.
 2. Adds the Ellf CA certificate to the system's trusted certificates.
-3. Opens an SSH tunnel that forwards `localhost:443` to the VM.
-4. Links Ellf and Claude login files from persistent storage, so logins survive restarts.
-5. Installs or activates the `ellf-cli` venv.
-6. Installs Codex and configures the Ellf MCP server and Ellf skills for it.
-7. Runs `ellf clusters check`.
-8. Creates the restricted `codex` user and checks that the isolation works.
+3. Links Ellf and Claude login files from persistent storage, so logins survive restarts.
+4. Installs or activates the `ellf-cli` venv and sets `ELLF_BROKER_HOST` to the cluster's public address.
+5. Installs Codex and configures the Ellf MCP server and Ellf skills for it.
+6. Runs `ellf clusters check`.
+7. Creates the restricted `codex` user and checks that the isolation works.
 
 ## Persistent storage
 
@@ -92,15 +81,13 @@ Everything lives in a `.ellf-dacy/` folder next to the script, with `~/.ellf-dac
 
 | Path | Contents |
 |---|---|
-| `vm-ip` | The last VM address used |
-| `ssh/` | SSH key and known_hosts |
 | `ca.crt` | Ellf CA certificate |
 | `venv/`, `codex-cli/` | Installed tools |
 | `codex/` | Codex config and skills |
 | `state/` | Ellf/Claude login state |
 | `ucloud-inference-token` | Optional saved token |
 
-All of these are either regenerated by the script or personal to you, so don't share or copy them between users.
+All of these are either regenerated by the script or personal to you, so don't share or copy them between users. (`vm-ip` and `ssh/` from older versions of the script are no longer used and can be deleted.)
 
 ## Codex sandboxing
 
@@ -115,13 +102,21 @@ Files Codex creates are group-writable by `codexwork`, and the script adds you t
 
 The script rewrites the codex user's config on every run, so change the model or provider in the script, not in `/home/codex/.codex/config.toml`.
 
+## Cluster address
+
+The cluster's public address is set in `ELLF_HOST` at the top of the script. It is tied to the VM's public IP. If the VM is ever relaunched with a different IP, update `ELLF_HOST`, and on the VM:
+
+1. Rerun the Helm upgrade with the new `cluster.fqdn`.
+2. Reissue the certificate with `ellf infra tls --self-signed --fqdn <new-host>`, and redistribute the CA (first-time setup, step 1).
+3. Update the registered address with `ellf clusters update ellf-cluster --address https://<new-host>`.
+
 ## Troubleshooting
 
 | Problem | Fix |
 |---|---|
-| `Can't reach <IP>` | The VM may have restarted and changed address. Find the new one on the VM and pass it as an argument. If the address hasn't changed, re-add the private network link in the UCloud console. |
-| `tunnel failed` | Your public key isn't in `~/.ssh/authorized_keys` on the VM. |
-| `Not logged in to Ellf` or the cluster check fails | Run `ellf login --claude --no-browser`, then source the script again. |
+| Cluster check fails with `connection failed` | The VM is off, or was relaunched without its public IP. |
+| `SSL certificate problem: self-signed certificate` | Your `ca.crt` is outdated or missing. Fetch it again (first-time setup, step 1). |
+| `Not logged in to Ellf` or the cluster check fails with an auth error | Run `ellf login --claude --no-browser`, then source the script again. |
 | `UCloud key missing` | Export `UCLOUD_INFERENCE_TOK` or save it to `~/.ellf-dacy/ucloud-inference-token`. |
 | `codex user can read ...` | Check the permissions on that folder before you use Codex. |
 | PATH or venv not set | You ran the script with `bash` instead of `source`. |
