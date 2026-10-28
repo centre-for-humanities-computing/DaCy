@@ -98,3 +98,59 @@ def dansk(**kwargs: Any) -> dict[str, list[Example]]:
         dataset[split] = examples
 
     return dataset
+
+@datasets.register("dacy_data")
+def dacy_data(**kwargs: Any) -> dict[str, list[Example]]:
+    """The DDT, DaNE and CDT dataset combined.
+
+    see https://huggingface.co/datasets/chcaa/dacy-data
+    """
+    splits = ["train", "dev", "test"]
+
+    nlp = spacy.blank("da")
+
+    def convert_to_doc(example: dict) -> Doc:
+        return Doc(nlp.vocab).from_json(example)
+
+    dataset = {}
+    for split in splits:
+        ds = load_dataset("chcaa/dacy-data", split=split, **kwargs)
+        docs = [convert_to_doc(example) for example in ds]  # type: ignore
+        examples = [Example(doc, doc) for doc in docs]
+        dataset[split] = examples
+
+    return dataset
+
+@datasets.register("hist_pos_dk")
+def hist_pos_dk(**kwargs: Any) -> dict[str, list[Example]]:
+    """Historical Danish POS dataset. see https://huggingface.co/datasets/chcaa/hist-dk-pos
+
+    The dataset has flat token-level columns ("word", "pos"), so tokens are
+    grouped into docs by splitting on sentence-ending punctuation.
+    """
+    sentence_enders = {".", "!", "?"}
+    nlp = spacy.blank("da")
+
+    def rows_to_docs(ds) -> list[Doc]:
+        docs = []
+        current_words = []
+        current_pos = []
+
+        for word, pos in zip(ds["word"], ds["pos"]):
+            current_words.append(word)
+            current_pos.append(pos)
+            if word in sentence_enders:
+                docs.append(Doc(nlp.vocab, words=current_words, pos=current_pos))
+                current_words = []
+                current_pos = []
+
+        if len(current_words) > 0:
+            docs.append(Doc(nlp.vocab, words=current_words, pos=current_pos))
+        return docs
+
+    dataset = {}
+    for split in ["train"]:
+        ds = load_dataset("chcaa/hist-dk-pos", split=split, **kwargs)
+        docs = rows_to_docs(ds)
+        dataset[split] = [Example(doc, doc) for doc in docs]
+    return dataset

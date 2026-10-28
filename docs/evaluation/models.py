@@ -95,6 +95,11 @@ MODELS = {
     "da_dacy_large_trf-0.2.0": partial(dacy.load, "da_dacy_large_trf-0.2.0"),
     "da_dacy_medium_trf-0.2.0": partial(dacy.load, "da_dacy_medium_trf-0.2.0"),
     "da_dacy_small_trf-0.2.0": partial(dacy.load, "da_dacy_small_trf-0.2.0"),
+    "da_dacy_large_trf-1.0.0": partial(dacy.load, "da_dacy_large_trf-1.0.0"),
+    "da_dacy_medium_trf-1.0.0": partial(dacy.load, "da_dacy_medium_trf-1.0.0"),
+    "da_dacy_small_trf-1.0.0": partial(dacy.load, "da_dacy_small_trf-1.0.0"),
+    "da_dacy_edge-0.1.0": partial(dacy.load, "da_dacy_edge-0.1.0"),
+    "da_dacy_tiny-0.1.0": partial(dacy.load, "da_dacy_tiny-0.1.0"),
     "da_dacy_large_ner_fine_grained-0.1.0": partial(
         dacy.load,
         "da_dacy_large_ner_fine_grained-0.1.0",
