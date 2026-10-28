@@ -127,3 +127,9 @@ MODELS = {
     ),
     "openai/gpt-4 (02/05/23)": partial(openai_model_loader_simple_ner, model="gpt-4"),
 }
+
+MODELS_POS = {
+    "da_dacy_small_trf-1.0.0": partial(dacy.load, "da_dacy_small_trf-1.0.0"),
+    "da_dacy_large_trf-1.0.0": partial(dacy.load, "da_dacy_large_trf-1.0.0"),
+    "da_dacy_edge-0.1.0": partial(dacy.load, "da_dacy_edge-0.1.0"),
+}

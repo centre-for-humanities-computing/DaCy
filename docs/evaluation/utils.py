@@ -36,6 +36,31 @@ def bootstrap(
     return scores
 
 
+def bootstrap_pos_ci(
+    per_example: list[tuple[int, int]],
+    n_rep: int = 100,
+    n_samples: int | None = None,
+) -> np.ndarray:
+    """95% CI for corpus-level POS accuracy via bootstrapping (resampling documents).
+
+    Args:
+        per_example: list of (n_correct, n_tokens) pairs, one per document.
+        n_rep: number of bootstrap replicates.
+        n_samples: number of documents per replicate (defaults to the full corpus).
+    """
+    random.seed(42)
+    n_docs = len(per_example)
+    if n_samples is None:
+        n_samples = n_docs
+    accs = np.empty(n_rep)
+    for i in range(n_rep):
+        sample = random.choices(per_example, k=n_samples)
+        correct = sum(c for c, _ in sample)
+        total = sum(t for _, t in sample)
+        accs[i] = correct / total
+    return np.percentile(accs, [2.5, 97.5])
+
+
 def compute_mean_and_ci(scores: list[dict[str, Any]]) -> dict[str, Any]:
     ent_f = [score["ents_f"] for score in scores]
     # filter out None
