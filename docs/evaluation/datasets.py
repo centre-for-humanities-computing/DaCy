@@ -121,6 +121,10 @@ def dacy_data(**kwargs: Any) -> dict[str, list[Example]]:
 
     return dataset
 
+@datasets.register("robustness_dacy_data")
+def dacy_data_robustness() -> dict[str, list[Example]]:
+    return {"test": augment_dataset("dacy_data", augmenters=get_robustness_augmenters())}
+
 @datasets.register("hist_pos_dk")
 def hist_pos_dk(**kwargs: Any) -> dict[str, list[Example]]:
     """Historical Danish POS dataset. see https://huggingface.co/datasets/chcaa/hist-dk-pos
