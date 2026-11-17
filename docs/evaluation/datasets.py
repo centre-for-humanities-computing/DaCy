@@ -15,6 +15,21 @@ from .augmentations import get_gender_bias_augmenters, get_robustness_augmenters
 
 datasets = catalogue.create("dacy", "datasets")
 
+# Fix for augmenty's WordNet synonym augmenter on Python >= 3.11:
+# it calls random.sample() on a set, which newer Python rejects.
+import random as _random
+import augmenty.token.replace as _aug_replace
+
+class _SetSafeRandom:
+    def __getattr__(self, name):
+        return getattr(_random, name)
+
+    def sample(self, population, k, **kwargs):
+        if isinstance(population, (set, frozenset, dict)):
+            population = sorted(population)
+        return _random.sample(population, k, **kwargs)
+
+_aug_replace.random = _SetSafeRandom()
 
 @datasets.register("dane")
 def dane() -> dict[str, list[Example]]:
