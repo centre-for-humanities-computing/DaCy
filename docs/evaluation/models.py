@@ -129,13 +129,13 @@ MODELS = {
 }
 
 MODELS_POS = {
-#    "da_dacy_small_trf-1.0.0": partial(dacy.load, "da_dacy_small_trf-1.0.0"),
-#    "da_dacy_large_trf-1.0.0": partial(dacy.load, "da_dacy_large_trf-1.0.0"),
+    "da_dacy_small_trf-1.0.0": partial(dacy.load, "da_dacy_small_trf-1.0.0"),
+    "da_dacy_large_trf-1.0.0": partial(dacy.load, "da_dacy_large_trf-1.0.0"),
     "da_dacy_edge-0.1.0": partial(dacy.load, "da_dacy_edge-0.1.0"),
-#    "da_dacy_medium_trf-1.0.0": partial(dacy.load, "da_dacy_medium_trf-1.0.0"),
-#    "da_dacy_tiny-0.1.0": partial(dacy.load, "da_dacy_tiny-0.1.0"),
+    "da_dacy_medium_trf-1.0.0": partial(dacy.load, "da_dacy_medium_trf-1.0.0"),
+    "da_dacy_tiny-0.1.0": partial(dacy.load, "da_dacy_tiny-0.1.0"),
     "da_core_news_sm-3.8.0": partial(spacy.load, "da_core_news_sm"),
-#    "da_core_news_md-3.8.0": partial(spacy.load, "da_core_news_md"),
-#    "da_core_news_lg-3.8.0": partial(spacy.load, "da_core_news_lg"),
-#    "da_core_news_trf-3.8.0": partial(spacy.load, "da_core_news_trf")
+    "da_core_news_md-3.8.0": partial(spacy.load, "da_core_news_md"),
+    "da_core_news_lg-3.8.0": partial(spacy.load, "da_core_news_lg"),
+    "da_core_news_trf-3.8.0": partial(spacy.load, "da_core_news_trf")
 }
