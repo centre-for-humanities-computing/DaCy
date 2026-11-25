@@ -1,3 +1,4 @@
+import pytest
 from spacy.lang.da import Danish
 from spacy.training import Example
 from spacy.training.corpus import Corpus
@@ -5,7 +6,13 @@ from spacy.training.corpus import Corpus
 import dacy
 from dacy.datasets import dane, female_names, male_names, muslim_names
 
+skip_dane = pytest.mark.skip(
+    reason="DaNE download from sciencedata.dk times out on CI runners. See "
+    "https://github.com/centre-for-humanities-computing/DaCy/issues/333"
+)
 
+
+@skip_dane
 def test_dane():
     train, dev, test = dane(open_unverified_connection=True)  # type: ignore
     all_ = dacy.datasets.dane(splits=["all"])  # type: ignore

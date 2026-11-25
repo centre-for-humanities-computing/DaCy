@@ -1,11 +1,18 @@
 import pandas as pd
+import pytest
 from spacy.lang.da import Danish
 from spacy.training.augment import create_lower_casing_augmenter
 
 from dacy.datasets import dane
 from dacy.score import n_sents_score, score
 
+skip_dane = pytest.mark.skip(
+    reason="DaNE download from sciencedata.dk times out on CI runners. See "
+    "https://github.com/centre-for-humanities-computing/DaCy/issues/333"
+)
 
+
+@skip_dane
 def test_score():
     nlp = Danish()
 
@@ -40,6 +47,7 @@ def test_score():
         assert s in scores.columns
 
 
+@skip_dane
 def test_n_sents_score():
     nlp = Danish()
 
