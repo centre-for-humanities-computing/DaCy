@@ -45,6 +45,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # Do not execute the notebooks when building the docs (turned off by default)
 nb_execution_raise_on_error = True
 nb_execution_mode = "cache"
+# cells downloading models can take longer than the default of 30 seconds
+nb_execution_timeout = 600
 nb_execution_excludepatterns = [
     "tutorials/robustness.ipynb",
     "docs/performance_ner.ipynb",
